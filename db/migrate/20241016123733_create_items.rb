@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[7.2]
       t.string :image_url
       t.string :purchase_url
       t.decimal :price
-      t.references :post, null: false, foreign_key: true
+      t.integer :post_id
 
       t.timestamps
     end

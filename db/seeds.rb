@@ -141,6 +141,13 @@ def create_items(quantity)
         puts "Item with name #{item.name} for project with title #{item.post.title} just created with price #{item.price}"
       end
     end
+    quantity.to_a.sample.times do
+      item = Item.create!(
+          name: @items.sample,
+          price: @prices.sample 
+        )
+      puts "Item with name #{item.name} just created with price #{item.price}"
+    end
   end
 
 seed

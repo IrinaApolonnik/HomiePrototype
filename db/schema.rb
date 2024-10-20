@@ -26,10 +26,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_20_093115) do
     t.string "image_url"
     t.string "purchase_url"
     t.decimal "price"
-    t.integer "post_id", null: false
+    t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_items_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -41,5 +40,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_20_093115) do
   end
 
   add_foreign_key "comments", "posts"
-  add_foreign_key "items", "posts"
 end
