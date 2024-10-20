@@ -1,0 +1,13 @@
+<%= form_for([@post, @post.comments.build]) do |f| %>
+    <div class="field commentInfo">
+      <%= f.text_field :commenter, placeholder: "Кто ты есть?" %>
+    </div>
+  
+    <div class="field commentInfo">
+      <%= f.text_area :body, placeholder: "Что думаешь?" %>
+    </div>
+  
+    <div class="actions addCommentButton">
+      <%= f.submit "Создать комментарий"%>
+    </div>
+  <% end %>

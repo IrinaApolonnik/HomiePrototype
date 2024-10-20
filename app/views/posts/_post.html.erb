@@ -1,0 +1,11 @@
+<div id="<%= dom_id post %>" class="post">
+<p class="createdAt">
+<%= post.created_at.strftime("%-d %B %Y в %H:%M") %>
+</p>
+
+<h4 class="postTitle">
+<%= post.title %>
+</h4>
+
+<img src="<%= post.image_url %>" class="postImage">
+</div>

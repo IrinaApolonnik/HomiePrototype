@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="postShow">
+  <img src="<%= @post.image_url %>" class="collectionImage">
+  
+  <div class="postInfo">
+    <div class="dateAndActions">
+      <p class="createdAt">
+        <%= @post.created_at.strftime("%-d %B %Y в %H:%M") %>
+      </p>
+      <div>&#8230;</div>
+
+    </div>
+
+    <h1 class="postTitle"> <%= @post.title %> </h1>
+
+    <p class="postDescription"> <%= @post.description %> </p>
+
+    <div> <%= render @post.items %> </div>
+    
+  </div>
+</div>
+
+<div class="backToPosts">
+  <%= link_to "⬅", posts_path %>
+</div>
+
+<div class="postComments">
+  <h2>Комментарии</h2>
+  
+  <% if @post.comments.any? %>
+    <%= render @post.comments %>
+  <% else %>
+    <p>Пока нет комментариев.</p>
+  <% end %>
+</div>
+
+<div class="addPostComment">
+  <h3>Добавить комментарий</h3>
+  <%= render "comments/form" %>
+</div>

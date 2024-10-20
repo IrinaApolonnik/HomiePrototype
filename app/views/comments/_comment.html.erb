@@ -1,0 +1,13 @@
+<div class="postComment">
+<h5>
+  <%= comment.commenter %>
+</h5>
+
+<p>
+  <%= comment.body %>
+</p>
+
+<p class="deleteComment">
+  <%= link_to 'Удалить', [comment.post, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Вы уверены, что хотите удалить комментарий?" } %>
+</p>
+</div>

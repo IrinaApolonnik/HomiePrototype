@@ -1,0 +1,8 @@
+<div id="<%= dom_id item %>" class="item">
+  <h4>
+    <%= item.name %>
+  </h4>
+  <p>
+    <%= number_to_currency(item.price, unit: "₽", format: "%n %u", precision: 0) %>
+  </p>
+</div>

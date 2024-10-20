@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Homie" %>
+
+<div id="items">
+  <% @items.each do |item| %>
+    <%= link_to item, class: "collection-link" do %>
+      <%= render item %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "New item", new_item_path %>
