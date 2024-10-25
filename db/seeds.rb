@@ -110,8 +110,9 @@
 
 def seed
   reset_db
+  create_users(10)
   create_posts(100)
-  create_items(2..8)
+  create_items(3..10)
 end
 
 def reset_db
@@ -120,12 +121,39 @@ def reset_db
   Rake::Task['db:migrate'].invoke
 end
 
+def get_random_bool 
+  [true, false].sample
+end
+
+def create_users(quantity)
+  i = 0
+
+  quantity.times do
+    user_data = {
+      email: "user_#{i}@email.com",
+      password: 'testtest'
+    }
+
+    if i == 0
+      user_data[:admin] = true
+    end
+
+    user = User.create!(user_data)
+    puts "User created with id #{user.id}"
+
+    i += 1
+  end
+end
+
 def create_posts(quantity)
   quantity.times do
+    user = User.all.sample
     post = Post.create!(
       title: @post_titles.sample,
       image_url: @images.sample,
-      description: @descriptions.sample
+      description: @descriptions.sample,
+      public: get_random_bool,
+      user: user
     )
     puts "Post with title #{post.title} just created"
   end
@@ -134,17 +162,21 @@ end
 def create_items(quantity)
     Post.all.each do |post|
       quantity.to_a.sample.times do
+        user = User.all.sample
         item = post.items.create!(
           name: @items.sample,
-          price: @prices.sample 
+          price: @prices.sample, 
+          user: post.user
         )
         puts "Item with name #{item.name} for project with title #{item.post.title} just created with price #{item.price}"
       end
     end
     quantity.to_a.sample.times do
+      user = User.all.sample
       item = Item.create!(
           name: @items.sample,
-          price: @prices.sample 
+          price: @prices.sample, 
+          user: user
         )
       puts "Item with name #{item.name} just created with price #{item.price}"
     end

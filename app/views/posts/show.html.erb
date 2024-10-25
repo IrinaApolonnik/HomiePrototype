@@ -4,13 +4,15 @@
   <img src="<%= @post.image_url %>" class="collectionImage">
   
   <div class="postInfo">
+
     <div class="dateAndActions">
       <p class="createdAt">
         <%= @post.created_at.strftime("%-d %B %Y в %H:%M") %>
       </p>
       <div>&#8230;</div>
-
     </div>
+          
+    <p> <%= @post.user.email %> </p>
 
     <h1 class="postTitle"> <%= @post.title %> </h1>
 
@@ -35,7 +37,16 @@
   <% end %>
 </div>
 
-<div class="addPostComment">
-  <h3>Добавить комментарий</h3>
-  <%= render "comments/form" %>
-</div>
+<% if can? :create, Comment %> <!-- Проверяем, может ли пользователь создавать комментарии -->
+  <div class="addPostComment">
+    <h3>Добавить комментарий</h3>
+    <%= render "comments/form" %> <!-- Используем обычную форму для комментариев -->
+  </div>
+<% end %>
+
+<% if can? :manage, @post %>
+  <div>
+    <%= link_to "Edit this post", edit_post_path(@post) %> |
+    <%= button_to "Destroy this post", post_path(@post), method: :delete %>
+  </div>
+<% end %>

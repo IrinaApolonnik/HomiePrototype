@@ -1,4 +1,11 @@
-<%= form_with(model: item) do |form| %>
+<% if user_signed_in? && current_user.admin?
+  item_model = [:admin, item]
+elsif can? :manage, item
+  item_model = item
+end %>
+
+
+<%= form_with(model: item_model) do |form| %>
   <% if item.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
