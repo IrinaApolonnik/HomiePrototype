@@ -24,6 +24,10 @@ body {
     }
 }
 
+
+
+/* Заглушка ---------------------------------------------- */
+
 /* Для секций */
 .welcome {
     width: 100%;
@@ -185,6 +189,8 @@ body {
         }
     }
 }
+
+/* Блок с призывами к действию */
 .callsToAction {
     position: relative;
     display: flex;
@@ -238,6 +244,7 @@ body {
     }
 }
 
+/* Блок с подпиской на рассылку */
 .subscription {
     width: 100%;
     display: flex;
@@ -298,14 +305,12 @@ body {
                 width: 3vw;
                 height: 3vw;
             }
-        
             &:hover {
                 background-color: #34DA97;
                 cursor: pointer;
             }
         }
     }
-
     .subscriptionSuccess {
         position: relative;
         width:56vw;
@@ -321,7 +326,6 @@ body {
             font-size: 1.4vw;
             font-weight: 100;
             color: var(--grey-dark);
-            
         }
         .subscriptionSuccessImage {
             position: absolute;
@@ -345,7 +349,296 @@ body {
 
 
 
-/* Анимации */
+/* О нас ---------------------------------------------- */
+
+/* Обложка страницы */
+.aboutCover {
+    position: relative;
+    height: 56vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    img {
+        position: absolute;
+        top: -6vw;
+        right: -3.6vw;
+        width: 100vw;
+    }
+    h2 {
+        font-size: 4.2vw;
+        font-weight: bold;
+        color: var(--grey-dark);
+    }
+    h1 {
+        font-size: 16vw;
+        font-weight: bold;
+        background: linear-gradient(90deg, #FFC991 0%, rgba(233, 195, 154, 0.24) 129.74%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+/* Описание проекта */
+.aboutProjectInfo {
+    position: relative;
+    width: 100%;
+    height: 52vw; 
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-radius: 2vw;
+    background: var(--gradient1);
+    overflow: hidden;
+    margin-top: 7vw;
+    padding: 5.6vw;
+    p {
+        width: 30vw;
+        position: absolute;
+        bottom: 4vw;
+        left: 4vw;
+        font-size: 1.8vw;
+        font-weight: 400;
+        color: var(--white);
+    }
+    .cards {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4vw;
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 4vw;
+            img {
+                width: 18vw;
+                border-radius: 1.6vw;
+            }
+        }
+    }
+}
+
+/* Раздел с проблемами */
+.aboutProblems {
+    margin-top: 7vw;
+    width: 100%;
+    h2 {
+        margin-left: 4vw;
+        margin-bottom: 5vw;
+        font-size: 3.6vw;
+        color: var(--grey-dark);
+    }
+    .problems {
+        display: flex;
+        flex-direction: row;
+        gap: 3.6vw;
+        div {
+            position: relative;
+            width: 100%;
+            height: 36vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 7vw 1vw;
+            border-radius: 2vw;
+            background-color: var(--grey);
+            p {
+                font-size: 1.8vw;
+                font-weight: bold;
+                text-align: center;
+                color: var(--grey-dark);
+            }
+            h1 {
+                position: absolute;
+                bottom: -6.8vw;
+                left: -5vw;
+                font-size: 24vw;
+            }
+            &:nth-of-type(1) {
+                h1 {
+                    background: linear-gradient(90deg, #34DA97 0%, #EBEBEB 100%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+            &:nth-of-type(2) {
+                h1 {
+                    background: linear-gradient(90deg, #5F79F7 0%, #E8E8E8 100%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+            &:nth-of-type(3) {
+                h1 {
+                    background: linear-gradient(90deg, #EB837E 0%, #EAEAEA 100%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+/* Блок с решением */
+.aboutSolution {
+    position: relative;
+    width: 100%;
+    height: 52vw;
+    margin-top: 9vw;
+    display: flex;
+    flex-direction: row;
+    gap: 2.4vw;
+    .solutionText {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 4vw ;
+        border-radius: 2vw;
+        background: linear-gradient(180deg, rgba(235, 131, 126, 0.85) 0%, rgba(219, 166, 147, 0.85) 100%);
+        h2 {
+            font-size: 3.6vw;
+            color: var(--white); 
+        }
+        p { 
+            font-size: 1.8vw;
+            color: var(--white);
+        }
+    }
+    .solutionImage {
+        width: 128%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 2vw;
+        background-color: var(--grey);
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+}
+
+/* Блок с функциями */
+.aboutFunctions {
+    position: relative;
+    width: 100%;
+    height: 52vw;
+    margin-top: 9vw;
+    border-radius: 2vw;
+    overflow: hidden;
+    background: var(--gradient1);
+    h2 {
+        margin-left: 4vw;
+        margin-top: 4vw;
+        font-size: 3.6vw;
+        color: var(--white);
+    }
+    p {
+        position: absolute;
+        padding: 1.4vw 1.2vw;
+        border-radius: 1vw;
+        font-size: 1.8vw;
+        color: var(--white);
+        background: rgba(142, 138, 146, 0.30);
+        backdrop-filter: blur(4vw);
+        z-index: 1;
+        &:nth-of-type(1) {
+            bottom: 7vw;
+            left: 3vw;
+        }
+        &:nth-of-type(2) {
+            top: 14vw;
+            left: 5vw;
+        }
+        &:nth-of-type(3) {
+            top: 7vw;
+            left: 30vw;
+        }
+        &:nth-of-type(4) {
+            top: 4vw;
+            right: 6vw;
+        }
+        &:nth-of-type(5) {
+            bottom: 27vw;
+            right: 3vw;
+        }
+    }
+    img {
+        z-index: 0;
+        position: absolute;
+        width: 76vw;
+        bottom: 0;
+        left: 8vw;
+    }
+}
+
+/* Социальные сети */
+.aboutSocials {
+    position: relative;
+    width: 100%;
+    height: 52vw;
+    margin-top: 9vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4vw;
+    border-radius: 2vw;
+    background-color: var(--grey);
+    h2 {
+        font-size: 3.6vw;
+        color: var(--grey-dark);
+    }
+    p {
+        margin-top: -10vw;
+        font-size: 2.2vw;
+        font-weight: bold;
+        color: var(--grey-dark);
+    }
+    .socials {
+        display: flex;
+        flex-direction: row;
+        gap: 4vw;
+        .wrapper {
+            flex: 1;
+        }
+        .social {
+            height: 15vw;
+            width: 30vw;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 2vw;
+            border-radius: 1.8vw;
+           
+            .icon {
+                width: 4vw;
+                height: 4vw;
+                border-radius: 1.4vw;
+            }
+            .qr {
+                height: 100%;
+                border-radius: 1.4vw;
+            }
+
+        }
+        div:nth-of-type(2) {
+            background: linear-gradient(180deg, rgba(177, 177, 177, 0.80) 0%, rgba(85, 85, 85, 0.80) 136.3%);
+        }
+        div:nth-of-type(3) {
+            background: linear-gradient(180deg, rgba(151, 199, 255, 0.80) 0%, rgba(0, 119, 255, 0.80) 123.61%);
+        }
+    }
+}
+
+/* Анимации ---------------------------------------------- */
 @keyframes slideUp {
     0% {
         opacity: 0;

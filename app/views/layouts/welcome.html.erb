@@ -20,6 +20,11 @@
   <body>
     <p style="color: red"><%= alert %></p>
     <p style="color: green"><%= notice %></p>
+    
+    <div class="welcomeMenu"> 
+      <%= link_to "Промо", root_url, class: current_page?(root_url) ? "activePage" : "inactivePage" %>
+      <%= link_to "О нас", welcome_about_url, class: current_page?(welcome_about_url) ? "activePage" : "inactivePage" %>
+    </div>
 
     <%= yield %>
 
