@@ -5,6 +5,10 @@
 
     <%= link_to "Товары", items_url %>
 
+    <% if user_signed_in? && current_user.admin? %>
+      <%= link_to "Подписки", admin_subscriptions_url %>
+    <% end %>
+
 
     <div>
         <% if user_signed_in? %>

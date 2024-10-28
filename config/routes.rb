@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create, :destroy]
   end
+  resources :subscriptions, only: [:create]
 
   namespace :admin do
+    resources :subscriptions
 
     # resources :posts, only: [:create, :update]
     # resources :items, only: [:create, :update]

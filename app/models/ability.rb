@@ -9,6 +9,7 @@ class Ability
     can :read, Post, public: true
     can :read, Item
     can :read, Comment
+    can :create, Subscription
 
     # Авторизованные пользователи могут управлять только своими постами, товарами и комментариями
     return unless user.present?

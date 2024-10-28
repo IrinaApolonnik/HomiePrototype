@@ -1,0 +1,362 @@
+body {
+    background-color: var(--white);
+}
+
+/* Менюшка */
+.welcomeMenu {
+    top: 2.4vw;
+    right: 3.6vw;
+    position: fixed;
+    z-index: 50;
+    display: flex;
+    flex-direction: row;
+    gap: 1.2vw;
+    background-color: var(--grey);
+    padding: 1.4vw 3.6vw;
+    border-radius: 4vw;
+    box-shadow: 0px 2px 3.8px 0px rgba(62, 62, 62, 0.13);
+    a {
+        font-weight: bold;
+        color: grey; 
+    }
+    a.activePage {
+        color: var(--grey-dark); 
+    }
+}
+
+/* Для секций */
+.welcome {
+    width: 100%;
+}
+
+/* Приветствующая надпись */
+.welcomeNaming {
+    margin-left: 6vw;
+    font-size: 21.5vw;
+    font-weight: bold;
+    background: linear-gradient(90deg, #FFC991 0%, rgba(233, 195, 154, 0.24) 129.74%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.welcomeText {
+    font-size: 4.2vw;
+    font-weight: bold;
+    color: var(--grey-dark);
+}
+
+/* Карточки сзади плашки */
+.cards {
+    position: relative;
+    .card {
+        position: absolute;
+        width: 27vw;
+        height: 36vw;
+        border-radius: 1.4vw;
+        padding: 1vw;
+        background-size: cover;
+        opacity: 0;
+        .cardDots {
+            width: 0.4vw;
+            position: absolute;
+            right: 2vw;
+            top: 2vw;
+        }
+    }
+    .one {
+        right: 47vw;
+        top: 5vw;
+        background-image: url("welcome/card1.jpg");
+    } 
+    .two {
+        right: 25vw;
+        top:-2vw;
+        background-image: url("welcome/card2.jpg");
+    } 
+    .three {
+        right: 3vw;
+        top:-9vw;
+        background-image: url("welcome/card3.jpg");
+    } 
+}
+
+/* Плашечки с рандомными пользователями */
+.userInfo {
+    width: 12vw;
+    height: 4.6vw;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    padding: 0.6vw;
+    border-radius: 1.1vw;
+    background-color: rgba(139, 139, 139, 0.60);
+    backdrop-filter: blur(2vw);
+    .avatarImg {
+        height: 100%;
+        border-radius: 0.6vw;
+        background-size: cover;
+    }
+    div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 0.4vw;
+        padding-bottom: 0.3vw;
+    }
+    h5, h6 {
+        color: var(--white);
+    }
+}
+
+/* Большая плашка с инфой */
+.welcomeInfo {
+    position: relative;
+    margin-top: 15vw;
+    width: 100%;
+    height: 68vw;
+    border-radius: 2vw;
+    background: var(--gradient1);
+    backdrop-filter: blur(5vw);
+    h1 {
+        position: absolute;
+        top:20vw;
+        left: 32vw;
+        color: var(--white);
+        span {
+            font-style: italic;
+        }
+    }
+    p {
+        position: absolute;
+        font-size: 1.8vw;
+        font-weight: 300;
+        width: 36vw;
+        color: var(--white);
+        line-height: 2vw;
+        top:32vw;
+        left: 20vw;
+        span {
+            font-style: italic;
+        }
+    }
+    .userInfo {
+        position: absolute;
+        width: 16vw;
+        height: 6.2vw;
+        gap: 1vw;
+        padding: 0.7vw;
+        border-radius: 1.4vw;
+        .avatarImg {
+            border-radius: 1vw;
+        }
+        div {
+            gap: 0.6vw;
+        }
+        h5 {
+            font-size: 1.3vw;
+        }
+        h6 {
+            font-size: 1vw;
+        }
+        &:nth-of-type(1) {
+            top: 19vw;
+            left: 6vw;
+        }
+        &:nth-of-type(2) {
+            top: 11vw;
+            right: 15vw;
+        }
+        &:nth-of-type(3) {
+            bottom: 17vw;
+            left: 2vw;
+        }
+        &:nth-of-type(4) {
+            bottom: 14vw;
+            left: 32vw;
+        }
+        &:nth-of-type(5) {
+            bottom: 12vw;
+            right: 14vw;
+        }
+        &:nth-of-type(6) {
+            top: 31vw;
+            right: 2vw;
+        }
+    }
+}
+.callsToAction {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 2.4vw;
+    margin-top: 8vw;
+    .actionCard {
+        width: 100%;
+        height: 48vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3vw;
+        border-radius: 1.4vw;
+        background-color: var(--grey);
+        color: var(--grey-dark);
+        background-size: cover;
+        background-position: bottom;
+        &:nth-of-type(2) {
+            color: var(--white);
+            background-color: var(--blue);
+            .number {
+                background: var(--grey);
+                color: var(--grey-dark);
+            }
+        }
+        .number {
+            margin-top: -2.5vw;
+            width: 5vw;
+            height: 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10vw;
+            background: var(--gradient2);
+            color: var(--white);
+        }
+        p {
+            text-align: center;
+        }
+        &:nth-of-type(1) {
+            background-image: url("welcome/action_back1.png"); 
+        }
+        &:nth-of-type(2) {
+            background-image: url("welcome/action_back2.png"); 
+        }
+        &:nth-of-type(3) {
+            background-image: url("welcome/action_back3.png"); 
+        }
+    }
+}
+
+.subscription {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vw;
+    h1 {
+        color: var(--grey-dark);
+    }
+    .subscriptionImage {
+        margin-top: 2vw;
+        width: 100%;
+    }
+    .subscriptionForm {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -3vw;
+        .formInput {
+            width:56vw;
+            height: 6vw;
+            border-radius: 10vw;
+            border: 0.12vw solid var(--medium-grey);
+            padding-left: 2vw;
+            font-size: 1.4vw;
+            font-weight: 100;
+            color: var(--medium-grey);
+            transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+            &::placeholder {
+                color: var(--medium-grey);
+                font-size: 1.4vw;
+                font-weight: 100;
+            }
+            &:focus {
+                outline: none; 
+                border-color: #a5f3d4; 
+                color: var(--grey-dark);
+                font-size: 1.4vw;
+                font-weight: 100;
+                background-color: #f9f9f9; 
+            }
+        }
+        .formSubmit {
+            position: absolute;
+            width: 4vw;
+            height: 4vw;
+            top: 1vw;
+            right: 19vw;
+            background-color: #a5f3d4;
+            border-radius: 10vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+            img {
+                width: 3vw;
+                height: 3vw;
+            }
+        
+            &:hover {
+                background-color: #34DA97;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .subscriptionSuccess {
+        position: relative;
+        width:56vw;
+        height: 6vw;
+        margin-left: 18vw;
+        border-radius: 10vw;
+        display: flex;
+        align-items: center;
+        margin-top: -3vw;
+        background: linear-gradient( #F3DAC1 -143.1%, #9EF0CF 92.88%);
+        p {
+            padding-left: 2vw;
+            font-size: 1.4vw;
+            font-weight: 100;
+            color: var(--grey-dark);
+            
+        }
+        .subscriptionSuccessImage {
+            position: absolute;
+            width: 4vw;
+            height: 4vw;
+            top: 1vw;
+            right: 1vw;
+            border-radius: 10vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--white);
+            img {
+                width: 3vw;
+                height: 3vw;
+            }
+        }
+    }
+
+}
+
+
+
+/* Анимации */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30vw); /* Начальное положение ниже */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Окончательное положение на месте */
+    }
+}
+
+.slideUpAppear {
+    animation: slideUp 0.8s ease-out forwards;
+}

@@ -1,0 +1,10 @@
+<%= form_with(model: Subscription.new, class: "subscription-form", id: "subscriptionForm") do |form| %>
+  <div class="subscriptionForm">
+    <%= form.email_field :email, placeholder: "username@gmail.com", class: "formInput" %>
+
+    <!-- Кнопка с изображением для отправки -->
+    <%= button_tag type: 'submit', class: "formSubmit" do %>
+      <img src="<%= asset_path('welcome/subscribe.png') %>" alt="" class="subscribeImage" id="subscribeButtonImage">
+    <% end %>
+  </div>
+<% end %>
