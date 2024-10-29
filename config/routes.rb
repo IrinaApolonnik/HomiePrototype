@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  get 'posts/my_posts', to: 'posts#my_posts', as: :my_posts_posts
   resources :posts
   resources :items
+  resources :users, only: [:show]
   resources :posts do
     resources :comments, only: [:create, :destroy]
   end
@@ -10,15 +12,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :subscriptions
-
-    # resources :posts, only: [:create, :update]
-    # resources :items, only: [:create, :update]
-    # resources :comments
-
-    resources :posts do
-      resources :comments
-    end
-
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -36,5 +29,5 @@ Rails.application.routes.draw do
   get "welcome/about"
 
   # Defines the root path route ("/")
-  root "welcome#index"
+  root "posts#index"
 end

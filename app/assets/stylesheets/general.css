@@ -1,0 +1,412 @@
+/* Посты ---------------------------------------------- */
+#postsFeed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.4vw;
+}
+
+.post {
+    width: 100%;
+    min-width: 21vw;
+    height: 36vw;
+    border-radius: 2vw;
+    padding: 1.2vw;
+    overflow: hidden;
+    background-size: cover;
+}
+
+.postCreator {
+    width:fit-content;
+    height: 4.2vw;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    padding: 0.4vw 2vw 0.4vw 0.4vw;
+    border-radius: 1.1vw;
+    background-color: rgba(139, 139, 139, 0.60);
+    backdrop-filter: blur(2vw);
+    cursor: pointer;
+    .avatarImg {
+        height: 100%;
+        width: 3.4vw;
+        border-radius: 0.8vw;
+        object-fit: cover;
+    }
+    div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 0.4vw;
+        padding-bottom: 0.3vw;
+    }
+    h5, h6 {
+        color: var(--white);
+    }
+}
+
+.backToPosts a {
+    position: fixed;
+    top:10vw;
+    left:1.2vw;
+    text-decoration: none; 
+    color: var(--grey-dark);   
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.postTitle {
+    max-width: 44vw;
+    font-size: 3vw;
+    line-height: 4vw;
+    text-align: center;
+    color: var(--grey-dark);
+    margin: 3.6vw 0;
+}
+
+.postShow {
+    position: relative;
+    width: 100%;
+    height: 50vw;
+    display: flex;
+    flex-direction: row;
+    gap: 3.6vw;
+    .postCover {
+        width: 36vw;
+        height: 100%;
+        padding: 1.2vw;
+        border-radius: 2vw;
+        background-size: cover;
+    }
+    .postInfo {
+        width:56vw;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 2.4vw;
+        border-radius: 2vw;
+        background-color: var(--grey);
+        overflow: hidden;
+        .dateAndActions {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .createdAt {
+                color: var(--grey-dark);
+            }
+            .postActions {
+                display: flex;
+                flex-direction: row;
+                gap: 1.2vw;
+                img {
+                    height: 2vw;
+                    width: 2vw;
+                }
+            }
+        }
+        h2 {
+            margin-bottom: 1vw;
+            width: 100%;
+            color: var(--grey-dark);
+        }
+        .postDescription {
+            margin-top: 1vw;
+            margin-bottom: 3vw;
+            font-size: 1.4vw;
+            line-height: 2vw;
+            padding: 3.6vw;
+            border-radius: 1.8vw;
+            color: var(--grey-dark);
+            background-color: var(--medium-grey);
+        }
+        .postItems {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            gap: 1.2vw;
+            padding-bottom: 5vw;
+            width: 100%; /* Или используйте фиксированную ширину */
+            overflow-x: auto;
+            overflow-y: hidden; /* Включаем горизонтальный скролл */
+            white-space: nowrap;
+        }
+    }
+}
+
+
+/* Товары ---------------------------------------------- */
+
+#items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2vw;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    justify-content: space-between;
+    position: relative;
+    width: 24vw;
+    height: 18vw;
+    margin-top: 1vw;
+    padding: 1.2vw;
+    border-radius: 1.8vw;
+    background-color: var(--medium-grey);
+    cursor: pointer;
+    .itemInfo {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--grey-dark);
+        img {
+            width: 2vw;
+            height: 2vw;
+            border-radius: 10vw;
+            object-fit: cover;
+        }
+        .itemText {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5vw;
+            h5 {
+                display: block;            
+                white-space: nowrap;        
+                overflow: hidden;          
+                text-overflow: ellipsis;    
+                max-width: 16vw;  
+            }
+        }
+    }
+    .itemImage {
+        width: 100%;
+        height: 80%;
+        object-fit: cover;
+        border-radius: 1.8vw;
+    }
+    .deleteButton {
+        position: absolute;
+        width: 3vw;
+        height: 3vw;
+        bottom: 0.4vw;
+        right: 0.4vw;
+        background-color: rgba(139, 139, 139, 0.60);
+        backdrop-filter: blur(4vw);
+        border-radius: 10vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 1.4vw;
+            height: 1.4vw;
+        }
+    }
+}
+
+
+/* Комментарии ---------------------------------------------- */
+
+.postComments {
+    width: 100%;
+    margin-top: 4vw;
+    h2 {
+        color: var(--grey-dark);
+        margin-bottom: 0.4vw;
+    }
+    .commentCounter {
+        color: var(--medium-grey);
+        margin-bottom: 2vw;
+    }
+    .postCommentFeed {
+        position: relative;
+        width: 35vw;
+        border-radius: 2vw;
+        background-color: var(--grey);
+        padding: 3vw;
+        padding-bottom: 5vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vw;
+        h5 {
+            color: var(--grey-dark);
+            font-weight: normal;
+        }
+    }
+}
+
+.postComment {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .commentCreator {
+        position: relative;
+        z-index: 3;
+        width:fit-content;
+        height: 4.2vw;
+        display: flex;
+        flex-direction: row;
+        gap: 1vw;
+        padding: 0.4vw 2vw 0.4vw 0.4vw;
+        border-radius: 1.1vw;
+        background-color: rgba(139, 139, 139, 0.60);
+        backdrop-filter: blur(2vw);
+        cursor: pointer;
+        .avatarImg {
+            height: 100%;
+            width: 3.4vw;
+            border-radius: 0.8vw;
+            object-fit: cover;
+        }
+        div {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 0.4vw;
+            padding-bottom: 0vw;
+        }
+        h5, h6 {
+            color: var(--white);
+        }
+    }
+    .commentText {
+        width: 100%;
+        margin-top: -2.4vw;
+        padding: 4vw 2.4vw 2vw 2.4vw;
+        border-radius: 1.6vw;
+        background-color: var(--white);
+        p {
+            font-size: 1.2vw;
+        }
+        div {
+            margin-top: 2vw;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            h6 {
+                color: var(--medium-grey);
+            }
+            img {
+                height: 1.4vw;
+                width: 1.4vw;
+            }
+        }
+    }
+}
+
+.commentForm {
+    width: 29.2vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -2.4vw;
+    margin-left: 3vw;
+    .formInput {
+        width:100%;
+        height: 4vw;
+        border-radius: 1.4vw;
+        border: 0.12vw solid var(--medium-grey);
+        padding-left: 2.4vw;
+        padding-top: 1.3vw;
+        font-size: 1.2vw;
+        font-weight: 100;
+        font-family: "Helvetica";
+        color: var(--grey-dark);
+        transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+        &::placeholder {
+            color: var(--medium-grey);
+            font-size: 1.2vw;
+            font-weight: 100;
+        }
+        &:focus {
+            outline: none; 
+            border-color: var(--grey-dark); 
+            color: var(--grey-dark);
+            font-size: 1.2vw;
+            font-weight: 100;
+            background-color: #f9f9f9; 
+        }
+    }
+    .formSubmit {
+        position: absolute;
+        width: 3vw;
+        height: 3vw;
+        top: 0.5vw;
+        right: 1vw;
+        background-color: rgba(139, 139, 139, 0.60);
+        border-radius: 10vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+        img {
+            width: 2.4vw;
+            height: 2.4vw;
+        }
+        &:hover {
+            background-color: var(--grey-dark);
+            cursor: pointer;
+        }
+    }
+}
+
+
+/* Оставленные мейлы ---------------------------------------------- */
+
+.subscriptions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+    flex-wrap: wrap;
+    h5 {
+        color: var(--grey-dark);
+    }
+    .subscriptionInfo {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: fit-content;
+        gap: 1.2vw;
+        background-color: var(--grey);
+        padding: 1.2vw;
+        border-radius: 1.2vw;
+        p {
+            font-size: 1.2vw;
+            color: var(--grey-dark);
+        }
+        .deleteButton {
+            width: 3vw;
+            height: 3vw;
+            bottom: 0.4vw;
+            right: 0.4vw;
+            background-color: rgba(139, 139, 139, 0.60);
+            backdrop-filter: blur(4vw);
+            border-radius: 10vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                width: 1.4vw;
+                height: 1.4vw;
+            }
+        }
+    }
+}

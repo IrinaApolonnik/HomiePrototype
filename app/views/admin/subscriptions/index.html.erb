@@ -1,5 +1,7 @@
-<h1>Подписки</h1>
-
-<div>
-  <%= render @subscriptions %>
+<div class="subscriptions">
+    <% if @subscriptions.any? %>
+      <%= render @subscriptions %>
+    <% else %>
+      <h5>Пока нет мейлов.</h5>
+    <% end %>
 </div>

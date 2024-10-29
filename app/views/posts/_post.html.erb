@@ -1,12 +1,9 @@
-<div id="<%= dom_id post %>" class="post">
-<p class="createdAt">
-<%= post.created_at.strftime("%-d %B %Y в %H:%M") %>
-</p>
-
-<h4 class="postTitle">
-<%= post.title %>
-</h4>
-<p> Items: <%= post.items.count %> </p>
-
-<img src="<%= post.image_url %>" class="postImage">
+<div id="<%= dom_id post %>" class="post" style="background-image: url('<%= post.image_url %>');">
+    <div class="postCreator" >
+        <img class="avatarImg" src="<%= post.user.avatar_url %>" alt="">
+        <div>
+            <h5><%= post.user.profile_name %></h5>
+            <h6><%= post.user.username %></h6>
+        </div>
+    </div>
 </div>

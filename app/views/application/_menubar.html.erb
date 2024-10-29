@@ -1,22 +1,31 @@
-<nav class="S_MenuBar">
-    <%= link_to "Главная", root_url %>
-
-    <%= link_to "Подборки", posts_url %>
-
-    <%= link_to "Товары", items_url %>
-
-    <% if user_signed_in? && current_user.admin? %>
-      <%= link_to "Подписки", admin_subscriptions_url %>
-    <% end %>
-
-
-    <div>
+<nav class="menuBar">
+    <div class="menuActions">
         <% if user_signed_in? %>
-            <%= link_to current_user.email, edit_user_registration_path %>
-            <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete } %>
+            <%= link_to "Главная", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
+            <%= link_to "Мои посты", my_posts_posts_path, class: [current_page?(my_posts_posts_path) ? 'activePage' : 'inactivePage', 'menuButton'] %>
         <% else %>
-            <%= link_to "Войти", new_user_session_path %>
-            <%= link_to "Зарегистрироваться", new_user_registration_path %>
+            <%= link_to "Просмотреть", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
+        <% end %>
+        <% if can? :create, Post %>
+            <%= link_to "Создать", new_post_path, class: [current_page?(new_post_path) ? 'activePage' : 'inactivePage', 'menuButton'] %>
+        <% end %>
+
+        <% if user_signed_in? && current_user.admin? %>
+            <%= link_to "Товары", items_url, class: [current_page?(items_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
+            <%= link_to "Подписки", admin_subscriptions_url, class: [current_page?(admin_subscriptions_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
+        <% end %>
+    </div>
+
+
+    <div class="userActions">
+        <% if user_signed_in? %>
+            <%= link_to "Выйти из аккаунта", destroy_user_session_path, data: { "turbo-method": :delete }, class: "menuSmallButton" %>
+            <%= link_to edit_user_registration_path, class: "menuAccountButton" do %>
+                <img src="<%= current_user.avatar_url %>" alt="Avatar" class="avatarImg">
+            <% end %>
+        <% else %>
+            <%= link_to "Войти", new_user_session_path, class: [current_page?(new_user_session_path) ? 'activePage' : 'inactivePage', 'guestActionBtn'] %>
+            <%= link_to "Регистрация", new_user_registration_path, class: [current_page?(new_user_registration_path) ? 'activePage' : 'inactivePage', 'guestActionBtn'] %>
         <% end %>
     </div>
 </nav>

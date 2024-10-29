@@ -1,15 +1,24 @@
 <div class="postComment">
-  <h5>
-    <%= comment.user.email %>
-  </h5>
+    <div class="commentCreator" >
+        <img class="avatarImg" src="<%= current_user.avatar_url %>" alt="">
+        <div>
+            <h5><%= current_user.profile_name %></h5>
+            <h6><%= current_user.username %></h6>
+        </div>
+    </div>
 
-  <p>
-    <%= comment.body %>
-  </p>
+    <div class="commentText" >
+      <p>
+        <%= comment.body %>
+      </p>
+      <div>
+        <h6 class="createdAt"> <%= comment.created_at.strftime("%d.%m.%Y") %> </h6>
+        <% if can?(:destroy, comment) %>
+            <%= button_to [comment.post, comment], method: :delete, class: "deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
+              <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+            <% end %>
+        <% end %>
+      </div>
 
-  <% if can?(:destroy, comment) %> 
-    <p class="deleteComment">
-      <%= link_to 'Удалить', [comment.post, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Вы уверены, что хотите удалить комментарий?" } %>
-    </p>
-  <% end %>
+    </div>
 </div>

@@ -1,3 +1,4 @@
+# Мини базы данных
 @post_titles = [
   "Современный минимализм для гостиной",
   "Эко-дизайн: Натуральные материалы в интерьере",
@@ -81,7 +82,15 @@
   "https://i.pinimg.com/736x/fe/e5/21/fee521091fc56b14b292a320cd3db842.jpg",
   "https://i.pinimg.com/564x/e3/af/87/e3af8701bae79b212dfa7cd8eb3ba52e.jpg",
   "https://i.pinimg.com/564x/74/8e/88/748e88a5da974c817d4c257b4b516fac.jpg",
-  "https://i.pinimg.com/736x/aa/c5/51/aac551747fd4b465d4ff30bd896e7ea9.jpg"
+  "https://i.pinimg.com/736x/aa/c5/51/aac551747fd4b465d4ff30bd896e7ea9.jpg",
+  "https://i.pinimg.com/564x/25/21/ea/2521ea09e14729e15649341d2963d976.jpg",
+  "https://i.pinimg.com/564x/fa/cf/07/facf07eaaa763f1d2cdc03fe7e958b5a.jpg",
+  "https://i.pinimg.com/564x/61/06/27/61062728542f522bbf0585038c464489.jpg",
+  "https://i.pinimg.com/736x/31/f9/ae/31f9aec00bc38cd3cab160d929eb913d.jpg",
+  "https://i.pinimg.com/474x/0d/8d/71/0d8d71298e716d2ac1b264486c8dada4.jpg",
+  "https://i.pinimg.com/474x/c1/68/f9/c168f93a02537c7bfb0f9c365f4afe39.jpg",
+  "https://i.pinimg.com/474x/61/3c/89/613c89707440777c5f60f06ea15163fe.jpg",
+  "https://i.pinimg.com/474x/fe/b2/fd/feb2fd924531ce2ef601ccc45ad3e264.jpg"
 ]
 
 @descriptions = [
@@ -108,6 +117,74 @@
 ]
 @prices = (100..1000).step(50).to_a
 
+@names = [
+  "Marg.o",
+  "Allise Alov",
+  "ALex’x",
+  "Elliot",
+  "Lisa",
+  "Maxim",
+  "Ira",
+  "Alla",
+  "Artur",
+  "Nanna"
+]
+@usernames = [
+  "@margo_sha",
+  "@alllllise.e",
+  "@alex.00",
+  "@elloittt",
+  "@etolisa",
+  "@avimax",
+  "@irinna",
+  "@alllla",
+  "@archii",
+  "@niekka"
+]
+@avatars = [
+  "https://i.pinimg.com/564x/8c/e8/0e/8ce80e14454b7cc5c02ca86142ccc068.jpg",
+  "https://i.pinimg.com/564x/ed/83/e4/ed83e4d62272b0e7e0f7974eb06745fc.jpg",
+  "https://i.pinimg.com/564x/d9/ac/21/d9ac2106f378795f242495f1873f23d7.jpg",
+  "https://i.pinimg.com/564x/c3/a3/df/c3a3df45a235d1432e11176c48e7b50c.jpg",
+  "https://i.pinimg.com/564x/21/3c/82/213c8294633b4748ab0f6190504edb0d.jpg",
+  "https://i.pinimg.com/564x/50/4b/78/504b78685218279a238d6ae1521e4cf1.jpg",
+  "https://i.pinimg.com/736x/7c/74/27/7c7427064248feda457dd1ed095fb7de.jpg",
+  "https://i.pinimg.com/474x/5c/db/89/5cdb89bdaae54c994f03a0441dd5bc8a.jpg",
+  "https://i.pinimg.com/474x/05/e9/b2/05e9b2a67b288376c4cfcb22d41bd1a1.jpg",
+  "https://i.pinimg.com/736x/8a/b2/45/8ab245c8af42de3fad3cf9a7fd5f393c.jpg"
+]
+
+@markets = [
+  "https://248006.selcdn.ru/main/iblock/126/1264f92977737cb2a77847cc516fba77/fcb6b9db9510c54f2663af70f561f2ab.jpg",
+  "https://wylsa.com/wp-content/uploads/2022/04/1119-3.jpg",
+  "https://avatars.mds.yandex.net/get-mpic/1602935/img_id5809334395720083934.jpeg/orig",
+  "https://ae01.alicdn.com/kf/HTB18eCBQXXXXXXfXXXX760XFXXXa.png",
+  "https://avatars.mds.yandex.net/i?id=26f8f20ddb4742b97c0376774bd5bad5fc1ade6d-9813974-images-thumbs&n=13",
+  "https://www.dimelo.com/wp-content/uploads/inline-images/leroymerlin.png"
+]
+
+@item_images = [
+  "https://i.pinimg.com/474x/75/80/d1/7580d1b7a74b5151f88bbb48e8225208.jpg",
+  "https://i.pinimg.com/474x/c7/90/17/c790171dab2da294bb7a83096bd93f8f.jpg",
+  "https://i.pinimg.com/474x/ed/c7/ef/edc7efeae3f1684f3b627af0dc033092.jpg",
+  "https://i.pinimg.com/474x/b2/43/ca/b243cab9a865588233ad60e94fe5d7bb.jpg",
+  "https://i.pinimg.com/474x/15/9d/26/159d261b42682023315c2be70a3e2435.jpg",
+  "https://i.pinimg.com/474x/37/d1/24/37d1245dfccc6fcf21c8312245d60003.jpg",
+  "https://i.pinimg.com/474x/cb/f6/22/cbf6225993db733928f5e92e5cfcce35.jpg",
+  "https://i.pinimg.com/474x/27/d9/9a/27d99a4ebf5fa67141947a09cc139c83.jpg",
+  "https://i.pinimg.com/474x/a2/10/e4/a210e4f23d9b97dd01d5d35563bc6573.jpg",
+  "https://i.pinimg.com/474x/1d/e3/ae/1de3aee497eaa1ab38cc982ffb885881.jpg",
+  "https://i.pinimg.com/474x/bf/bc/7a/bfbc7aa73a4a5287f3aad0fb8bd8d40d.jpg",
+  "https://i.pinimg.com/474x/0d/7e/75/0d7e75f20603e59cf572d30d003b11f0.jpg",
+  "https://i.pinimg.com/474x/29/f5/2c/29f52cd9a38f5bc19b803ce30c6941a4.jpg",
+  "https://i.pinimg.com/474x/d4/37/87/d4378708e4b9f2634e9d11e277d1c718.jpg",
+  "https://i.pinimg.com/564x/fe/90/d0/fe90d0591318521cf07e1b10387ef8c9.jpg",
+  "https://i.pinimg.com/564x/37/44/6e/37446e697e47d3f81dc345d3635fcde2.jpg",
+  "https://i.pinimg.com/474x/48/fb/a3/48fba3fdad7e8ea382924e0883bde370.jpg",
+  "https://i.pinimg.com/474x/c8/c1/92/c8c19230aaee79bc451f3f206117b7f4.jpg"
+]
+
+# Генератор 
 def seed
   reset_db
   create_users(10)
@@ -115,36 +192,35 @@ def seed
   create_items(3..10)
 end
 
+# Обновление баз данных
 def reset_db
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
 end
 
+# Получает рандомные значения True False
 def get_random_bool 
   [true, false].sample
 end
 
+# Создание пользователей
 def create_users(quantity)
-  i = 0
-
-  quantity.times do
+  quantity.times do |i|
     user_data = {
       email: "user_#{i}@email.com",
-      password: 'testtest'
+      password: 'testtest',
+      username: @usernames[i],
+      profile_name: @names[i],
+      avatar_url: @avatars[i] 
     }
-
-    if i == 0
-      user_data[:admin] = true
-    end
-
+    user_data[:admin] = true if i == 0
     user = User.create!(user_data)
     puts "User created with id #{user.id}"
-
-    i += 1
   end
 end
 
+# Создание постов
 def create_posts(quantity)
   quantity.times do
     user = User.all.sample
@@ -159,6 +235,7 @@ def create_posts(quantity)
   end
 end
 
+# Создание товаров
 def create_items(quantity)
     Post.all.each do |post|
       quantity.to_a.sample.times do
@@ -166,7 +243,9 @@ def create_items(quantity)
         item = post.items.create!(
           name: @items.sample,
           price: @prices.sample, 
-          user: post.user
+          user: post.user,
+          market_icon_url: @markets.sample,
+          image_url: @item_images.sample
         )
         puts "Item with name #{item.name} for project with title #{item.post.title} just created with price #{item.price}"
       end

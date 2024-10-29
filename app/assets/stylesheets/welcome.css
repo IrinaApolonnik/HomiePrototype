@@ -24,6 +24,20 @@ body {
     }
 }
 
+/* Подвал */
+.welcomeFooter {
+    background: var(--gradient3);
+    .projectInfo {
+        h5 {
+            color: rgba(244, 222, 204, 0.50);
+        }
+        h1 {
+            color: #F4DECC;
+            mix-blend-mode: hard-light;
+        }
+    }
+}
+
 
 
 /* Заглушка ---------------------------------------------- */
@@ -272,7 +286,7 @@ body {
             padding-left: 2vw;
             font-size: 1.4vw;
             font-weight: 100;
-            color: var(--medium-grey);
+            color: #a5f3d4; 
             transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
             &::placeholder {
                 color: var(--medium-grey);
@@ -282,7 +296,7 @@ body {
             &:focus {
                 outline: none; 
                 border-color: #a5f3d4; 
-                color: var(--grey-dark);
+                color: #a5f3d4; 
                 font-size: 1.4vw;
                 font-weight: 100;
                 background-color: #f9f9f9; 
@@ -356,6 +370,7 @@ body {
     position: relative;
     height: 56vw;
     width: 100%;
+    margin-top: -7vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

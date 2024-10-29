@@ -1,18 +1,20 @@
 class PostsController < ApplicationController
     load_and_authorize_resource
 
+
     # Для страницы с подбоками
     def index
         if current_user && current_user.admin?
             # Администратор видит все посты
             @posts = Post.all
-        elsif current_user
-            # Авторизованные пользователи видят только свои посты
-            @posts = current_user.posts
         else
             # Гости видят только публичные посты
             @posts = Post.where(public: true)
         end
+    end
+
+    def my_posts
+      @posts = current_user.posts
     end
     
     # Для страниц с единичной подборкой
@@ -29,6 +31,7 @@ class PostsController < ApplicationController
     # Для страницы редактирования
     def edit
     end
+    
     def create
         #post_params.merge(post: {user_id: current_user.id})
         @post = current_user.posts.new(post_params)
@@ -42,7 +45,7 @@ class PostsController < ApplicationController
             format.json { render json: @post.errors, status: :unprocessable_entity }
           end
         end
-      end
+    end
     
     
       def update

@@ -1,50 +1,59 @@
+<h1 class="postTitle"> <%= @post.title %> </h1>
+
 <div class="postShow">
-  <img src="<%= @post.image_url %>" class="collectionImage">
-  
-  <div class="postInfo">
-
-    <div class="dateAndActions">
-      <p class="createdAt">
-        <%= @post.created_at.strftime("%-d %B %Y в %H:%M") %>
-      </p>
-      <div>&#8230;</div>
+  <div class="postCover", style="background-image: url('<%= @post.image_url %>');">
+    <div class="postCreator" >
+      <img class="avatarImg" src="<%= @post.user.avatar_url %>" alt="">
+      <div>
+        <h5><%= @post.user.profile_name %></h5>
+        <h6><%= @post.user.username %></h6>
+      </div>
     </div>
-          
-    <p> <%= @post.user.email %> </p>
-
-    <h1 class="postTitle"> <%= @post.title %> </h1>
-
+  </div>
+  <div class="postInfo">
+    <div class="dateAndActions">
+      <h6 class="createdAt"> <%= @post.created_at.strftime("%d.%m.%Y") %> </h6>
+      <% if can? :manage, @post %>
+        <div class="postActions">
+          <%= link_to edit_post_path(@post), class: "actionButton" do %>
+            <img src="<%= asset_path('edit.png') %>" alt="Edit" class="actionIcon">
+          <% end %>
+          <%= button_to post_path(@post), method: :delete, class: "actionButton", data: { confirm: "Are you sure?" } do %>
+            <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <h2>Описание</h2>
     <p class="postDescription"> <%= @post.description %> </p>
-
-    <div> <%= render @post.items %> </div>
-    
+    <h2>Товары</h2>
+    <div class="postItems">
+      <%= render @post.items %>
+    </div>
   </div>
 </div>
-
+  
+    
 <div class="backToPosts">
   <%= link_to "⬅", posts_path %>
 </div>
 
 <div class="postComments">
   <h2>Комментарии</h2>
-  
-  <% if @post.comments.any? %>
-    <%= render @post.comments %>
-  <% else %>
-    <p>Пока нет комментариев.</p>
+  <h6 class="commentCounter"> <%= @post.comments.size %> комментариев </h6>
+  <div class="postCommentFeed">
+    <% if @post.comments.any? %>
+      <%= render @post.comments %>
+    <% else %>
+      <h5>Пока нет комментариев.</h5>
+    <% end %>
+  </div>
+  <% if can? :create, Comment %> 
+    <div class="addPostComment">
+      <%= render "comments/form" %> 
+    </div>
   <% end %>
 </div>
 
-<% if can? :create, Comment %> <!-- Проверяем, может ли пользователь создавать комментарии -->
-  <div class="addPostComment">
-    <h3>Добавить комментарий</h3>
-    <%= render "comments/form" %> <!-- Используем обычную форму для комментариев -->
-  </div>
-<% end %>
 
-<% if can? :manage, @post %>
-  <div>
-    <%= link_to "Edit this post", edit_post_path(@post) %> |
-    <%= button_to "Destroy this post", post_path(@post), method: :delete %>
-  </div>
-<% end %>
+

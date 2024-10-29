@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_25_152129) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_28_223852) do
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
     t.text "body"
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_152129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "market_icon_url"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -58,6 +59,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_152129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.string "avatar_url"
+    t.string "username"
+    t.string "profile_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

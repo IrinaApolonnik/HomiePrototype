@@ -1,8 +1,17 @@
 <div id="<%= dom_id item %>" class="item">
-  <h4>
-    <%= item.name %>
-  </h4>
-  <p>
-    <%= number_to_currency(item.price, unit: "₽", format: "%n %u", precision: 0) %>
-  </p>
+  <div class="itemInfo">
+    <img class="marketIcon" src="<%= item.market_icon_url %>" alt="">
+    <div class="itemText">
+      <h5><%= item.name %></h5>
+      <h6><%= number_to_currency(item.price, unit: "руб.", format: "%n %u", precision: 0) %></h6>
+    </div>
+  </div>
+  <img class="itemImage" src="<%= item.image_url %>" alt="">
+  <% if controller_name == 'items' && action_name == 'index' %>
+      <% if can?(:destroy, item) %>
+          <%= button_to item, method: :delete, class: "deleteButton", data: { confirm: "Are you sure?" } do %>
+            <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+          <% end %>
+      <% end %>
+  <% end %>
 </div>
