@@ -1,3 +1,6 @@
+
+
+
 <h1 class="postTitle"> <%= @post.title %> </h1>
 
 <div class="postShow">
@@ -23,6 +26,21 @@
           <% end %>
         </div>
       <% end %>
+      <div>
+        <%= @post.likes.count %>
+        <%
+          likes_count = @post.likes.count
+          like_text = "Like (#{likes_count})"
+
+          if current_user && @post.likes.where(user_id: current_user.id).count > 0
+            like_text = "Unlike (#{likes_count})"
+          end
+        %>
+        <%= render partial: "like/button", locals: { likeable: @post } %>
+      </div>
+    </div>
+    <div>
+      Tags: <%= @post.tag_list %>
     </div>
     <h2>Описание</h2>
     <p class="postDescription"> <%= @post.description %> </p>

@@ -1,0 +1,8 @@
+<%
+  like = likeable.likes.where(user_id: current_user.id)
+  button_text = like && like.count > 0 ? "Unlike" : "Like"
+%>
+
+<div>
+  <%= link_to button_text, like_toggle_path(type: likeable.class, id: likeable.id), data: {turbo_stream: true} %>
+</div>

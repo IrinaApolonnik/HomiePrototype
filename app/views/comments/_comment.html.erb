@@ -1,24 +1,53 @@
-<div class="postComment">
-    <div class="commentCreator" >
-        <img class="avatarImg" src="<%= current_user.avatar_url %>" alt="">
+<%
+  comment_level = nested_level(comment)
+
+  likes_count = comment.likes.count
+  like_text = "Like (#{likes_count})"
+
+  if current_user && comment.likes.where(user_id: current_user.id).count > 0
+    like_text = "Unlike (#{likes_count})"
+  end
+%>
+
+
+<%
+  comment_level = nested_level(comment)
+%>
+<div class="postComment <%= 'reply' if comment.comment_id != nil && comment_level < 2 %>">
+    <div class="commentCreator">
+        <img class="avatarImg" src="<%= comment.user.avatar_url %>" alt="">
         <div>
-            <h5><%= current_user.profile_name %></h5>
-            <h6><%= current_user.username %></h6>
+            <h5><%= comment.user.profile_name %></h5>
+            <h6><%= comment.user.username %></h6>
         </div>
     </div>
 
-    <div class="commentText" >
-      <p>
-        <%= comment.body %>
-      </p>
-      <div>
-        <h6 class="createdAt"> <%= comment.created_at.strftime("%d.%m.%Y") %> </h6>
-        <% if can?(:destroy, comment) %>
-            <%= button_to [comment.post, comment], method: :delete, class: "deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
-              <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
-            <% end %>
+    <div class="commentText">
+        <% if comment.comment.present? %>
+            <p class="replyTo">
+                Reply on <%= link_to comment.comment.user.profile_name, user_path(comment.comment.user), class: "replyLink" %>'s comment:
+            </p>
         <% end %>
-      </div>
+        
+        <p>
+            <%= comment.body %>
+        </p>
+        
+        <div class="commentMeta">
+            <h6 class="createdAt"><%= comment.created_at.strftime("%d.%m.%Y") %></h6>
+            <% if can?(:destroy, comment) %>
+                <%= button_to [comment.post, comment], method: :delete, class: "deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
+                    <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+                <% end %>
+            <% end %>
+             
+            <%= render partial: "like/button", locals: { likeable: comment } %>
+        </div>
 
+        <div class="commentReplies">
+            <% replies = comment.replies %>
+            <h5><%= replies.count %> <%= Russian.p(replies.count, "ответ", "ответа", "ответов") %></h5>
+            <%= render replies %>
+        </div>
     </div>
 </div>

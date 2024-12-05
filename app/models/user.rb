@@ -7,4 +7,9 @@ class User < ApplicationRecord
   has_many :posts
   has_many :items
   has_many :comments
+  has_many :likes
+
+  has_one :profile
+  after_create :create_profile
+
 end

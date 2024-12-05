@@ -27,6 +27,11 @@
   </div>
 
   <div>
+    <%= form.label :tag_list, style: "display: block" %>
+    <%= form.text_field :tag_list, value: post.tag_list.join(", ") %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

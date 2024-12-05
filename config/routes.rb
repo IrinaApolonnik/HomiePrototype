@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "like/toggle"
+  
+  resources :profiles
   devise_for :users
 
   get 'posts/my_posts', to: 'posts#my_posts', as: :my_posts_posts
@@ -7,6 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :posts do
     resources :comments, only: [:create, :destroy]
+    collection do
+      get "by_tag/:tag", to: "posts#by_tag", as: "tagged"
+    end
   end
   resources :subscriptions, only: [:create]
 
@@ -14,6 +20,11 @@ Rails.application.routes.draw do
     resources :subscriptions
   end
 
+  namespace :api, format: "json" do
+    namespace :v1 do
+      resources :posts, only: [:index, :show]
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

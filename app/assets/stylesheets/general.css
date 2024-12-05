@@ -291,7 +291,7 @@
         p {
             font-size: 1.2vw;
         }
-        div {
+        .commentMeta {
             margin-top: 2vw;
             display: flex;
             flex-direction: row;
@@ -365,7 +365,12 @@
         }
     }
 }
-
+.commentReplies {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    
+}
 
 /* Оставленные мейлы ---------------------------------------------- */
 

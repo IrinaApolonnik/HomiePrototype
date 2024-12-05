@@ -184,12 +184,19 @@
   "https://i.pinimg.com/474x/c8/c1/92/c8c19230aaee79bc451f3f206117b7f4.jpg"
 ]
 
+@raw_text = 'Дом Наркомфина — один из знаковых памятников архитектуры советского авангарда и конструктивизма. Построен в 1928—1930 годах по проекту архитекторов Моисея Гинзбурга, Игнатия Милиниса и инженера Сергея Прохорова для работников Народного комиссариата финансов СССР (Наркомфина). Автор замысла дома Наркомфина Гинзбург определял его как «опытный дом переходного типа». Дом находится в Москве по адресу: Новинский бульвар, дом 25, корпус 1. С начала 1990-х годов дом находился в аварийном состоянии, был трижды включён в список «100 главных зданий мира, которым грозит уничтожение». В 2017—2020 годах отреставрирован по проекту АБ «Гинзбург Архитектс», функционирует как элитный жилой дом. Отдельно стоящий «Коммунальный блок» (историческое название) планируется как место проведения публичных мероприятий.'
+@words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
+
 # Генератор 
 def seed
   reset_db
   create_users(10)
   create_posts(100)
   create_items(3..10)
+  create_comments(2..8)
+  3.times do
+    create_comment_replies
+  end
 end
 
 # Обновление баз данных
@@ -202,6 +209,17 @@ end
 # Получает рандомные значения True False
 def get_random_bool 
   [true, false].sample
+end
+
+
+def create_sentence
+  sentence_words = []
+
+  (10..20).to_a.sample.times do
+    sentence_words << @words.sample
+  end
+
+  sentence = sentence_words.join(' ').capitalize + '.'
 end
 
 # Создание пользователей
@@ -259,6 +277,38 @@ def create_items(quantity)
         )
       puts "Item with name #{item.name} just created with price #{item.price}"
     end
+end
+
+
+
+
+def create_comments(quantity)
+  Post.all.each do |post|
+    quantity.to_a.sample.times do
+      user = User.all.sample # Получаем случайного пользователя
+      comment = Comment.create!(
+        post: post,
+        user: user, # Указываем случайного пользователя
+        body: create_sentence
+      )
+      puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created by user #{user.email}"
+    end
   end
+end
+
+def create_comment_replies
+  Comment.all.each do |comment|
+    if rand(1..3) == 1
+      user = User.all.sample # Получаем случайного пользователя
+      comment_reply = Comment.create!(
+        post: comment.post, # Указываем пост, к которому относится комментарий
+        user: user,         # Связываем ответ с пользователем
+        comment: comment,   # Указываем родительский комментарий
+        body: create_sentence
+      )
+      puts "Comment reply with id #{comment_reply.id} for comment with id #{comment.id} just created"
+    end
+  end
+end
 
 seed
