@@ -1,9 +1,10 @@
 <%= form_for([@post, @post.comments.build]) do |f| %> 
-  <div class="commentForm">
-    <%= f.text_area :body, placeholder: "Что думаешь?", class: "formInput" %>
+  <div class="M_commentForm">
+    <img class="Q_commentatorAvatar" src="<%= current_profile.avatar_url if current_profile %>" alt="Ваш аватар">
+    <%= f.text_area :body, placeholder: "Отправить сообщение", class: "Q_commentFormInput" %>
 
-    <%= button_tag type: 'submit', class: "formSubmit" do %>
-      <img src="<%= asset_path('welcome/subscribe.png') %>" alt="Создать комментарий" class="subscribeImage" id="subscribeButtonImage">
+    <%= button_tag type: 'submit', class: "Q_commentFormSubmit" do %>
+      <img src="<%= asset_path('welcome/subscribe.png') %>" alt="Создать комментарий" id="subscribeButtonImage">
     <% end %>
   </div>
 <% end %>

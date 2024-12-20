@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_105030) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_20_200504) do
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
     t.text "body"
     t.integer "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.integer "comment_id"
+    t.integer "profile_id", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["profile_id"], name: "index_comments_on_profile_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -31,18 +32,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_105030) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.string "market_icon_url"
+    t.integer "profile_id", null: false
+    t.index ["profile_id"], name: "index_items_on_profile_id"
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "likeable_type", null: false
     t.integer "likeable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "profile_id", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
-    t.index ["user_id"], name: "index_likes_on_user_id"
+    t.index ["profile_id"], name: "index_likes_on_profile_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -51,17 +53,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_105030) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.boolean "public", default: true
+    t.integer "profile_id", null: false
+    t.index ["profile_id"], name: "index_posts_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
     t.text "bio"
-    t.string "avatar_url"
+    t.string "avatar_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -110,14 +114,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_105030) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
-    t.string "avatar_url"
-    t.string "username"
-    t.string "profile_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "comments", "posts"
-  add_foreign_key "likes", "users"
+  add_foreign_key "comments", "profiles"
+  add_foreign_key "items", "profiles"
+  add_foreign_key "likes", "profiles"
+  add_foreign_key "posts", "profiles"
   add_foreign_key "taggings", "tags"
 end

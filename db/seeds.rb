@@ -191,6 +191,7 @@
 def seed
   reset_db
   create_users(10)
+  create_profiles
   create_posts(100)
   create_items(3..10)
   create_comments(2..8)
@@ -206,20 +207,17 @@ def reset_db
   Rake::Task['db:migrate'].invoke
 end
 
-# Получает рандомные значения True False
-def get_random_bool 
+# Получает рандомные значения True/False
+def get_random_bool
   [true, false].sample
 end
 
-
 def create_sentence
   sentence_words = []
-
   (10..20).to_a.sample.times do
     sentence_words << @words.sample
   end
-
-  sentence = sentence_words.join(' ').capitalize + '.'
+  sentence_words.join(' ').capitalize + '.'
 end
 
 # Создание пользователей
@@ -227,86 +225,104 @@ def create_users(quantity)
   quantity.times do |i|
     user_data = {
       email: "user_#{i}@email.com",
-      password: 'testtest',
-      username: @usernames[i],
-      profile_name: @names[i],
-      avatar_url: @avatars[i] 
+      password: 'testtest'
     }
-    user_data[:admin] = true if i == 0
     user = User.create!(user_data)
+    user.profile.update!(
+      username: @usernames[i],
+      avatar_url: @avatars[i],
+      name: @names[i]
+    )
     puts "User created with id #{user.id}"
+  end
+end
+
+# Создание профилей
+def create_profiles
+  User.all.each_with_index do |user, index|
+    profile_data = {
+      username: @usernames[index] || "user_#{index + 1}",
+      avatar_url: @avatars[index] || "default_avatar_url",
+      name: @names[index] || "User #{index + 1}",
+      bio: "This is a bio for user #{index + 1}."
+    }
+    user.profile.update!(profile_data)
+    puts "Profile created for user with id #{user.id}"
   end
 end
 
 # Создание постов
 def create_posts(quantity)
   quantity.times do
-    user = User.all.sample
-    post = Post.create!(
+    profile = Profile.all.sample
+    post = profile.posts.create!(
       title: @post_titles.sample,
       image_url: @images.sample,
       description: @descriptions.sample,
-      public: get_random_bool,
-      user: user
+      public: get_random_bool
     )
-    puts "Post with title #{post.title} just created"
+    puts "Post with title #{post.title} just created for profile #{profile.id}"
   end
 end
 
 # Создание товаров
 def create_items(quantity)
-    Post.all.each do |post|
-      quantity.to_a.sample.times do
-        user = User.all.sample
-        item = post.items.create!(
-          name: @items.sample,
-          price: @prices.sample, 
-          user: post.user,
-          market_icon_url: @markets.sample,
-          image_url: @item_images.sample
-        )
-        puts "Item with name #{item.name} for project with title #{item.post.title} just created with price #{item.price}"
-      end
-    end
-    quantity.to_a.sample.times do
-      user = User.all.sample
-      item = Item.create!(
-          name: @items.sample,
-          price: @prices.sample, 
-          user: user
-        )
-      puts "Item with name #{item.name} just created with price #{item.price}"
-    end
-end
-
-
-
-
-def create_comments(quantity)
   Post.all.each do |post|
     quantity.to_a.sample.times do
-      user = User.all.sample # Получаем случайного пользователя
-      comment = Comment.create!(
-        post: post,
-        user: user, # Указываем случайного пользователя
-        body: create_sentence
-      )
-      puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created by user #{user.email}"
+      begin
+        user = User.all.sample
+        profile = user.profile
+        item_data = {
+          name: @items.sample,
+          price: @prices.sample,
+          profile: profile,
+          market_icon_url: @markets.sample,
+          image_url: @item_images.sample
+        }
+        puts "Creating item: #{item_data.inspect}"
+        post.items.create!(item_data)
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating item: #{e.record.errors.full_messages.join(", ")}"
+      end
     end
   end
 end
 
+# Создание комментариев
+def create_comments(quantity)
+  Post.all.each do |post|
+    quantity.to_a.sample.times do
+      begin
+        profile = Profile.all.sample # Получаем случайный профиль
+        comment = Comment.create!(
+          post: post,
+          profile: profile, # Привязываем комментарий к профилю
+          body: create_sentence
+        )
+        puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created by profile #{profile.id}"
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating comment: #{e.record.errors.full_messages.join(", ")}"
+      end
+    end
+  end
+end
+
+# Создание ответов на комментарии
 def create_comment_replies
   Comment.all.each do |comment|
     if rand(1..3) == 1
-      user = User.all.sample # Получаем случайного пользователя
-      comment_reply = Comment.create!(
-        post: comment.post, # Указываем пост, к которому относится комментарий
-        user: user,         # Связываем ответ с пользователем
-        comment: comment,   # Указываем родительский комментарий
-        body: create_sentence
-      )
-      puts "Comment reply with id #{comment_reply.id} for comment with id #{comment.id} just created"
+      begin
+        profile = Profile.all.sample # Получаем случайный профиль
+        comment_reply = Comment.create!(
+          post: comment.post,       # Указываем пост, к которому относится комментарий
+          profile: profile,         # Привязываем ответ к профилю
+          comment: comment,         # Указываем родительский комментарий
+          body: create_sentence
+        )
+        puts "Comment reply with id #{comment_reply.id} for comment with id #{comment.id} just created"
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating comment reply: #{e.record.errors.full_messages.join(", ")}"
+      end
     end
   end
 end

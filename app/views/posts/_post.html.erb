@@ -1,9 +1,9 @@
-<div id="<%= dom_id post %>" class="post" style="background-image: url('<%= post.image_url %>');">
-    <div class="postCreator" >
-        <img class="avatarImg" src="<%= post.user.avatar_url %>" alt="">
-        <div>
-            <h5><%= post.user.profile_name %></h5>
-            <h6><%= post.user.username %></h6>
+<div id="<%= dom_id post %>" class="O_post" style="background-image: url('<%= post.image_url %>');">
+    <div class="A_postCreator" >
+        <img class="Q_avatarImg" src="<%= post.profile.avatar_url %>" alt="">
+        <div class="Q_postName">
+            <h5><%= post.profile.name %></h5>
+            <h6><%= post.profile.username %></h6>
         </div>
     </div>
 </div>

@@ -1,0 +1,283 @@
+.Q_menuLogo {
+  font-size: 2.6vw;
+  font-family: 'Raydis', sans-serif;
+  color: var(--blue);
+  margin-left: 1.6vw;
+  margin-top: 0.6vw;
+}
+
+.Q_menuAvatar {
+  border-radius: 10vw;
+  width: 2vw;
+  height: 2vw;
+  object-fit: cover;
+}
+.Q_menuIcon {
+  height: 2vw;
+  width: 2vw;
+}
+.A_menuButton.activePage {
+  .Q_menuIcon {
+    filter: invert(100%) brightness(1000%);
+  }
+}
+
+.Q_postCover {
+    max-height: 68vh;
+    width: auto;
+}
+.Q_avatarImg {
+    width: 4.6vw;
+    height: 4.6vw;
+    object-fit: cover;
+}
+.A_postCreator{
+  .Q_avatarImg {
+    width: 3.2vw;
+    height: 3.2vw;
+  }
+}
+.A_menuUser{
+  .Q_avatarImg {
+    width: 3.2vw;
+    height: 3.2vw;
+  }
+}
+.Q_postName {
+  margin: 0 3vw 0 1vw;
+  h5, h6 {
+    color: var(--white);
+  }
+  h5 {
+    font-size: 1vw;
+    margin-bottom: -0.5vw;
+  }
+  h6 {
+      font-size: 0.8vw;
+      color: var(--white);
+  }
+}
+
+
+.Q_likeBtn {
+  cursor: pointer;
+  display: flex;
+  height: 1.6vw;
+  width: 1.6vw;
+  transition: transform 0.2s ease;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.Q_likesCount {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.likeAnimation {
+  transform: scale(1.2);
+  color: var(--orange);
+}
+
+.Q_actionPostBtn {
+  height: 5vw;
+  padding: 1.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 1.6vw;
+    height: 1.6vw;
+  }
+}
+.Q_postDescription {
+  max-width: 36vw;
+}
+.Q_postTitle {
+  color: var(--blue);
+}
+
+.Q_commentsHeader {
+  color: var(--blue);
+  font-weight: bold;
+}
+.Q_commentCounter {
+  color: var(--grey-dark);
+}
+
+.Q_commentAvatar {
+  width: 4vw;
+  height: 4vw;
+  object-fit: cover;
+}
+.Q_commentName {
+  margin: 0 2.4vw 0 1.2vw;
+  h5, h6 {
+    color: var(--white);
+  }
+  h5 {
+    margin-bottom: 0.4vw;
+  }
+}
+.Q_deleteCommentButton {
+  height: 5vw;
+  padding: 1.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 1.6vw;
+    height: 1.6vw;
+  }
+}
+.Q_repliesCount {
+  color: var(--blue);
+  margin-top: 0.6vw;
+  margin-bottom: 0.6vw;
+}
+
+.Q_commentFormInput {
+  width:100%;
+  height: 4.4vw;
+  border: 0.12vw solid var(--white);
+  padding-left: 5.6vw;
+  padding-top: 1.5vw;
+  font-size: 1.1vw;
+  font-weight: 400;
+  font-family: "Arimo";
+  
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  &::placeholder {
+      color: var(--medium-grey);
+      font-size: 1.1vw;
+      font-weight: 400;
+  }
+  &:focus {
+      outline: none; 
+      border-color: var(--blue); 
+      font-size: 1.1vw;
+      font-weight: 400;
+      background-color: #f9f9f9; 
+  }
+}
+.Q_commentatorAvatar {
+  position: absolute;
+  width: 3.6vw;
+  height: 3.6vw;
+  object-fit: cover;
+  left: 0.4vw;
+  top: 0.4vw;
+}
+.Q_commentFormSubmit {
+  position: absolute;
+  width: 3.2vw;
+  height: 3.2vw;
+  top: 0.8vw;
+  right: 0.8vw;
+  background-color: var(--blue);
+  border-radius: 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  img {
+      width: 2.4vw;
+      height: 2.4vw;
+  }
+  &:hover {
+      transform: scale(0.9);
+      cursor: pointer;
+  }
+}
+
+.Q_tag {
+  background-color: var(--grey); 
+  color: var(--blue); 
+  padding: 0.6vw 1vw; 
+  font-size: 1.1vw;
+  font-weight: bold;
+  text-transform: capitalize; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  border: 0.16vw solid var(--blue);
+}
+
+
+.Q_tag:hover {
+  background-color: var(--blue); 
+  color: var(--white); 
+}
+
+
+.Q_postsTitle {
+  color: var(--blue);
+}
+
+
+.Q_profileAvatar {
+  width: 12vw;
+  height: 12vw;
+  object-fit: cover;
+}
+.Q_profileStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4vw;
+  align-items: center;
+  
+  h3 {
+    font-size: 2.1vw;
+  }
+  h5 {
+    font-weight: normal;
+    color: var(--grey-dark);
+    opacity: 50%;
+  }
+
+}
+.Q_feedToggleBtn {
+  font-size: 2.1vw;
+  font-family: 'Raydis', sans-serif;
+  color: var(--grey-dark);
+  cursor: pointer;
+  transition: 0.3s ease;
+  opacity: 50%;
+  &.active {
+    color: var(--blue);
+    opacity: 100%;
+  }
+}
+
+
+.Q_footerLogo {
+  color: var(--white);
+  font-family: 'Raydis', sans-serif;
+  font-size: 4vw;
+  margin-top: 1vw;
+}
+.Q_footerBtn {
+  color: var(--white);
+  border: 0.16vw solid var(--white);
+  margin-right: 1.2vw;
+  background-color: var(--orange);
+  padding: 0 1.2vw;
+  font-size: 1vw;
+  line-height: 1.6vw;
+  &.activePage {
+    color: var(--orange);
+    background-color: var(--white);
+    border: 0.16vw solid var(--white);
+  }
+}
+.Q_tumbaLegs {
+  position: absolute;
+  background-color: var(--orange);
+  width: 6.4vw;
+  height: 1.2vw;
+  bottom: -1.2vw;
+  left: 0vw;
+  &:last-of-type {
+    left: auto;
+    right: 0;
+  }
+}

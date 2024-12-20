@@ -1,0 +1,125 @@
+.W_menuActions {
+    display: flex;
+    flex-direction: row;
+    height: 5vw;
+    width: auto;
+}
+.W_postHead {
+    height: 5vw;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.W_postSocActions {
+    display: flex;
+    flex-direction: row;
+}
+.W_itemContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    h5 {
+        color: var(--white);
+        background-color: var(--orange);
+        padding: 1vw 1.6vw;
+
+    }
+    img {
+        border-radius: 100%;
+        width: 2.1vw;
+        height: 2.1vw;
+        margin-right: 0.6vw;
+        object-fit: cover;
+    }
+}
+
+.W_commentActions {
+    margin-top: 1.8vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    h6 {
+        color: var(--grey-dark);
+    }
+}
+.W_commentator {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.W_postInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3.4vw;
+}
+
+/* Исходное положение меню - скрытое */
+.W_dropdownProfileMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    top: 4.73vw;
+    right: -0.16vw;
+    width: 17.6vw;
+    background-color: var(--white);
+    border: 0.16vw solid var(--orange);
+    padding: 1.2vw;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Меню в открытом состоянии */
+.W_dropdownProfileMenu.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+.A_dropdownMenuBlock {
+    .W_userActions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2vw;
+        a {
+            font-size: 1.2vw;
+        }
+    }
+}
+
+
+.W_profileStatistics {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1.6vw;
+    img {
+        height: 3.4vw;
+      }
+}
+
+.W_feedToggle {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 3.6vw;
+    margin-bottom: 3.6vw;
+}
+
+
+.W_footerContent {
+    display: flex;
+    gap: 6.2vw;
+}
+.W_footerBtns, .W_footerLinks {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}

@@ -4,12 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts
-  has_many :items
-  has_many :comments
-  has_many :likes
+  has_one :profile, dependent: :destroy
+  after_create :create_default_profile
 
-  has_one :profile
-  after_create :create_profile
+  private
 
+  def create_default_profile
+    self.create_profile!(
+      username: "user_#{self.id}",
+      avatar_url: "default_avatar_url", # Укажите реальный URL аватара по умолчанию
+      name: "New User"
+    )
+  end
 end

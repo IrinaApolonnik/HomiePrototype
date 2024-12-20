@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Homie" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <head>
+        <title><%= content_for(:title) || "Homie" %></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
 
-    <%= yield :head %>
+        <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+        <link rel="manifest" href="/manifest.json">
+        <link rel="icon" href="/icon.png" type="image/png">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/icon.png">
+        <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+        <%= javascript_importmap_tags %>
+    </head>
 
-  <body>
-    <p style="color: red" class="systemMessage"><%= alert %></p>
-    <p style="color: green" class="systemMessage"><%= notice %></p>
-    
-    <%= render "menubar" %>
+    <body>
 
-    <%= yield %>
+        
+        <p style="color: red" class="systemMessage"><%= alert %></p>
+        <p style="color: green" class="systemMessage"><%= notice %></p>
+        
+        <%= render "menubar" %>
 
-    <%= render "footer" %>
-  </body>
+        <%= yield %>
+
+        <%= render "footer" %>
+    </body>
+
 </html>

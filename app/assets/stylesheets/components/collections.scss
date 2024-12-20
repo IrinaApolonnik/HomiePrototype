@@ -1,0 +1,45 @@
+.C_postItems {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.4vw ;
+    margin-top: 9vw;
+}
+
+.C_postCommentFeed {
+    position: relative;
+    width: 46.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 8vw;
+    background-color: var(--grey);
+    padding: 3.6vw;
+}
+
+.C_commentReplies {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+}
+
+#C_postsFeed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3.6vw;
+}
+.C_popularPosts {
+    display: flex;
+    flex-direction: row;
+    gap: 3.6vw;
+}
+.C_profileFeed {
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3.6vw;
+    &.active {
+        display: flex;
+    }
+}

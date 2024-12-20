@@ -1,31 +1,66 @@
-<nav class="menuBar">
-    <div class="menuActions">
+<nav class="S_menuBar">
+    <%= link_to "TUMBA", root_url, class: 'Q_menuLogo' %>
+
+  <div class="W_menuActions">
         <% if user_signed_in? %>
-            <%= link_to "Главная", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-            <%= link_to "Мои посты", my_posts_posts_path, class: [current_page?(my_posts_posts_path) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-        <% else %>
-            <%= link_to "Просмотреть", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-        <% end %>
-        <% if can? :create, Post %>
-            <%= link_to "Создать", new_post_path, class: [current_page?(new_post_path) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-        <% end %>
-
-        <% if user_signed_in? && current_user.admin? %>
-            <%= link_to "Товары", items_url, class: [current_page?(items_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-            <%= link_to "Подписки", admin_subscriptions_url, class: [current_page?(admin_subscriptions_url) ? 'activePage' : 'inactivePage', 'menuButton'] %>
-        <% end %>
-    </div>
-
-
-    <div class="userActions">
-        <% if user_signed_in? %>
-            <%= link_to "Выйти из аккаунта", destroy_user_session_path, data: { "turbo-method": :delete }, class: "menuSmallButton" %>
-            <%= link_to edit_user_registration_path, class: "menuAccountButton" do %>
-                <img src="<%= current_user.avatar_url %>" alt="Avatar" class="avatarImg">
+            <% if can?(:create, Post) %>
+                <%= link_to new_post_path, class: [current_page?(new_post_path) ? 'activePage' : 'inactivePage', 'A_menuButton'] do %>
+                    <img src="<%= asset_path('menu/plusIcon.svg') %>" alt="Создать" class="Q_menuIcon">
+                <% end %>
             <% end %>
-        <% else %>
-            <%= link_to "Войти", new_user_session_path, class: [current_page?(new_user_session_path) ? 'activePage' : 'inactivePage', 'guestActionBtn'] %>
-            <%= link_to "Регистрация", new_user_registration_path, class: [current_page?(new_user_registration_path) ? 'activePage' : 'inactivePage', 'guestActionBtn'] %>
-        <% end %>
-    </div>
+            <%= link_to root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'A_menuButton'] do %>
+                <img src="<%= asset_path('menu/homeIcon.svg') %>" alt="Главная" class="Q_menuIcon">
+            <% end %>
+
+        <div class="dropdown">
+            <div class="<%= current_page?(my_posts_posts_path) ? 'activePage' : 'inactivePage' %> A_menuButton">
+                <%= link_to my_posts_posts_path, class: ['Q_menuAvatar'] do %>
+                    <img src="<%= current_profile.avatar_url %>" alt="Avatar" class="Q_menuAvatar">
+                <% end %>
+                <button class="Q_dropdownBtn">
+                    <img src="<%= asset_path('menu/arrowDownIcon.svg') %>" alt="Меню" class="Q_menuIcon">
+                </button>
+            </div>
+
+            <div class="W_dropdownProfileMenu">
+                <div class="A_dropdownMenuBlock">
+                    <h6>Аккаунты</h6>
+                    <div class="C_menuUsers">
+                        <div class="A_menuUser active">
+                            <img class="Q_avatarImg" src="<%= current_profile.avatar_url %>" alt="">
+                            <div>
+                                <h5><%= current_profile.name %></h5>
+                                <h6><%= current_profile.username %></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="A_dropdownMenuBlock ">
+                    <h6>Дополнительно</h6>
+                    <div class="W_userActions">
+                        <%= link_to "Настройки", edit_user_registration_path, class: "Q_dropdownItem" %>
+                        <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete }, class: "Q_dropdownItem" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% else %>
+        <div class="dropdown">
+            <div class="<%= current_page?(my_posts_posts_path) ? 'activePage' : 'inactivePage' %> A_menuButton">
+                <button class="Q_dropdownBtn">
+                    <img src="<%= asset_path('menu/userIcon.svg') %>" alt="Меню" class="Q_menuIcon">
+                </button>
+            </div>
+
+            <div class="W_dropdownProfileMenu">
+                <div class="A_dropdownMenuBlock ">
+                    <div class="W_userActions">
+                        <%= link_to "Войти", new_user_session_path, class: "Q_dropdownItem" %>
+                        <%= link_to "Регистрация", new_user_registration_path, class: "Q_dropdownItem" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+  </div>
 </nav>

@@ -1,77 +1,117 @@
+/* Arimo ------------------------------------ */
 @font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica.eot');
-    src: local('Helvetica'),
-        url('Helvetica.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica.woff2') format('woff2'),
-        url('Helvetica.woff') format('woff'),
-        url('Helvetica.ttf') format('truetype');
+    font-family: 'Arimo';
+    src: url('Arimo-Regular.eot');
+    src: local('Arimo Regular'), local('Arimo-Regular'),
+        url('Arimo-Regular.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-Regular.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-Regular.woff') format('woff'),
+        url('Arimo-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica-Oblique.eot');
-    src: local('Helvetica Oblique'), local('Helvetica-Oblique'),
-        url('Helvetica-Oblique.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica-Oblique.woff2') format('woff2'),
-        url('Helvetica-Oblique.woff') format('woff'),
-        url('Helvetica-Oblique.ttf') format('truetype');
+    font-family: 'Arimo';
+    src: url('Arimo-SemiBoldItalic.eot');
+    src: local('Arimo SemiBold Italic'), local('Arimo-SemiBoldItalic'),
+        url('Arimo-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-SemiBoldItalic.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-SemiBoldItalic.woff') format('woff'),
+        url('Arimo-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arimo';
+    src: url('Arimo-SemiBold.eot');
+    src: local('Arimo SemiBold'), local('Arimo-SemiBold'),
+        url('Arimo-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-SemiBold.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-SemiBold.woff') format('woff'),
+        url('Arimo-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arimo';
+    src: url('Arimo-MediumItalic.eot');
+    src: local('Arimo Medium Italic'), local('Arimo-MediumItalic'),
+        url('Arimo-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-MediumItalic.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-MediumItalic.woff') format('woff'),
+        url('Arimo-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arimo';
+    src: url('Arimo-Medium.eot');
+    src: local('Arimo Medium'), local('Arimo-Medium'),
+        url('Arimo-Medium.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-Medium.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-Medium.woff') format('woff'),
+        url('Arimo-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Arimo';
+    src: url('Arimo-Italic.eot');
+    src: local('Arimo Italic'), local('Arimo-Italic'),
+        url('Arimo-Italic.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-Italic.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-Italic.woff') format('woff'),
+        url('Arimo-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica-BoldOblique.eot');
-    src: local('Helvetica Bold Oblique'), local('Helvetica-BoldOblique'),
-        url('Helvetica-BoldOblique.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica-BoldOblique.woff2') format('woff2'),
-        url('Helvetica-BoldOblique.woff') format('woff'),
-        url('Helvetica-BoldOblique.ttf') format('truetype');
+    font-family: 'Arimo';
+    src: url('Arimo-BoldItalic.eot');
+    src: local('Arimo Bold Italic'), local('Arimo-BoldItalic'),
+        url('Arimo-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-BoldItalic.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-BoldItalic.woff') format('woff'),
+        url('Arimo-BoldItalic.ttf') format('truetype');
     font-weight: bold;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica-Light.eot');
-    src: local('Helvetica Light'), local('Helvetica-Light'),
-        url('Helvetica-Light.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica-Light.woff2') format('woff2'),
-        url('Helvetica-Light.woff') format('woff'),
-        url('Helvetica-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica-Bold.eot');
-    src: local('Helvetica Bold'), local('Helvetica-Bold'),
-        url('Helvetica-Bold.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica-Bold.woff2') format('woff2'),
-        url('Helvetica-Bold.woff') format('woff'),
-        url('Helvetica-Bold.ttf') format('truetype');
+    font-family: 'Arimo';
+    src: url('Arimo-Bold.eot');
+    src: local('Arimo Bold'), local('Arimo-Bold'),
+        url('Arimo-Bold.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/Arimo-Bold.woff2') format('woff2'),
+        url('https://example.com/fonts/Arimo-Bold.woff') format('woff'),
+        url('Arimo-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
+/* Raydis ------------------------------------ */
 @font-face {
-    font-family: 'Helvetica';
-    src: url('Helvetica-LightOblique.eot');
-    src: local('Helvetica Light Oblique'), local('Helvetica-LightOblique'),
-        url('Helvetica-LightOblique.eot?#iefix') format('embedded-opentype'),
-        url('Helvetica-LightOblique.woff2') format('woff2'),
-        url('Helvetica-LightOblique.woff') format('woff'),
-        url('Helvetica-LightOblique.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
+    font-family: 'Raydis';
+    src: url('RAYDIS.eot');
+    src: local('Raydis'), local('Raydis-Regular'),
+        url('RAYDIS.eot?#iefix') format('embedded-opentype'),
+        url('https://example.com/fonts/RAYDIS.woff2') format('woff2'),
+        url('https://example.com/fonts/RAYDIS.woff') format('woff'),
+        url('RAYDIS.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
     font-display: swap;
 }

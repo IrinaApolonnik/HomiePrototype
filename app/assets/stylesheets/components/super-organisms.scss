@@ -1,0 +1,66 @@
+.S_menuBar {
+    position: fixed;
+    top: 1.6vw;
+    width: 95.75vw;
+    height: 5vw;
+    z-index: 50;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white);
+    border: 0.16vw solid var(--orange);
+}
+.S_postContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.S_postComments {
+    display: flex;
+    flex-direction: column;
+    width: 56vw;
+    align-items: center;
+    gap: 1.2vw;
+    margin-top: 5.6vw;
+}
+
+.S_popularPosts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 3.6vw;
+    margin: 0.8vw 0 5.6vw 0;
+}
+.S_posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 3.6vw;
+    margin: 0.8vw 0 5.6vw 0;
+}
+
+.S_profileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2.4vw 0 6.2vw 0;
+    gap: 3.6vw;
+}
+
+.S_footer {
+    width: 100%;
+    background-color: var(--orange);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2.2vw 2.6vw;
+    margin: 5.6vw 0 1.2vw 0;
+    position: relative;
+}
+
+
+  

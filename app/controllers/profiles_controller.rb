@@ -1,70 +1,73 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_profile, only: %i[show edit update destroy]
+  before_action :authorize_admin!, except: %i[index show]
 
-  # GET /profiles or /profiles.json
+  # GET /profiles
+  # Администратор или публичный доступ к списку всех профилей
   def index
     @profiles = Profile.all
   end
 
-  # GET /profiles/1 or /profiles/1.json
+  # GET /profiles/1
+  # Просмотр профиля (доступен всем)
   def show
   end
 
   # GET /profiles/new
+  # Только для администратора
   def new
     @profile = Profile.new
   end
 
   # GET /profiles/1/edit
+  # Только для администратора
   def edit
   end
 
-  # POST /profiles or /profiles.json
+  # POST /profiles
+  # Создание профиля (только администратор)
   def create
     @profile = Profile.new(profile_params)
 
-    respond_to do |format|
-      if @profile.save
-        format.html { redirect_to @profile, notice: "Profile was successfully created." }
-        format.json { render :show, status: :created, location: @profile }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
-      end
+    if @profile.save
+      redirect_to @profile, notice: "Профиль успешно создан."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /profiles/1 or /profiles/1.json
+  # PATCH/PUT /profiles/1
+  # Обновление профиля (только администратор)
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: "Profile was successfully updated." }
-        format.json { render :show, status: :ok, location: @profile }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
-      end
+    if @profile.update(profile_params)
+      redirect_to @profile, notice: "Профиль успешно обновлен."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /profiles/1 or /profiles/1.json
+  # DELETE /profiles/1
+  # Удаление профиля (только администратор)
   def destroy
     @profile.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to profiles_path, status: :see_other, notice: "Profile was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to profiles_path, status: :see_other, notice: "Профиль успешно удален."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def profile_params
-      params.require(:profile).permit(:user_id, :name, :bio, :avatar)
-    end
+  # Поиск профиля
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+  # Разрешенные параметры
+  def profile_params
+    params.require(:profile).permit(:user_id, :name, :bio, :avatar)
+  end
+
+  # Проверка административных прав
+  def authorize_admin!
+    redirect_to root_path, alert: "У вас нет прав для выполнения этого действия." unless current_user.admin?
+  end
 end

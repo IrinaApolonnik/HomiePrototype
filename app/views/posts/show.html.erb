@@ -1,77 +1,63 @@
+<div class="S_postContent">
+  <div class="O_postImages">
+    <img class="Q_postCover" src="<%= @post.image_url %>" alt="Post cover">
+  </div>
+  <div class="O_postInfo">
+    <div class="W_postHead">
+      <div class="A_showPostCreator">
+        <img class="Q_avatarImg" src="<%= @post.profile.avatar_url %>" alt="Creator Avatar">
+        <div>
+          <h4><%= @post.profile.name %></h4>
+          <h6><%= @post.profile.username %></h6>
+        </div>
+      </div>
+      <div class="W_postSocActions">
+        <%= render partial: "like/button", locals: { likeable: @post } %>
 
-
-
-<h1 class="postTitle"> <%= @post.title %> </h1>
-
-<div class="postShow">
-  <div class="postCover", style="background-image: url('<%= @post.image_url %>');">
-    <div class="postCreator" >
-      <img class="avatarImg" src="<%= @post.user.avatar_url %>" alt="">
-      <div>
-        <h5><%= @post.user.profile_name %></h5>
-        <h6><%= @post.user.username %></h6>
+        <% if can? :manage, @post %>
+          <%= link_to edit_post_path(@post), class: "Q_actionPostBtn" do %>
+            <img src="<%= asset_path('edit.png') %>" alt="Edit">
+          <% end %>
+          <%= button_to post_path(@post), method: :delete, class: "Q_actionPostBtn", data: { confirm: "Вы уверены?" } do %>
+            <img src="<%= asset_path('delete.png') %>" alt="Delete">
+          <% end %>
+        <% end %>
       </div>
     </div>
-  </div>
-  <div class="postInfo">
-    <div class="dateAndActions">
-      <h6 class="createdAt"> <%= @post.created_at.strftime("%d.%m.%Y") %> </h6>
-      <% if can? :manage, @post %>
-        <div class="postActions">
-          <%= link_to edit_post_path(@post), class: "actionButton" do %>
-            <img src="<%= asset_path('edit.png') %>" alt="Edit" class="actionIcon">
-          <% end %>
-          <%= button_to post_path(@post), method: :delete, class: "actionButton", data: { confirm: "Are you sure?" } do %>
-            <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+    <div class="W_postInfo">
+      <h2 class="Q_postTitle"><%= @post.title %></h2>
+      <% if @post.tag_list.any? %>
+        <div class="C_postTags">
+          <% @post.tag_list.each do |tag| %>
+            <span class="Q_tag"><%= tag %></span>
           <% end %>
         </div>
       <% end %>
-      <div>
-        <%= @post.likes.count %>
-        <%
-          likes_count = @post.likes.count
-          like_text = "Like (#{likes_count})"
-
-          if current_user && @post.likes.where(user_id: current_user.id).count > 0
-            like_text = "Unlike (#{likes_count})"
-          end
-        %>
-        <%= render partial: "like/button", locals: { likeable: @post } %>
-      </div>
-    </div>
-    <div>
-      Tags: <%= @post.tag_list %>
-    </div>
-    <h2>Описание</h2>
-    <p class="postDescription"> <%= @post.description %> </p>
-    <h2>Товары</h2>
-    <div class="postItems">
-      <%= render @post.items %>
+      <p class="Q_postDescription"><%= @post.description %></p>
     </div>
   </div>
 </div>
-  
-    
-<div class="backToPosts">
-  <%= link_to "⬅", posts_path %>
+
+<div class="C_postItems">
+  <%= render @post.items %>
 </div>
 
-<div class="postComments">
-  <h2>Комментарии</h2>
-  <h6 class="commentCounter"> <%= @post.comments.size %> комментариев </h6>
-  <div class="postCommentFeed">
+<div class="S_postComments">
+  <h2 class="Q_commentsHeader">Комментарии</h2>
+  <h5 class="Q_commentCounter">
+    <%= "#{@post.comments.size} #{Russian.p(@post.comments.size, 'комментарий', 'комментария', 'комментариев')}" %>
+  </h5>
+  <div class="C_postCommentFeed">
     <% if @post.comments.any? %>
-      <%= render @post.comments %>
+      <%# Только комментарии верхнего уровня, остальные будут вложенными %>
+      <%= render @post.comments.not_replies %>
     <% else %>
       <h5>Пока нет комментариев.</h5>
     <% end %>
   </div>
-  <% if can? :create, Comment %> 
+  <% if can? :create, Comment %>
     <div class="addPostComment">
-      <%= render "comments/form" %> 
+      <%= render "comments/form", locals: { parent_comment_id: nil } %>
     </div>
   <% end %>
 </div>
-
-
-

@@ -1,44 +1,54 @@
 Rails.application.routes.draw do
-  get "like/toggle"
-  
-  resources :profiles
-  devise_for :users
+  # Лайки
+  post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
-  get 'posts/my_posts', to: 'posts#my_posts', as: :my_posts_posts
-  resources :posts
-  resources :items
-  resources :users, only: [:show]
-  resources :posts do
-    resources :comments, only: [:create, :destroy]
-    collection do
-      get "by_tag/:tag", to: "posts#by_tag", as: "tagged"
+  # Профили и пользователи
+  resources :profiles, only: [:show, :edit, :update, :index] do
+    member do
+      get "posts", to: "profiles#posts", as: "posts"
     end
   end
-  resources :subscriptions, only: [:create]
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
-  namespace :admin do
-    resources :subscriptions
+  # Посты
+  resources :posts do
+    resources :comments, only: [:create, :destroy] do
+      member do
+        post "reply", to: "comments#reply", as: "reply"
+      end
+    end
+
+    collection do
+      get "by_tag/:tag", to: "posts#by_tag", as: "tagged"
+      get "my_posts", to: "posts#my_posts", as: "my_posts"
+    end
   end
 
+  # Предметы
+  resources :items, only: [:index, :show, :create, :update, :destroy]
+
+  # Подписки
+  resources :subscriptions, only: [:create, :destroy]
+  namespace :admin do
+    resources :subscriptions, only: [:index, :destroy]
+  end
+
+  # API
   namespace :api, format: "json" do
     namespace :v1 do
       resources :posts, only: [:index, :show]
     end
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # PWA и здоровье приложения
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  # Страницы приветствия
+  get "welcome/index", as: "welcome_index"
+  get "welcome/about", as: "welcome_about"
 
-  get "welcome/index"
-  get "welcome/about"
-
-  # Defines the root path route ("/")
+  # Корневой маршрут
   root "posts#index"
 end

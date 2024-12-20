@@ -1,6 +1,26 @@
-<footer> 
-    <div class="projectInfo">
-    <h5>2024/2025</h5>
-    <h1>homie</h1>
+<footer class="S_footer"> 
+    <%= link_to "TUMBA", root_url, class: 'Q_footerLogo' %>
+    <div class="W_footerContent">
+        <div class="W_footerBtns">
+            <%= link_to "О нас", welcome_about_path, class: [current_page?(welcome_about_path) ? 'activePage' : 'inactivePage', 'Q_footerBtn'] %>
+            <%= link_to "Главная", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'Q_footerBtn'] %>
+        </div>
+        <div class="W_footerLinks">
+            <div class="A_footerSocials">
+                <h6>Соц-сети</h6>
+                <div>
+                    <img src="<%= asset_path('footer/dzenIcon.svg') %>" alt="Дзен">
+                    <img src="<%= asset_path('footer/vkIcon.svg') %>" alt="ВК">
+                </div>
+            </div>
+            <div class="A_footerApp">
+                <h6>Приложение</h6>
+                <div>
+                    <img src="<%= asset_path('footer/appQR.svg') %>" alt="qr">
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="Q_tumbaLegs"></div>
+    <div class="Q_tumbaLegs"></div>
 </footer>

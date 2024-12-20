@@ -1,29 +1,76 @@
-<h2>Sign up</h2>
+<section class="S_firstRegistrationStep">
+  <h3 class="Q_regNumber">1</h3>
+  <h3 class="Q_regTitle">Регистрация</h3>
+  <p class="Q_regDescription">Заполните данные<br>для создания аккаунта</p>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="C_regInputs">
+      <!-- Поле для почты -->
+      <div class="A_regInputField">
+        <%= f.label :email, "Почта", class: "Q_regLabel" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_regInput" %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <!-- Поле для пароля -->
+      <div class="A_regInputField">
+        <%= f.label :password, "Пароль", class: "Q_regLabel" %>
+        <% if @minimum_password_length %>
+          <small class="Q_regHint">(<%= @minimum_password_length %> символов минимум)</small>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "Q_regInput" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <!-- Поле для подтверждения пароля -->
+      <div class="A_regInputField">
+        <%= f.label :password_confirmation, "Подтверждение пароля", class: "Q_regLabel" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "Q_regInput" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="C_regActions">
+      <!-- Кнопка "Продолжить" -->
+      <button type="button" class="Q_regButton Q_regContinue" data-next-step="2">Продолжить</button>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <!-- Кнопка "Отменить" -->
+      <%= link_to "Отменить", root_path, class: "Q_regButton Q_regCancel" %>
+    </div>
+  <% end %>
+</section>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+<section class="S_secondRegistrationStep">
+  <h3 class="Q_regNumber">2</h3>
+  <h3 class="Q_regTitle">Расскажите о себе</h3>
+  <p class="Q_regDescription">Давайте познакомимся!<br>Заполните анкету:</p>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
+    <%= f.fields_for :profile do |pf| %>
+      <div class="C_regInputs">
+        <!-- Поле для Фото -->
+        <div class="A_regAvatar">
+          <%= pf.label :avatar_url, "Ваше фото", class: "Q_regLabel" %>
+          <%= pf.file_field :avatar_url, class: "Q_regInput" %>
+        </div>
 
-<%= render "devise/shared/links" %>
+        <!-- Поле для Имени -->
+        <div class="A_regInputField">
+          <%= pf.label :name, "Имя", class: "Q_regLabel" %>
+          <%= pf.text_field :name, class: "Q_regInput", placeholder: "Введите ваше имя" %>
+        </div>
+
+        <!-- Поле для Никнейма -->
+        <div class="A_regInputField">
+          <%= pf.label :username, "Никнейм", class: "Q_regLabel" %>
+          <%= pf.text_field :username, class: "Q_regInput", placeholder: "Введите никнейм" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="C_regActions">
+      <!-- Кнопка "Зарегистрироваться" -->
+      <%= f.submit "Зарегистрироваться", class: "Q_regButton Q_regSubmit" %>
+
+      <!-- Кнопка "Пропустить" -->
+      <%= link_to "Пропустить", root_path, class: "Q_regButton Q_regSkip" %>
+    </div>
+  <% end %>
+</section>

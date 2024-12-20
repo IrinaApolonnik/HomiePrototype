@@ -1,11 +1,35 @@
-<% content_for :title, "Homie" %>
-
-<div id="postsFeed">
-  <% @posts.each do |post| %>
-      <%= link_to post, class: "post-link" do %>
-      <%= render partial: "posts/post", object: post %>
+<% content_for :title, "TUMBA" %>
+<div class="S_popularPosts">
+  <h2 class="Q_postsTitle">Популярное</h2>
+    <% if @popular_posts.present? %>
+      <div class="C_popularPosts" data-cards>
+        <% @popular_posts.each do |post| %>
+          <%= link_to post_path(post), class: "post-link" do %>
+            <%= render partial: "posts/post", locals: { post: post } %>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>Пока нет популярных постов.</p>
     <% end %>
-  <% end %>
+  <div class="A_popularPostsNav">
+    <button class="nav-btn Q_prevBtn" data-prev>
+      <img src="<%= asset_path('previousArrow.svg') %>" alt="Previous">
+    </button>
+    <button class="nav-btn Q_nextBtn" data-next>
+      <img src="<%= asset_path('nextArrow.svg') %>" alt="Next">
+    </button> 
+  </div>
+</div>
+<div class="S_posts">
+  <h2 class="Q_postsTitle">Все</h2>
+  <div id="C_postsFeed">
+    <% @posts.each do |post| %>
+      <%= link_to post_path(post), class: "post-link" do %>
+        <%= render partial: "posts/post", locals: { post: post } %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 

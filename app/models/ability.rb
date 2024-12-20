@@ -1,43 +1,24 @@
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the user here. For example:
+    # Дефолтные права для гостей (неавторизованных пользователей)
+    can :read, Post, public: true # Гости могут видеть только публичные посты
+    can :read, Item               # Гости могут видеть все товары
+    can :read, Comment            # Гости могут видеть все комментарии
+    can :create, Subscription     # Гости могут подписываться
+
+    # Права для авторизованных пользователей
+    return unless user.present? # Если пользователь авторизован:
     
-    # Гости могут только просматривать посты, товары и комментарии
-    can :read, Post, public: true
-    can :read, Item
-    can :read, Comment
-    can :create, Subscription
+    # Пользователь может:
+    can :manage, Post, profile: user.profile # Управлять своими постами
+    can :manage, Item, profile: user.profile # Управлять своими товарами
+    can :create, Comment                     # Создавать комментарии
+    can :destroy, Comment, profile: user.profile # Удалять свои комментарии
 
-    # Авторизованные пользователи могут управлять только своими постами, товарами и комментариями
-    return unless user.present?
-      can :manage, Post, user: user
-      can :manage, Item, user: user
-      can :create, Comment
-      can :destroy, Comment, user: user
-
-    # Администраторы могут управлять всем
-    return unless user.admin?
-      can :manage, :all
-
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, published: true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
+    # Дополнительные права для администраторов
+    return unless user.admin? # Если пользователь администратор:
+    can :manage, :all         # Администратор может управлять всем
   end
 end
