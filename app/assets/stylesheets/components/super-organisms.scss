@@ -71,7 +71,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2.4vw;
-    margin-top: -5.6vw;
+    margin-top: -6.6vw;
 }
 .S_secondRegistrationStep {
     position: absolute;
@@ -83,7 +83,7 @@
     align-items: center;
     gap: 2.4vw;
     left: 100vw;
-    margin-top: -5.6vw;
+    margin-top: -6.6vw;
     margin-left: -1.2vw;
     transition: 0.3s ease;
 }
@@ -93,6 +93,15 @@
 /* Анимация выезда второй секции */
 .S_secondRegistrationStep.slide-in {
     transform: translateX(-100vw); /* Въезд на экран */
+}
+
+
+.S_addItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4vw;
 }
 
 

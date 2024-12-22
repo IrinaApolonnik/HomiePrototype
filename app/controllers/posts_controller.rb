@@ -3,20 +3,24 @@ class PostsController < ApplicationController
 
   # Для страницы с подборками
   def index
-    if current_user&.admin?
+    if user_signed_in? && current_user.admin?
       # Администратор видит все посты
       @posts = Post.all
+    elsif user_signed_in?
+      # Авторизованные пользователи видят свои и публичные посты
+      @posts = Post.where(public: true).or(Post.where(profile: current_user.profile))
     else
       # Гости видят только публичные посты
       @posts = Post.where(public: true)
     end
-
+  
     @popular_posts = Post.left_joins(:likes)
+                         .where(public: true)
                          .group(:id)
                          .order('COUNT(likes.id) DESC')
                          .limit(12) # Общее количество популярных постов
   end
-
+  
   def by_tag
     @posts = Post.tagged_with(params[:tag])
     render :index

@@ -29,6 +29,11 @@ h4 {
     font-weight: bold;
     font-size: 1.4vw; 
 }
+h3 {
+    font-size: 2vw;
+    font-weight: bold;
+    letter-spacing: 0.05vw;
+}
 h5 {
     font-weight: bold;
     font-size: 1.2vw;
@@ -71,6 +76,9 @@ button {
     background-color: var(--white); */
     animation: fadeOut 2s ease-out forwards;
 }
+.hidden {
+    display: none;
+  }
 
 
 /* Меню ---------------------------------------------- */

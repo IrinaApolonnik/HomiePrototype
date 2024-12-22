@@ -40,10 +40,12 @@
   
   <%= form_for(@profile || Profile.new, url: profiles_path, html: { multipart: true, data: { remote: true } }) do |f| %>
     <div class="C_regInputs">
-      <!-- Поле для Фото -->
-      <div class="A_regAvatar">
-        <%= f.label :avatar, "Ваше фото", class: "Q_regLabel" %>
-        <%= f.file_field :avatar_url, class: "Q_regInput" %>
+      <div class="A_uploadAvatar">
+        <label for="avatar_upload" class="Q_avatarPreview">
+          <span class="placeholder">+</span>
+          <img src="" alt="Avatar Preview" class="Q_avatarImgUpload hidden" />
+        </label>
+        <%= f.file_field :avatar_url, id: "avatar_upload", class: "hidden" %>
       </div>
 
       <!-- Поле для Имени -->

@@ -303,7 +303,7 @@
   text-align: center;
   font-size: 1.2vw;
 }
-.Q_regButton, .Q_logInButton {
+.Q_regButton, .Q_logInButton, .Q_addItemButton {
   width: 24vw;
   display: flex;
   flex-direction: column;
@@ -311,14 +311,26 @@
   font-size: 1.2vw;
   padding: 1.4vw;
   cursor: pointer;
+  &[type="submit"].disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:active, &:focus {
+    border: none;
+    outline: none;
+  }
 }
-.Q_regSubmit, .Q_logInSubmit{
+.Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit{
   background-color: var(--blue);
   color: var(--white);
   margin-top: 2.4vw;
   border: none;
 }
-.Q_regCancel, .Q_regRedirect {
+.Q_regButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.Q_regSkip, .Q_regRedirect, .Q_additemCancel {
   opacity: 50%;
   margin-top: 0.6vw;
 }
@@ -352,4 +364,38 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.Q_addItemTitle {
+  color: var(--blue);
+}
+
+
+.Q_avatarPreview{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--medium-grey);
+  opacity: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease; 
+  span {
+    font-size: 2vw;
+    color: var(--white);
+  }
+  &:hover {
+    opacity: 80%;
+  }
+}
+
+.Q_avatarImgUpload {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

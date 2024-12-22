@@ -15,6 +15,31 @@ function cardsAppear() {
         element.classList.add("slideUpAppear");
     });
 }
+//Загрузка аватара
+function addAvatar() {
+    const fileInput = document.getElementById("avatar_upload");
+    const avatarPreview = document.querySelector(".Q_avatarPreview");
+    const avatarImage = avatarPreview.querySelector(".Q_avatarImgUpload");
+    const placeholder = avatarPreview.querySelector(".placeholder");
+  
+    if (fileInput) {
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+  
+        if (file) {
+          const reader = new FileReader();
+  
+          reader.onload = (e) => {
+            avatarImage.src = e.target.result; // Устанавливаем выбранное изображение
+            avatarImage.classList.remove("hidden");
+            placeholder.classList.add("hidden"); // Скрываем плюсик
+          };
+  
+          reader.readAsDataURL(file); // Читаем файл как URL
+        }
+      });
+    }
+}
 
 // Выпадающее меню
 function dropdownMenu() {
@@ -35,15 +60,20 @@ function dropdownMenu() {
 }
 // Обработка первой секции регистрации
 function regSection() {
-    const registrationForm = document.querySelector(".S_firstRegistrationStep form");
+    const registrationFormSelector = ".S_firstRegistrationStep form";
+
+    toggleSubmitButtonState(registrationFormSelector); // Включаем логику управления кнопкой
+
+    const registrationForm = document.querySelector(registrationFormSelector);
 
     if (registrationForm) {
-        registrationForm.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Предотвращаем обычное поведение отправки формы
-            const formData = new FormData(registrationForm);
-            const submitButton = registrationForm.querySelector("button[type=submit]");
+        const submitButton = registrationForm.querySelector("input[type=submit]");
 
-            if (submitButton) submitButton.disabled = true;
+        registrationForm.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Предотвращаем стандартное поведение отправки
+            const formData = new FormData(registrationForm);
+
+            submitButton.disabled = true; // Блокируем кнопку во время отправки
 
             try {
                 const response = await fetch(registrationForm.action, {
@@ -59,7 +89,7 @@ function regSection() {
                     document.querySelector(".S_secondRegistrationStep").classList.add("slide-in");
                 }
             } finally {
-                if (submitButton) submitButton.disabled = false;
+                submitButton.disabled = false; // Разблокируем кнопку после завершения
             }
         });
     }
@@ -67,13 +97,17 @@ function regSection() {
 
 // Обработка второй секции регистрации (профиля)
 function profileSection() {
-    const profileForm = document.querySelector(".S_secondRegistrationStep form");
+    const profileFormSelector = ".S_secondRegistrationStep form";
+
+    toggleSubmitButtonState(profileFormSelector); // Включаем логику управления кнопкой
+
+    const profileForm = document.querySelector(profileFormSelector);
 
     if (profileForm) {
         profileForm.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Предотвращаем обычное поведение отправки формы
+            event.preventDefault();
             const formData = new FormData(profileForm);
-            const submitButton = profileForm.querySelector("button[type=submit]");
+            const submitButton = profileForm.querySelector("button[type=submit], input[type=submit]");
 
             if (submitButton) submitButton.disabled = true;
 
@@ -95,6 +129,28 @@ function profileSection() {
             }
         });
     }
+}
+
+function toggleSubmitButtonState(formSelector) {
+    const form = document.querySelector(formSelector);
+
+    if (!form) return;
+
+    const submitButton = form.querySelector("input[type=submit], button[type=submit]");
+    if (!submitButton) return;
+
+    // Функция проверки валидности формы
+    function checkFormValidity() {
+        const isValid = Array.from(form.querySelectorAll("input")).every((input) => input.value.trim() !== "");
+        submitButton.disabled = !isValid;
+        submitButton.classList.toggle("disabled", !isValid);
+    }
+
+    // Слушаем изменения в форме
+    form.addEventListener("input", checkFormValidity);
+
+    // Изначальная проверка при загрузке
+    checkFormValidity();
 }
 
 
@@ -285,7 +341,11 @@ document.addEventListener("turbo:load", () => {
     }
     cardsAppear();
     likeStates();
-    
+
     regSection();
     profileSection();
+    addAvatar();
+    toggleSubmitButtonState(".S_firstRegistrationStep form");
+    toggleSubmitButtonState(".S_secondRegistrationStep form");
+    
 });

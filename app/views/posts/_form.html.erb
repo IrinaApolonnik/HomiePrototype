@@ -1,37 +1,50 @@
-<%= form_with(model: @post) do |form| %>
-  <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<section class="S_addItem">
+  <h2 class="Q_addItemTitle">Создание поста</h2>
+  
+    <%= form_with(model: @post) do |form| %>
+      <% if post.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% post.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="C_addItemsInputs">
+        <%= form.label :image_url, style: "display: block" %>
+        <%= form.text_field :image_url %>
+      </div>
+      <div class="C_addItemsInputs">
+      <h3>Основное</h3>
+      <!-- Поле для названия -->
+      <div class="A_addItemInputField">
+        <%= form.label :title, class: "Q_addItemLabel" %>
+        <%= form.text_field :title, class: "Q_addItemInput" %>
+      </div>
+
+      <!-- Поле для описания -->
+      <div class="A_addItemInputField">
+        <%= form.label :description, class: "Q_addItemLabel" %>
+        <%= form.text_area :description, class: "Q_addItemInput" %>
+      </div>
+    </div>
+    <div class="C_addItemsInputs">
+      <h3>Теги</h3>
+      <!-- Поле для тегов -->
+      <div class="A_addItemInputField">
+        <%= form.label :tag_list, class: "Q_addItemLabel" %>
+        <%= form.text_field :tag_list, value: post.tag_list.join(", "), class: "Q_addItemInput" %>
+      </div>
+    </div>
+
+
+    <div class="C_addItemActions">
+      <!-- Кнопка "Войти" -->
+      <%= form.submit "Создать", class: "Q_addItemButton Q_addItemSubmit" %>
+      <%= link_to "отменить", root_url, class: "Q_addItemButton Q_additemCancel" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
-  </div>
-
-  <div>
-    <%= form.label :tag_list, style: "display: block" %>
-    <%= form.text_field :tag_list, value: post.tag_list.join(", ") %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>

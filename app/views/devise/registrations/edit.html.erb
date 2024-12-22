@@ -1,4 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -41,3 +41,40 @@
 <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
 
 <%= link_to "Back", :back %>
+
+
+
+<section class="S_addItem">
+  <h2 class="Q_addItemTitle">настройки аккаунта</h2>
+  
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="C_addItemsInputs">
+
+      </div>
+      <div class="C_addItemsInputs">
+      <h3>Основное</h3>
+      <!-- Поле для названия -->
+      <div class="A_addItemInputField">
+
+      </div>
+
+      <!-- Поле для описания -->
+      <div class="A_addItemInputField">
+
+      </div>
+    </div>
+    <div class="C_addItemsInputs">
+      <h3>Теги</h3>
+      <!-- Поле для тегов -->
+      <div class="A_addItemInputField">
+
+      </div>
+    </div>
+
+
+    <div class="C_addItemActions">
+      <!-- Кнопка "Войти" -->
+
+    </div>
+  <% end %>
+</section>

@@ -46,10 +46,25 @@
 .C_regInputs,.C_logInInputs {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1.2vw;
 }
-.C_regActions, .C_logInActions {
+.C_regActions, .C_logInActions, .C_addItemActions {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.C_addItemsInputs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    align-items: flex-start;
+    padding-top: 3.6vw;
+    margin-top: 2.4vw;
+    h3 {
+        position: absolute;
+        left: -16vw;
+        top: 0;
+    }
 }
