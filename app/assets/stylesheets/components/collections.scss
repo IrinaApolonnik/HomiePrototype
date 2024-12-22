@@ -43,3 +43,13 @@
         display: flex;
     }
 }
+.C_regInputs,.C_logInInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+}
+.C_regActions, .C_logInActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -3,20 +3,17 @@
   <h3 class="Q_regTitle">Регистрация</h3>
   <p class="Q_regDescription">Заполните данные<br>для создания аккаунта</p>
   
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, data: { turbo: false, remote: true } }) do |f| %>
     <div class="C_regInputs">
       <!-- Поле для почты -->
       <div class="A_regInputField">
-        <%= f.label :email, "Почта", class: "Q_regLabel" %>
+        <%= f.label :email, "Email", class: "Q_regLabel" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_regInput" %>
       </div>
 
       <!-- Поле для пароля -->
       <div class="A_regInputField">
         <%= f.label :password, "Пароль", class: "Q_regLabel" %>
-        <% if @minimum_password_length %>
-          <small class="Q_regHint">(<%= @minimum_password_length %> символов минимум)</small>
-        <% end %>
         <%= f.password_field :password, autocomplete: "new-password", class: "Q_regInput" %>
       </div>
 
@@ -28,11 +25,10 @@
     </div>
 
     <div class="C_regActions">
-      <!-- Кнопка "Продолжить" -->
-      <button type="button" class="Q_regButton Q_regContinue" data-next-step="2">Продолжить</button>
-
+      <!-- Кнопка "Зарегистрироваться" -->
+      <%= f.submit "Зарегистрироваться", class: "Q_regButton Q_regSubmit" %>
       <!-- Кнопка "Отменить" -->
-      <%= link_to "Отменить", root_path, class: "Q_regButton Q_regCancel" %>
+      <%= link_to "Отменить", root_path, class: "Q_regButton Q_regSkip" %>
     </div>
   <% end %>
 </section>
@@ -42,32 +38,30 @@
   <h3 class="Q_regTitle">Расскажите о себе</h3>
   <p class="Q_regDescription">Давайте познакомимся!<br>Заполните анкету:</p>
   
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
-    <%= f.fields_for :profile do |pf| %>
-      <div class="C_regInputs">
-        <!-- Поле для Фото -->
-        <div class="A_regAvatar">
-          <%= pf.label :avatar_url, "Ваше фото", class: "Q_regLabel" %>
-          <%= pf.file_field :avatar_url, class: "Q_regInput" %>
-        </div>
-
-        <!-- Поле для Имени -->
-        <div class="A_regInputField">
-          <%= pf.label :name, "Имя", class: "Q_regLabel" %>
-          <%= pf.text_field :name, class: "Q_regInput", placeholder: "Введите ваше имя" %>
-        </div>
-
-        <!-- Поле для Никнейма -->
-        <div class="A_regInputField">
-          <%= pf.label :username, "Никнейм", class: "Q_regLabel" %>
-          <%= pf.text_field :username, class: "Q_regInput", placeholder: "Введите никнейм" %>
-        </div>
+  <%= form_for(@profile || Profile.new, url: profiles_path, html: { multipart: true, data: { remote: true } }) do |f| %>
+    <div class="C_regInputs">
+      <!-- Поле для Фото -->
+      <div class="A_regAvatar">
+        <%= f.label :avatar, "Ваше фото", class: "Q_regLabel" %>
+        <%= f.file_field :avatar_url, class: "Q_regInput" %>
       </div>
-    <% end %>
+
+      <!-- Поле для Имени -->
+      <div class="A_regInputField">
+        <%= f.label :name, "Имя", class: "Q_regLabel" %>
+        <%= f.text_field :name, class: "Q_regInput", placeholder: "Введите ваше имя" %>
+      </div>
+
+      <!-- Поле для Никнейма -->
+      <div class="A_regInputField">
+        <%= f.label :username, "Никнейм", class: "Q_regLabel" %>
+        <%= f.text_field :username, class: "Q_regInput", placeholder: "Введите никнейм" %>
+      </div>
+    </div>
 
     <div class="C_regActions">
-      <!-- Кнопка "Зарегистрироваться" -->
-      <%= f.submit "Зарегистрироваться", class: "Q_regButton Q_regSubmit" %>
+      <!-- Кнопка "Продолжить" -->
+      <%= f.submit "Продолжить", class: "Q_regButton Q_regSubmit" %>
 
       <!-- Кнопка "Пропустить" -->
       <%= link_to "Пропустить", root_path, class: "Q_regButton Q_regSkip" %>

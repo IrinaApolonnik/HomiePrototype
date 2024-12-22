@@ -221,6 +221,7 @@ def create_sentence
 end
 
 # Создание пользователей
+# Создание пользователей
 def create_users(quantity)
   quantity.times do |i|
     user_data = {
@@ -228,26 +229,27 @@ def create_users(quantity)
       password: 'testtest'
     }
     user = User.create!(user_data)
-    user.profile.update!(
-      username: @usernames[i],
-      avatar_url: @avatars[i],
-      name: @names[i]
-    )
     puts "User created with id #{user.id}"
   end
 end
 
+# Создание профилей
 # Создание профилей
 def create_profiles
   User.all.each_with_index do |user, index|
     profile_data = {
       username: @usernames[index] || "user_#{index + 1}",
       avatar_url: @avatars[index] || "default_avatar_url",
-      name: @names[index] || "User #{index + 1}",
-      bio: "This is a bio for user #{index + 1}."
+      name: @names[index] || "User #{index + 1}"
     }
-    user.profile.update!(profile_data)
-    puts "Profile created for user with id #{user.id}"
+
+    if user.profile.present?
+      user.profile.update!(profile_data)
+      puts "Profile updated for user with id #{user.id}"
+    else
+      user.create_profile!(profile_data)
+      puts "Profile created for user with id #{user.id}"
+    end
   end
 end
 
@@ -328,3 +330,4 @@ def create_comment_replies
 end
 
 seed
+

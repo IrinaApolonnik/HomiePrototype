@@ -2,48 +2,59 @@ Rails.application.routes.draw do
   # Лайки
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
-  # Профили и пользователи
-  resources :profiles, only: [:show, :edit, :update, :index] do
+  # Профили
+  resources :profiles, only: %i[show edit update index create] do
     member do
-      get "posts", to: "profiles#posts", as: "posts"
+      get "posts", to: "profiles#posts", as: "posts" # Посты пользователя
+      delete "avatar", to: "profiles#delete_avatar", as: "delete_avatar" # Удаление аватара
     end
   end
-  devise_for :users, controllers: { registrations: "users/registrations" }
+
+  # Devise маршруты для пользователей
+  devise_for :users, controllers: { 
+    registrations: "users/registrations",
+    sessions: "users/sessions"
+  }
+
+  # Второй шаг регистрации - обновление профиля
+  namespace :users do
+    resource :profile, only: %i[update], controller: "registrations", as: "update_profile"
+  end
 
   # Посты
   resources :posts do
-    resources :comments, only: [:create, :destroy] do
+    resources :comments, only: %i[create destroy] do
       member do
-        post "reply", to: "comments#reply", as: "reply"
+        post "reply", to: "comments#reply", as: "reply" # Ответ на комментарий
       end
     end
 
     collection do
-      get "by_tag/:tag", to: "posts#by_tag", as: "tagged"
-      get "my_posts", to: "posts#my_posts", as: "my_posts"
+      get "by_tag/:tag", to: "posts#by_tag", as: "tagged" # Посты по тегу
+      get "my_posts", to: "posts#my_posts", as: "my_posts" # Мои посты
     end
   end
 
   # Предметы
-  resources :items, only: [:index, :show, :create, :update, :destroy]
+  resources :items, only: %i[index show create update destroy]
 
   # Подписки
-  resources :subscriptions, only: [:create, :destroy]
+  resources :subscriptions, only: %i[create destroy]
   namespace :admin do
-    resources :subscriptions, only: [:index, :destroy]
+    resources :subscriptions, only: %i[index destroy]
   end
 
   # API
   namespace :api, format: "json" do
     namespace :v1 do
-      resources :posts, only: [:index, :show]
+      resources :posts, only: %i[index show]
     end
   end
 
   # PWA и здоровье приложения
-  get "up" => "rails/health#show", as: :rails_health_check
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "up", to: "rails/health#show", as: :rails_health_check
+  get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
   # Страницы приветствия
   get "welcome/index", as: "welcome_index"

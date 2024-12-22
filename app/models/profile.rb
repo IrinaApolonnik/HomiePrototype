@@ -9,9 +9,11 @@ class Profile < ApplicationRecord
     has_many :likes, dependent: :destroy
   
     # Валидации
-    validates :username, presence: true
+    validates :username, presence: true, uniqueness: true
     validates :avatar_url, presence: true
     validates :name, presence: true
+
+    # mount_uploader :avatar_url, AvatarUploader
   
     # Коллбеки
     before_validation :set_default_username, on: :create

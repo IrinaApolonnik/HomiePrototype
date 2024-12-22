@@ -1,26 +1,33 @@
-<h2>Log in</h2>
-<p>Кастомный вью для входа</p>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<section class="S_logIn">
+  <h3 class="Q_logInTitle">Вход</h3>
+  <p class="Q_logInDescription">С возвращением,<br>мы скучали!</p>
+  
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { multipart: true }) do |f| %>
+    <div class="C_logInInputs">
+      <!-- Поле для почты -->
+      <div class="A_logInInputField">
+        <%= f.label :email, "Email", class: "Q_regLabel" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_logInInput" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <!-- Поле для пароля -->
+      <div class="A_logInInputField">
+        <%= f.label :password, "Пароль", class: "Q_regLabel" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "Q_logInInput" %>
+      </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="A_logInRemember">
+            <%= f.check_box :remember_me, class: "Q_logInRememberCheck" %>
+            <%= f.label :remember_me, "Запомнить меня"%>
+          </div>
+        <% end %>
+      <h6 class="Q_logInForgotPassword"> Забыли пароль?</h6>
+    </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="C_logInActions">
+      <!-- Кнопка "Войти" -->
+      <%= f.submit "Войти", class: "Q_logInButton Q_logInSubmit" %>
+      <%= link_to "Зарегистрироваться", new_registration_path(resource_name), class: "Q_logInButton Q_regRedirect" %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>

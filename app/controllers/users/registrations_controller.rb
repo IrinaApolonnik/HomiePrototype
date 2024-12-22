@@ -1,14 +1,27 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
+    layout "auth"
   
     # Переопределяем метод create
     def create
-      super do |resource|
-        if resource.persisted?
-          # Сохраняем user_id в сессии для второго шага
-          session[:user_id] = resource.id
-          redirect_to new_users_profile_path and return
-        end
+      build_resource(sign_up_params)
+  
+      if resource.save
+        sign_in(resource)
+        render json: { success: true, user_id: resource.id }, status: :ok # Передаем ID пользователя для дальнейших действий
+      else
+        render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+  
+    # Метод для обновления профиля
+    def update_profile
+      @profile = current_user.profile || current_user.build_profile
+  
+      if @profile.update(profile_params)
+        render json: { success: true }, status: :ok
+      else
+        render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
       end
     end
   
@@ -19,8 +32,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation])
     end
   
-    # Переопределяем after_sign_up_path_for для второго шага
-    def after_sign_up_path_for(resource)
-      new_users_profile_path
+    # Разрешаем параметры для профиля
+    def profile_params
+      params.require(:profile).permit(:avatar, :name, :username)
     end
   end

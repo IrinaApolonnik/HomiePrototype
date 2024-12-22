@@ -62,5 +62,38 @@
     position: relative;
 }
 
+.S_firstRegistrationStep, .S_logIn {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4vw;
+    margin-top: -5.6vw;
+}
+.S_secondRegistrationStep {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4vw;
+    left: 100vw;
+    margin-top: -5.6vw;
+    margin-left: -1.2vw;
+    transition: 0.3s ease;
+}
+.S_auth {
+    overflow-x: hidden;
+}
+/* Анимация выезда второй секции */
+.S_secondRegistrationStep.slide-in {
+    transform: translateX(-100vw); /* Въезд на экран */
+}
+
 
   

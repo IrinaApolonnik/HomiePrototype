@@ -281,3 +281,75 @@
     right: 0;
   }
 }
+
+
+.Q_regNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 0.8vw;
+  font-size: 1.8vw;
+  aspect-ratio: 1 / 1;
+}
+.Q_regTitle, .Q_logInTitle {
+  font-size: 2vw;
+  font-weight: bold;
+  letter-spacing: 0.1vw;
+}
+.Q_regDescription, .Q_logInDescription {
+  opacity: 50%;
+  text-align: center;
+  font-size: 1.2vw;
+}
+.Q_regButton, .Q_logInButton {
+  width: 24vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2vw;
+  padding: 1.4vw;
+  cursor: pointer;
+}
+.Q_regSubmit, .Q_logInSubmit{
+  background-color: var(--blue);
+  color: var(--white);
+  margin-top: 2.4vw;
+  border: none;
+}
+.Q_regCancel, .Q_regRedirect {
+  opacity: 50%;
+  margin-top: 0.6vw;
+}
+.Q_logInForgotPassword {
+  opacity: 50%;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.Q_logInRememberCheck {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2vw;
+  height: 2vw;
+  background-color: var(--white);
+  border: 0.16vw solid var(--orange);
+  cursor: pointer;
+  position: relative;
+}
+
+.Q_logInRememberCheck:checked {
+  background-color: var(--orange); /* Цвет при выборе */
+  border-color: var(--orange);
+}
+
+.Q_logInRememberCheck:checked::before {
+  content: "✓"; /* Галочка */
+  color: var(--white);
+  font-size: 0.8vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

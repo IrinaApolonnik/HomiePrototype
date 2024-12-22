@@ -174,3 +174,40 @@
         }
     }
 }
+
+.A_regInputField, .A_logInInputField {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    label {
+        background-color: var(--orange);
+        color: var(--white);
+        padding: 0.4vw 1.7vw;
+        font-size: 1vw;
+        line-height: 1.6vw;
+    }
+    input {
+        font-family: 'Arimo', sans-serif;
+        background-color: var(--grey);
+        border: none;
+        width: 30vw;
+        padding: 1.4vw;
+        font-size: 1.1vw;
+        font-weight: 400;
+        border: 0.16vw solid var(--grey);
+        &:active, &:focus {
+            border: 0.16vw solid var(--orange);
+            outline: none;
+            border-radius: 0;
+        }
+    }
+}
+.A_logInRemember{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6vw;
+    check_box {
+        background-color: var(--orange);
+    }
+}

@@ -33,6 +33,70 @@ function dropdownMenu() {
         }
     });
 }
+// Обработка первой секции регистрации
+function regSection() {
+    const registrationForm = document.querySelector(".S_firstRegistrationStep form");
+
+    if (registrationForm) {
+        registrationForm.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Предотвращаем обычное поведение отправки формы
+            const formData = new FormData(registrationForm);
+            const submitButton = registrationForm.querySelector("button[type=submit]");
+
+            if (submitButton) submitButton.disabled = true;
+
+            try {
+                const response = await fetch(registrationForm.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "Accept": "application/json",
+                        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                });
+
+                if (response.ok) {
+                    document.querySelector(".S_secondRegistrationStep").classList.add("slide-in");
+                }
+            } finally {
+                if (submitButton) submitButton.disabled = false;
+            }
+        });
+    }
+}
+
+// Обработка второй секции регистрации (профиля)
+function profileSection() {
+    const profileForm = document.querySelector(".S_secondRegistrationStep form");
+
+    if (profileForm) {
+        profileForm.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Предотвращаем обычное поведение отправки формы
+            const formData = new FormData(profileForm);
+            const submitButton = profileForm.querySelector("button[type=submit]");
+
+            if (submitButton) submitButton.disabled = true;
+
+            try {
+                const response = await fetch(profileForm.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "Accept": "application/json",
+                        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                });
+
+                if (response.ok) {
+                    window.location.href = "/posts/my_posts";
+                }
+            } finally {
+                if (submitButton) submitButton.disabled = false;
+            }
+        });
+    }
+}
+
 
 // Выпадающее меню
 function profilePostsToggle() {
@@ -216,7 +280,12 @@ document.addEventListener("turbo:load", () => {
     if (document.getElementById("userPostsFeed")) {
         profilePostsToggle();
     }
+    if (document.querySelector('.Q_dropdownBtn')) {
+        dropdownMenu();
+    }
     cardsAppear();
     likeStates();
-    dropdownMenu();
+    
+    regSection();
+    profileSection();
 });
