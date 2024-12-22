@@ -13,37 +13,46 @@
           </ul>
         </div>
       <% end %>
-      <div class="C_addItemsInputs">
-        <%= form.label :image_url, style: "display: block" %>
-        <%= form.text_field :image_url %>
+      <div class="A_uploadPostImage">
+        <label for="post_image_upload" class="Q_postImagePreview">
+          <span class="placeholder">+</span>
+          <img src="" alt="Post Image Preview" class="Q_postImgUpload hidden" />
+        </label>
+        <%= form.file_field :image_url, id: "post_image_upload", class: "hidden" %>
       </div>
       <div class="C_addItemsInputs">
       <h3>Основное</h3>
       <!-- Поле для названия -->
       <div class="A_addItemInputField">
-        <%= form.label :title, class: "Q_addItemLabel" %>
+        <%= form.label :Заголовок, class: "Q_addItemLabel" %>
         <%= form.text_field :title, class: "Q_addItemInput" %>
       </div>
 
       <!-- Поле для описания -->
       <div class="A_addItemInputField">
-        <%= form.label :description, class: "Q_addItemLabel" %>
+        <%= form.label :Описание, class: "Q_addItemLabel" %>
         <%= form.text_area :description, class: "Q_addItemInput" %>
       </div>
     </div>
-    <div class="C_addItemsInputs">
+    <div class="C_newPostAddItems">
       <h3>Теги</h3>
       <% TagCategory.includes(:tags).each do |category| %>
         <div class="A_addItemInputField">
           <h4><%= category.name %></h4>
-          <% category.tags.each do |tag| %>
-            <div>
-              <%= check_box_tag "post[tag_list][]", tag.name, post.tag_list.include?(tag.name), id: "tag_#{tag.id}" %>
-              <%= label_tag "tag_#{tag.id}", tag.name %>
-            </div>
-          <% end %>
+          <div class="C_newPostTags">
+            <% category.tags.each do |tag| %>
+              <button 
+                type="button" 
+                class="Q_tagBtn" 
+                data-tag="<%= tag.name %>" 
+                data-selected="false">
+                <%= tag.name %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
+      <input type="hidden" name="post[tag_list]" id="post_tag_list" value="">
     </div>
 
 

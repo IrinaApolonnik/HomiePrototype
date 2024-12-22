@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/:id
   # Просмотр профиля
   def show
+    @profile = Profile.find(params[:id])
     @posts = @profile.posts.order(created_at: :desc)
     @liked_posts = Post.joins(:likes).where(likes: { profile_id: @profile.id })
   end

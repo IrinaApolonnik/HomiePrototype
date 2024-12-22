@@ -3,6 +3,30 @@ import "@hotwired/turbo-rails";
 import "controllers";
 
 // Функция для анимации появления карточек
+function selectedTag() {
+    const tagButtons = document.querySelectorAll(".Q_tagBtn");
+    const hiddenInput = document.getElementById("post_tag_list");
+  
+    if (!tagButtons.length || !hiddenInput) {
+      console.error("Tag buttons or hidden input field not found.");
+      return;
+    }
+  
+    tagButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isSelected = button.getAttribute("data-selected") === "true";
+        button.setAttribute("data-selected", !isSelected);
+        button.classList.toggle("selected", !isSelected); // Добавляем/убираем класс "selected"
+  
+        // Обновляем скрытое поле
+        const selectedTags = Array.from(tagButtons)
+          .filter((btn) => btn.getAttribute("data-selected") === "true")
+          .map((btn) => btn.getAttribute("data-tag"));
+        hiddenInput.value = selectedTags.join(",");
+      });
+    });
+  }
+// Функция тегов
 function cardsAppear() {
     const elements = document.querySelectorAll(".card");
 
@@ -16,23 +40,48 @@ function cardsAppear() {
     });
 }
 //Загрузка аватара
-function addAvatar() {
-    const fileInput = document.getElementById("avatar_upload");
+function addImage() {
+    // Для аватарки
+    const avatarFileInput = document.getElementById("avatar_upload");
     const avatarPreview = document.querySelector(".Q_avatarPreview");
-    const avatarImage = avatarPreview.querySelector(".Q_avatarImgUpload");
-    const placeholder = avatarPreview.querySelector(".placeholder");
+    const avatarImage = avatarPreview?.querySelector(".Q_avatarImgUpload");
+    const avatarPlaceholder = avatarPreview?.querySelector(".placeholder");
   
-    if (fileInput) {
-      fileInput.addEventListener("change", (event) => {
+    if (avatarFileInput) {
+      avatarFileInput.addEventListener("change", (event) => {
         const file = event.target.files[0];
   
         if (file) {
           const reader = new FileReader();
   
           reader.onload = (e) => {
-            avatarImage.src = e.target.result; // Устанавливаем выбранное изображение
-            avatarImage.classList.remove("hidden");
-            placeholder.classList.add("hidden"); // Скрываем плюсик
+            if (avatarImage) avatarImage.src = e.target.result; // Устанавливаем выбранное изображение
+            avatarImage?.classList.remove("hidden");
+            avatarPlaceholder?.classList.add("hidden"); // Скрываем плюсик
+          };
+  
+          reader.readAsDataURL(file); // Читаем файл как URL
+        }
+      });
+    }
+  
+    // Для изображения поста
+    const postFileInput = document.getElementById("post_image_upload");
+    const postPreview = document.querySelector(".Q_postImagePreview");
+    const postImage = postPreview?.querySelector(".Q_postImgUpload");
+    const postPlaceholder = postPreview?.querySelector(".placeholder");
+  
+    if (postFileInput) {
+      postFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+  
+        if (file) {
+          const reader = new FileReader();
+  
+          reader.onload = (e) => {
+            if (postImage) postImage.src = e.target.result; // Устанавливаем выбранное изображение
+            postImage?.classList.remove("hidden");
+            postPlaceholder?.classList.add("hidden"); // Скрываем плюсик
           };
   
           reader.readAsDataURL(file); // Читаем файл как URL
@@ -116,13 +165,13 @@ function profileSection() {
                     method: "POST",
                     body: formData,
                     headers: {
-                        "Accept": "application/json",
+                        "Accept": "text/html",
                         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
                     },
                 });
 
                 if (response.ok) {
-                    window.location.href = "/posts/my_posts";
+                    window.location.href = "/";
                 }
             } finally {
                 if (submitButton) submitButton.disabled = false;
@@ -339,12 +388,16 @@ document.addEventListener("turbo:load", () => {
     if (document.querySelector('.Q_dropdownBtn')) {
         dropdownMenu();
     }
+
+    selectedTag();
+
     cardsAppear();
     likeStates();
 
+
     regSection();
     profileSection();
-    addAvatar();
+    addImage();
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
     

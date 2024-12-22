@@ -56,7 +56,7 @@
     flex-direction: column;
     align-items: center;
 }
-.C_addItemsInputs {
+.C_addItemsInputs, .C_newPostAddItems {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -69,4 +69,18 @@
         left: -16vw;
         top: 0;
     }
+}
+.C_newPostAddItems {
+    gap: 2vw;
+    h4 {
+        color: var(--blue);
+    }
+}
+.C_newPostTags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 42vw;
+    gap: 0.8vw;
+    margin-top: 0.7vw;
 }
