@@ -3,51 +3,41 @@ class PostsController < ApplicationController
 
   # Для страницы с подборками
   def index
-    if user_signed_in? && current_user.admin?
-      # Администратор видит все посты
-      @posts = Post.all
-    elsif user_signed_in?
-      # Авторизованные пользователи видят свои и публичные посты
-      @posts = Post.where(public: true).or(Post.where(profile: current_user.profile))
-    else
-      # Гости видят только публичные посты
-      @posts = Post.where(public: true)
-    end
-  
+    @posts = if current_user&.admin?
+               Post.includes(:likes, :profile).all
+             elsif user_signed_in?
+               Post.includes(:likes, :profile)
+                   .where(public: true)
+                   .or(Post.where(profile: current_user.profile))
+             else
+               Post.includes(:likes, :profile).where(public: true)
+             end
+
     @popular_posts = Post.left_joins(:likes)
                          .where(public: true)
                          .group(:id)
                          .order('COUNT(likes.id) DESC')
-                         .limit(12) # Общее количество популярных постов
+                         .limit(12)
   end
-  
+
   def by_tag
-    @posts = Post.tagged_with(params[:tag])
+    @posts = Post.tagged_with(params[:tag]).includes(:likes, :profile)
     render :index
   end
 
-  def my_posts
-    @posts = current_profile.posts
-    @liked_posts = Post.joins(:likes).where(likes: { profile_id: current_profile.id })
-  end
+
 
   # Для страниц с единичной подборкой
-  def show
-    @post = Post.find(params[:id])
-    @profile = @post.profile
-  end
+  def show; end
 
   # Для страницы создания
-  def new
-    @post = Post.new
-  end
+  def new; end
 
   # Для страницы редактирования
-  def edit
-  end
+  def edit; end
 
   def create
-    @post = current_profile.posts.new(post_params)
+    @post.profile = current_profile
 
     respond_to do |format|
       if @post.save
@@ -90,15 +80,13 @@ class PostsController < ApplicationController
       @post.likes.create(profile_id: current_profile.id)
     end
 
-    redirect_to @post
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.json { render json: { liked: like.nil? }, status: :ok }
+    end
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = Post.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def post_params

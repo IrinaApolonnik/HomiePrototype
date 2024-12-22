@@ -221,19 +221,18 @@ def create_sentence
 end
 
 # Создание пользователей
-# Создание пользователей
 def create_users(quantity)
   quantity.times do |i|
     user_data = {
       email: "user_#{i}@email.com",
       password: 'testtest'
     }
+    user_data[:admin] = true if i == 0
     user = User.create!(user_data)
     puts "User created with id #{user.id}"
   end
 end
 
-# Создание профилей
 # Создание профилей
 def create_profiles
   User.all.each_with_index do |user, index|

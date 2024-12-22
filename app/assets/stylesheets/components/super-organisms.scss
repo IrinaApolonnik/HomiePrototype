@@ -32,7 +32,7 @@
     align-items: center;
     width: 100%;
     gap: 3.6vw;
-    margin: 0.8vw 0 5.6vw 0;
+    margin: 0vw 0 5.6vw 0;
 }
 .S_posts {
     display: flex;
@@ -47,7 +47,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2.4vw 0 6.2vw 0;
+    margin: 0vw 0 6.2vw 0;
     gap: 3.6vw;
 }
 
@@ -102,6 +102,13 @@
     flex-direction: column;
     align-items: center;
     gap: 2.4vw;
+}
+
+.S_profileFeed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 

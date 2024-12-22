@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
     collection do
       get "by_tag/:tag", to: "posts#by_tag", as: "tagged" # Посты по тегу
-      get "my_posts", to: "posts#my_posts", as: "my_posts" # Мои посты
+
     end
   end
 

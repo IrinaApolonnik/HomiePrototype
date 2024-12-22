@@ -39,6 +39,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 3.6vw;
+    align-items: flex-start;
+    width: 100%;
     &.active {
         display: flex;
     }

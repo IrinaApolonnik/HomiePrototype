@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :set_profile, only: %i[show edit update destroy]
   before_action :authorize_admin!, only: %i[index destroy]
 
@@ -10,79 +10,62 @@ class ProfilesController < ApplicationController
   end
 
   # GET /profiles/:id
-  # Просмотр профиля текущего пользователя или других пользователей
+  # Просмотр профиля
   def show
-    if @profile.nil?
-      redirect_to profile_path(current_user.profile), alert: "Профиль не найден."
-    end
+    @posts = @profile.posts.order(created_at: :desc)
+    @liked_posts = Post.joins(:likes).where(likes: { profile_id: @profile.id })
   end
 
   # GET /profiles/new
-  # Создание профиля для текущего пользователя
   def new
     @profile = current_user.build_profile
   end
 
   # POST /profiles
-  # Создание профиля текущего пользователя
   def create
     @profile = current_user.profile || current_user.build_profile
-  
-    respond_to do |format|
-      if @profile.update(profile_params) # Используем update вместо save для обновления или создания
-        format.html { redirect_to my_posts_posts_path, notice: "Профиль успешно обновлен." }
-        format.json { render json: { success: true }, status: :ok }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity }
-      end
+
+    if @profile.update(profile_params)
+      redirect_to profile_path(@profile), notice: "Профиль успешно создан."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # GET /profiles/:id/edit
-  # Редактирование профиля текущим пользователем
   def edit
+    return head :forbidden unless @profile.user == current_user
   end
 
   # PATCH/PUT /profiles/:id
-  # Обновление профиля текущим пользователем
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to my_posts_posts_path, notice: "Профиль успешно обновлен." }
-        format.json { render json: { success: true }, status: :ok }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity }
-      end
+    if @profile.update(profile_params)
+      redirect_to profile_path(@profile), notice: "Профиль успешно обновлен."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /profiles/:id
-  # Удаление профиля (только администратор)
   def destroy
     @profile.destroy!
-    respond_to do |format|
-      format.html { redirect_to profiles_path, status: :see_other, notice: "Профиль успешно удален." }
-      format.json { render json: { success: true }, status: :ok }
-    end
+    redirect_to profiles_path, notice: "Профиль успешно удален."
   end
 
   private
 
   # Устанавливаем профиль
   def set_profile
-    @profile = Profile.find_by(id: params[:id]) || current_user.profile
+    @profile = Profile.find_by(id: params[:id])
 
-    # Проверка: если профиль не принадлежит текущему пользователю или администратору
-    unless @profile && (@profile.user == current_user || current_user.admin?)
-      redirect_to my_posts_posts_path, alert: "Вы не можете просматривать этот профиль."
+    unless @profile
+      redirect_to root_path, alert: "Профиль не найден."
     end
   end
 
   # Разрешенные параметры
   def profile_params
-    params.require(:profile).permit(:name, :bio, :avatar, :username)
+    params.require(:profile).permit(:name, :bio, :avatar_url, :username)
   end
 
   # Проверка административных прав
