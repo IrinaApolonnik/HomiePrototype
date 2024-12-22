@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_20_200504) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_22_171103) do
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
     t.text "body"
@@ -74,6 +74,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_200504) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tag_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -102,7 +108,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_200504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "taggings_count", default: 0
+    t.integer "tag_category_id"
     t.index ["name"], name: "index_tags_on_name", unique: true
+    t.index ["tag_category_id"], name: "index_tags_on_tag_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -124,4 +132,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_200504) do
   add_foreign_key "likes", "profiles"
   add_foreign_key "posts", "profiles"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "tags", "tag_categories"
 end

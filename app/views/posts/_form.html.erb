@@ -33,11 +33,17 @@
     </div>
     <div class="C_addItemsInputs">
       <h3>Теги</h3>
-      <!-- Поле для тегов -->
-      <div class="A_addItemInputField">
-        <%= form.label :tag_list, class: "Q_addItemLabel" %>
-        <%= form.text_field :tag_list, value: post.tag_list.join(", "), class: "Q_addItemInput" %>
-      </div>
+      <% TagCategory.includes(:tags).each do |category| %>
+        <div class="A_addItemInputField">
+          <h4><%= category.name %></h4>
+          <% category.tags.each do |tag| %>
+            <div>
+              <%= check_box_tag "post[tag_list][]", tag.name, post.tag_list.include?(tag.name), id: "tag_#{tag.id}" %>
+              <%= label_tag "tag_#{tag.id}", tag.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
 

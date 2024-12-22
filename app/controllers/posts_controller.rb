@@ -28,7 +28,9 @@ class PostsController < ApplicationController
 
 
   # Для страниц с единичной подборкой
-  def show; end
+  def show; 
+    @post = Post.find(params[:id])
+  end
 
   # Для страницы создания
   def new; end
@@ -90,6 +92,6 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :description, :image_url, :tag_list, :public)
+    params.require(:post).permit(:title, :description, :image_url, :public, tag_list: [])
   end
 end

@@ -183,6 +183,19 @@
   "https://i.pinimg.com/474x/48/fb/a3/48fba3fdad7e8ea382924e0883bde370.jpg",
   "https://i.pinimg.com/474x/c8/c1/92/c8c19230aaee79bc451f3f206117b7f4.jpg"
 ]
+@tag_categories = [
+  "Стиль",
+  "Цвета",
+  "Материалы",
+  "Темы"
+]
+
+@tags = {
+  "Стиль" => ["Минимализм", "Лофт", "Классика", "Бохо", "Скандинавский"],
+  "Цвета" => ["Белый", "Чёрный", "Пастельные", "Яркие", "Нейтральные"],
+  "Материалы" => ["Дерево", "Металл", "Стекло", "Текстиль", "Камень"],
+  "Темы" => ["Эко-дизайн", "Модерн", "Винтаж", "Индустриальный", "Природный"]
+}
 
 @raw_text = 'Дом Наркомфина — один из знаковых памятников архитектуры советского авангарда и конструктивизма. Построен в 1928—1930 годах по проекту архитекторов Моисея Гинзбурга, Игнатия Милиниса и инженера Сергея Прохорова для работников Народного комиссариата финансов СССР (Наркомфина). Автор замысла дома Наркомфина Гинзбург определял его как «опытный дом переходного типа». Дом находится в Москве по адресу: Новинский бульвар, дом 25, корпус 1. С начала 1990-х годов дом находился в аварийном состоянии, был трижды включён в список «100 главных зданий мира, которым грозит уничтожение». В 2017—2020 годах отреставрирован по проекту АБ «Гинзбург Архитектс», функционирует как элитный жилой дом. Отдельно стоящий «Коммунальный блок» (историческое название) планируется как место проведения публичных мероприятий.'
 @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
@@ -192,7 +205,9 @@ def seed
   reset_db
   create_users(10)
   create_profiles
+  create_tag_categories_and_tags
   create_posts(100)
+  assign_tags_to_posts
   create_items(3..10)
   create_comments(2..8)
   3.times do
@@ -252,7 +267,31 @@ def create_profiles
   end
 end
 
-# Создание постов
+
+# Создание категорий тегов и самих тегов
+
+def create_tag_categories_and_tags
+  @tag_categories.each do |category_name|
+    category = TagCategory.find_or_create_by!(name: category_name)
+
+    @tags[category_name].each do |tag_name|
+      Tag.find_or_create_by!(name: tag_name, tag_category: category)
+    end
+  end
+  puts "Categories and tags created!"
+end
+
+def assign_tags_to_posts
+  Post.all.each do |post|
+    tags = Tag.all.sample(3) # Случайные 3 тега
+    puts "Assigning tags: #{tags.map(&:name).join(', ')} to post: #{post.title}" # Логируем теги
+    post.tag_list.add(tags.map(&:name))
+    post.save!
+  end
+  puts "Tags assigned to posts!"
+end
+
+# Создание постов с тегами
 def create_posts(quantity)
   quantity.times do
     profile = Profile.all.sample
@@ -262,7 +301,8 @@ def create_posts(quantity)
       description: @descriptions.sample,
       public: get_random_bool
     )
-    puts "Post with title #{post.title} just created for profile #{profile.id}"
+
+    puts "Post with title #{post.title} just created for profile #{profile.id} with tags: #{post.tag_list.join(', ')}"
   end
 end
 
