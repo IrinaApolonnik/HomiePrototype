@@ -1,4 +1,4 @@
-<%= form_with(model: profile) do |form| %>
+<%= form_with(model: profile, html: { id: "edit_profile_form" }) do |form| %>
   <% if profile.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -11,27 +11,30 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.number_field :user_id %>
+  <div class="A_editAvatar">
+    <label for="edit_avatar_image_upload" class="Q_editAvatarPreview">
+      <span class="placeholder hidden">+</span>
+      <img src="<%= @profile.avatar_url %>" alt="Avatar Preview" class="Q_editAvatarImgUpload" />
+    </label>
+    <%= form.file_field :avatar_url, id: "edit_avatar_image_upload", class: "hidden" %>
+  </div>
+  <div class="C_addItemsInputs">
+    <h3>Основное</h3>
+    <!-- Поле для имени -->
+    <div class="A_addItemInputField">
+      <%= form.label :Имя, class: "Q_addItemLabel" %>
+      <%= form.text_field :name, class: "Q_addItemInput" %>
+    </div>
+      <!-- Поле для никнейма (username) -->
+    <div class="A_addItemInputField">
+      <%= form.label :Никнейм, class: "Q_addItemLabel" %>
+      <%= form.text_field :username, class: "Q_addItemInput" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :bio, style: "display: block" %>
-    <%= form.text_area :bio %>
-  </div>
-
-  <div>
-    <%= form.label :avatar, style: "display: block" %>
-    <%= form.text_field :avatar %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <div id="edit-profile-actions" class="C_editProfileActions hidden">
+    <!-- Кнопка "Войти" -->
+    <%= form.submit "Сохранить", class: "Q_editProfileButton Q_editProfileSubmit" %>
+    <%= link_to "Отменить", root_url, class: "Q_editProfileButton Q_editProfileCancel" %>
   </div>
 <% end %>

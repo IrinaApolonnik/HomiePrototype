@@ -22,3 +22,16 @@
         background-color: var(--orange);
     }
 }
+
+@media only screen and (max-width: 430px) { 
+    .M_commentForm {
+        width: 82.2vw;
+        margin-top: -8.1vw;
+    }
+    .M_profileInfo {
+        gap: 1.5vw;
+        h6 {
+            padding: 1.3vw 3.3vw;
+        }
+    }
+}

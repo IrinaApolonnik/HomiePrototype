@@ -12,10 +12,12 @@
     border: 0.16vw solid var(--orange);
 }
 .S_postContent {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    gap: 0;
 }
 .S_postComments {
     display: flex;
@@ -96,7 +98,8 @@
 }
 
 
-.S_addItem {
+.S_addItem, .S_editProfile {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -115,6 +118,39 @@
     align-items: center;
     width: 100%;
 }
+.hidden {
+    display: none;
+}
 
+@media only screen and (max-width: 430px) {
+    .S_menuBar {
+        top: 5vw;
+        width: 90vw;
+        height: 15vw;
+        z-index: 50;
+        border: 0.5vw solid var(--orange);
+    }
+    .S_postContent {
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 15.3vw;
+    }
+    .S_postComments {
+        width: 100%;
+        gap: 6.2vw;
+        margin-top: 15.3vw;
+    }
+    .S_profileHeader {
+        margin: 0;
+        gap: 5.1vw;
+    }
+    .S_addItem, .S_editProfile {
+        gap: 8.9vw;
+    }
+    .S_firstRegistrationStep, .S_logIn {
+        gap: 8.9vw;
+    }
+}
 
   

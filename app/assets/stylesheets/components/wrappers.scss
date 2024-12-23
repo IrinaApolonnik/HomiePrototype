@@ -4,16 +4,48 @@
     height: 5vw;
     width: auto;
 }
+.W_dropdownProfileMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    top: 4.73vw;
+    right: -0.16vw;
+    width: 17.6vw;
+    background-color: var(--white);
+    border: 0.16vw solid var(--orange);
+    padding: 1.2vw;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    &.active {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.A_dropdownMenuBlock {
+    .W_userActions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2vw;
+        a {
+            font-size: 1.2vw;
+        }
+    }
+}
 .W_postHead {
     height: 5vw;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .W_postSocActions {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .W_itemContent {
     width: 100%;
@@ -54,6 +86,7 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .W_postInfo {
     display: flex;
@@ -61,38 +94,7 @@
     gap: 3.4vw;
 }
 
-/* Исходное положение меню - скрытое */
-.W_dropdownProfileMenu {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2vw;
-    top: 4.73vw;
-    right: -0.16vw;
-    width: 17.6vw;
-    background-color: var(--white);
-    border: 0.16vw solid var(--orange);
-    padding: 1.2vw;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
 
-/* Меню в открытом состоянии */
-.W_dropdownProfileMenu.active {
-    transform: translateX(0);
-    opacity: 1;
-}
-.A_dropdownMenuBlock {
-    .W_userActions {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2vw;
-        a {
-            font-size: 1.2vw;
-        }
-    }
-}
 
 
 .W_profileStatistics {
@@ -122,4 +124,61 @@
     height: 100%;
     display: flex;
     align-items: flex-end;
+}
+
+@media only screen and (max-width: 430px) {
+    .W_menuActions {
+        height: 100%;
+    }
+    .W_dropdownProfileMenu {
+        gap: 5.2vw;
+        top: 14.3vw;
+        right: -0.36vw;
+        width: 90vw;
+        background-color: var(--white);
+        border: 0.5vw solid var(--orange);
+        padding: 5.2vw;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        &.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .A_dropdownMenuBlock {
+        .W_userActions {
+            gap: 3vw;
+            a {
+                font-size: 3.8vw;
+            }
+        }
+    }
+    .W_postHead {
+        height: 11.5vw;
+    }
+    .W_postInfo {
+        gap: 8.9vw;
+    }
+    .W_itemContent {
+        h5 {
+            padding: 3.8vw;
+    
+        }
+        img {
+            width: 7.6vw;
+            height: 7.6vw;
+            margin-right: 1.6vw;
+        }
+    }
+    .W_profileStatistics {
+        gap: 8.7vw;
+        img {
+            height: 9.9vw;
+          }
+    } 
+    .W_feedToggle {
+        gap: 10.2vw;
+        margin: 10.2vw 0;
+    }
 }

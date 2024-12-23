@@ -39,56 +39,57 @@ function cardsAppear() {
         element.classList.add("slideUpAppear");
     });
 }
-//Загрузка аватара
+// Загрузка изображения (аватара или поста)
 function addImage() {
+    const setupImageUpload = (fileInputId, previewClass, imgClass, placeholderClass) => {
+      const fileInput = document.getElementById(fileInputId);
+      const preview = document.querySelector(`.${previewClass}`);
+      const image = preview?.querySelector(`.${imgClass}`);
+      const placeholder = preview?.querySelector(`.${placeholderClass}`);
+  
+      if (fileInput) {
+        fileInput.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+  
+          if (file) {
+            const reader = new FileReader();
+  
+            reader.onload = (e) => {
+              if (image) image.src = e.target.result; // Устанавливаем выбранное изображение
+              image?.classList.remove("hidden"); // Показываем изображение
+              placeholder?.classList.add("hidden"); // Скрываем плюсик
+            };
+  
+            reader.readAsDataURL(file); // Читаем файл как URL
+          }
+        });
+      }
+    };
+  
     // Для аватарки
-    const avatarFileInput = document.getElementById("avatar_upload");
-    const avatarPreview = document.querySelector(".Q_avatarPreview");
-    const avatarImage = avatarPreview?.querySelector(".Q_avatarImgUpload");
-    const avatarPlaceholder = avatarPreview?.querySelector(".placeholder");
-  
-    if (avatarFileInput) {
-      avatarFileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-  
-        if (file) {
-          const reader = new FileReader();
-  
-          reader.onload = (e) => {
-            if (avatarImage) avatarImage.src = e.target.result; // Устанавливаем выбранное изображение
-            avatarImage?.classList.remove("hidden");
-            avatarPlaceholder?.classList.add("hidden"); // Скрываем плюсик
-          };
-  
-          reader.readAsDataURL(file); // Читаем файл как URL
-        }
-      });
-    }
+    setupImageUpload(
+      "avatar_upload", 
+      "Q_avatarPreview", 
+      "Q_avatarImgUpload", 
+      "placeholder" 
+    );
+    setupImageUpload(
+        "edit_avatar_image_upload", 
+        "Q_editAvatarPreview", 
+        "Q_editAvatarImgUpload",
+        "placeholder" 
+    );
   
     // Для изображения поста
-    const postFileInput = document.getElementById("post_image_upload");
-    const postPreview = document.querySelector(".Q_postImagePreview");
-    const postImage = postPreview?.querySelector(".Q_postImgUpload");
-    const postPlaceholder = postPreview?.querySelector(".placeholder");
-  
-    if (postFileInput) {
-      postFileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-  
-        if (file) {
-          const reader = new FileReader();
-  
-          reader.onload = (e) => {
-            if (postImage) postImage.src = e.target.result; // Устанавливаем выбранное изображение
-            postImage?.classList.remove("hidden");
-            postPlaceholder?.classList.add("hidden"); // Скрываем плюсик
-          };
-  
-          reader.readAsDataURL(file); // Читаем файл как URL
-        }
-      });
-    }
-}
+    setupImageUpload(
+      "post_image_upload", 
+      "Q_postImagePreview", 
+      "Q_postImgUpload", 
+      "placeholder" 
+    );
+
+    
+  }
 
 // Выпадающее меню
 function dropdownMenu() {
@@ -201,6 +202,37 @@ function toggleSubmitButtonState(formSelector) {
     // Изначальная проверка при загрузке
     checkFormValidity();
 }
+function toggleActionButtonsState(formSelector, actionsSelector) {
+    const form = document.querySelector(formSelector);
+    const actionButtons = document.querySelector(actionsSelector);
+
+    if (!form || !actionButtons) return;
+
+    // Функция проверки изменений в форме
+    function checkFormChanges() {
+        const isChanged = Array.from(form.querySelectorAll("input, textarea, select")).some((input) => {
+            if (input.type === "file") {
+                return input.files.length > 0; // Проверяем, загружен ли файл
+            }
+            return input.defaultValue !== input.value.trim(); // Проверяем текстовые поля
+        });
+
+        // Показываем или скрываем кнопки в зависимости от изменений
+        actionButtons.classList.toggle("hidden", !isChanged);
+    }
+
+    // Слушаем изменения в форме
+    form.addEventListener("input", checkFormChanges);
+
+    // Изначальная проверка при загрузке
+    checkFormChanges();
+}
+
+// Пример использования:
+document.addEventListener("DOMContentLoaded", () => {
+    toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
+});
+
 
 
 // Выпадающее меню
@@ -400,5 +432,6 @@ document.addEventListener("turbo:load", () => {
     addImage();
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
+    toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
     
 });

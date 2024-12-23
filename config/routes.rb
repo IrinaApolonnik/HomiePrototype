@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
   # Профили
-  resources :profiles, only: %i[show edit update index create] do
+  resources :profiles, only: %i[show edit update index] do
     member do
       get "posts", to: "profiles#posts", as: "posts" # Посты пользователя
       delete "avatar", to: "profiles#delete_avatar", as: "delete_avatar" # Удаление аватара
     end
   end
+
+  # Настройки профиля
+  get "profile/settings", to: "profiles#edit", as: "profile_settings"
 
   # Devise маршруты для пользователей
   devise_for :users, controllers: { 
@@ -31,7 +34,6 @@ Rails.application.routes.draw do
 
     collection do
       get "by_tag/:tag", to: "posts#by_tag", as: "tagged" # Посты по тегу
-
     end
   end
 

@@ -1,12 +1,5 @@
-<% content_for :title, "Editing profile" %>
-
-<h1>Editing profile</h1>
-
-<%= render "form", profile: @profile %>
-
-<br>
-
-<div>
-  <%= link_to "Show this profile", @profile %> |
-  <%= link_to "Back to profiles", profiles_path %>
-</div>
+<% content_for :title, "Настройки" %>
+<section class="S_editProfile">
+  <h2 class="Q_editProfileTitle">Настройки профиля</h2>
+  <%= render "form", profile: @profile %>
+</section>

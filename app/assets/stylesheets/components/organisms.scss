@@ -43,3 +43,30 @@
     height: 32vw;   
     background-size: cover;
 }
+
+@media only screen and (max-width: 430px) {
+    .O_post {
+        width: 89.8vw;
+        height: 155.2vw;   
+    }
+    .O_postImages {
+        width: 100%;
+    }
+    .O_postInfo {
+        width: 100%;
+        max-width: 100%;
+        gap: 8.9vw;
+        padding: 5.1vw;
+    }
+    .O_item {
+        width: 100%;
+        height: 76.3vw;
+        border: 0.5vw solid var(--orange);
+    }
+    .O_postComment {
+        gap: 5.1vw;
+        padding: 5.1vw;
+        padding-top: 18.3vw;
+        border: 0.5vw solid var(--orange);
+    }
+}

@@ -21,9 +21,14 @@
     filter: invert(100%) brightness(1000%);
   }
 }
+.Q_dropdownBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .Q_postCover {
-    max-height: 68vh;
+    max-height: 50vw;
     width: auto;
 }
 .Q_avatarImg {
@@ -174,7 +179,7 @@
   top: 0.8vw;
   right: 0.8vw;
   background-color: var(--blue);
-  border-radius: 10vw;
+  border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,12 +205,10 @@
   cursor: pointer; 
   transition: all 0.3s ease; 
   border: 0.16vw solid var(--blue);
-}
-
-
-.Q_tag:hover {
-  background-color: var(--blue); 
-  color: var(--white); 
+  &:hover {
+    background-color: var(--blue); 
+    color: var(--white); 
+  }
 }
 
 
@@ -293,7 +296,7 @@
   font-size: 1.8vw;
   aspect-ratio: 1 / 1;
 }
-.Q_regTitle, .Q_logInTitle {
+.Q_regTitle, .Q_logInTitle{
   font-size: 2vw;
   font-weight: bold;
   letter-spacing: 0.1vw;
@@ -303,7 +306,7 @@
   text-align: center;
   font-size: 1.2vw;
 }
-.Q_regButton, .Q_logInButton, .Q_addItemButton {
+.Q_regButton, .Q_logInButton, .Q_addItemButton, .Q_editProfileButton {
   width: 24vw;
   display: flex;
   flex-direction: column;
@@ -320,7 +323,7 @@
     outline: none;
   }
 }
-.Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit{
+.Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit, .Q_editProfileSubmit{
   background-color: var(--blue);
   color: var(--white);
   margin-top: 2.4vw;
@@ -333,7 +336,7 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-.Q_regSkip, .Q_regRedirect, .Q_additemCancel {
+.Q_regSkip, .Q_regRedirect, .Q_additemCancel, .Q_editProfileCancel {
   opacity: 50%;
   margin-top: 0.6vw;
 }
@@ -352,55 +355,59 @@
   border: 0.16vw solid var(--orange);
   cursor: pointer;
   position: relative;
+  &:checked {
+    background-color: var(--orange); /* Цвет при выборе */
+    border-color: var(--orange);
+  }
+  &:checked::before {
+    content: "✓"; /* Галочка */
+    color: var(--white);
+    font-size: 0.8vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
-.Q_logInRememberCheck:checked {
-  background-color: var(--orange); /* Цвет при выборе */
-  border-color: var(--orange);
-}
-
-.Q_logInRememberCheck:checked::before {
-  content: "✓"; /* Галочка */
-  color: var(--white);
-  font-size: 0.8vw;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.Q_addItemTitle {
+.Q_addItemTitle, .Q_editProfileTitle  {
   color: var(--blue);
 }
 
 
-.Q_avatarPreview {
+.Q_editAvatarPreview, .Q_avatarPreview {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   background-color: var(--medium-grey);
-  opacity: 100%;
+  position: relative;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s ease; 
-  span {
-    font-size: 2vw;
-    color: var(--white);
-  }
+  transition: 0.2s ease;
   &:hover {
-    opacity: 80%;
+    opacity: 0.8;
   }
 }
 
-.Q_avatarImgUpload {
+.Q_editAvatarImgUpload {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.Q_editAvatarPreview .placeholder {
+  font-size: 2vw;
+  color: var(--white);
+  opacity: 0;
   position: absolute;
-  top: 0;
-  left: 0;
+  transition: opacity 0.3s ease;
+}
+
+.Q_editAvatarPreview:hover .placeholder {
+  display: block;
+  opacity: 1;
 }
 
 
@@ -451,5 +458,173 @@
   &[data-selected="true"] {
     color: var(--white);
     background-color: var(--blue);
+  }
+}
+@media only screen and (min-width: 745px) and (max-width: 1024px) {
+}
+@media only screen and (min-width: 431px) and (max-width: 744px) {
+}
+@media only screen and (max-width: 430px) {
+  .Q_menuLogo {
+    font-size: 5vw;
+    margin-left: 3.6vw;
+    margin-top: 1.6vw;
+  }
+  .Q_menuAvatar {
+    width: 10vw;
+    height: 10vw;
+  }
+  .Q_menuIcon {
+    height: 5.6vw;
+    width: 5.6vw;
+  }
+  .Q_avatarImg {
+    width: 11.5vw;
+    height: 11.5vw;
+  }
+  .A_menuUser{
+    .Q_avatarImg {
+      width: 11.2vw;
+      height: 11.2vw;
+    }
+  }
+  .A_postCreator{
+    .Q_avatarImg {
+      width: 11.2vw;
+      height: 11.2vw;
+    }
+  }
+  .Q_postName, .Q_commentName {
+    margin: 0 5.6vw 0 2.5vw;
+    h5 {
+      font-size: 3.3vw;
+
+    }
+    h6 {
+        font-size: 2.8vw;
+    }
+  }
+  .Q_postCover {
+    width: 100%;
+    max-height: none;
+  }
+  .Q_likeBtn {
+    height: 5.3vw;
+    width: 5.3vw;
+  }
+  .Q_tag {
+    padding: 2.8vw 3.8vw; 
+    font-size: 2.8vw;
+    border: 0.5vw solid var(--blue);
+  }
+  .Q_postDescription {
+    max-width: 90%;
+  }
+  .Q_commentAvatar {
+    width: 11.2vw;
+    height: 11.2vw;
+  }
+  .Q_deleteCommentButton {
+    height: auto;
+    padding: 3vw 5vw;
+    img {
+      width: 5vw;
+      height: 5vw;
+    }
+  }
+  .Q_commentatorAvatar {
+    width: 10.9vw;
+    height: 10.9vw;
+    left: 2.3vw;
+    top: 2.3vw;
+  }
+  .Q_commentFormSubmit {
+    width: 10.9vw;
+    height: 10.9vw;
+    top: 2.3vw;
+    right: 2.3vw;
+    img {
+        width: 5.8vw;
+        height: 5.8vw;
+    }
+  }
+  .Q_commentFormInput {
+    height: 15.3vw;
+    border: 0.5vw solid var(--white);
+    padding: 6.1vw 15.3vw;
+    font-size: 2.8vw;
+    &::placeholder {
+      font-size: 2.8vw;
+    }
+    &:focus {
+        font-size: 2.8vw;
+    }
+  }
+  .Q_profileAvatar {
+    width: 24.4vw;
+    height: 24.4vw;
+  }
+  .Q_profileStat {
+    gap: 1.3vw;
+    h3 {
+      font-size: 4.3vw;
+    }
+  }
+  .Q_feedToggleBtn {
+    font-size: 5.3vw;
+  }
+  .Q_postImagePreview{
+    width: 100%;
+    max-width: 72vw;
+    height: 67.9vw;
+    border: 0.5vw dashed var(--blue);
+    span {
+      font-size: 12vw;
+    }
+  }
+  
+  .Q_postImgUpload {
+    max-height: 102%;
+  }
+  .Q_tagBtn {
+    padding: 2.8vw 3.8vw; 
+    font-size: 2.8vw;
+    border: 0.5vw solid var(--blue);
+  }
+  .Q_regButton, .Q_logInButton, .Q_addItemButton, .Q_editProfileButton {
+    width: 76.8vw;
+    font-size: 4.3vw;
+    padding: 4.3vw 14vw;
+  }
+  .Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit, .Q_editProfileSubmit{
+    margin-top: 15.3vw;
+  }
+  .Q_regTitle, .Q_logInTitle{
+    font-size: 7.6vw;
+    letter-spacing: auto;
+  }
+  .Q_regDescription, .Q_logInDescription {
+    font-size: 3.8vw;
+    letter-spacing: 26.3;
+  }
+  .Q_logInRememberCheck {
+    width: 6vw;
+    height: 6vw;
+    border: 0.5vw solid var(--orange);
+    &:checked::before {
+      font-size: 2.8vw;
+    }
+  }
+  .Q_regNumber {
+    padding: 4.8vw;
+    font-size: 6.1vw;
+    aspect-ratio: 1 / 1;
+  }
+  .Q_actionPostBtn {
+    padding: 1.2vw;
+    img {
+      width: 5.3vw;
+      height: 5.3vw;
+    }
   }
 }
