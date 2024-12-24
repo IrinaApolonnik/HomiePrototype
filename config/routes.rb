@@ -49,7 +49,32 @@ Rails.application.routes.draw do
   # API
   namespace :api, format: "json" do
     namespace :v1 do
-      resources :posts, only: %i[index show]
+      # Пользователи
+      resources :users, only: %i[index show]
+
+      # Профили
+      resources :profiles, only: %i[index show update]
+
+      # Посты
+      resources :posts do
+        # Вложенные комментарии
+        resources :comments, only: %i[index create], shallow: true
+      end
+
+      # Товары
+      resources :items, only: %i[index show create update destroy]
+
+      # Комментарии (отдельно)
+      resources :comments, only: %i[show update destroy]
+
+      # Лайки
+      resources :likes, only: %i[create destroy]
+
+      # Теги
+      resources :tags, only: %i[index show]
+
+      # Категории тегов
+      resources :tag_categories, only: %i[index show]
     end
   end
 

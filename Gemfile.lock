@@ -45,6 +45,11 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_model_serializers (0.10.15)
+      actionpack (>= 4.1)
+      activemodel (>= 4.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (7.2.1.1)
       activesupport (= 7.2.1.1)
       globalid (>= 0.3.6)
@@ -107,6 +112,8 @@ GEM
     carrierwave-imageoptimizer (1.6.0)
       carrierwave (>= 0.8, < 3.0)
       image_optimizer (~> 1.6)
+    case_transform (0.2)
+      activesupport
     childprocess (5.1.0)
       logger (~> 1.5)
     concurrent-ruby (1.3.4)
@@ -154,6 +161,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
+    jsonapi-renderer (0.2.2)
     language_server-protocol (3.17.0.3)
     launchy (3.0.1)
       addressable (~> 2.8)
@@ -365,6 +373,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   acts-as-taggable-on
   bootsnap
   brakeman

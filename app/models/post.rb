@@ -6,6 +6,7 @@ class Post < ApplicationRecord
     belongs_to :profile
 
     validates :title, presence: true
+    validates :profile, presence: true
 
     acts_as_taggable_on :tags
     
