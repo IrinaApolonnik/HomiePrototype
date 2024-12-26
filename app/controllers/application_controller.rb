@@ -15,4 +15,6 @@ class ApplicationController < ActionController::Base
   def current_profile
     current_user&.profile
   end
+
+  protect_from_forgery with: :null_session 
 end

@@ -1,23 +1,20 @@
 module Api
   module V1
     class ProfilesController < ApplicationController
-      before_action :set_profile, only: %i[show update]
+      before_action :set_profile, only: [:show, :update]
 
-      # GET /api/v1/profiles
       def index
         profiles = Profile.all
-        render json: profiles, each_serializer: ProfileSerializer, status: :ok
+        render json: profiles, each_serializer: ProfileSerializer
       end
 
-      # GET /api/v1/profiles/:id
       def show
-        render json: @profile, serializer: ProfileSerializer, status: :ok
+        render json: @profile, serializer: ProfileSerializer
       end
 
-      # PATCH/PUT /api/v1/profiles/:id
       def update
         if @profile.update(profile_params)
-          render json: @profile, serializer: ProfileSerializer, status: :ok
+          render json: @profile, serializer: ProfileSerializer
         else
           render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
         end
@@ -27,8 +24,6 @@ module Api
 
       def set_profile
         @profile = Profile.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: "Profile not found" }, status: :not_found
       end
 
       def profile_params

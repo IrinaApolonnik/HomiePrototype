@@ -13,11 +13,18 @@ class Profile < ApplicationRecord
     validates :avatar_url, presence: true
     validates :name, presence: true
 
-    # mount_uploader :avatar_url, AvatarUploader
+    mount_uploader :avatar_url, ImageUploader
   
     # Коллбеки
     before_validation :set_default_username, on: :create
-  
+    def avatar_url=(url_or_file)
+      if url_or_file.is_a?(String) && url_or_file.match?(/http/)
+        file = AvatarUploader.new.download_image_from_url(url_or_file)
+        super(file)
+      else
+        super(url_or_file)
+      end
+    end
     private
   
     # Установить уникальное имя пользователя, если оно не задано

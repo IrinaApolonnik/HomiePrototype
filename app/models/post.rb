@@ -9,5 +9,13 @@ class Post < ApplicationRecord
     validates :profile, presence: true
 
     acts_as_taggable_on :tags
-    
+    mount_uploader :image_url, ImageUploader
+    def image_url=(url_or_file)
+        if url_or_file.is_a?(String) && url_or_file.match?(/http/)
+          file = ImageUploader.new.download_image_from_url(url_or_file)
+          super(file)
+        else
+          super(url_or_file)
+        end
+      end
 end

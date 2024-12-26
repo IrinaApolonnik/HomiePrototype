@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
   # Профили
-  resources :profiles, only: %i[show edit update index] do
+  resources :profiles, only: %i[show edit update index create] do
     member do
       get "posts", to: "profiles#posts", as: "posts" # Посты пользователя
       delete "avatar", to: "profiles#delete_avatar", as: "delete_avatar" # Удаление аватара
@@ -50,31 +50,29 @@ Rails.application.routes.draw do
   namespace :api, format: "json" do
     namespace :v1 do
       # Пользователи
-      resources :users, only: %i[index show]
-
+      resources :users, only: [:index, :show, :create, :update, :destroy]
       # Профили
-      resources :profiles, only: %i[index show update]
+      resources :profiles, only: [:index, :show, :update]
 
       # Посты
-      resources :posts do
-        # Вложенные комментарии
-        resources :comments, only: %i[index create], shallow: true
-      end
+      resources :posts, only: [:index, :show, :create, :update, :destroy]
 
       # Товары
-      resources :items, only: %i[index show create update destroy]
+      resources :items, only: [:index, :show, :create, :update, :destroy]
 
       # Комментарии (отдельно)
-      resources :comments, only: %i[show update destroy]
+      resources :comments, only: [:index, :show, :create, :update, :destroy]
 
       # Лайки
       resources :likes, only: %i[create destroy]
 
       # Теги
-      resources :tags, only: %i[index show]
+      resources :tags, only: [:index]
 
       # Категории тегов
       resources :tag_categories, only: %i[index show]
+
+      post 'users/login', to: 'sessions#create'
     end
   end
 

@@ -37,15 +37,18 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/:id/edit
   # Пользователь может редактировать только свой профиль
-  def edit; end
+  def edit; 
+    @profile = current_user.profile
+  end
 
   # PATCH/PUT /profiles/:id
   # Обновление профиля
   def update
+    @profile = current_user.profile
     if @profile.update(profile_params)
-      redirect_to profile_path(@profile), notice: "Профиль успешно обновлен."
+      redirect_to root_path, notice: "Профиль обновлён!"
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, alert: "Ошибка при обновлении профиля."
     end
   end
 
