@@ -9,4 +9,4 @@ class CommentSerializer < ActiveModel::Serializer
     class ReplySerializer < ActiveModel::Serializer
       attributes :id, :body, :commenter, :created_at, :updated_at
     end
-  end
+end

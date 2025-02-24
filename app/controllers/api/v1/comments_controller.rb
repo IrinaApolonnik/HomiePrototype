@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      before_action :set_comment, only: [:show, :update, :destroy]
+      before_action :set_comment, only: %i[show update destroy]
 
       def index
         comments = Comment.all
@@ -13,7 +13,8 @@ module Api
       end
 
       def create
-        comment = Comment.new(comment_params)
+        comment = current_user.profile.comments.new(comment_params)
+
         if comment.save
           render json: comment, status: :created, serializer: CommentSerializer
         else
@@ -22,16 +23,24 @@ module Api
       end
 
       def update
-        if @comment.update(comment_params)
-          render json: @comment, serializer: CommentSerializer
+        if @comment.profile == current_user.profile
+          if @comment.update(comment_params)
+            render json: @comment, serializer: CommentSerializer
+          else
+            render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+          end
         else
-          render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: "У вас нет прав для редактирования этого комментария" }, status: :forbidden
         end
       end
 
       def destroy
-        @comment.destroy
-        render json: { message: 'Comment deleted successfully' }, status: :ok
+        if @comment.profile == current_user.profile
+          @comment.destroy
+          render json: { message: 'Комментарий успешно удалён' }, status: :ok
+        else
+          render json: { error: "У вас нет прав на удаление этого комментария" }, status: :forbidden
+        end
       end
 
       private
@@ -41,7 +50,7 @@ module Api
       end
 
       def comment_params
-        params.require(:comment).permit(:body, :post_id, :profile_id, :comment_id)
+        params.require(:comment).permit(:body, :post_id, :comment_id)
       end
     end
   end

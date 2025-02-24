@@ -47,10 +47,14 @@ Rails.application.routes.draw do
   end
 
   # API
-  namespace :api, format: "json" do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # Пользователи
-      resources :users, only: [:index, :show, :create, :update, :destroy]
+      resources :users, only: [:index, :show, :create, :update, :destroy] do
+        collection do
+          get "me", to: "users#me"
+        end
+      end
       # Профили
       resources :profiles, only: [:index, :show, :update]
 
@@ -72,7 +76,12 @@ Rails.application.routes.draw do
       # Категории тегов
       resources :tag_categories, only: %i[index show]
 
-      post 'users/login', to: 'sessions#create'
+
+      devise_scope :user do
+        post "sign_up", to: "registrations#create"
+        post "sign_in", to: "sessions#create"
+        post "sign_out", to: "sessions#destroy"
+      end
     end
   end
 

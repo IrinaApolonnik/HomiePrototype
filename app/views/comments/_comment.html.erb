@@ -41,10 +41,10 @@
 
         <% replies = comment.replies %>
         <% if replies.any? %>
-            <div class="C_commentReplies">
-                <h5 class="Q_repliesCount"><%= replies.count %> <%= Russian.p(replies.count, "ответ", "ответа", "ответов") %></h5>
-                <%= render replies %>
-            </div>
+                <div class="C_commentReplies">
+                    <h5 class="Q_repliesCount"><%= replies.count %> <%= Russian.p(replies.count, "ответ", "ответа", "ответов") %></h5>
+                    <%= render replies %>
+                </div>
         <% end %>
     </div>
 </div>
