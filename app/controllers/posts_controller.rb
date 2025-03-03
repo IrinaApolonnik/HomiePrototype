@@ -91,7 +91,6 @@ class PostsController < ApplicationController
 
   private
 
-  # Only allow a list of trusted parameters through.
   def post_params
     if params[:post][:tag_list].is_a?(String)
       params[:post][:tag_list] = params[:post][:tag_list].split(',')

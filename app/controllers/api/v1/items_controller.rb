@@ -1,13 +1,7 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-      before_action :authenticate_user!
       before_action :set_item, only: %i[show update destroy]
-
-      def index
-        items = Item.all
-        render json: items, each_serializer: ItemSerializer
-      end
 
       def show
         render json: @item, serializer: ItemSerializer
@@ -31,7 +25,7 @@ module Api
             render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
           end
         else
-          render json: { error: "У вас нет прав на редактирование этого предмета" }, status: :forbidden
+          render json: { error: "Вы не можете редактировать этот предмет" }, status: :forbidden
         end
       end
 
@@ -40,14 +34,15 @@ module Api
           @item.destroy
           render json: { message: 'Предмет успешно удален' }, status: :ok
         else
-          render json: { error: "У вас нет прав на удаление этого предмета" }, status: :forbidden
+          render json: { error: "Вы не можете удалить этот предмет" }, status: :forbidden
         end
       end
 
       private
 
       def set_item
-        @item = Item.find(params[:id])
+        @item = Item.find_by(id: params[:id], profile: current_user.profile)
+        render json: { error: "Предмет не найден или у вас нет прав на его просмотр" }, status: :not_found unless @item
       end
 
       def item_params

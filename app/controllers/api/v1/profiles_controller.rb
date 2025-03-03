@@ -4,10 +4,22 @@ module Api
       before_action :set_profile, only: [:show, :update]
       before_action :authorize_user!, only: [:update]
 
-      def show
-        render json: current_user.profile, serializer: ProfileSerializer
+      # Получение профиля текущего пользователя
+      def me
+        profile = current_user.profile
+        if profile
+          render json: profile, serializer: ProfileSerializer
+        else
+          render json: { error: "Профиль не найден" }, status: :not_found
+        end
       end
 
+      # Просмотр профиля по ID
+      def show
+        render json: @profile, serializer: ProfileSerializer
+      end
+
+      # Обновление профиля
       def update
         if current_user.profile.update(profile_params)
           render json: current_user.profile, serializer: ProfileSerializer
@@ -19,7 +31,12 @@ module Api
       private
 
       def set_profile
-        @profile = Profile.find_by(id: params[:id])
+        if params[:id] == "me"
+          @profile = current_user.profile
+        else
+          @profile = Profile.find_by(id: params[:id])
+        end
+      
         render json: { error: "Профиль не найден" }, status: :not_found unless @profile
       end
 

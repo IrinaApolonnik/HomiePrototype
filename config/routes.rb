@@ -50,22 +50,20 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # Пользователи
-      resources :users, only: [:index, :show, :create, :update, :destroy] do
-        collection do
-          get "me", to: "users#me"
-        end
-      end
+      resources :users, only: [:index, :show, :create, :update, :destroy]
+      
       # Профили
+      get "me/profile", to: "profiles#me"
       resources :profiles, only: [:index, :show, :update]
 
       # Посты
       resources :posts, only: [:index, :show, :create, :update, :destroy]
 
       # Товары
-      resources :items, only: [:index, :show, :create, :update, :destroy]
+      resources :items, only: [:show, :create, :update, :destroy]
 
       # Комментарии (отдельно)
-      resources :comments, only: [:index, :show, :create, :update, :destroy]
+      resources :comments, only: [:show, :create, :update, :destroy]
 
       # Лайки
       resources :likes, only: %i[create destroy]

@@ -17,5 +17,5 @@ class Post < ApplicationRecord
         else
           super(url_or_file)
         end
-      end
+    end
 end

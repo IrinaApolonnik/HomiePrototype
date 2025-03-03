@@ -3,13 +3,11 @@ module Api
     class TagCategoriesController < ApplicationController
       before_action :set_tag_category, only: %i[show]
 
-      # GET /api/v1/tag_categories
       def index
-        tag_categories = TagCategory.all
+        tag_categories = TagCategory.order(:name)
         render json: tag_categories, each_serializer: TagCategorySerializer, status: :ok
       end
 
-      # GET /api/v1/tag_categories/:id
       def show
         render json: @tag_category, serializer: TagCategorySerializer, status: :ok
       end
