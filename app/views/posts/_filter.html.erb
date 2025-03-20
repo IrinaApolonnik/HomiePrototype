@@ -1,0 +1,37 @@
+<section class="S_filter">
+    <div class="O_filter">
+        <div class="M_filterSort">
+            <div class="W_filterSortHeader">
+                <h3>Фильтровать по</h3>
+                <button class="Q_closeFltrBtn">
+                    <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+                </button>
+            </div>
+
+            <div class="C_filterCattegories">
+                <% TagCategory.includes(:tags).each do |category| %>
+                    <div class="W_filterCategories">
+                        <h4 class="Q_filterCattegoryName"><%= category.name %></h4>
+                        <div class="C_filtersBtns">
+                            <% category.tags.each do |tag| %>
+                                <label class="A_filterCheckbox">
+                                    <input type="checkbox" name="tags[]" value="<%= tag.name %>" class="Q_checkbox">
+                                    <h4><%= tag.name %></h4>
+                                </label>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="W_filterSortBtns">  
+            <button class="A_resultFilterBtn">
+                <h4>Показать результат</h4>
+            </button>
+            <button class="A_clearFilter">
+                <h4>Очистить</h4>
+            </button>
+        </div>
+    </div>
+</section>

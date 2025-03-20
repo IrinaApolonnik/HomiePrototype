@@ -1,31 +1,45 @@
 <nav class="S_menuBar">
-  <%= link_to "TUMBA", root_path, class: 'Q_menuLogo' %>
-
-  <div class="W_menuActions">
+  <div class="W_menuActions left">
+    <% if user_signed_in? && can?(:create, Post) %>
+      <%= link_to new_post_path, class: ['A_menuButton new', current_page?(new_post_path) ? 'activePage' : 'inactivePage'] do %>
+        <span>Создать подборку</span>
+      <% end %>
+    <% end %>
+    <%= link_to posts_path, class: ['A_menuButton', current_page?(posts_path) ? 'activePage' : 'inactivePage'] do %>
+      <span>Подборки</span>
+    <% end %>
+  </div>
+  
+  <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
+  
+  
+  <div class="W_menuActions right">
+    <button class="A_menuButton search">
+      <span>Поиск</span>
+    </button>
+    
+    <button class="A_menuButton">
+      <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
+    </button>
+    
+    <button class="A_menuButton">
+      <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
+    </button>
+    
     <% if user_signed_in? %>
-      <% if can?(:create, Post) %>
-        <%= link_to new_post_path, class: [current_page?(new_post_path) ? 'activePage' : 'inactivePage', 'A_menuButton'] do %>
-          <img src="<%= asset_path('menu/plusIcon.svg') %>" alt="Создать" class="Q_menuIcon">
-        <% end %>
-      <% end %>
-      
-      <%= link_to posts_path, class: [current_page?(posts_path) ? 'activePage' : 'inactivePage', 'A_menuButton'] do %>
-        <img src="<%= asset_path('menu/homeIcon.svg') %>" alt="Главная" class="Q_menuIcon">
-      <% end %>
-
       <div class="dropdown">
-        <div class="<%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %> A_menuButton">
-          <%= link_to profile_path(current_user.profile), class: ['Q_menuAvatar'] do %>
+        <div class="A_menuButton <%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %>">
+          <%= link_to profile_path(current_user.profile), class: 'Q_menuAvatar' do %>
             <img src="<%= current_profile.avatar_url %>" alt="Avatar" class="Q_menuAvatar">
           <% end %>
           <button class="Q_dropdownBtn">
             <img src="<%= asset_path('menu/arrowDownIcon.svg') %>" alt="Меню" class="Q_menuIcon">
           </button>
         </div>
-
+        
         <div class="W_dropdownProfileMenu">
           <div class="A_dropdownMenuBlock">
-            <h6>Аккаунты</h6>
+            <h6>Аккаунт</h6>
             <div class="C_menuUsers">
               <div class="A_menuUser active">
                 <img class="Q_avatarImg" src="<%= current_profile.avatar_url %>" alt="">
@@ -52,7 +66,7 @@
             <img src="<%= asset_path('menu/userIcon.svg') %>" alt="Меню" class="Q_menuIcon">
           </button>
         </div>
-
+        
         <div class="W_dropdownProfileMenu">
           <div class="A_dropdownMenuBlock">
             <div class="W_userActions">

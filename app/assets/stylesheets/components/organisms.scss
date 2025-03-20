@@ -1,3 +1,29 @@
+// Фильтрация и сортировка
+.O_sort, .O_filter {
+    width: 36.2vw;
+    height: 100%;
+    transform: translateX(100%);
+    background-color: var(--white);
+    padding: 2.2vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.show {
+    .O_sort, .O_filter {
+        transform: translateX(0%);
+    }
+}
+// Индекс Поста
+.O_postFeedHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2vw;
+}
+
 .O_postImages {
     position: relative;
     display: flex;
@@ -38,10 +64,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 21.24vw;
-    height: 32vw;   
-    background-size: cover;
+    align-items: center;
+    width: auto; /* Теперь Masonry сам управляет шириной */
+    max-width: 100%; /* Чтобы не ломалось */
+    overflow: hidden;
+    margin-bottom: 1.5vw;
 }
 
 @media only screen and (max-width: 430px) {

@@ -33,9 +33,11 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get "by_tag/:tag", to: "posts#by_tag", as: "tagged" # Посты по тегу
+      get "sort", to: "posts#sort" # Сортировка постов
+      get "by_tag", to: "posts#by_tag", as: "tagged" # Теперь принимает ?tags=тег1,тег2
     end
   end
+
 
   # Предметы
   resources :items, only: %i[index show create update destroy]
@@ -44,6 +46,18 @@ Rails.application.routes.draw do
   resources :subscriptions, only: %i[create destroy]
   namespace :admin do
     resources :subscriptions, only: %i[index destroy]
+  end
+
+  # Коллекции
+  resources :collections, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      get "user_collections", to: "collections#user_collections" # Получение всех коллекций пользователя
+    end
+
+    member do
+      post "toggle_post/:post_id", to: "collections#toggle_post", as: "toggle_post" # Добавление/удаление поста
+      post "toggle_item/:item_id", to: "collections#toggle_item", as: "toggle_item" # Добавление/удаление товара
+    end
   end
 
   # API

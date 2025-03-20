@@ -4,8 +4,6 @@
     src: url('Arimo-Regular.eot');
     src: local('Arimo Regular'), local('Arimo-Regular'),
         url('Arimo-Regular.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-Regular.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-Regular.woff') format('woff'),
         url('Arimo-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -17,8 +15,6 @@
     src: url('Arimo-SemiBoldItalic.eot');
     src: local('Arimo SemiBold Italic'), local('Arimo-SemiBoldItalic'),
         url('Arimo-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-SemiBoldItalic.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-SemiBoldItalic.woff') format('woff'),
         url('Arimo-SemiBoldItalic.ttf') format('truetype');
     font-weight: 600;
     font-style: italic;
@@ -30,8 +26,6 @@
     src: url('Arimo-SemiBold.eot');
     src: local('Arimo SemiBold'), local('Arimo-SemiBold'),
         url('Arimo-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-SemiBold.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-SemiBold.woff') format('woff'),
         url('Arimo-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
@@ -43,8 +37,6 @@
     src: url('Arimo-MediumItalic.eot');
     src: local('Arimo Medium Italic'), local('Arimo-MediumItalic'),
         url('Arimo-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-MediumItalic.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-MediumItalic.woff') format('woff'),
         url('Arimo-MediumItalic.ttf') format('truetype');
     font-weight: 500;
     font-style: italic;
@@ -56,8 +48,6 @@
     src: url('Arimo-Medium.eot');
     src: local('Arimo Medium'), local('Arimo-Medium'),
         url('Arimo-Medium.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-Medium.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-Medium.woff') format('woff'),
         url('Arimo-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
@@ -68,8 +58,6 @@
     src: url('Arimo-Italic.eot');
     src: local('Arimo Italic'), local('Arimo-Italic'),
         url('Arimo-Italic.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-Italic.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-Italic.woff') format('woff'),
         url('Arimo-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
@@ -81,8 +69,6 @@
     src: url('Arimo-BoldItalic.eot');
     src: local('Arimo Bold Italic'), local('Arimo-BoldItalic'),
         url('Arimo-BoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-BoldItalic.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-BoldItalic.woff') format('woff'),
         url('Arimo-BoldItalic.ttf') format('truetype');
     font-weight: bold;
     font-style: italic;
@@ -94,8 +80,6 @@
     src: url('Arimo-Bold.eot');
     src: local('Arimo Bold'), local('Arimo-Bold'),
         url('Arimo-Bold.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/Arimo-Bold.woff2') format('woff2'),
-        url('https://example.com/fonts/Arimo-Bold.woff') format('woff'),
         url('Arimo-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
@@ -108,8 +92,6 @@
     src: url('RAYDIS.eot');
     src: local('Raydis'), local('Raydis-Regular'),
         url('RAYDIS.eot?#iefix') format('embedded-opentype'),
-        url('https://example.com/fonts/RAYDIS.woff2') format('woff2'),
-        url('https://example.com/fonts/RAYDIS.woff') format('woff'),
         url('RAYDIS.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;

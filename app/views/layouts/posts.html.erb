@@ -15,13 +15,21 @@
         <link rel="apple-touch-icon" href="/icon.png">
         <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
         <%= javascript_importmap_tags %>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     </head>
 
     <body>
 
-        
-        <p style="color: red" class="systemMessage"><%= alert %></p>
-        <p style="color: green" class="systemMessage"><%= notice %></p>
+        <% if notice.present? %>
+        <div class="A_systemMessage">
+            <img src="<%= asset_path('successNoticeIcon.svg') %>">
+            <h3><%= notice %></h3>
+        </div>
+        <% end %>
+
+        <% if alert.present? %>
+        <p class="systemMessage" style="color: red"><%= alert %></p>
+        <% end %>
         
         <%= render "menubar" %>
 

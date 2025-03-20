@@ -1,3 +1,38 @@
+//Сортировка и Фильтры
+.C_sortCategories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+}
+.C_filterCattegories {
+    display: flex;
+    flex-direction: column;
+    gap: 3.9vw;
+    overflow-y: scroll;
+    max-height: 75vh;
+    scrollbar-width: none;
+}
+.C_filtersBtns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+}
+
+
+
+
+
+.C_postPartialCollectionList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.4vw;
+    max-height: 14.1vw;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
 .C_postItems {
     width: 100%;
     display: flex;
@@ -24,17 +59,10 @@
 }
 
 #C_postsFeed {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 3.6vw;
+    display: block;
+    width: 100%; 
 }
-.C_popularPosts {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 3.6vw;
-}
+
 .C_profileFeed {
     display: none;
     flex-direction: row;

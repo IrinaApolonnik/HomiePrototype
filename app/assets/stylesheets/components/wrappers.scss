@@ -1,8 +1,16 @@
+// Главное Меню
 .W_menuActions {
     display: flex;
     flex-direction: row;
-    height: 5vw;
-    width: auto;
+    align-items: center;
+    height: 100%;
+    width: 30vw;
+    &.left {
+        justify-content: flex-start;
+    }
+    &.right {
+        justify-content: flex-end;
+    }
 }
 .W_dropdownProfileMenu {
     position: absolute;
@@ -23,7 +31,6 @@
         opacity: 1;
     }
 }
-
 .A_dropdownMenuBlock {
     .W_userActions {
         display: flex;
@@ -34,6 +41,97 @@
         }
     }
 }
+//Сортировка и Фильтры
+.W_filterSortHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    h3 {
+        color: var(--black);
+        text-transform: uppercase;
+        font-weight: 600;
+        line-height: 100%;
+    }
+}
+.W_filterCategories {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    
+}
+.W_filterSortBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8vw;
+}
+// Индекс Поста
+.W_postFeedHeader {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8vw;
+}
+// Паршиал поста
+.W_postPartialDetails {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;    
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    padding: 1.6vw 1.2vw 1.2vw 1.2vw;
+    opacity: 0;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(0.1vw); 
+    mask-image: linear-gradient(to top, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
+    transform: translateY(1vw);
+}
+.W_postPartialSaveHeader {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(-1vw);
+    opacity: 0;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.O_post:hover  {
+    .W_postPartialDetails, .W_postPartialSaveHeader {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.W_postPartialCollectionDropdown {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(0.8vw);
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    top: 0;
+    left: 0;
+    padding: 5.2vw 1.2vw 1.2vw 1.2vw;
+    transform: translateY(0);
+    opacity: 0;
+    &.dropdown {
+        transform: translateY(-100%);
+    }
+}
+.O_post:hover  {
+    .W_postPartialCollectionDropdown {
+        opacity: 1;
+    }
+}
+
 .W_postHead {
     height: 5vw;
     width: 100%;

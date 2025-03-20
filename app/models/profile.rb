@@ -7,6 +7,7 @@ class Profile < ApplicationRecord
     has_many :items, dependent: :destroy
     has_many :comments, dependent: :destroy
     has_many :likes, dependent: :destroy
+    has_many :collections, dependent: :destroy
   
     # Валидации
     validates :username, presence: true, uniqueness: true
@@ -14,6 +15,8 @@ class Profile < ApplicationRecord
     validates :name, presence: true
 
     mount_uploader :avatar_url, ImageUploader
+
+    after_create :create_default_collection
   
     # Коллбеки
     before_validation :set_default_username, on: :create
@@ -30,5 +33,12 @@ class Profile < ApplicationRecord
     # Установить уникальное имя пользователя, если оно не задано
     def set_default_username
       self.username ||= "user#{SecureRandom.hex(3)}"
+    end
+
+    def create_default_collection
+      collections.create!(
+        title: "Все идеи",
+        private: false
+      )
     end
   end

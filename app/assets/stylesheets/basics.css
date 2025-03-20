@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10vw 1.6vw 1.4vw 1.6vw;
+    padding: 5vw 2.2vw 1.4vw 2.2vw;
 
 }
 
@@ -27,13 +27,12 @@ h2 {
     margin-top: 0.6vw;
 }
 h4 {
-    font-weight: bold;
-    font-size: 1.4vw; 
+    font-size: 1vw; 
+    letter-spacing: -1%;
 }
 h3 {
-    font-size: 2vw;
-    font-weight: bold;
-    letter-spacing: 0.05vw;
+    font-size: 1.3vw;
+    letter-spacing: -1%;
 }
 h5 {
     font-weight: bold;
@@ -72,9 +71,6 @@ button {
     position: fixed;
     z-index: 40;
     font-size: 1.2vw;
-    /* border-radius: 10vw;
-    padding: 1.2vw;
-    background-color: var(--white); */
     animation: fadeOut 2s ease-out forwards;
 }
 .hidden {
@@ -180,3 +176,6 @@ button {
     }
   
 }
+
+
+

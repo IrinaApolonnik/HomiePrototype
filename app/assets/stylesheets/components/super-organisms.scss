@@ -1,15 +1,32 @@
 .S_menuBar {
     position: fixed;
-    top: 1.6vw;
-    width: 95.75vw;
-    height: 5vw;
-    z-index: 50;
+    top: 0;
+    width: 100%;
+    height: 4.5vw;
+    padding: 0 2.2vw;
+    z-index: 30;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     background-color: var(--white);
-    border: 0.16vw solid var(--orange);
+}
+.S_sort, .S_filter {
+    position: fixed;
+    z-index: 31;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: row;
+    justify-content: flex-end;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    &.show {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 }
 .S_postContent {
     position: relative;

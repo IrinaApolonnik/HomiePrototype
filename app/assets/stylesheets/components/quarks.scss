@@ -1,3 +1,4 @@
+// Главное Меню
 .Q_menuLogo {
   font-size: 2.6vw;
   font-family: 'Raydis', sans-serif;
@@ -5,7 +6,6 @@
   margin-left: 1.6vw;
   margin-top: 0.6vw;
 }
-
 .Q_menuAvatar {
   border-radius: 10vw;
   width: 2vw;
@@ -26,6 +26,191 @@
   align-items: center;
   justify-content: center;
 }
+//Сортировка и фильтры
+.Q_feedSortBtn, .Q_feedFltrBtn {
+  padding: 0.5vw 0.8vw;
+  border: 0.1vw solid var(--black);
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  h4 {
+    color: var(--black);
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+  &:hover {
+    background-color: var(--black);
+    h4 {
+      color: var(--white);
+    }
+  }
+}
+
+.Q_closeBtn, .Q_closeFltrBtn {
+  width: 1.7vw;
+  height: 1.7vw;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.Q_bullet {
+  appearance: none;
+  width: 1.3vw;
+  height: 1.3vw;
+  border: 0.1vw solid var(--orange);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  margin: 0;
+  &:checked {
+    background-color: var(--white);
+    &:before {
+      content: "";
+      position: absolute;
+      width: 0.7vw;
+      height: 0.7vw;
+      background-color: var(--orange);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-51%, -50%);
+    }
+  }
+}
+.A_filterSort:hover  {
+  .Q_bullet {
+    opacity: 0.8;
+  }
+}
+.Q_filterCattegoryName { 
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.Q_checkbox {
+  appearance: none;
+  width: 1.3vw;
+  height: 1.3vw;
+  border: 0.1vw solid var(--orange);
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  &:checked {
+    background-color: var(--orange);
+  }
+  &:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.1vw; 
+    height: 1.1vw;
+    background-image: image-url('checkmarkIcon.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
+// Индекс Поста
+.Q_changeFeedLayoutBtn {
+  width: 1.6vw;
+  height: 1.6vw;
+  opacity: 0.5;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &.active {
+    opacity: 1;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Паршиал поста
+.Q_postPartialImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  
+}
+.post-link {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.Q_postPartialShading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--blue);
+  opacity: 0;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.O_post:hover {
+  .Q_postPartialShading {
+    opacity: 0.2;
+  }
+}
+.Q_postPartialTitle {
+  font-size: 1vw;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.Q_postPartialAvatar {
+  width: 1.6vw;
+  height: 1.6vw;
+  border-radius: 7.8vw;
+  object-fit: cover;
+}
+.Q_postPartialName {
+  color: var(--white);
+  font-size: 1vw;
+  font-weight: 400;
+}
+.Q_postPartialCollectionSearch {
+  width: 100%;
+  padding: 0.8vw 0.8vw 0.8vw 1.6vw;
+  background-color: var(--white);
+  color: rgba(51, 51, 51, 0.5);
+  border-radius: 3.1vw;
+  border: 0.1vw solid var(--white); /* Здесь надо оставить границу */
+  font-size: 1.3vw;
+  font-weight: 400;
+  transition: all 0.3s ease-in-out; /* Делаем плавнее */
+
+  &::placeholder {
+    color: var(--medium-grey);
+    font-size: 1.3vw;
+    font-weight: 100;
+  }
+
+  &:focus {
+    outline: none;
+    border: 0.1vw solid var(--orange); /* Обводка при фокусе */
+    color: var(--black);
+    background-color: var(--white);
+  }
+}
+
+
+
 
 .Q_postCover {
   max-width: 40vw;
@@ -47,20 +232,6 @@
   .Q_avatarImg {
     width: 3.2vw;
     height: 3.2vw;
-  }
-}
-.Q_postName {
-  margin: 0 3vw 0 1vw;
-  h5, h6 {
-    color: var(--white);
-  }
-  h5 {
-    font-size: 1vw;
-    margin-bottom: -0.5vw;
-  }
-  h6 {
-      font-size: 0.8vw;
-      color: var(--white);
   }
 }
 
@@ -629,3 +800,4 @@
     }
   }
 }
+
