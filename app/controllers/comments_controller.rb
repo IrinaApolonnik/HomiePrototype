@@ -9,10 +9,13 @@ class CommentsController < ApplicationController
     @comment.profile = current_profile # Присваиваем профиль текущего пользователя
 
     if params[:parent_comment_id].present?
-      @comment.comment = @post.comments.find_by(id: params[:parent_comment_id])
-      unless @comment.comment
+      parent = @post.comments.find_by(id: params[:parent_comment_id])
+    
+      unless parent
         redirect_to post_path(@post), alert: 'Родительский комментарий не найден.' and return
       end
+    
+      @comment.comment = parent.root_comment
     end
 
     if @comment.save
@@ -26,6 +29,20 @@ class CommentsController < ApplicationController
     @comment = @post.comments.find(params[:id])
     @comment.destroy
     redirect_to post_path(@post), notice: 'Комментарий успешно удалён.'
+  end
+  def like
+    like = @comment.likes.find_by(profile_id: current_profile.id)
+
+    if like
+      like.destroy!
+    else
+      @comment.likes.create(profile_id: current_profile.id)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @comment }
+      format.json { render json: { liked: like.nil? }, status: :ok }
+    end
   end
 
   private

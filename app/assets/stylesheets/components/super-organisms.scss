@@ -28,21 +28,20 @@
         background-color: rgba(0, 0, 0, 0.4);
     }
 }
+//Post Show
 .S_postContent {
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     width: 100%;
-    gap: 0;
+    gap: 1.6vw;
 }
-.S_postComments {
+.S_postItems, .S_postComments {
     display: flex;
     flex-direction: column;
-    width: 56vw;
-    align-items: center;
-    gap: 1.2vw;
-    margin-top: 5.6vw;
+    width: 100%;
+    gap: 1.6vw; 
+    margin-top: 5.5vw;
 }
 
 .S_popularPosts {

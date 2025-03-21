@@ -14,6 +14,7 @@ module HseRailsProjectsHomiePrototype
     # Установим часовой пояс
     config.time_zone = 'Moscow'
     config.active_record.default_timezone = :local
+    # config.i18n.default_locale = :ru
 
     # Настройки для acts-as-taggable-on
     config.after_initialize do

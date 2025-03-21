@@ -604,7 +604,7 @@ function likeStates() {
                 icon.src = "/assets/heartIcon_b.svg"; // Меняем на outline
             } else {
                 likesCount += 1;
-                icon.src = "/assets/heartIcon_o.svg"; // Меняем на filled
+                icon.src = "/assets/heartIcon_r.svg"; // Меняем на filled
             }
 
             // Добавляем класс анимации
@@ -769,6 +769,67 @@ function saveToCollection() {
     });
 }
 
+function replyToComment() {
+    const replyButtons = document.querySelectorAll(".Q_replyBtn");
+    const commentForm = document.querySelector(".comment-form");
+    const inputField = commentForm?.querySelector(".Q_commentFormInput");
+    const parentIdInput = commentForm?.querySelector(".parentCommentIdInput");
+  
+    if (!replyButtons.length || !commentForm || !inputField || !parentIdInput) return;
+  
+    replyButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const commentId = button.dataset.commentId;
+        const username = button.dataset.commentName;
+  
+        // Подставляем @имя только если это ответ НЕ на корневой комментарий
+        const commentEl = button.closest(".O_postComment");
+        const isRootComment = commentEl?.parentElement?.classList.contains("C_postCommentFeed");
+
+        if (!isRootComment) {
+        const tag = `${username}, `;
+        if (!inputField.value.startsWith(tag)) {
+            inputField.value = tag + inputField.value;
+        }
+        }
+  
+        // Устанавливаем parent_comment_id
+        parentIdInput.value = commentId;
+  
+        // Фокус на поле
+        inputField.focus();
+      });
+    });
+  }
+function toggleReplies() {
+    document.querySelectorAll(".Q_showReplies").forEach((button) => {
+        button.addEventListener("click", () => {
+        const commentId = button.dataset.commentId;
+        const repliesBlock = document.querySelector(`.C_commentReplies[data-replies-for="${commentId}"]`);
+
+        if (repliesBlock) {
+            const isHidden = repliesBlock.classList.toggle("hidden");
+            const count = button.getAttribute("data-reply-count");
+            button.querySelector("h4").textContent = isHidden
+              ? `Показать ответы (${count})`
+              : `Скрыть ответы (${count})`;
+        }
+        });
+    });
+}
+function autoResizeTextarea() {
+    document.querySelectorAll(".Q_commentFormInput").forEach((textarea) => {
+      // Устанавливаем высоту по содержимому
+      const resize = () => {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight}px`;
+      };
+  
+      textarea.addEventListener("input", resize);
+      resize(); // При загрузке
+    });
+  }
+
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     
@@ -794,6 +855,10 @@ document.addEventListener("turbo:load", () => {
     filter();
 
     collectionSearch();
+
+    replyToComment();
+    toggleReplies();
+    autoResizeTextarea();
     
     regSection();
     profileSection();

@@ -71,6 +71,7 @@
     flex-direction: row;
     gap: 0.8vw;
 }
+
 // Паршиал поста
 .W_postPartialDetails {
     position: absolute;
@@ -88,7 +89,7 @@
     mask-image: linear-gradient(to top, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
     transform: translateY(1vw);
 }
-.W_postPartialSaveHeader {
+.W_postPartialSaveHeader, .W_postSaveHeader {
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -132,19 +133,69 @@
     }
 }
 
+//Post Show 
+.W_postActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+.W_postSaveHeader {
+    position: relative;
+    width: auto;
+    justify-content: end;
+    gap: 0.8vw;
+    transform: translateY(0vw);
+    opacity: 1;
+}
+.W_postInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+}
 .W_postHead {
-    height: 5vw;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0.8vw;
 }
 .W_postSocActions {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.8vw;
 }
+.W_commentator {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.W_commentActions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8vw;
+}
+.W_commentBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+}
+
+
+
+
+
+
+
+
+
+
+
 .W_itemContent {
     width: 100%;
     display: flex;
@@ -166,31 +217,9 @@
     }
 }
 
-.W_commentActions {
-    margin-top: 1.8vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    h6 {
-        color: var(--grey-dark);
-    }
-}
-.W_commentator {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.W_postInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 3.4vw;
-}
+
+
+
 
 
 

@@ -1,18 +1,17 @@
 <div class="A_likes">
-  <h5 class="Q_likesCount" data-likes="<%= likeable.likes.count %>">
-    <%= likeable.likes.count %>
-  </h5>
-
   <% if current_profile %>
     <% like = likeable.likes.where(profile_id: current_profile.id) %>
     <% liked = like.exists? %>
 
     <%= button_tag type: 'button', class: 'Q_likeBtn', 'data-id': likeable.id, 'data-liked': liked, 'data-type': likeable.class.name do %>
-      <img src="<%= asset_path(liked ? 'heartIcon_o.svg' : 'heartIcon_b.svg') %>" alt="<%= liked ? 'Unlike' : 'Like' %>">
+      <img src="<%= asset_path(liked ? 'heartIcon_r.svg' : 'heartIcon_b.svg') %>" alt="<%= liked ? 'Unlike' : 'Like' %>">
     <% end %>
   <% else %>
     <button type="button" class="Q_likeBtn disabled" disabled>
       <img src="<%= asset_path('heartIcon_b.svg') %>" alt="Like">
     </button>
   <% end %>
+  <h4 class="Q_likesCount" data-likes="<%= likeable.likes.count %>">
+    <%= likeable.likes.count %>
+  </h4>
 </div>

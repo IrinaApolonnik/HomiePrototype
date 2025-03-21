@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_16_142646) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
   create_table "collection_items", force: :cascade do |t|
     t.integer "collection_id", null: false
     t.string "collectible_type", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_16_142646) do
     t.datetime "updated_at", null: false
     t.integer "comment_id"
     t.integer "profile_id", null: false
+    t.integer "likes_count", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["profile_id"], name: "index_comments_on_profile_id"
   end

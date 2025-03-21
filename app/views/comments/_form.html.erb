@@ -1,11 +1,13 @@
-<%= form_for([@post, @post.comments.build]) do |f| %> 
+<%= form_for([@post, @post.comments.build], html: { class: "comment-form" }) do |f| %>
   <div class="M_commentForm">
     <img class="Q_commentatorAvatar" src="<%= current_profile.avatar_url if current_profile %>" alt="Ваш аватар">
-    <%= f.text_area :body, placeholder: "Отправить сообщение", class: "Q_commentFormInput" %>
+
+    <!-- Скрытое поле для ID родительского комментария -->
+    <%= hidden_field_tag :parent_comment_id, local_assigns[:parent_comment_id], class: "parentCommentIdInput" %>
+    <%= f.text_area :body, placeholder: "Отправить сообщение", class: "Q_commentFormInput", rows: 1 %>
 
     <%= button_tag type: 'submit', class: "Q_commentFormSubmit" do %>
       <img src="<%= asset_path('welcome/subscribe.png') %>" alt="Создать комментарий" id="subscribeButtonImage">
     <% end %>
   </div>
 <% end %>
-
