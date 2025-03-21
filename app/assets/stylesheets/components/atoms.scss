@@ -169,7 +169,7 @@
     border-radius: 3.1vw;
     width: max-content;
 }
-.A_postPartialSelectedCollection, .A_postSelectedCollection {
+.A_selectedCollection {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -188,12 +188,31 @@
         object-fit: cover;
     }
     &.active {
+        img {
+            transform: scaleY(-1);
+        }
+    }
+}
+.postPartial, .item {
+    .A_selectedCollection {
+        &.active {
+            p {
+                color: var(--black);
+            }
+            img {
+                filter: invert(1);
+            }
+        }
+    }
+}
+
+.post {
+    .A_selectedCollection {
         p {
             color: var(--black);
         }
         img {
             filter: invert(1);
-            transform: scaleY(-1);
         }
     }
 }
@@ -206,6 +225,12 @@
     transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
     cursor: pointer;
 }
+.item {
+    .A_saveToCollectionBtn {
+        display: none;
+    }
+}
+
 .A_saveToCollectionBtnCompact {
     background-color: var(--orange);
     padding: 0.8vw 1.2vw ;
@@ -215,6 +240,11 @@
         object-fit: cover;
         width: 1.6vw ;
         height: 1.6vw ;
+    }
+}
+.post {
+    .A_saveToCollectionBtnCompact {
+        display: none;
     }
 }
 .big {
@@ -233,7 +263,7 @@
         display: block;
     }
 }
-.A_postPartialCollectionObj, .A_postPartialAddCollectionBtn {
+.A_collectionObj, .A_addCollectionBtn {
     display: flex;
     flex-direction: row;
     gap: 1.2vw;
@@ -251,37 +281,16 @@
        object-fit: cover;
     }
 }
-.A_postPartialCollectionObj:hover {
+.A_collectionObj:hover {
     background-color: var(--white);
 }
-.A_postPartialAddCollectionBtn {
+.A_addCollectionBtn  {
     padding: 1.2vw 0.4vw 0.4vw 0.4vw;
     border-top: 0.1vw solid var(--white);
 }
 
 //Show Post
 
-.A_postSelectedCollection {
-    p {
-        color: var(--black);
-    }
-    img {
-        filter: invert(1);
-    }
-    &.active {
-        p {
-            color: var(--black);
-        }
-        img {
-            filter: none;
-        }
-    }
-}
-.W_postSaveHeader {
-    .A_saveToCollectionBtnCompact {
-        display: none;
-    }
-}
 .A_postCreator {
     background-color: rgba(249, 249, 249, 1);
 }

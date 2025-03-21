@@ -271,31 +271,6 @@ function filter() {
     });
 }
 
-// Функция для анимации появления карточек
-function selectedTag() {
-    const tagButtons = document.querySelectorAll(".Q_tagBtn");
-    const hiddenInput = document.getElementById("post_tag_list");
-  
-    if (!tagButtons.length || !hiddenInput) {
-      console.error("Tag buttons or hidden input field not found.");
-      return;
-    }
-  
-    tagButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const isSelected = button.getAttribute("data-selected") === "true";
-        button.setAttribute("data-selected", !isSelected);
-        button.classList.toggle("selected", !isSelected); // Добавляем/убираем класс "selected"
-  
-        // Обновляем скрытое поле
-        const selectedTags = Array.from(tagButtons)
-          .filter((btn) => btn.getAttribute("data-selected") === "true")
-          .map((btn) => btn.getAttribute("data-tag"));
-        hiddenInput.value = selectedTags.join(",");
-      });
-    });
-  }
-// Функция тегов
 function cardsAppear() {
     const elements = document.querySelectorAll(".card");
 
@@ -310,9 +285,9 @@ function cardsAppear() {
 }
 
 function collectionSearch() {
-    const searchInput = document.querySelector(".Q_postPartialCollectionSearch");
-    const collectionList = document.querySelector(".C_postPartialCollectionList");
-    const collections = document.querySelectorAll(".A_postPartialCollectionObj");
+    const searchInput = document.querySelector(".Q_collectionSearch");
+    const collectionList = document.querySelector(".C_collectionList");
+    const collections = document.querySelectorAll(".A_collectionObj");
     const noResultsMessage = document.createElement("div");
 
     if (!searchInput || !collectionList || collections.length === 0) return;
@@ -541,30 +516,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Выпадающее меню
-function profilePostsToggle() {
-    const userPostsBtn = document.getElementById("userPostsBtn");
-    const likedPostsBtn = document.getElementById("likedPostsBtn");
-    const userPostsFeed = document.getElementById("userPostsFeed");
-    const likedPostsFeed = document.getElementById("likedPostsFeed");
-  
-    function toggleFeeds(activeBtn, inactiveBtn, activeFeed, inactiveFeed) {
-      activeBtn.classList.add("active");
-      inactiveBtn.classList.remove("active");
-      activeFeed.classList.add("active");
-      activeFeed.classList.remove("hidden");
-      inactiveFeed.classList.remove("active");
-      inactiveFeed.classList.add("hidden");
-    }
-  
-    userPostsBtn.addEventListener("click", () => {
-      toggleFeeds(userPostsBtn, likedPostsBtn, userPostsFeed, likedPostsFeed);
-    });
-  
-    likedPostsBtn.addEventListener("click", () => {
-      toggleFeeds(likedPostsBtn, userPostsBtn, likedPostsFeed, userPostsFeed);
-    });
-}
 
 
 
@@ -664,66 +615,77 @@ function likeStates() {
 
 // Сохранение в подборки
 function saveToCollection() {
-    // Выбор коллекции
-    document.querySelectorAll(".A_postPartialSelectedCollection").forEach(selector => {
+    // Открытие/закрытие выпадающего списка коллекций
+    document.querySelectorAll(".A_selectedCollection").forEach(selector => {
         selector.addEventListener("click", function () {
-            let dropdown = this.closest(".W_postPartialSaveHeader").nextElementSibling;
+            const dropdown = this.closest(".W_saveHeader").nextElementSibling;
             if (dropdown) {
-                dropdown.classList.toggle("dropdown"); // Показываем или скрываем выпадающее меню
-                this.classList.toggle("active"); // Меняем состояние заголовка
+                dropdown.classList.toggle("dropdown");
+                this.classList.toggle("active");
             }
         });
     });
 
-    // Фильтр коллекций при вводе в поиск
+    // Поиск по коллекциям
     document.querySelectorAll(".Q_collectionSearch").forEach(input => {
         input.addEventListener("input", function () {
-            let searchText = this.value.toLowerCase();
-            let collectionItems = this.closest(".W_postPartialCollectionDropdown").querySelectorAll(".A_collectionItem");
+            const searchText = this.value.toLowerCase();
+            const collectionItems = this.closest(".W_collectionDropdown").querySelectorAll(".A_collectionObj");
 
             collectionItems.forEach(item => {
-                let collectionName = item.textContent.toLowerCase();
+                const collectionName = item.textContent.toLowerCase();
                 item.style.display = collectionName.includes(searchText) ? "block" : "none";
             });
         });
     });
 
-    // Обработчик выбора коллекции
-    document.querySelectorAll(".A_collectionItem").forEach(item => {
+    // Выбор коллекции из выпадающего списка
+    document.querySelectorAll(".A_collectionObj").forEach(item => {
         item.addEventListener("click", function () {
-            let collectionId = this.dataset.collectionId;
-            let collectionName = this.textContent.trim();
-            let parentContainer = this.closest(".W_postPartialCollectionDropdown").previousElementSibling;
+            const collectionId = this.dataset.collectionId;
+            const collectionName = this.textContent.trim();
+            const parentContainer = this.closest(".W_collectionDropdown").previousElementSibling;
 
-            // Обновляем data-collection-id и текст выбранной коллекции
-            let selectedCollection = parentContainer.querySelector(".A_postPartialSelectedCollection");
-            let collectionNameElement = selectedCollection.querySelector(".Q_selectedCollectionName");
+            const selectedCollection = parentContainer.querySelector(".A_selectedCollection");
+            const collectionNameElement = selectedCollection.querySelector(".Q_selectedCollectionName");
 
             if (selectedCollection && collectionNameElement) {
                 selectedCollection.dataset.collectionId = collectionId;
                 collectionNameElement.textContent = collectionName;
             }
 
-            // Скрываем выпадающий список
-            let dropdown = this.closest(".W_postPartialCollectionDropdown");
+            const dropdown = this.closest(".W_collectionDropdown");
             dropdown.classList.add("dropdown");
-            selectedCollection.classList.remove("active"); // Убираем активное состояние
+            selectedCollection.classList.remove("active");
         });
     });
 
-    // Обработчик нажатия кнопки "Сохранить"
+    // Кнопки "Сохранить"
     document.querySelectorAll("[data-save-button]").forEach(button => {
         button.addEventListener("click", function () {
-            let postId = this.closest(".O_post").id.split("_").pop();
-            let collectionSelector = this.closest(".W_postPartialSaveHeader").querySelector(".A_postPartialSelectedCollection");
-            let collectionId = collectionSelector.dataset.collectionId;
-    
+            const header = this.closest(".W_saveHeader");
+            const collectionSelector = header.querySelector(".A_selectedCollection");
+            const collectionId = collectionSelector.dataset.collectionId;
+
+            const postId = collectionSelector.dataset.postId;
+            const itemId = collectionSelector.dataset.itemId;
+
             if (!collectionId) {
                 alert("Выберите коллекцию перед сохранением!");
                 return;
             }
-    
-            fetch(`/collections/${collectionId}/toggle_post/${postId}`, {
+
+            let url;
+            if (postId) {
+                url = `/collections/${collectionId}/toggle_post/${postId}`;
+            } else if (itemId) {
+                url = `/collections/${collectionId}/toggle_item/${itemId}`;
+            } else {
+                alert("Не удалось определить, что сохраняем — пост или товар.");
+                return;
+            }
+
+            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -733,15 +695,14 @@ function saveToCollection() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Находим обе кнопки в пределах этого поста
-                    let textButton = this.closest(".W_postPartialSaveHeader").querySelector('[data-save-button="text"]');
-                    let iconButton = this.closest(".W_postPartialSaveHeader").querySelector('[data-save-button="icon"]');
+                    const textButton = header.querySelector('[data-save-button="text"]');
+                    const iconButton = header.querySelector('[data-save-button="icon"]');
                     
                     if (data.saved) {
                         textButton.textContent = "Сохранено";
                         textButton.classList.add("saved");
                         iconButton.classList.add("saved");
-                        iconButton.querySelector("img").src = "/assets/savedIcon.svg"; 
+                        iconButton.querySelector("img").src = "/assets/savedIcon.svg";
                     } else {
                         textButton.textContent = "Сохранить";
                         textButton.classList.remove("saved");
@@ -755,15 +716,14 @@ function saveToCollection() {
         });
     });
 
-
-    // Закрытие выпадающего списка при клике вне его
+    // Закрытие при клике вне области
     document.addEventListener("click", function (event) {
-        let dropdowns = document.querySelectorAll(".W_postPartialCollectionDropdown");
+        const dropdowns = document.querySelectorAll(".W_collectionDropdown");
         dropdowns.forEach(dropdown => {
-            let collectionSelector = dropdown.previousElementSibling.querySelector(".A_postPartialSelectedCollection");
+            const collectionSelector = dropdown.previousElementSibling.querySelector(".A_selectedCollection");
             if (!dropdown.contains(event.target) && !dropdown.previousElementSibling.contains(event.target)) {
                 dropdown.classList.add("dropdown");
-                collectionSelector.classList.remove("active"); // Убираем активное состояние
+                collectionSelector.classList.remove("active");
             }
         });
     });
@@ -833,15 +793,12 @@ function autoResizeTextarea() {
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     
-    if (document.getElementById("userPostsFeed")) {
-        profilePostsToggle();
-    }
+
     if (document.querySelector('.Q_dropdownBtn')) {
         dropdownMenu();
     }
     systemMessage();
     
-    selectedTag();
 
     changeLayout();
     masonry();
@@ -850,11 +807,12 @@ document.addEventListener("turbo:load", () => {
     likeStates();
     
     saveToCollection();
+    collectionSearch();
 
     sort();
     filter();
 
-    collectionSearch();
+    
 
     replyToComment();
     toggleReplies();

@@ -1,41 +1,46 @@
 <% content_for :title, "Homie" %>
-<div class="S_profileHeader">
+<div class="O_profileHeader">
+  <img class="Q_profileAvatar" src="<%= current_profile.avatar_url %>" alt="">
   <div class="M_profileInfo">
-      <img class="Q_profileAvatar" src="<%= current_profile.avatar_url %>" alt="">
-      <h2><%= current_profile.name %></h2>
-      <h6><%= current_profile.username %></h6>               
-  </div>
-  <div class="W_profileStatistics">
-    <img src="<%= asset_path('profile/lineStatistics.svg') %>" alt="line">
-    <div class="Q_profileStat">
-      <% profile_posts_count = current_profile.posts.count %>
-      <h3><%= profile_posts_count %></h3>
-      <h5><%= Russian.p(profile_posts_count, 'пост', 'поста', 'постов') %></h5>
+    <div class="Q_profileInfo">
+      <h1><%= current_profile.name %></h1>
+      <h4><%= current_profile.username %></h4>               
     </div>
-    <img src="<%= asset_path('profile/lineStatistics.svg') %>" alt="line">
+<% if current_profile == @profile %>
+  <!-- Кнопка "Редактировать профиль" -->
+  <button class="Q_editProfileBtn">
+    <h3>Редактировать профиль</h3>
+    <div>
+      <img src="<%= asset_path('edit_w.svg') %>" alt="Редактировать">
+    </div>
+  </button>
+<% else %>
+  <!-- Кнопка "Подписаться" -->
+  <button class="Q_subscribeBtn">
+    <h3>Подписаться</h3>
+  </button>
+<% end %>
+    <div class="C_subscriptionsInfo">
+      <div class="W_subscribe">
+        <h3 class="Q_subscriptionsCounter">0</h3>
+        <h3 class="Q_sunscribeText">подписок</h3>
+      </div>
+      <div class="Q_subscribeLine"></div>
+      <div class="W_subscribe">
+        <h3 class="Q_subscribersCounter">0</h3>
+        <h3 class="Q_sunscribeText">подписчиков</h3>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="S_profileFeed">
-  <div class="W_feedToggle">
-    <button id="userPostsBtn" class="Q_feedToggleBtn active">Мои посты</button>
-    <button id="likedPostsBtn" class="Q_feedToggleBtn">Избранное</button>
-  </div>
-  <!-- Лента с постами пользователя -->
-  <div id="userPostsFeed" class="C_profileFeed active">
-    <% @posts.each do |post| %>
-      <%= link_to post, class: "post-link" do %>
-        <%= render partial: "posts/post", object: post %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <!-- Лента с лайкнутыми постами -->
-  <div id="likedPostsFeed" class="C_profileFeed">
-    <% @liked_posts.each do |post| %>
-      <%= link_to post, class: "post-link" do %>
-        <%= render partial: "posts/post", object: post %>
-      <% end %>
-    <% end %>
+<div class="O_profileFeed">
+  <div class="W_profileFeedHeader">
+    <button class="Q_profileFeedHeader active posts">
+      <h2>Публикации <span><%= @profile.posts.count %></span></h2>
+    </button>
+    <button class="Q_profileFeedHeader passive items">
+      <h2>Товары <span><%= @profile.items.count %></span></h2>
+    </button>
   </div>
 </div>

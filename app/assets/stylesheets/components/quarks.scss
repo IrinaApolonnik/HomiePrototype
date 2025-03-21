@@ -118,6 +118,71 @@
   }
 }
 
+//Профиль 
+.Q_profileAvatar {
+  width: 5.3vw;
+  height: 5.3vw;
+  object-fit: cover;
+  border-radius: 10vw;
+}
+.Q_profileInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  h1 {
+      text-transform: uppercase;
+  }
+  h4 {
+      opacity: 0.5;
+      font-weight: 600;
+  }
+}
+.Q_editProfileBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.8vw;
+  padding: 0.8vw;
+  padding-left: 1.6vw;
+  border-radius: 10vw;
+  background-color: var(--grey);
+
+  div {
+    width: 2.3vw;
+    height: 2.3vw;
+    background-color: var(--grey-dark);
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    border-radius: 10vw;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &:hover {
+    div {
+      background-color: var(--black);
+    }
+  }
+}
+.Q_subscriptionsCounter, .Q_subscribersCounter {
+  font-weight: 600;
+}
+.Q_sunscribeText {
+  opacity: 0.5;
+}
+.Q_profileFeedHeader {
+  h2 {
+    text-transform: uppercase;
+  }
+  span {
+    opacity: 50%;
+  }
+  &.passive {
+    opacity: 0.5;
+  }
+}
 
 
 // Индекс Поста
@@ -186,7 +251,7 @@
   font-size: 1vw;
   font-weight: 400;
 }
-.Q_postPartialCollectionSearch {
+.Q_collectionSearch {
   width: 100%;
   padding: 0.8vw 0.8vw 0.8vw 1.6vw;
   background-color: var(--white);
@@ -377,7 +442,26 @@
       cursor: pointer;
   }
 }
-
+.Q_itemImg {
+  width: 100%;
+  height: 22.7vw;
+  object-fit: cover;
+}
+.Q_marketUrl {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8vw;
+  align-items: center;
+  img {
+    width: 1.7vw;
+    height: 1.7vw;
+    object-fit: cover;
+    border-radius: 10vw;
+  }
+}
+.Q_itemPrice {
+  font-weight: 600;
+}
 
 
 
@@ -406,11 +490,6 @@
 }
 
 
-.Q_profileAvatar {
-  width: 12vw;
-  height: 12vw;
-  object-fit: cover;
-}
 .Q_profileStat {
   display: flex;
   flex-direction: column;

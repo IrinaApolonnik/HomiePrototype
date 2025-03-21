@@ -1,8 +1,65 @@
-<div id="<%= dom_id item %>" class="O_item", style="background-image: url('<%= item.image_url %>');">
+<div id="<%= dom_id item %>" class="O_item">
+  <img class="Q_itemImg" src="<%= item.image_url %>" alt="">
   <div class="W_itemContent">
-    <h5><%= number_to_currency(item.price, unit: "руб.", format: "%n %u", precision: 0) %></h5>
-    <img class="Q_marketIcon" src="<%= item.market_icon_url %>" alt="">
+  <h3><%= truncate(item.name, length: 30, separator: ' ', omission: '...') %></h3>
+  
+  <div class="W_itemMarketInfo">
+    <div class="Q_marketUrl">
+      <img src="<%= item.market_icon_url %>" alt="">
+    <% if item.purchase_url.present? %>
+      <a href="<%= item.purchase_url %>" target="_blank" rel="noopener">
+        <%= URI.parse(item.purchase_url).host.sub(/^www\./, "") %>
+      </a>
+    <% else %>
+      <h4>Ссылка отсутствует</h4>
+    <% end %>
+    </div>
+    <h3 class="Q_itemPrice"><%= number_to_currency(item.price, unit: "руб.", format: "%n %u", precision: 0) %></h3>
   </div>
+    
+    
+  </div>
+  <% if user_signed_in? %>
+    <div class="W_saveHeader item">
+      <div class="A_selectedCollection"
+          data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
+          data-item-id="<%= item.id %>">
+        <p class="Q_selectedCollectionName">
+          <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
+        </p>
+        <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
+      </div>
+
+      <% saved = current_user.profile.collections.joins(:items).exists?(items: { id: item.id }) %>
+
+      <!-- Основная кнопка с текстом -->
+      <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
+        <%= saved ? "Сохранено" : "Сохранить" %>
+      </button>
+
+      <!-- Компактная кнопка с иконкой -->
+      <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
+        <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
+      </button>
+    </div>
+
+    <!-- Выпадающий список с коллекциями -->
+    <div class="W_collectionDropdown dropdown">
+      <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
+      <div class="C_collectionList">
+        <% current_user.profile.collections.each do |collection| %>
+          <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
+            <img src="<%= collection.image_url %>" alt="Обложка коллекции">
+            <h3><%= collection.title %></h3>
+          </div>
+        <% end %>
+      </div>
+      <div class="A_addCollectionBtn">
+        <img src="<%= asset_path('addCollectionIcon.svg') %>">
+        <h3>Новая коллекция</h3>
+      </div>
+    </div>
+  <% end %>
     <% if controller_name == 'items' && action_name == 'index' %>
       <% if can?(:destroy, item) %>
           <%= button_to item, method: :delete, class: "deleteButton", data: { confirm: "Are you sure?" } do %>

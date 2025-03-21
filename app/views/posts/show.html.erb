@@ -8,48 +8,47 @@
     <img class="Q_postCover" src="<%= @post.image_url %>" alt="Post cover">
   </div>
   <div class="O_postInfo">
-    <!-- Блок с выбором коллекции и кнопкой сохранения (только для авторизованных пользователей) -->
-    <% if user_signed_in? %>
-      <div class="W_postSaveHeader">
-          <div class="A_postSelectedCollection"
-              data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
-              data-post-id="<%= @post.id %>">
-              <p class="Q_selectedCollectionName">
-                  <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
-              </p>
-              <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown" class="Q_dropdownArrow">
-          </div>
-
-          <% saved = current_user.profile.collections.joins(:posts).exists?(posts: { id: @post.id }) %>
-
-          <!-- Основная кнопка с текстом -->
-          <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
-              <%= saved ? "Сохранено" : "Сохранить" %>
-          </button>
-
-          <!-- Компактная кнопка с иконкой -->
-          <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
-              <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
-          </button>
+  <% if user_signed_in? %>
+    <div class="W_saveHeader post">
+      <div class="A_selectedCollection"
+          data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
+          data-post-id="<%= @post.id %>">
+        <p class="Q_selectedCollectionName">
+          <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
+        </p>
+        <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
       </div>
 
-      <!-- Выпадающий список с коллекциями -->
-      <div class="W_postPartialCollectionDropdown dropdown">
-          <input type="text" class="Q_postPartialCollectionSearch" placeholder="Поиск...">
-          <div class="C_postPartialCollectionList">
-              <% current_user.profile.collections.each do |collection| %>
-                  <div class="A_postPartialCollectionObj" data-collection-id="<%= collection.id %>">
-                      <img src="<%= collection.image_url %>" alt="Обложка коллекции">
-                      <h3><%= collection.title %></h3>
-                  </div>
-              <% end %>
+      <% saved = current_user.profile.collections.joins(:posts).exists?(posts: { id: @post.id }) %>
+
+      <!-- Основная кнопка с текстом -->
+      <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
+        <%= saved ? "Сохранено" : "Сохранить" %>
+      </button>
+
+      <!-- Компактная кнопка с иконкой -->
+      <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
+        <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
+      </button>
+    </div>
+
+    <!-- Выпадающий список с коллекциями -->
+    <div class="W_collectionDropdown dropdown post">
+      <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
+      <div class="C_collectionList">
+        <% current_user.profile.collections.each do |collection| %>
+          <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
+            <img src="<%= collection.image_url %>" alt="Обложка коллекции">
+            <h3><%= collection.title %></h3>
           </div>
-          <div class="A_postPartialAddCollectionBtn">
-              <img src="<%= asset_path('addCollectionIcon.svg') %>">
-              <h3>Новая коллекция</h3>
-          </div>
+        <% end %>
       </div>
-    <% end %>
+      <div class="A_addCollectionBtn">
+        <img src="<%= asset_path('addCollectionIcon.svg') %>">
+        <h3>Новая коллекция</h3>
+      </div>
+    </div>
+  <% end %>
 
     <div class="W_postInfo">
       <h4 class="Q_postDate">

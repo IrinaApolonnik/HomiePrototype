@@ -65,6 +65,20 @@
     flex-direction: row;
     gap: 0.8vw;
 }
+
+// Профиль 
+.W_subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.W_profileFeedHeader {
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+}
+
+
 // Индекс Поста
 .W_postFeedHeader {
     display: flex;
@@ -89,7 +103,7 @@
     mask-image: linear-gradient(to top, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
     transform: translateY(1vw);
 }
-.W_postPartialSaveHeader, .W_postSaveHeader {
+.W_saveHeader {
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -98,19 +112,33 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    transform: translateY(-1vw);
-    opacity: 0;
     transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
-}
-.O_post:hover  {
-    .W_postPartialDetails, .W_postPartialSaveHeader {
-        transform: translateY(0);
-        opacity: 1;
+    &.postPartial {
+        transform: translateY(-1vw);
+        opacity: 0;
+    }
+    &.post {
+        position: relative;
+        width: auto;
+        justify-content: end;
+        height: auto;
     }
 }
-.W_postPartialCollectionDropdown {
+
+.O_post:hover  {
+    .W_postPartialDetails, .W_saveHeader {
+        transform: translateY(0);
+        opacity: 1;
+        &.postPartial {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+.W_collectionDropdown {
     position: absolute;
     width: 100%;
+    max-height: 100%;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -122,13 +150,22 @@
     left: 0;
     padding: 5.2vw 1.2vw 1.2vw 1.2vw;
     transform: translateY(0);
-    opacity: 0;
+    overflow: hidden;
+    // opacity: 0;
     &.dropdown {
-        transform: translateY(-100%);
+        transform: translateY(-101%);
+    }
+    &.postPartial {
+        opacity: 0;
+    }
+    &.post {
+        background-color: rgba(229, 229, 229, 0.8);
+        width: 50%;
+        left: 50%;
     }
 }
 .O_post:hover  {
-    .W_postPartialCollectionDropdown {
+    .W_collectionDropdown {
         opacity: 1;
     }
 }
@@ -139,14 +176,6 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-}
-.W_postSaveHeader {
-    position: relative;
-    width: auto;
-    justify-content: end;
-    gap: 0.8vw;
-    transform: translateY(0vw);
-    opacity: 1;
 }
 .W_postInfo {
     display: flex;
@@ -185,36 +214,17 @@
     flex-direction: column;
     gap: 1.2vw;
 }
-
-
-
-
-
-
-
-
-
-
-
 .W_itemContent {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+}
+.W_itemMarketInfo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    h5 {
-        color: var(--white);
-        background-color: var(--orange);
-        padding: 1vw 1.6vw;
-
-    }
-    img {
-        border-radius: 100%;
-        width: 2.1vw;
-        height: 2.1vw;
-        margin-right: 0.6vw;
-        object-fit: cover;
-    }
 }
 
 

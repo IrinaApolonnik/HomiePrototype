@@ -15,6 +15,20 @@
         transform: translateX(0%);
     }
 }
+// Профиль
+.O_profileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8vw;
+    width: 100%;
+}
+.O_profileFeed {
+    margin-top: 3.9vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
 // Индекс Поста
 .O_postFeedHeader {
     display: flex;
@@ -41,11 +55,12 @@
     justify-content: space-between;
 }
 .O_item {
+    position: relative;
     width: 100%;
-    min-width: 22vw;
-    background-size: cover;
-    height: 18vw;
-    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
 }
 .O_postComment {
     display: flex;
@@ -53,10 +68,6 @@
     gap: 0.8vw;
     width: 100%;
 }
-
-
-
-
 
 
 

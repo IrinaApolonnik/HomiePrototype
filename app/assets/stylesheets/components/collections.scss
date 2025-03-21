@@ -18,11 +18,17 @@
     gap: 1.2vw;
 }
 
+// профиль
+.C_subscriptionsInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2vw;
+}
 
 
 
-
-.C_postPartialCollectionList {
+.C_collectionList {
     display: flex;
     flex-direction: column;
     width: 100%;

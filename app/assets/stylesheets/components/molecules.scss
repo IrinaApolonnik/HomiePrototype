@@ -7,6 +7,14 @@
     gap: 3.9vw;
 }
 
+// Профиль
+.M_profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.3vw;
+}
+
 //Comments
 .M_commentForm {
     width: 100%;
@@ -16,21 +24,7 @@
     gap: 1.6vw;
 }
 
-.M_profileInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8vw;
-    h2 {
-        color: var(--blue);
-    }
-    h6 {
-        font-weight: bold;
-        padding: 0.6vw 1.2vw;
-        color: var(--white);
-        background-color: var(--orange);
-    }
-}
+
 
 @media only screen and (max-width: 430px) { 
     .M_commentForm {

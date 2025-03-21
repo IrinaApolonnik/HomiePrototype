@@ -1,14 +1,6 @@
 /* Посты ---------------------------------------------- */
 
-.post {
-    width: 100%;
-    min-width: 21vw;
-    height: 36vw;
-    border-radius: 2vw;
-    padding: 1.2vw;
-    overflow: hidden;
-    background-size: cover;
-}
+
 
 .postCreator {
     width:fit-content;
@@ -134,78 +126,7 @@
 
 /* Товары ---------------------------------------------- */
 
-#items {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2vw;
-}
-.item {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    justify-content: space-between;
-    position: relative;
-    width: 24vw;
-    height: 18vw;
-    margin-top: 1vw;
-    padding: 1.2vw;
-    border-radius: 1.8vw;
-    background-color: var(--medium-grey);
-    cursor: pointer;
-    .itemInfo {
-        position: relative;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        color: var(--grey-dark);
-        img {
-            width: 2vw;
-            height: 2vw;
-            border-radius: 10vw;
-            object-fit: cover;
-        }
-        .itemText {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.5vw;
-            h5 {
-                display: block;            
-                white-space: nowrap;        
-                overflow: hidden;          
-                text-overflow: ellipsis;    
-                max-width: 16vw;  
-            }
-        }
-    }
-    .itemImage {
-        width: 100%;
-        height: 80%;
-        object-fit: cover;
-        border-radius: 1.8vw;
-    }
-    .deleteButton {
-        position: absolute;
-        width: 3vw;
-        height: 3vw;
-        bottom: 0.4vw;
-        right: 0.4vw;
-        background-color: rgba(139, 139, 139, 0.60);
-        backdrop-filter: blur(4vw);
-        border-radius: 10vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img {
-            width: 1.4vw;
-            height: 1.4vw;
-        }
-    }
-}
+
 
 
 /* Комментарии ---------------------------------------------- */

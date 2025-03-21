@@ -6,47 +6,47 @@
     <% end %>
 
     <!-- Блок с выбором коллекции и кнопкой сохранения (только для авторизованных пользователей) -->
-    <% if user_signed_in? %>
-    <div class="W_postPartialSaveHeader">
-        <div class="A_postPartialSelectedCollection"
-            data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
-            data-post-id="<%= post.id %>">
+     <% if user_signed_in? %>
+    <div class="W_saveHeader postPartial">
+      <div class="A_selectedCollection"
+          data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
+          data-post-id="<%= post.id %>">
         <p class="Q_selectedCollectionName">
-            <%= truncate(@selected_collection&.name || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
+          <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
         </p>
-        <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown" class="Q_dropdownArrow">
-        </div>
+        <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
+      </div>
 
-        <% saved = current_user.profile.collections.any? { |c| c.posts.include?(post) } %>
+      <% saved = current_user.profile.collections.joins(:posts).exists?(posts: { id: post.id }) %>
 
-        <!-- Основная кнопка с текстом -->
-        <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
-            <%= saved ? "Сохранено" : "Сохранить" %>
-        </button>
+      <!-- Основная кнопка с текстом -->
+      <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
+        <%= saved ? "Сохранено" : "Сохранить" %>
+      </button>
 
-        <!-- Компактная кнопка с иконкой -->
-        <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
-            <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
-        </button>
+      <!-- Компактная кнопка с иконкой -->
+      <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
+        <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
+      </button>
     </div>
 
     <!-- Выпадающий список с коллекциями -->
-    <div class="W_postPartialCollectionDropdown dropdown">
-        <input type="text" class="Q_postPartialCollectionSearch" placeholder="Поиск...">
-        <div class="C_postPartialCollectionList">
-            <% current_user.profile.collections.each do |collection| %>
-                <div class="A_postPartialCollectionObj" data-collection-id="<%= collection.id %>">
-                    <img src="<%= collection.image_url %>" alt="Обложка коллекции">
-                    <h3><%= collection.title %></h3>
-                </div>
-            <% end %>
-        </div>
-        <div class="A_postPartialAddCollectionBtn">
-            <img src="<%= asset_path('addCollectionIcon.svg') %>">
-            <h3>Новая коллекция</h3>
-        </div>
+    <div class="W_collectionDropdown dropdown postPartial">
+      <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
+      <div class="C_collectionList">
+        <% current_user.profile.collections.each do |collection| %>
+          <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
+            <img src="<%= collection.image_url %>" alt="Обложка коллекции">
+            <h3><%= collection.title %></h3>
+          </div>
+        <% end %>
+      </div>
+      <div class="A_addCollectionBtn">
+        <img src="<%= asset_path('addCollectionIcon.svg') %>">
+        <h3>Новая коллекция</h3>
+      </div>
     </div>
-    <% end %>
+  <% end %>
 
     <!-- Заголовок и автор -->
     <div class="W_postPartialDetails">
