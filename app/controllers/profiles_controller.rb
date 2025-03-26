@@ -5,26 +5,52 @@ class ProfilesController < ApplicationController
   before_action :authorize_admin!, only: %i[index destroy]
 
   # GET /profiles
-  # Любой пользователь может видеть список профилей
   def index
     @profiles = Profile.all
   end
 
   # GET /profiles/:id
-  # Просмотр конкретного профиля доступен всем
   def show
-    @posts = @profile.posts.order(created_at: :desc)
-    @liked_posts = Post.joins(:likes).where(likes: { profile_id: @profile.id })
+    @posts = @profile.posts.includes(:likes)
+    @items = @profile.items
+
+    # Проверяем параметр sort, если нет - берем дефолтное "new"
+    sort_param = params[:sort].presence || "new"
+    Rails.logger.debug "SORT PARAM: #{sort_param}" # Логируем параметр сортировки
+
+
+    # Если params[:sort] нет, но есть сохранённое значение в localStorage, используем его
+    if params[:sort].blank? && cookies[:selectedSort].present?
+      sort_param = cookies[:selectedSort]
+    end
+
+    # Применяем сортировку
+    case sort_param
+    when "popular"
+      @posts = @posts.order(likes_count: :desc) # По популярности
+    when "new"
+      @posts = @posts.order(created_at: :desc) # Новые в начале (по умолчанию)
+      @items = @items.order(created_at: :desc)
+    when "old"
+      @posts = @posts.order(created_at: :asc)
+      @items = @items.order(created_at: :asc)  # Старые в начале
+    end
+
+    # Сохраняем выбранный параметр в cookie, чтобы учитывать его при следующих загрузках
+    cookies[:selectedSort] = sort_param
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /profiles/new
-  # Создание нового профиля доступно авторизованному пользователю
   def new
     @profile = current_user.build_profile
   end
 
   # POST /profiles
-  # Создание профиля
   def create
     @profile = current_user.profile || current_user.build_profile
 
@@ -36,13 +62,11 @@ class ProfilesController < ApplicationController
   end
 
   # GET /profiles/:id/edit
-  # Пользователь может редактировать только свой профиль
   def edit; 
     @profile = current_user.profile
   end
 
   # PATCH/PUT /profiles/:id
-  # Обновление профиля
   def update
     @profile = current_user.profile
     if @profile.update(profile_params)
@@ -53,7 +77,6 @@ class ProfilesController < ApplicationController
   end
 
   # DELETE /profiles/:id
-  # Удаление профиля
   def destroy
     if @profile.user != current_user && !current_user.admin?
       return redirect_to root_path, alert: "У вас нет прав на удаление этого профиля."

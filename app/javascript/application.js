@@ -790,6 +790,36 @@ function autoResizeTextarea() {
     });
   }
 
+function initProfileFeedToggle() {
+    const postTab = document.querySelector(".Q_profileFeedHeader.posts");
+    const itemTab = document.querySelector(".Q_profileFeedHeader.items");
+
+    const postFeed = document.querySelector(".C_profileFeedPosts");
+    const itemFeed = document.querySelector(".C_profileFeedItems");
+
+    if (!postTab || !itemTab || !postFeed || !itemFeed) return;
+
+    postTab.addEventListener("click", () => {
+    postTab.classList.add("active");
+    postTab.classList.remove("passive");
+    itemTab.classList.add("passive");
+    itemTab.classList.remove("active");
+
+    postFeed.style.display = "grid";
+    itemFeed.style.display = "none";
+    });
+
+    itemTab.addEventListener("click", () => {
+    itemTab.classList.add("active");
+    itemTab.classList.remove("passive");
+    postTab.classList.add("passive");
+    postTab.classList.remove("active");
+
+    postFeed.style.display = "none";
+    itemFeed.style.display = "grid";
+    });
+}
+
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     
@@ -812,7 +842,7 @@ document.addEventListener("turbo:load", () => {
     sort();
     filter();
 
-    
+    initProfileFeedToggle();
 
     replyToComment();
     toggleReplies();

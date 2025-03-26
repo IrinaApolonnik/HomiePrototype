@@ -1,9 +1,9 @@
 <div class="S_postContent">
   <div class="O_postImages">
     <div class="W_postActions">
-        <button class="Q_back">
-            <img src="<%= asset_path('backArrowIcon_b.svg') %>" alt="Стрелка назад">
-        </button>
+      <button class="Q_back" onclick="history.back()">
+        <img src="<%= asset_path('backArrowIcon_b.svg') %>" alt="Стрелка назад">
+      </button>
     </div>
     <img class="Q_postCover" src="<%= @post.image_url %>" alt="Post cover">
   </div>
@@ -67,10 +67,10 @@
       <% end %>
       
       <div class="W_postHead">
-        <div class="A_postCreator">
-            <img class="Q_postAvatar" src="<%= @post.profile.avatar_url %>" alt="Avatar">
-            <h6 class="Q_postName"><%= @post.profile.username %></h6>
-        </div>
+        <%= link_to profile_path(@post.profile), class: "A_postCreator" do %>
+          <img class="Q_postAvatar" src="<%= @post.profile.avatar_url %>" alt="Avatar">
+          <h6 class="Q_postName"><%= @post.profile.username %></h6>
+        <% end %>
         <div class="W_postSocActions">
           <%= render partial: "like/button", locals: { likeable: @post } %>
           <button class="Q_actionPostBtn">

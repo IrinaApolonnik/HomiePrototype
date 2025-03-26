@@ -51,9 +51,9 @@
     <!-- Заголовок и автор -->
     <div class="W_postPartialDetails">
         <p class="Q_postPartialTitle"><%= post.title %></p>
-        <div class="A_postPartialCreator">
-            <img class="Q_postPartialAvatar" src="<%= post.profile.avatar_url %>" alt="Avatar">
-            <h6 class="Q_postPartialName"><%= post.profile.username %></h6>
-        </div>
+        <%= link_to profile_path(post.profile), class: "A_postPartialCreator" do %>
+          <img class="Q_postPartialAvatar" src="<%= post.profile.avatar_url %>" alt="Avatar">
+          <h6 class="Q_postPartialName"><%= post.profile.username %></h6>
+        <% end %>
     </div>
 </div>

@@ -16,15 +16,13 @@
   height: 2vw;
   width: 2vw;
 }
-.A_menuButton.activePage {
-  .Q_menuIcon {
-    filter: invert(100%) brightness(1000%);
-  }
-}
 .Q_dropdownBtn {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.Q_dropdownMenuHeader {
+  opacity: 0.5;
 }
 
 
@@ -209,7 +207,13 @@
   display: block;
   width: 100%;
   height: auto;
+  object-fit: cover;
   
+}
+.C_profileFeedPosts {
+  .Q_postPartialImage {
+    height: 21.3vw; 
+  }
 }
 .post-link {
   position: absolute;
@@ -240,7 +244,7 @@
   text-transform: uppercase;
   color: var(--white);
 }
-.Q_postPartialAvatar, .Q_postAvatar {
+.Q_postPartialAvatar, .Q_postAvatar, .Q_avatarImg {
   width: 1.6vw;
   height: 1.6vw;
   border-radius: 7.8vw;
@@ -462,24 +466,6 @@
 .Q_itemPrice {
   font-weight: 600;
 }
-
-
-
-
-.A_menuUser{
-  .Q_avatarImg {
-    width: 3.2vw;
-    height: 3.2vw;
-  }
-}
-
-
-
-
-
-
-
-
 
 
 

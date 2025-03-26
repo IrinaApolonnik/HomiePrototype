@@ -1,3 +1,10 @@
+//Меню
+.C_menuUsers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+}
+
 //Сортировка и Фильтры
 .C_sortCategories {
     display: flex;
@@ -25,7 +32,18 @@
     align-items: center;
     gap: 1.2vw;
 }
-
+.C_profileFeedPosts{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.2vw 1.6vw;
+}
+.C_profileFeedItems {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.2vw 1.6vw;
+}
 
 
 .C_collectionList {
