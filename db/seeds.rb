@@ -196,6 +196,18 @@
   "Цвета" => ["белый", "чёрный", "пастельные", "яркие", "нейтральные"],
   "Материалы" => ["дерево", "металл", "стекло", "текстиль", "камень"]
 }
+@purchase_urls = [
+  "https://www.wildberries.ru/catalog/12345678/detail.aspx",
+  "https://www.ozon.ru/product/napolnaya-vaza-987654321/",
+  "https://www.ikea.com/ru/ru/p/strimmig-chashka-krug-80522123/",
+  "https://aliexpress.ru/item/1005001234567890.html",
+  "https://market.yandex.ru/product--divan-uglovoi-neo/123456789",
+  "https://www.leroymerlin.ru/product/kreslo-myagkoe-789123456/",
+  "https://www.hoff.ru/catalog/mebel/kukhni/stoly/stol-kuhonnyy/",
+  "https://sima-land.ru/1234567/nabor-posudy-keramicheskiy/",
+  "https://www.lamoda.ru/p/rtlaaa123456/furniture/",
+  "https://www.megamarket.ru/catalog/details/stol-kompyuternyy-987654/"
+]
 
 @raw_text = 'Дом Наркомфина — один из знаковых памятников архитектуры советского авангарда и конструктивизма. Построен в 1928—1930 годах по проекту архитекторов Моисея Гинзбурга, Игнатия Милиниса и инженера Сергея Прохорова для работников Народного комиссариата финансов СССР (Наркомфина). Автор замысла дома Наркомфина Гинзбург определял его как «опытный дом переходного типа». Дом находится в Москве по адресу: Новинский бульвар, дом 25, корпус 1. С начала 1990-х годов дом находился в аварийном состоянии, был трижды включён в список «100 главных зданий мира, которым грозит уничтожение». В 2017—2020 годах отреставрирован по проекту АБ «Гинзбург Архитектс», функционирует как элитный жилой дом. Отдельно стоящий «Коммунальный блок» (историческое название) планируется как место проведения публичных мероприятий.'
 @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
@@ -318,7 +330,8 @@ def create_items(quantity)
           price: @prices.sample,
           profile: profile,
           market_icon_url: @markets.sample,
-          image_url: @item_images.sample
+          image_url: @item_images.sample,
+          purchase_url: @purchase_urls.sample
         }
         puts "Creating item: #{item_data.inspect}"
         post.items.create!(item_data)

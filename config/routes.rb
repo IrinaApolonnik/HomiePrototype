@@ -28,21 +28,21 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: %i[create destroy] do
       member do
-        post "reply", to: "comments#reply", as: "reply" # Ответ на комментарий
+        post "reply", to: "comments#reply", as: "reply"
       end
     end
 
     collection do
-      get "sort", to: "posts#sort" # Сортировка постов
-      get "by_tag", to: "posts#by_tag", as: "tagged" # Теперь принимает ?tags=тег1,тег2
+      get "sort", to: "posts#sort"
+      get "by_tag", to: "posts#by_tag", as: "tagged"
     end
   end
 
-
-  # Предметы
-  resources :items, only: %i[index show create update destroy] do
+  # Предметы — только парсинг и предпросмотр
+  resources :items, only: [] do
     collection do
       post 'fetch_data'
+      post 'preview'
     end
   end
 

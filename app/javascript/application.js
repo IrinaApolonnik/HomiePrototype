@@ -866,17 +866,109 @@ function toggleTagsBlock() {
   
 
 
-  function itemModalLogic() {
+
+  function initFormValidation() {
+    const itemNameInput = document.querySelector("input[name='item[name]']");
+    const itemPriceInput = document.querySelector("input[name='item[price]']");
+    const itemUrlInput = document.querySelector("input[name='item[purchase_url]']");
+    const itemImage = document.querySelector(".Q_itemImgUpload");
+    const itemSaveBtn = document.querySelector(".O_modalItemForm input[type='submit']");
+  
+    const findItemUrlInput = document.querySelector(".Q_addItemLinkInput");
+    const findItemBtn = document.querySelector(".Q_findItem");
+  
+    const postImageInput = document.getElementById("post_image_upload");
+    const postImagePreview = document.querySelector(".Q_postImgUpload");
+    const postTitleInput = document.getElementById("post_title");
+    const postDescInput = document.getElementById("post_description");
+    const itemsList = document.getElementById("items-list");
+    const postSubmitBtn = document.querySelector(".Q_publishPostBtn");
+  
+    function isValidUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return ["http:", "https:"].includes(parsed.protocol);
+      } catch (_) {
+        return false;
+      }
+    }
+  
+    function checkItemForm() {
+      const nameFilled = itemNameInput?.value.trim() !== "";
+      const priceFilled = itemPriceInput?.value.trim() !== "";
+      const urlFilled = isValidUrl(itemUrlInput?.value.trim());
+      const valid = nameFilled && priceFilled && urlFilled;
+  
+      if (itemSaveBtn) {
+        itemSaveBtn.disabled = !valid;
+        itemSaveBtn.classList.toggle("active", valid);
+      }
+  
+      if (itemUrlInput) {
+        itemUrlInput.setCustomValidity(urlFilled || itemUrlInput.value.trim() === "" ? "" : "Введите корректную ссылку");
+      }
+    }
+  
+    function checkFindItemInput() {
+      const valid = isValidUrl(findItemUrlInput?.value.trim());
+      if (findItemBtn) {
+        findItemBtn.disabled = !valid;
+        findItemBtn.classList.toggle("active", valid);
+      }
+    }
+  
+    function checkPostForm() {
+      const title = postTitleInput?.value.trim() !== "";
+      const desc = postDescInput?.value.trim() !== "";
+      const hasImage = postImageInput?.files?.[0] || !postImagePreview?.classList.contains("hidden");
+      const hasItems = itemsList?.querySelectorAll(".M_formItem").length > 0;
+  
+      const valid = title && desc && hasImage && hasItems;
+      if (postSubmitBtn) {
+        postSubmitBtn.disabled = !valid;
+        postSubmitBtn.classList.toggle("active", valid);
+      }
+    }
+  
+    // === Добавим слушатели ===
+    [itemNameInput, itemPriceInput, itemUrlInput].forEach(el => {
+      el?.addEventListener("input", checkItemForm);
+    });
+  
+    findItemUrlInput?.addEventListener("input", checkFindItemInput);
+  
+    [postTitleInput, postDescInput, postImageInput].forEach(el => {
+      el?.addEventListener("input", checkPostForm);
+      el?.addEventListener("change", checkPostForm);
+    });
+  
+    // Следим за добавлением товаров
+    const observer = new MutationObserver(checkPostForm);
+    if (itemsList) {
+      observer.observe(itemsList, { childList: true });
+    }
+  
+    // Первичная проверка
+    checkItemForm();
+    checkFindItemInput();
+    checkPostForm();
+  }
+
+  function initItemModalLogic(tempItems = []) {
     const findBtn = document.querySelector(".Q_findItem");
     const urlInput = document.querySelector(".Q_addItemLinkInput");
-  
-    const modalForm = document.querySelector(".S_modalItemForm");
+    const modalWrapper = document.querySelector(".S_modalItemForm"); // обёртка модалки
+    const modalForm = modalWrapper?.querySelector(".O_modalItemForm"); // сама форма внутри
     const modalError = document.querySelector(".S_modalItemError");
     const manualBtn = modalError?.querySelector(".Q_addItemButton");
     const closeBtns = document.querySelectorAll(".Q_modalCloseBtn");
   
+    const itemsList = document.getElementById("items-list");
+    const tempItemsInput = document.getElementById("temp_items_json");
+  
     if (!findBtn || !urlInput) return;
   
+    // ======== Открытие модалки по ссылке ========
     findBtn.addEventListener("click", async () => {
       const url = urlInput.value.trim();
       if (!url) return alert("Введите ссылку на товар");
@@ -888,156 +980,133 @@ function toggleTagsBlock() {
             "Content-Type": "application/json",
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
           },
-          body: JSON.stringify({ url: url })
+          body: JSON.stringify({ url })
         });
   
         const data = await response.json();
   
         if (data.success) {
-          // Заполняем модалку
-          modalForm.querySelector("#item_image_upload").value = "";
-          modalForm.querySelector(".Q_itemImgUpload").src = data.image_url;
-          modalForm.querySelector(".Q_itemImgUpload").classList.remove("hidden");
-          modalForm.querySelector(".placeholder")?.classList.add("hidden");
-  
-          modalForm.querySelector("input[name='item[name]']").value = data.name;
-          modalForm.querySelector("input[name='item[purchase_url]']").value = data.purchase_url;
-          modalForm.querySelector(".Q_itemInput[name='item[price]']").value = data.price || "";
-  
-          modalForm.classList.remove("hidden");
-  
-          // Обновляем состояние кнопки
-          checkFormFields();
+          fillModalForm(data);
+          modalWrapper.classList.remove("hidden");
         } else {
-          modalError.classList.remove("hidden");
+          showError();
         }
       } catch (error) {
         console.error(error);
-        modalError.classList.remove("hidden");
+        showError();
       }
     });
   
-    // Кнопка "заполнить вручную"
+    // ======== Ручное открытие формы, если фетч не сработал ========
     manualBtn?.addEventListener("click", () => {
       modalError.classList.add("hidden");
-      modalForm.classList.remove("hidden");
+      modalWrapper.classList.remove("hidden");
     });
   
-    // Крестики закрытия
+    // ======== Закрытие модалки ========
     closeBtns.forEach(btn => {
       btn.addEventListener("click", () => {
-        modalForm.classList.add("hidden");
+        modalWrapper.classList.add("hidden");
         modalError.classList.add("hidden");
       });
     });
   
-    // ====== ВАЛИДАЦИЯ ПОЛЕЙ ======
-    const saveBtn = modalForm.querySelector("input[type='submit']");
-    const nameInput = modalForm.querySelector("input[name='item[name]']");
-    const priceInput = modalForm.querySelector("input[name='item[price]']");
-    const urlField = modalForm.querySelector("input[name='item[purchase_url]']");
+    // ======== Сохранение товара ========
+    modalForm.addEventListener("submit", e => {
+      e.preventDefault();
   
-    function isValidUrl(url) {
-      try {
-        const parsed = new URL(url);
-        return parsed.protocol === "http:" || parsed.protocol === "https:";
-      } catch (_) {
-        return false;
-      }
-    }
+      const item = {
+        name: modalForm.querySelector("input[name='item[name]']").value.trim(),
+        price: modalForm.querySelector("input[name='item[price]']").value.trim(),
+        purchase_url: modalForm.querySelector("input[name='item[purchase_url]']").value.trim(),
+        image_url: modalForm.querySelector(".Q_itemImgUpload").src
+      };
   
-    function checkFormFields() {
-      const nameFilled = nameInput.value.trim() !== "";
-      const priceFilled = priceInput.value.trim() !== "";
-      const urlValid = isValidUrl(urlField.value.trim());
+      tempItems.push(item);
+      updateTempItemsInput();
   
-      const isValid = nameFilled && priceFilled && urlValid;
-  
-      saveBtn.disabled = !isValid;
-      saveBtn.classList.toggle("active", isValid);
-  
-      // Если URL невалидный, можно показать алерт
-      if (!urlValid && urlField.value.trim() !== "") {
-        urlField.setCustomValidity("Введите корректную ссылку (http или https)");
-      } else {
-        urlField.setCustomValidity("");
-      }
-    }
-  
-    [nameInput, priceInput, urlField].forEach(input => {
-      input.addEventListener("input", checkFormFields);
+      fetch("/items/preview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ item })
+      })
+        .then(res => res.text())
+        .then(html => {
+          itemsList.insertAdjacentHTML("beforeend", html);
+          resetModalForm();
+          showNotice("Товар успешно добавлен");
+          if (typeof checkPostForm === "function") checkPostForm();
+        });
     });
   
-    // На всякий случай — первый вызов
-    checkFormFields();
-  }
-
-  function postFormLogic() {
-    const imageInput = document.getElementById("post_image_upload");
-    const titleInput = document.getElementById("post_title");
-    const descInput = document.getElementById("post_description");
-    const itemsList = document.getElementById("items-list");
-    const submitBtn = document.querySelector(".Q_publishPostBtn");
+    // ======== Удаление товара ========
+    document.addEventListener("click", function (e) {
+      const deleteBtn = e.target.closest(".Q_deleteItemBtn");
+      if (!deleteBtn) return;
   
-    if (!imageInput || !titleInput || !descInput || !itemsList || !submitBtn) return;
+      const itemBlock = deleteBtn.closest(".M_formItem");
+      if (!itemBlock) return;
   
-    function isImageSelected() {
-      const file = imageInput.files?.[0];
-      const preview = document.querySelector(".Q_postImgUpload");
-      return file || (preview && !preview.classList.contains("hidden"));
-    }
+      const name = itemBlock.querySelector(".Q_formItemName")?.textContent.trim();
+      const price = itemBlock.querySelector(".Q_formItemPrice")?.textContent.replace(/\D/g, "");
+      const url = itemBlock.querySelector(".Q_formItemLink")?.href;
   
-    function hasAtLeastOneItem() {
-      return itemsList.querySelectorAll(".A_postItemBlock").length > 0;
-    }
+      tempItems = tempItems.filter(item => {
+        return !(
+          item.name.trim() === name &&
+          item.price.replace(/\D/g, "") === price &&
+          (!url || item.purchase_url === url)
+        );
+      });
   
-    function checkPostFields() {
-      const filled =
-        isImageSelected() &&
-        titleInput.value.trim() !== "" &&
-        descInput.value.trim() !== "" &&
-        hasAtLeastOneItem();
+      itemBlock.remove();
+      const separator = itemBlock.nextElementSibling;
+      if (separator?.classList.contains("Q_listItemsLine")) {
+        separator.remove();
+      }
   
-      submitBtn.disabled = !filled;
-      submitBtn.classList.toggle("active", filled);
-    }
-  
-    // Слушатели
-    [imageInput, titleInput, descInput].forEach(input => {
-      input.addEventListener("input", checkPostFields);
-      input.addEventListener("change", checkPostFields);
+      updateTempItemsInput();
+      if (typeof checkPostForm === "function") checkPostForm();
     });
   
-    const observer = new MutationObserver(checkPostFields);
-    observer.observe(itemsList, { childList: true, subtree: false });
+    // ======== Вспомогательные ========
+    function fillModalForm(data) {
+      modalForm.querySelector("#item_image_upload").value = "";
+      modalForm.querySelector(".Q_itemImgUpload").src = data.image_url;
+      modalForm.querySelector(".Q_itemImgUpload").classList.remove("hidden");
+      modalForm.querySelector(".placeholder")?.classList.add("hidden");
   
-    checkPostFields(); // начальная проверка
-    
-    const itemUrlInput = document.querySelector(".Q_addItemLinkInput");
-    const findItemBtn = document.querySelector(".Q_findItem");
+      modalForm.querySelector("input[name='item[name]']").value = data.name;
+      modalForm.querySelector("input[name='item[purchase_url]']").value = data.purchase_url;
+      modalForm.querySelector("input[name='item[price]']").value = data.price || "";
+    }
   
-    function isValidUrl(url) {
-      try {
-        const parsed = new URL(url);
-        return parsed.protocol === "http:" || parsed.protocol === "https:";
-      } catch (_) {
-        return false;
+    function showError() {
+      modalError.classList.remove("hidden");
+      modalWrapper.classList.add("hidden");
+    }
+  
+    function resetModalForm() {
+        modalForm.reset(); // теперь точно форма
+        modalWrapper.classList.add("hidden");
+        modalForm.querySelector(".Q_itemImgUpload").src = "";
+        modalForm.querySelector(".Q_itemImgUpload").classList.add("hidden");
+        modalForm.querySelectorAll(".placeholder").forEach(el => el.classList.remove("hidden"));
+        urlInput.value = ""; // очищаем поле поиска
+        findBtn.disabled = true;
+        findBtn.classList.remove("active");
+      }
+  
+    function updateTempItemsInput() {
+      if (tempItemsInput) {
+        tempItemsInput.value = JSON.stringify(tempItems);
       }
     }
-  
-    function checkFindItemInput() {
-      const url = itemUrlInput?.value.trim();
-      const valid = isValidUrl(url);
-      findItemBtn.disabled = !valid;
-      findItemBtn.classList.toggle("active", valid);
-    }
-  
-    itemUrlInput?.addEventListener("input", checkFindItemInput);
-    checkFindItemInput();
   }
-  
 
-  
 
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
@@ -1070,8 +1139,9 @@ document.addEventListener("turbo:load", () => {
     toggleTagsBlock();
     selectedTag();
 
-    itemModalLogic();
-    postFormLogic();
+    initFormValidation();
+initItemModalLogic();
+
     
     regSection();
     profileSection();

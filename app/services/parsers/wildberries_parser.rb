@@ -34,7 +34,7 @@ module Parsers
         volume = product_id.to_i / 100000
         part = product_id.to_i / 1000
 
-        image_url = "https://basket-#{bucket}.wbbasket.ru/vol#{volume}/part#{part}/#{product_id}/images/big/1.webp"
+        image_url = "https://basket-16.wbbasket.ru/vol#{volume}/part#{part}/#{product_id}/images/big/1.webp"
 
 
         # Получаем цену
@@ -42,11 +42,12 @@ module Parsers
         price = price.to_i / 100 if price
 
         {
-            success: true,
-            name: name,
-            image_url: image_url,
-            price: price,
-            purchase_url: @url
+          success: true,
+          name: name,
+          image_url: image_url,
+          price: price,
+          purchase_url: @url,
+          market_icon_url: "https://www.wildberries.ru/favicon.ico"
         }
     rescue => e
       Rails.logger.error("Wildberries JSON parse error: #{e.message}")

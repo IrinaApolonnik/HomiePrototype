@@ -9,70 +9,47 @@
       </button>
     </div>
 
-
-
-    <!-- Форма -->
-    <%= form_with(model: item, url: items_path, method: :post, local: false, data: { turbo: false }, html: { class: "O_modalItemForm" }) do |form| %>
+    <!-- Форма (отправляется на /items/preview) -->
+    <%= form_with url: preview_items_path, method: :post, data: { turbo: false }, html: { class: "O_modalItemForm", id: "temp_item_form", "data-preview-target": "form" } do |form| %>
       <h2 class="Q_modalTitle">Добавить товар</h2>
 
       <!-- Картинка товара -->
       <div class="M_modalImageBlock">
         <label for="item_image_upload" class="A_uploadItemPreview">
-          <!-- Плюсик и текст — по умолчанию видимы -->
           <div class="Q_plusImg placeholder">
             <img src="<%= asset_path('plusImgIcon_w.svg') %>" alt="Плюсик">
           </div>
           <h4 class="placeholder">Выберите файл или перетащите его сюда</h4>
 
-          <!-- Картинка — по умолчанию скрыта -->
           <img src="" alt="Превью" class="Q_itemImgUpload hidden" />
         </label>
         <%= form.file_field :image_url, id: "item_image_upload", class: "hidden" %>
       </div>
 
       <div class="C_itemFormInputs">
-        <!-- Ссылка -->
-        <%= form.text_field :purchase_url, placeholder: "Ссылка на товар", class: "Q_itemInput" %>
-
-        <!-- Название товара -->
-        <%= form.text_field :name, placeholder: "Название товара", class: "Q_itemInput" %>
-        
-        <!-- Цена -->
-        <%= form.text_field :price, placeholder: "Цена в руб.", class: "Q_itemInput" %>
-<%= form.hidden_field :post_id, value: post_id %>
-
+        <%= form.text_field :purchase_url, placeholder: "Ссылка на товар", class: "Q_itemInput", name: "item[purchase_url]" %>
+        <%= form.text_field :name, placeholder: "Название товара", class: "Q_itemInput", name: "item[name]" %>
+        <%= form.text_field :price, placeholder: "Цена в руб.", class: "Q_itemInput", name: "item[price]" %>
+        <%= form.hidden_field :image_url, id: "hidden_image_url", name: "item[image_url]" %>
       </div>
 
-      <!-- Сохранение -->
       <%= form.submit "Сохранить", class: "Q_addItemButton", disabled: true %>
-      
-
     <% end %>
   </div>
 </div>
 
-
 <!-- Модалка: ошибка получения данных -->
 <div class="S_modalItemError hidden">
   <div class="W_modalAddItemContainer">
-
-    <!-- Закрытие -->
     <div class="W_modalCloseBtn">
       <button class="Q_modalCloseBtn">
         <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
       </button>
     </div>
-
-    <!-- Заголовок -->
     <h2 class="Q_modalTitle">Не удалось получить данные о товаре</h2>
-
-    <!-- Описание -->
     <p class="Q_modalText">Попробуйте еще раз или заполните информацию вручную</p>
-
-    <!-- Кнопка "заполнить вручную" -->
     <button class="Q_addItemButton active">
-      <h4>Заполнить вручную</h4>
+      Заполнить вручную
     </button>
-
   </div>
 </div>

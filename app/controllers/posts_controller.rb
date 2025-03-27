@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   # Для страницы с подборками
   def index
@@ -67,29 +67,57 @@ class PostsController < ApplicationController
   end
 
   # Для страницы создания
-  def new; end
+  def new
+    @post = Post.new
+  end
 
   # Для страницы редактирования
   def edit; end
 
   def create
-    @post.profile = current_profile
+
+      authorize! :create, Post
+    
+      # создаём объект вручную, исключая временное поле
+      post_attrs = post_params.except(:temp_items_json)
+      @post = Post.new(post_attrs)
+      @post.profile = current_profile
   
     respond_to do |format|
-      if @post.save
-        # Привязываем все товары текущего пользователя без поста
-        current_profile.items.where(post_id: nil).update_all(post_id: @post.id)
+      ActiveRecord::Base.transaction do
+        if @post.save
+          temp_items = JSON.parse(params[:post][:temp_items_json] || "[]")
   
-        format.html { redirect_to post_url(@post), notice: "Пост был успешно создан!" }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+          if temp_items.empty?
+            raise ActiveRecord::Rollback, "Пост не может быть создан без товаров"
+          end
+  
+          temp_items.each do |item_data|
+            @post.items.create!(
+              name:         item_data["name"],
+              purchase_url: item_data["purchase_url"],
+              price:        item_data["price"],
+              image_url:    item_data["image_url"],
+              profile:      current_profile
+            )
+          end
+  
+          format.html { redirect_to post_url(@post), notice: "Пост был успешно создан!" }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
+  rescue => e
+    Rails.logger.error("Ошибка при создании поста: #{e.message}")
+    flash.now[:alert] = "Не удалось создать пост"
+    render :new, status: :unprocessable_entity
   end
 
   def update
+    
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Пост был успешно обновлён!" }
@@ -132,6 +160,7 @@ class PostsController < ApplicationController
     if params[:post][:tag_list].is_a?(String)
       params[:post][:tag_list] = params[:post][:tag_list].split(',')
     end
-    params.require(:post).permit(:title, :description, :image_url, tag_list: [])
+  
+    params.require(:post).permit(:title, :description, :image_url, :temp_items_json, tag_list: [])
   end
 end

@@ -1,35 +1,37 @@
 <section class="S_postForm">
   <div class="W_postFormBack">
-      <button class="Q_back" onclick="history.back()">
-        <img src="<%= asset_path('backArrowIcon_b.svg') %>" alt="Стрелка назад">
-      </button>
+    <button class="Q_back" onclick="history.back()">
+      <img src="<%= asset_path('backArrowIcon_b.svg') %>" alt="Стрелка назад">
+    </button>
   </div>
+
   <%= form_with(model: @post, html: { class: "O_postForm" }) do |form| %>
-    <!-- <Блок с загрузкой картинок> -->
+
+    <!-- 📸 Загрузка картинки поста -->
     <div class="M_uploadPostImg">
       <label for="post_image_upload" class="A_uploadPostPreview">
-        <!-- Плюсик и текст — по умолчанию видимы -->
         <div class="Q_plusImg placeholder">
           <img src="<%= asset_path('plusImgIcon_w.svg') %>" alt="Плюсик">
         </div>
         <h4 class="placeholder">Выберите файл или перетащите его сюда</h4>
-
-        <!-- Картинка — по умолчанию скрыта -->
         <img src="" alt="Превью" class="Q_postImgUpload hidden" />
       </label>
-
       <%= form.file_field :image_url, id: "post_image_upload", class: "hidden" %>
     </div>
 
     <div class="W_formPostDetails">
       <div class="C_formPostDetails">
+
+        <!-- 📝 Основное -->
         <div class="M_formPostAddInfo">
           <h1>Основное</h1>
           <div>
-              <%= form.text_field :title, class: "Q_formPostTitle", id: "post_title", placeholder: "Заголовок" %>
-              <%= form.text_field :description, class: "Q_formPostDesc", id: "post_description", placeholder: "Описание" %>
+            <%= form.text_field :title, class: "Q_formPostTitle", id: "post_title", placeholder: "Заголовок" %>
+            <%= form.text_field :description, class: "Q_formPostDesc", id: "post_description", placeholder: "Описание" %>
           </div>
         </div>
+
+        <!-- 🏷️ Теги -->
         <div class="M_formPostAddInfo">
           <h1>Теги</h1>
           <button type="button" class="A_addTagsBtn">
@@ -52,24 +54,37 @@
             <input type="hidden" name="post[tag_list]" id="post_tag_list" value="">
           </div>
         </div>
+
+        <!-- 🛒 Товары -->
         <div class="M_formPostAddInfo">
           <h1>Товары</h1>
           <div class="A_formItemsToggle">
             <h4 class="active">Найти товар</h4>
             <h4>Созданный товар</h4>
           </div>
+
           <div class="C_itemsList" id="items-list">
+            <!-- Инпут ссылки -->
             <div class="A_addItemInput">
               <%= text_field_tag :item_link, nil, placeholder: "Ссылка", class: "Q_addItemLinkInput" %>
               <button type="button" class="Q_findItem"><h4>Найти товар</h4></button>
             </div>
+
+            <!-- 🔄 Сюда добавляются товары через JS -->
           </div>
         </div>
       </div>
+
+      <!-- ✅ Кнопки -->
       <div class="C_formPostBtns">
-        <%= form.submit "Опубликовать", class: "Q_publishPostBtn submit", disabled: true %>
+        <%= hidden_field_tag "post[temp_items_json]", "", id: "temp_items_json" %>
+        <%= form.submit "Опубликовать", class: "Q_publishPostBtn submit", disabled: true, data: { action: "form#submit" } %>
       </div>
     </div>
+
+
+
   <% end %>
-<%= render partial: "items/form", locals: { item: Item.new, post_id: @post.id } %>
+      <!-- 🧩 Модалка добавления товара (форма) -->
+    <%= render partial: "items/form", locals: { item: Item.new } %>
 </section>
