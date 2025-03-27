@@ -74,9 +74,12 @@ class PostsController < ApplicationController
 
   def create
     @post.profile = current_profile
-
+  
     respond_to do |format|
       if @post.save
+        # Привязываем все товары текущего пользователя без поста
+        current_profile.items.where(post_id: nil).update_all(post_id: @post.id)
+  
         format.html { redirect_to post_url(@post), notice: "Пост был успешно создан!" }
         format.json { render :show, status: :created, location: @post }
       else

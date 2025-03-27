@@ -1,3 +1,4 @@
+
 class ItemsController < ApplicationController
     load_and_authorize_resource
   
@@ -25,17 +26,42 @@ class ItemsController < ApplicationController
     def edit
       # @item загружается автоматически через load_and_authorize_resource
     end
+
+    protect_from_forgery with: :null_session, only: [:fetch_data]
+
+    def fetch_data
+      url = params[:url]
+    
+      begin
+        item_data = ItemParser.parse(url)
+        Rails.logger.debug("Parsed item data: #{item_data.inspect}")
+    
+        if item_data[:success]
+          render json: item_data
+        else
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      rescue => e
+        Rails.logger.error("Item parse error: #{e.message}")
+        render json: { success: false }, status: :unprocessable_entity
+      end
+    end
   
     def create
       @item = current_profile.items.new(item_params)
-  
-      respond_to do |format|
-        if @item.save
-          format.html { redirect_to item_url(@item), notice: "Товар успешно создан." }
-          format.json { render :show, status: :created, location: @item }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @item.errors, status: :unprocessable_entity }
+    
+      if @item.save
+        respond_to do |format|
+          format.js   # обрабатывает JS-запрос
+          format.json { render json: { success: true, item: @item } }
+          format.html { head :not_acceptable } # <-- добавь ЭТО
+        end
+        Rails.logger.debug("Полученный post_id: #{@item.post_id}")
+      else
+        respond_to do |format|
+          format.js { render js: "showNotice('Ошибка при сохранении товара');" }
+          format.json { render json: { success: false, errors: @item.errors.full_messages }, status: :unprocessable_entity }
+          format.html { head :not_acceptable } # <-- и здесь
         end
       end
     end

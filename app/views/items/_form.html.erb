@@ -1,40 +1,78 @@
-<% if user_signed_in? && current_user.admin?
-  item_model = [:admin, item]
-elsif can? :manage, item
-  item_model = item
-end %>
+<!-- Модалка: форма добавления или редактирования товара -->
+<div class="S_modalItemForm hidden" id="modal">
+  <div class="W_modalAddItemContainer">
 
-
-<%= form_with(model: item_model) do |form| %>
-  <% if item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <!-- Закрытие -->
+    <div class="W_modalCloseBtn">
+      <button class="Q_modalCloseBtn">
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+      </button>
     </div>
-  <% end %>
 
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+
+    <!-- Форма -->
+    <%= form_with(model: item, url: items_path, method: :post, local: false, data: { turbo: false }, html: { class: "O_modalItemForm" }) do |form| %>
+      <h2 class="Q_modalTitle">Добавить товар</h2>
+
+      <!-- Картинка товара -->
+      <div class="M_modalImageBlock">
+        <label for="item_image_upload" class="A_uploadItemPreview">
+          <!-- Плюсик и текст — по умолчанию видимы -->
+          <div class="Q_plusImg placeholder">
+            <img src="<%= asset_path('plusImgIcon_w.svg') %>" alt="Плюсик">
+          </div>
+          <h4 class="placeholder">Выберите файл или перетащите его сюда</h4>
+
+          <!-- Картинка — по умолчанию скрыта -->
+          <img src="" alt="Превью" class="Q_itemImgUpload hidden" />
+        </label>
+        <%= form.file_field :image_url, id: "item_image_upload", class: "hidden" %>
+      </div>
+
+      <div class="C_itemFormInputs">
+        <!-- Ссылка -->
+        <%= form.text_field :purchase_url, placeholder: "Ссылка на товар", class: "Q_itemInput" %>
+
+        <!-- Название товара -->
+        <%= form.text_field :name, placeholder: "Название товара", class: "Q_itemInput" %>
+        
+        <!-- Цена -->
+        <%= form.text_field :price, placeholder: "Цена в руб.", class: "Q_itemInput" %>
+<%= form.hidden_field :post_id, value: post_id %>
+
+      </div>
+
+      <!-- Сохранение -->
+      <%= form.submit "Сохранить", class: "Q_addItemButton", disabled: true %>
+      
+
+    <% end %>
   </div>
+</div>
 
-  <div>
-    <%= form.label :purchase_url, style: "display: block" %>
-    <%= form.text_field :purchase_url %>
-  </div>
 
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
-  </div>
+<!-- Модалка: ошибка получения данных -->
+<div class="S_modalItemError hidden">
+  <div class="W_modalAddItemContainer">
 
-  <div>
-    <%= form.submit %>
+    <!-- Закрытие -->
+    <div class="W_modalCloseBtn">
+      <button class="Q_modalCloseBtn">
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+      </button>
+    </div>
+
+    <!-- Заголовок -->
+    <h2 class="Q_modalTitle">Не удалось получить данные о товаре</h2>
+
+    <!-- Описание -->
+    <p class="Q_modalText">Попробуйте еще раз или заполните информацию вручную</p>
+
+    <!-- Кнопка "заполнить вручную" -->
+    <button class="Q_addItemButton active">
+      <h4>Заполнить вручную</h4>
+    </button>
+
   </div>
-<% end %>
+</div>

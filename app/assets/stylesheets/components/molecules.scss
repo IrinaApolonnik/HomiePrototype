@@ -24,6 +24,53 @@
     gap: 1.6vw;
 }
 
+//new and edit post
+.M_formPostAddInfo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+    width: 100%;
+    h1 {
+        opacity: 50%;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+}
+.M_uploadPostImg {
+    width: 100%;
+    height: fit-content;
+    padding-top: 5.5vw;
+}
+.M_modalImageBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+}
+.M_formItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+//footer 
+.M_footerContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    width: 100%;
+    h4 {
+        text-transform: uppercase;
+        color: var(--white);
+        font-weight: 400;
+        width: max-content;
+    }
+}
+
 
 
 @media only screen and (max-width: 430px) { 

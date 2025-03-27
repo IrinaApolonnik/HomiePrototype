@@ -1,26 +1,60 @@
 <footer class="S_footer"> 
-    <%= link_to "TUMBA", root_url, class: 'Q_footerLogo' %>
-    <div class="W_footerContent">
-        <div class="W_footerBtns">
-            <%= link_to "О нас", welcome_about_path, class: [current_page?(welcome_about_path) ? 'activePage' : 'inactivePage', 'Q_footerBtn'] %>
-            <%= link_to "Главная", root_url, class: [current_page?(root_url) ? 'activePage' : 'inactivePage', 'Q_footerBtn'] %>
-        </div>
-        <div class="W_footerLinks">
-            <div class="A_footerSocials">
-                <h6>Соц-сети</h6>
-                <div>
-                    <img src="<%= asset_path('footer/dzenIcon.svg') %>" alt="Дзен">
-                    <img src="<%= asset_path('footer/vkIcon.svg') %>" alt="ВК">
-                </div>
-            </div>
-            <div class="A_footerApp">
-                <h6>Приложение</h6>
-                <div>
-                    <img src="<%= asset_path('footer/appQR.svg') %>" alt="qr">
-                </div>
-            </div>
-        </div>
+    <div class="C_footerNav">
+        <%= link_to root_path, class: "Q_footerLink" do %>
+        <h4>Главная</h4>
+        <% end %>
+
+        <%= link_to collections_path, class: "Q_footerLink" do %>
+        <h4>Подборки</h4>
+        <% end %>
+
+        <%= link_to new_post_path, class: "Q_footerLink" do %>
+        <h4>Создать подборку</h4>
+        <% end %>
+
+        <%= link_to "#", class: "Q_footerLink" do %>
+        <h4>Поиск</h4>
+        <% end %>
+
+        <%= link_to "#", class: "Q_footerLink" do %>
+        <h4>Уведомления</h4>
+        <% end %>
+
+        <%= link_to "#", class: "Q_footerLink" do %>
+        <h4>Избранное</h4>
+        <% end %>
+
+        <%= link_to profile_path(current_profile), class: "Q_footerLink" do %>
+        <h4>Профиль</h4>
+        <% end %>
     </div>
-    <div class="Q_tumbaLegs"></div>
-    <div class="Q_tumbaLegs"></div>
+    <h1 class="Q_footerLogo">TUMBA<h1>
+    <div class="O_footer">
+        <div class="M_footerContent">
+            <h4>Скачать приложение</h4>
+            <img class="Q_footerQR" src="<%= asset_path('footer/appQR.svg') %>" alt="Кью-ар">
+        </div>
+        <div class="M_footerContent">
+            <div class="Q_footerSocial">
+                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+                <h4>Телеграм</h4>
+            </div>
+            <div class="Q_footerSocial">
+                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+                <h4>Дзен</h4>
+            </div>
+            <div class="Q_footerSocial">
+                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+                <h4>tumba@gmail.com</h4>
+            </div>
+        </div>
+        <div class="M_footerContent">
+            <h4>Подписаться на нашу рассылку</h4>
+            <%= render 'subscriptions/form' %>
+        </div>
+        <div class="Q_tumbaLeg"></div>
+        <div class="Q_tumbaLeg"></div>
+    </div>
+    
+
 </footer>

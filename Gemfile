@@ -39,6 +39,9 @@ gem "open-uri"
 gem "carrierwave-imageoptimizer"
 gem 'mini_magick'
 
+gem 'nokogiri'
+gem 'httparty'
+
 gem "rack-cors"
 
 gem "devise"
@@ -49,6 +52,8 @@ gem "cancancan"
 gem "acts-as-taggable-on"
 
 gem "sassc"
+
+
 
 gem "russian"
 

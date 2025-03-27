@@ -1,65 +1,75 @@
-<section class="S_addItem">
-  <h2 class="Q_addItemTitle">Создание поста</h2>
-  
-    <%= form_with(model: @post) do |form| %>
-      <% if post.errors.any? %>
-        <div style="color: red">
-          <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-          <ul>
-            <% post.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
+<section class="S_postForm">
+  <div class="W_postFormBack">
+      <button class="Q_back" onclick="history.back()">
+        <img src="<%= asset_path('backArrowIcon_b.svg') %>" alt="Стрелка назад">
+      </button>
+  </div>
+  <%= form_with(model: @post, html: { class: "O_postForm" }) do |form| %>
+    <!-- <Блок с загрузкой картинок> -->
+    <div class="M_uploadPostImg">
+      <label for="post_image_upload" class="A_uploadPostPreview">
+        <!-- Плюсик и текст — по умолчанию видимы -->
+        <div class="Q_plusImg placeholder">
+          <img src="<%= asset_path('plusImgIcon_w.svg') %>" alt="Плюсик">
         </div>
-      <% end %>
-      <div class="A_uploadPostImage">
-        <label for="post_image_upload" class="Q_postImagePreview">
-          <span class="placeholder">+</span>
-          <img src="" alt="Post Image Preview" class="Q_postImgUpload hidden" />
-        </label>
-        <%= form.file_field :image_url, id: "post_image_upload", class: "hidden" %>
-      </div>
-      <div class="C_addItemsInputs">
-      <h3>Основное</h3>
-      <!-- Поле для названия -->
-      <div class="A_addItemInputField">
-        <%= form.label :Заголовок, class: "Q_addItemLabel" %>
-        <%= form.text_field :title, class: "Q_addItemInput" %>
-      </div>
+        <h4 class="placeholder">Выберите файл или перетащите его сюда</h4>
 
-      <!-- Поле для описания -->
-      <div class="A_addItemInputField">
-        <%= form.label :Описание, class: "Q_addItemLabel" %>
-        <%= form.text_area :description, class: "Q_addItemInput" %>
-      </div>
+        <!-- Картинка — по умолчанию скрыта -->
+        <img src="" alt="Превью" class="Q_postImgUpload hidden" />
+      </label>
+
+      <%= form.file_field :image_url, id: "post_image_upload", class: "hidden" %>
     </div>
-    <div class="C_newPostAddItems">
-      <h3>Теги</h3>
-      <% TagCategory.includes(:tags).each do |category| %>
-        <div class="A_addItemInputField">
-          <h4><%= category.name %></h4>
-          <div class="C_newPostTags">
-            <% category.tags.each do |tag| %>
-              <button 
-                type="button" 
-                class="Q_tagBtn" 
-                data-tag="<%= tag.name %>" 
-                data-selected="false">
-                <%= tag.name %>
-              </button>
-            <% end %>
+
+    <div class="W_formPostDetails">
+      <div class="C_formPostDetails">
+        <div class="M_formPostAddInfo">
+          <h1>Основное</h1>
+          <div>
+              <%= form.text_field :title, class: "Q_formPostTitle", id: "post_title", placeholder: "Заголовок" %>
+              <%= form.text_field :description, class: "Q_formPostDesc", id: "post_description", placeholder: "Описание" %>
           </div>
         </div>
-      <% end %>
-      <input type="hidden" name="post[tag_list]" id="post_tag_list" value="">
-    </div>
-
-
-    <div class="C_addItemActions">
-      <!-- Кнопка "Войти" -->
-      <%= form.submit "Создать", class: "Q_addItemButton Q_addItemSubmit" %>
-      <%= link_to "отменить", root_url, class: "Q_addItemButton Q_additemCancel" %>
+        <div class="M_formPostAddInfo">
+          <h1>Теги</h1>
+          <button type="button" class="A_addTagsBtn">
+            <h4>Добавить теги</h4>
+            <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Плюсик/Крестик">
+          </button>
+          <div class="C_tagsList hidden">
+            <% TagCategory.includes(:tags).each do |category| %>
+              <div class="W_tagsByCattegory">
+                <h3 class="Q_cattegoryName"><%= category.name %></h3>
+                <div class="C_newPostTags">
+                  <% category.tags.each do |tag| %>
+                    <button type="button" class="Q_tagBtn" data-tag="<%= tag.name %>" data-selected="false">
+                      <%= tag.name %>
+                    </button>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <input type="hidden" name="post[tag_list]" id="post_tag_list" value="">
+          </div>
+        </div>
+        <div class="M_formPostAddInfo">
+          <h1>Товары</h1>
+          <div class="A_formItemsToggle">
+            <h4 class="active">Найти товар</h4>
+            <h4>Созданный товар</h4>
+          </div>
+          <div class="C_itemsList" id="items-list">
+            <div class="A_addItemInput">
+              <%= text_field_tag :item_link, nil, placeholder: "Ссылка", class: "Q_addItemLinkInput" %>
+              <button type="button" class="Q_findItem"><h4>Найти товар</h4></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="C_formPostBtns">
+        <%= form.submit "Опубликовать", class: "Q_publishPostBtn submit", disabled: true %>
+      </div>
     </div>
   <% end %>
+<%= render partial: "items/form", locals: { item: Item.new, post_id: @post.id } %>
 </section>

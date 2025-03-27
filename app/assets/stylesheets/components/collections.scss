@@ -85,34 +85,7 @@
     flex-direction: column;
     align-items: center;
 }
-.C_addItemsInputs, .C_newPostAddItems {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2vw;
-    align-items: flex-start;
-    padding-top: 3.6vw;
-    margin-top: 2.4vw;
-    h3 {
-        position: absolute;
-        left: -16vw;
-        top: 0;
-    }
-}
-.C_newPostAddItems {
-    gap: 2vw;
-    h4 {
-        color: var(--blue);
-    }
-}
-.C_newPostTags {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 42vw;
-    gap: 0.8vw;
-    margin-top: 0.7vw;
-}
+
 // Show Post
 .C_postTags {
     width: auto;
@@ -135,6 +108,37 @@
 }
 .C_commentReplies {
     margin-left: 4.3vw;
+}
+//new post and edit
+.C_formPostDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5.6vw;
+}
+.C_tagsList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.6vw;
+}
+.C_formPostBtns {
+    display: flex;
+    flex-direction: row;
+
+}
+.C_itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+}
+
+//footer 
+.C_footerNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 @media only screen and (max-width: 430px) {
     

@@ -1,8 +1,6 @@
-<%= form_with(model: Subscription.new, class: "subscription-form", id: "subscriptionForm") do |form| %>
-  <div class="subscriptionForm">
-    <%= form.email_field :email, placeholder: "username@gmail.com", class: "formInput" %>
-    <%= button_tag type: 'submit', class: "formSubmit" do %>
-      <img src="<%= asset_path('welcome/subscribe.png') %>" alt="" class="subscribeImage" id="subscribeButtonImage">
+<%= form_with(model: Subscription.new, class: "A_subscriptionForm", id: "subscriptionForm") do |form| %>
+    <%= form.email_field :email, placeholder: "email", class: "Q_footerInput" %>
+    <%= button_tag type: 'submit', class: "Q_footerFormBtn" do %>
+      <h4>OK</h4>
     <% end %>
-  </div>
 <% end %>

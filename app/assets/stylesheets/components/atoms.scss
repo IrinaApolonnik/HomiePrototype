@@ -298,21 +298,64 @@
         color: var(--black);
     }
 }
-
-
-
-
-
-
-.A_popularPostsNav {
-    width: auto;
-    height: auto;
+//new post and edit
+.A_addTagsBtn {
     display: flex;
     flex-direction: row;
-    gap: 2.4vw;
+    align-items: center;
+    gap: 0.8vw;
+    border-bottom: 0.1vw solid var(--grey-dark);
+    padding: 1.4vw 0.8vw;
+    h4 {
+        opacity: 50%;
+        text-transform: uppercase;
+        transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    }
+    img {
+        width: 0.8vw;
+        height: 0.8vw;
+        transform: rotate(45deg);
+        object-fit: cover;
+        opacity: 50%;
+        transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    }
+    &:hover {
+        img, h4 {
+            opacity: 1;
+        }
+
+    }
+    &.active {
+        img {
+            transform: rotate(0deg);
+        }
+    }
 }
-
-
+.A_addItemInput {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.A_formItemsToggle {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8vw;
+    h4 {
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0.5;
+        &.active {
+            opacity: 1;
+        }
+    }
+}
+.A_formItemContent {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8vw;
+}
 
 
 
@@ -408,48 +451,36 @@
         background-color: var(--orange);
     }
 }
-.A_addItemInputField {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    label {
-        background-color: var(--orange);
-        color: var(--white);
-        padding: 0.4vw 1.7vw;
-        font-size: 1vw;
-        line-height: 1.6vw;
-    }
-    input, textarea {
-        font-family: 'Arimo', sans-serif;
-        background-color: var(--grey);
-        border: none;
-        width: 42vw;
-        padding: 1.2vw;
-        font-size: 1.1vw;
-        font-weight: 400;
-        border: 0.16vw solid var(--grey);
-        &:active, &:focus {
-            border: 0.16vw solid var(--orange);
-            outline: none;
-            border-radius: 0;
-        }
-    }
-}
-
 .A_uploadAvatar, .A_editAvatar {
     width: 8.6vw;
     height: 8.6vw;
     position: relative;
     margin-bottom: 2.4vw;
 }
-.A_uploadPostImage {
+.A_uploadPostPreview, .A_uploadItemPreview {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 12vw;
-    height: 14vw;
+    justify-content: center;
+    width: 30.8vw;
+    height: 34.5vw;
     position: relative;
-    margin-bottom: 2.4vw;
+    gap: 0.8vw;
+    background-color: var(--grey);
+    cursor: pointer;
+    h4 {
+        text-align: center;
+        max-width: 15.8vw;
+    }
+}
+.A_uploadItemPreview {
+    width: 22.7vw;
+    height: 22.7vw;
+}
+
+//footer
+.A_subscriptionForm {
+    position: relative;
 }
 
 

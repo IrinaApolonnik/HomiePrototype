@@ -45,7 +45,7 @@
   }
 }
 
-.Q_closeBtn, .Q_closeFltrBtn {
+.Q_closeBtn, .Q_closeFltrBtn, .Q_modalCloseBtn {
   width: 1.7vw;
   height: 1.7vw;
   img {
@@ -202,6 +202,164 @@
   }
 }
 
+//edit and new post
+.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  width: 100%;
+  border: none;
+  border-bottom: solid var(--grey-dark) 0.1vw;
+  font-family: 'Arimo';
+  outline: none;   
+  &::placeholder {
+    color: var(--medium-grey);
+    font-family: 'Arimo';
+  }
+  &:focus {
+    color: var(--black);
+    outline: none;
+    border-bottom: solid var(--orange) 0.1vw;
+    font-family: 'Arimo';
+  }
+}
+.Q_formPostTitle{
+  padding: 0.8vw;
+  text-transform: uppercase;
+  font-size: 1.6vw;
+  font-weight: 400;
+  &::placeholder {
+    font-size: 1.6vw;
+    font-weight: 400;
+  }
+  &:focus {
+      font-size: 1.6vw;
+      font-weight: 400;
+  }
+}
+.Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  padding: 1.4vw 0.8vw;
+  font-size: 1vw;
+  &::placeholder {
+    font-size: 1vw;
+  }
+  &:focus {
+      font-size: 1vw;
+  }
+}
+.Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  text-transform: uppercase;
+}
+.Q_addItemLinkInput {
+  padding-right: 8.4vw;
+}
+.Q_footerInput {
+  border-color: var(--white);
+  background-color: var(--orange);
+  color: var(--white);
+  opacity: 0.7;
+  width: 30vw;
+  &::placeholder {
+    color: var(--grey);
+  }
+  &:focus {
+    color: var(--white);
+    border-bottom: solid var(--white) 0.1vw;
+    opacity: 1;
+  }
+}
+.Q_cattegoryName {
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.Q_plusImg {
+  background-color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10vw;
+  opacity: 0.5;
+  padding: 0.8vw;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.A_uploadPostPreview:hover, .A_uploadItemPreview:hover   {
+  .Q_plusImg {
+    opacity: 1;
+  }
+}
+.Q_postImgUpload, .Q_itemImgUpload {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.Q_findItem {
+  position: absolute;
+  right: 0;
+  padding: 0.8vw;
+  cursor: not-allowed;
+  h4 {
+    color: var(--medium-grey);
+    text-transform: uppercase;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+  &.active {
+    cursor: pointer;
+    h4{
+      color: var(--orange);
+    }
+    
+  }
+}
+.Q_addItemButton, .Q_publishPostBtn {
+  font-size: 1.3vw;
+  text-transform: uppercase;
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 1.2vw 1.6vw;
+  border: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  &.active {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+.Q_postItemImage {
+  width: 6.4vw;
+  height: 6.4vw;
+  background-color: var(--medium-grey);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.Q_formItemLink {
+  font-size: 1vw;
+}
+.Q_formItemPrice {
+  font-weight: 600;
+}
+.Q_deleteItemBtn{
+  width: 1.7vw;
+  height: 1.7vw;
+  img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.Q_listItemsLine {
+  width: 100%;
+  height: 0.1vw;
+  background-color: var(--medium-grey);
+}
 // Паршиал поста
 .Q_postPartialImage {
   display: block;
@@ -316,6 +474,22 @@
   &:hover {
     background-color: var(--blue); 
     color: var(--white); 
+  }
+}
+.Q_tagBtn {
+  background-color: var(--white); 
+  color: var(--black); 
+  padding: 0.5vw 0.8vw; 
+  text-transform: uppercase; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  border: 0.1vw solid var(--black);
+  &:hover {
+    background-color: var(--grey);
+  }
+  &[data-selected="true"] {
+    color: var(--white);
+    background-color: var(--black);
   }
 }
 .Q_postName  {
@@ -560,7 +734,7 @@
   text-align: center;
   font-size: 1.2vw;
 }
-.Q_regButton, .Q_logInButton, .Q_addItemButton, .Q_editProfileButton {
+.Q_regButton, .Q_logInButton, .Q_editProfileButton {
   width: 24vw;
   display: flex;
   flex-direction: column;
@@ -577,15 +751,13 @@
     outline: none;
   }
 }
-.Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit, .Q_editProfileSubmit{
+.Q_regSubmit, .Q_logInSubmit, .Q_editProfileSubmit{
   background-color: var(--blue);
   color: var(--white);
   margin-top: 2.4vw;
   border: none;
 }
-.Q_addItemSubmit {
-  margin-top: 3.6vw;
-}
+
 .Q_regButton.disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -664,56 +836,65 @@
   opacity: 1;
 }
 
+// Создание товара
+.Q_modalTitle {
+  text-transform: uppercase;
+  font-weight: 400;
+}
 
-.Q_postImagePreview{
+// Подвал
+.Q_footerLink {
+  opacity: 0.5;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  h4 {
+    text-transform: uppercase;
+
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+.Q_footerLogo {
+  color: var(--orange);
+  font-family: 'Raydis';
+  font-size: 22.6vw;
+  line-height: 70%;
+}
+.Q_footerQR {
+  width: 5.6vw;
+  height: 5.6vw;
+  object-fit: cover;
+}
+.Q_footerSocial {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 16vw;
-  height: 14vw;
-  background-color: var(--grey);
-  opacity: 100%;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.3s ease; 
-  border: 0.16vw dashed var(--blue);
-  span {
-    font-size: 2vw;
-    color: var(--blue);
+  gap: 0.2vw;
+  img {
+    width: 1.7vw;
+    height: 1.7vw;
+    object-fit: cover;
   }
-  &:hover {
-    opacity: 80%;
+}
+.Q_footerFormBtn {
+  position: absolute;
+  right: 0.8vw;
+  top: 1.6vw;
+}
+.Q_tumbaLeg {
+  position: absolute;
+  background-color: var(--orange);
+  width: 6.6vw;
+  height: 2.1vw;
+  bottom: -2.1vw;
+  left: 0vw;
+  &:last-of-type {
+    left: auto;
+    right: 0;
   }
 }
 
-.Q_postImgUpload {
-  max-height: 101%;
-  width: auto;
-  object-fit: contain;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.Q_tagBtn {
-  background-color: var(--white); 
-  color: var(--blue); 
-  padding: 0.6vw 1vw; 
-  font-size: 1.1vw;
-  font-weight: bold;
-  text-transform: capitalize; 
-  cursor: pointer; 
-  border: 0.16vw solid var(--blue);
-  transition: all 0.2s ease; 
-  &:hover {
-    background-color: var(--grey);
-  }
-  &[data-selected="true"] {
-    color: var(--white);
-    background-color: var(--blue);
-  }
-}
+
 @media only screen and (min-width: 745px) and (max-width: 1024px) {
 }
 @media only screen and (min-width: 431px) and (max-width: 744px) {
@@ -771,6 +952,8 @@
     font-size: 2.8vw;
     border: 0.5vw solid var(--blue);
   }
+
+
   .Q_postDescription {
     max-width: 90%;
   }
@@ -845,12 +1028,12 @@
     font-size: 2.8vw;
     border: 0.5vw solid var(--blue);
   }
-  .Q_regButton, .Q_logInButton, .Q_addItemButton, .Q_editProfileButton {
+  .Q_regButton, .Q_logInButton, .Q_editProfileButton {
     width: 76.8vw;
     font-size: 4.3vw;
     padding: 4.3vw 14vw;
   }
-  .Q_regSubmit, .Q_logInSubmit, .Q_addItemSubmit, .Q_editProfileSubmit{
+  .Q_regSubmit, .Q_logInSubmit, .Q_editProfileSubmit{
     margin-top: 15.3vw;
   }
   .Q_regTitle, .Q_logInTitle{

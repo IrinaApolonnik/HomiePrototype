@@ -40,7 +40,11 @@ Rails.application.routes.draw do
 
 
   # Предметы
-  resources :items, only: %i[index show create update destroy]
+  resources :items, only: %i[index show create update destroy] do
+    collection do
+      post 'fetch_data'
+    end
+  end
 
   # Подписки
   resources :subscriptions, only: %i[create destroy]

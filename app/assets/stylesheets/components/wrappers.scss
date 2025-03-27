@@ -99,6 +99,39 @@
     gap: 0.8vw;
 }
 
+//New and edit post 
+.W_postFormBack, .W_modalCloseBtn {
+    width: 100%;
+}
+.W_modalCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+.W_formPostDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3.9vw;
+}
+.W_tagsByCattegory {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+.W_modalAddItemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    padding: 1.6vw 2.2vw 2.2vw 2.2vw;
+    align-items: center;
+    background-color: var(--white);
+}
+.W_formItemInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 // Паршиал поста
 .W_postPartialDetails {
     position: absolute;

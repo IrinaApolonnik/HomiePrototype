@@ -1,6 +1,8 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails";
 import "controllers";
+import Rails from "@rails/ujs";
+Rails.start();
 function systemMessage() {
     const message = document.querySelector(".A_systemMessage, .systemMessage");
 
@@ -364,9 +366,16 @@ function addImage() {
     // Для изображения поста
     setupImageUpload(
       "post_image_upload", 
-      "Q_postImagePreview", 
+      "A_uploadPostPreview", 
       "Q_postImgUpload", 
       "placeholder" 
+    );
+    // Для товара
+    setupImageUpload(
+        "item_image_upload",
+        "A_uploadItemPreview",
+        "Q_itemImgUpload",
+        "placeholder"
     );
 
     
@@ -820,6 +829,216 @@ function initProfileFeedToggle() {
     });
 }
 
+function toggleTagsBlock() {
+    const toggleButton = document.querySelector(".A_addTagsBtn");
+    const tagsList = document.querySelector(".C_tagsList");
+  
+    if (!toggleButton || !tagsList) return;
+  
+    toggleButton.addEventListener("click", () => {
+      tagsList.classList.toggle("hidden");
+      toggleButton.classList.toggle("active");
+    });
+  }
+  function selectedTag() {
+    const tagButtons = document.querySelectorAll(".Q_tagBtn");
+    const hiddenInput = document.getElementById("post_tag_list");
+  
+    if (!tagButtons.length || !hiddenInput) {
+      console.error("Tag buttons or hidden input field not found.");
+      return;
+    }
+  
+    tagButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isSelected = button.getAttribute("data-selected") === "true";
+        button.setAttribute("data-selected", !isSelected);
+        button.classList.toggle("selected", !isSelected); // Добавляем/убираем класс "selected"
+  
+        // Обновляем скрытое поле
+        const selectedTags = Array.from(tagButtons)
+          .filter((btn) => btn.getAttribute("data-selected") === "true")
+          .map((btn) => btn.getAttribute("data-tag"));
+        hiddenInput.value = selectedTags.join(",");
+      });
+    });
+  }
+  
+
+
+  function itemModalLogic() {
+    const findBtn = document.querySelector(".Q_findItem");
+    const urlInput = document.querySelector(".Q_addItemLinkInput");
+  
+    const modalForm = document.querySelector(".S_modalItemForm");
+    const modalError = document.querySelector(".S_modalItemError");
+    const manualBtn = modalError?.querySelector(".Q_addItemButton");
+    const closeBtns = document.querySelectorAll(".Q_modalCloseBtn");
+  
+    if (!findBtn || !urlInput) return;
+  
+    findBtn.addEventListener("click", async () => {
+      const url = urlInput.value.trim();
+      if (!url) return alert("Введите ссылку на товар");
+  
+      try {
+        const response = await fetch("/items/fetch_data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ url: url })
+        });
+  
+        const data = await response.json();
+  
+        if (data.success) {
+          // Заполняем модалку
+          modalForm.querySelector("#item_image_upload").value = "";
+          modalForm.querySelector(".Q_itemImgUpload").src = data.image_url;
+          modalForm.querySelector(".Q_itemImgUpload").classList.remove("hidden");
+          modalForm.querySelector(".placeholder")?.classList.add("hidden");
+  
+          modalForm.querySelector("input[name='item[name]']").value = data.name;
+          modalForm.querySelector("input[name='item[purchase_url]']").value = data.purchase_url;
+          modalForm.querySelector(".Q_itemInput[name='item[price]']").value = data.price || "";
+  
+          modalForm.classList.remove("hidden");
+  
+          // Обновляем состояние кнопки
+          checkFormFields();
+        } else {
+          modalError.classList.remove("hidden");
+        }
+      } catch (error) {
+        console.error(error);
+        modalError.classList.remove("hidden");
+      }
+    });
+  
+    // Кнопка "заполнить вручную"
+    manualBtn?.addEventListener("click", () => {
+      modalError.classList.add("hidden");
+      modalForm.classList.remove("hidden");
+    });
+  
+    // Крестики закрытия
+    closeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        modalForm.classList.add("hidden");
+        modalError.classList.add("hidden");
+      });
+    });
+  
+    // ====== ВАЛИДАЦИЯ ПОЛЕЙ ======
+    const saveBtn = modalForm.querySelector("input[type='submit']");
+    const nameInput = modalForm.querySelector("input[name='item[name]']");
+    const priceInput = modalForm.querySelector("input[name='item[price]']");
+    const urlField = modalForm.querySelector("input[name='item[purchase_url]']");
+  
+    function isValidUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+      } catch (_) {
+        return false;
+      }
+    }
+  
+    function checkFormFields() {
+      const nameFilled = nameInput.value.trim() !== "";
+      const priceFilled = priceInput.value.trim() !== "";
+      const urlValid = isValidUrl(urlField.value.trim());
+  
+      const isValid = nameFilled && priceFilled && urlValid;
+  
+      saveBtn.disabled = !isValid;
+      saveBtn.classList.toggle("active", isValid);
+  
+      // Если URL невалидный, можно показать алерт
+      if (!urlValid && urlField.value.trim() !== "") {
+        urlField.setCustomValidity("Введите корректную ссылку (http или https)");
+      } else {
+        urlField.setCustomValidity("");
+      }
+    }
+  
+    [nameInput, priceInput, urlField].forEach(input => {
+      input.addEventListener("input", checkFormFields);
+    });
+  
+    // На всякий случай — первый вызов
+    checkFormFields();
+  }
+
+  function postFormLogic() {
+    const imageInput = document.getElementById("post_image_upload");
+    const titleInput = document.getElementById("post_title");
+    const descInput = document.getElementById("post_description");
+    const itemsList = document.getElementById("items-list");
+    const submitBtn = document.querySelector(".Q_publishPostBtn");
+  
+    if (!imageInput || !titleInput || !descInput || !itemsList || !submitBtn) return;
+  
+    function isImageSelected() {
+      const file = imageInput.files?.[0];
+      const preview = document.querySelector(".Q_postImgUpload");
+      return file || (preview && !preview.classList.contains("hidden"));
+    }
+  
+    function hasAtLeastOneItem() {
+      return itemsList.querySelectorAll(".A_postItemBlock").length > 0;
+    }
+  
+    function checkPostFields() {
+      const filled =
+        isImageSelected() &&
+        titleInput.value.trim() !== "" &&
+        descInput.value.trim() !== "" &&
+        hasAtLeastOneItem();
+  
+      submitBtn.disabled = !filled;
+      submitBtn.classList.toggle("active", filled);
+    }
+  
+    // Слушатели
+    [imageInput, titleInput, descInput].forEach(input => {
+      input.addEventListener("input", checkPostFields);
+      input.addEventListener("change", checkPostFields);
+    });
+  
+    const observer = new MutationObserver(checkPostFields);
+    observer.observe(itemsList, { childList: true, subtree: false });
+  
+    checkPostFields(); // начальная проверка
+    
+    const itemUrlInput = document.querySelector(".Q_addItemLinkInput");
+    const findItemBtn = document.querySelector(".Q_findItem");
+  
+    function isValidUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+      } catch (_) {
+        return false;
+      }
+    }
+  
+    function checkFindItemInput() {
+      const url = itemUrlInput?.value.trim();
+      const valid = isValidUrl(url);
+      findItemBtn.disabled = !valid;
+      findItemBtn.classList.toggle("active", valid);
+    }
+  
+    itemUrlInput?.addEventListener("input", checkFindItemInput);
+    checkFindItemInput();
+  }
+  
+
+  
+
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     
@@ -847,6 +1066,12 @@ document.addEventListener("turbo:load", () => {
     replyToComment();
     toggleReplies();
     autoResizeTextarea();
+
+    toggleTagsBlock();
+    selectedTag();
+
+    itemModalLogic();
+    postFormLogic();
     
     regSection();
     profileSection();

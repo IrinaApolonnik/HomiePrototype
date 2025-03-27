@@ -1,7 +1,4 @@
-<h1>Редактирование поста</h1>
+<% content_for :title, "TUMBA | Редактирование Поста" %>
+
 <%= render "form", post: @post %>
-<br>
-<div>
-  <%= link_to "Show this post", post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-</div>
+

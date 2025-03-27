@@ -1,0 +1,35 @@
+<div class="M_formItem">
+    <div class="A_formItemContent">
+        <!-- Картинка -->
+        <div class="Q_postItemImage">
+            <img src="<%= item.image_url %>" alt="Товар">
+        </div>
+    
+        <!-- Инфо: название, цена, ссылка -->
+        <div class="W_formItemInfo">
+            <h3 class="Q_formItemName"><%= truncate(item.name, length: 36, separator: ' ', omission: '...') %></h3>
+        
+            <% if item.purchase_url.present? %>
+                <a class="Q_formItemLink" href="<%= item.purchase_url %>" target="_blank" rel="noopener">
+                <%= URI.parse(item.purchase_url).host.sub(/^www\./, "") rescue "Ссылка" %>
+                </a>
+            <% else %>
+                <h4 class="Q_formItemLink">Ссылка отсутствует</h4>
+            <% end %>
+        
+            <% if item.price.present? %>
+                <h3 class="Q_formItemPrice"><%= number_to_currency(item.price, unit: "₽", precision: 0, format: "%n %u") %></h3>
+            <% end %>
+        </div>
+    </div
+ 
+
+  <!-- Кнопка удалить -->
+  <button type="button" class="Q_deleteItemBtn" data-item-id="<%= item.id %>">
+    <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить">
+  </button>
+
+  <!-- Скрытое поле, чтобы сохранить связь с постом -->
+  <%= hidden_field_tag "post[item_ids][]", item.id %>
+</div>
+<div class="Q_listItemsLine"></div>
