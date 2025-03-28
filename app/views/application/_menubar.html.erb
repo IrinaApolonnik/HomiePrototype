@@ -1,79 +1,83 @@
-<nav class="S_menuBar">
-  <div class="W_menuActions left">
-    <% if user_signed_in? && can?(:create, Post) %>
-      <%= link_to new_post_path, class: ['A_menuButton new', current_page?(new_post_path) ? 'activePage' : 'inactivePage'] do %>
-        <span>Создать подборку</span>
+<% if user_signed_in? %>
+  <nav class="S_menuBar">
+    <div class="W_menuActions left">
+      <% if user_signed_in? && can?(:create, Post) %>
+        <%= link_to new_post_path, class: ['A_menuButton new', current_page?(new_post_path) ? 'activePage' : 'inactivePage'] do %>
+          <span>Создать подборку</span>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= link_to posts_path, class: ['A_menuButton', current_page?(posts_path) ? 'activePage' : 'inactivePage'] do %>
-      <span>Подборки</span>
-    <% end %>
-  </div>
-  
-  <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
-  
-  
-  <div class="W_menuActions right">
-    <button class="A_menuButton search">
-      <span>Поиск</span>
-    </button>
+      <%= link_to posts_path, class: ['A_menuButton', current_page?(posts_path) ? 'activePage' : 'inactivePage'] do %>
+        <span>Подборки</span>
+      <% end %>
+    </div>
     
-    <button class="A_menuButton">
-      <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
-    </button>
+    <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
     
-    <button class="A_menuButton">
-      <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
-    </button>
     
-    <% if user_signed_in? %>
-      <div class="dropdown">
-        <div class="A_menuButton <%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %>">
-          <%= link_to profile_path(current_user.profile), class: 'Q_menuAvatar' do %>
-            <img src="<%= current_profile.avatar_url %>" alt="Avatar" class="Q_menuAvatar">
-          <% end %>
-          <button class="Q_dropdownBtn">
-            <img src="<%= asset_path('menu/arrowDownIcon.svg') %>" alt="Меню" class="Q_menuIcon">
-          </button>
-        </div>
-        
-        <div class="W_dropdownProfileMenu">
-          <div class="A_dropdownMenuBlock">
-            <h4 class="Q_dropdownMenuHeader">Аккаунт</h4>
-            <div class="C_menuUsers">
-              <div class="A_menuUser active">
-                <img class="Q_avatarImg" src="<%= current_profile.avatar_url %>" alt="">
-                <h4><%= current_profile.username %></h4>
+    <div class="W_menuActions right">
+      <button class="A_menuButton search">
+        <span>Поиск</span>
+      </button>
+      
+      <button class="A_menuButton">
+        <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
+      </button>
+      
+      <button class="A_menuButton">
+        <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
+      </button>
+      
+        <div class="dropdown">
+          <div class="A_menuButton <%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %>">
+            <%= link_to profile_path(current_user.profile), class: 'Q_menuAvatar' do %>
+              <img src="<%= current_profile.avatar_url %>" alt="Avatar" class="Q_menuAvatar">
+            <% end %>
+            <button class="Q_dropdownBtn">
+              <img src="<%= asset_path('menu/arrowDownIcon.svg') %>" alt="Меню" class="Q_menuIcon">
+            </button>
+          </div>
+          
+          <div class="W_dropdownProfileMenu">
+            <div class="A_dropdownMenuBlock">
+              <h4 class="Q_dropdownMenuHeader">Аккаунт</h4>
+              <div class="C_menuUsers">
+                <div class="A_menuUser active">
+                  <img class="Q_avatarImg" src="<%= current_profile.avatar_url %>" alt="">
+                  <h4><%= current_profile.username %></h4>
+                </div>
+                <h3>Добавить аккаунт<h3>
               </div>
-              <h3>Добавить аккаунт<h3>
             </div>
-          </div>
-          <div class="A_dropdownMenuBlock">
-            <h4 class="Q_dropdownMenuHeader">Дополнительно</h4>
-            <div class="W_userActions">
-              <%= link_to "Настройки", edit_profile_path(current_user.profile), class: "Q_dropdownItem" %>
-              <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete }, class: "Q_dropdownItem" %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% else %>
-      <div class="dropdown">
-        <div class="A_menuButton inactivePage">
-          <button class="Q_dropdownBtn">
-            <img src="<%= asset_path('menu/userIcon.svg') %>" alt="Меню" class="Q_menuIcon">
-          </button>
-        </div>
-        
-        <div class="W_dropdownProfileMenu">
-          <div class="A_dropdownMenuBlock">
-            <div class="W_userActions">
-              <%= link_to "Войти", new_user_session_path, class: "Q_dropdownItem" %>
-              <%= link_to "Регистрация", new_user_registration_path, class: "Q_dropdownItem" %>
+            <div class="A_dropdownMenuBlock">
+              <h4 class="Q_dropdownMenuHeader">Дополнительно</h4>
+              <div class="W_userActions">
+                <%= link_to "Настройки", edit_profile_path(current_user.profile), class: "Q_dropdownItem" %>
+                <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete }, class: "Q_dropdownItem" %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+
+    </div>
 </nav>
+ <% else %>
+  <nav class="S_menuBar">
+
+    <div class="W_menuActions left">
+      <button class="A_menuButton search">
+        <span>Поиск</span>
+      </button>
+    </div>
+    
+    <div class="W_menuActions right">
+      <%= link_to new_user_session_path, class: "A_menuButton" do %>
+        <span>войти</span>
+      <% end %>
+      <%= link_to new_user_registration_path, class: "A_menuButton new" do %>
+        <span>Регистрация</span>
+      <% end %>
+
+
+    </div>
+  </nav>
+<% end %>

@@ -116,6 +116,126 @@
   }
 }
 
+// Логин
+.Q_logInRedirect {
+  opacity: 0.5;
+}
+.Q_logInRedirectLink {
+  font-size: 1.3vw;
+  text-decoration: underline;
+}
+
+
+// Страница для неавторизованных пользователей (вместо постов)
+.Q_welcomeLogo {
+  font-family: 'Raydis';
+  font-size: 22.4vw;
+  color: var(--blue);
+  margin-top: -4vw;
+  margin-left: -1vw;
+}
+.Q_welcomeSubtitle {
+  line-height: 120%;
+  position: absolute;
+  top: 19vw;
+  right: 0vw;
+}
+.Q_welcomeAbout {
+  line-height: 120%;
+  position: absolute;
+  width: 30.5vw;
+  bottom: 4.9vw;
+  left: 26.5vw;
+  span {
+    font-weight: 600;
+  }
+}
+.Q_welcomeImg1{
+  position: absolute;
+  width: 31.7vw;
+  height: 25.5vw;
+  object-fit: cover;
+  bottom: 9.4vw;
+  left: 0;
+}
+.Q_welcomeImg2 {
+  position: absolute;
+  width: 6.7vw;
+  height: 8.6vw;
+  object-fit: cover;
+  bottom: 22.4vw;
+  right: 41vw;
+}
+.Q_welcomeImg3 {
+  position: absolute;
+  width: 28.4vw;
+  height: auto;
+  object-fit: cover;
+  bottom: 2.3vw;
+  right: 0vw;
+}
+.Q_welcomeSubtitle2 {
+  line-height: 120%;
+  width: 50vw;
+}
+.Q_welcomeImg4, .Q_welcomeImg5, .Q_welcomeImg6 {
+  height: 30.9vw;
+  width: auto;
+}
+.Q_welcomeSubtitle3 {
+  line-height: 120%;
+  width: 50vw;
+  margin-left: 17vw;
+}
+.Q_welcomeImg7 {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  right: 2.2vw;
+}
+.Q_welcomeTitle2 {
+  position: absolute;
+  top: 11vw;
+  left: 45vw;
+}
+.Q_welcomeSubtitle4 {
+  line-height: 120%;
+  position: absolute;
+  top: 14vw;
+  left: 45vw; 
+  width: 35vw;
+}
+.Q_welcomeTitle3 {
+  line-height: 120%;
+  position: absolute;
+  bottom: 7vw;
+  right: 7vw; 
+  width: 35vw;
+  font-weight: 400;
+}
+.Q_welcomeReg, .Q_welcomeSign {
+  position: absolute;
+  padding: 1.2vw 1.6vw;
+  text-transform: uppercase;
+  font-size: 1.3vw;
+  bottom: 0;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.Q_welcomeReg {
+  background-color: var(--blue);
+  color: var(--white);
+  right: 29.2vw;
+}
+.Q_welcomeSign {
+  color: var(--black);
+  opacity: 0.5;
+  right: 19vw;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 //Профиль 
 .Q_profileAvatar {
   width: 5.3vw;
@@ -181,6 +301,14 @@
     opacity: 0.5;
   }
 }
+.Q_subscribeBtn {
+  padding: 1.2vw 1.6vw;
+  background-color: var(--orange);
+  border-radius: 10vw;
+  h3 {
+    color: var(--white);
+  }
+}
 
 
 // Индекс Поста
@@ -203,7 +331,7 @@
 }
 
 //edit and new post
-.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput {
   width: 100%;
   border: none;
   border-bottom: solid var(--grey-dark) 0.1vw;
@@ -220,7 +348,7 @@
     font-family: 'Arimo';
   }
 }
-.Q_formPostTitle{
+.Q_formPostTitle, .Q_logInInput {
   padding: 0.8vw;
   text-transform: uppercase;
   font-size: 1.6vw;
@@ -233,6 +361,9 @@
       font-size: 1.6vw;
       font-weight: 400;
   }
+}
+.Q_logInInput {
+  width: 30.6vw;
 }
 .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
   padding: 1.4vw 0.8vw;
@@ -724,23 +855,13 @@
   font-size: 1.8vw;
   aspect-ratio: 1 / 1;
 }
-.Q_regTitle, .Q_logInTitle{
-  font-size: 2vw;
-  font-weight: bold;
-  letter-spacing: 0.1vw;
-}
-.Q_regDescription, .Q_logInDescription {
-  opacity: 50%;
-  text-align: center;
-  font-size: 1.2vw;
-}
 .Q_regButton, .Q_logInButton, .Q_editProfileButton {
-  width: 24vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.2vw;
-  padding: 1.4vw;
+  font-size: 1.3vw;
+  text-transform: uppercase;
+  padding: 1.2vw 1.6vw;
   cursor: pointer;
   &[type="submit"].disabled {
     opacity: 0.5;
@@ -762,23 +883,18 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-.Q_regSkip, .Q_regRedirect, .Q_additemCancel, .Q_editProfileCancel {
+.Q_regSkip, .Q_additemCancel, .Q_editProfileCancel {
   opacity: 50%;
   margin-top: 0.6vw;
-}
-.Q_logInForgotPassword {
-  opacity: 50%;
-  cursor: pointer;
-  text-decoration: underline;
 }
 .Q_logInRememberCheck {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 2vw;
-  height: 2vw;
+  width: 1.3vw;
+  height: 1.3vw;
   background-color: var(--white);
-  border: 0.16vw solid var(--orange);
+  border: 0.11vw solid var(--orange);
   cursor: pointer;
   position: relative;
   &:checked {

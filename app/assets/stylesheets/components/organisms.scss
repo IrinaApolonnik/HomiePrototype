@@ -1,4 +1,5 @@
-// Фильтрация и сортировка
+// Сортировка и фильтры ---------------------------------------------- 
+
 .O_sort, .O_filter {
     width: 36.2vw;
     height: 100%;
@@ -15,7 +16,95 @@
         transform: translateX(0%);
     }
 }
-// Профиль
+
+
+// Формы, инпуты и другое ---------------------------------------------- 
+
+.O_postForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 8.1vw;
+}
+.O_modalItemForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2.3vw;
+    align-items: center;
+}
+
+
+// Логин, регистрации, редактирование профиля ---------------------------------------------- 
+
+.O_loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 3.1vw;
+    width: 100%;
+    align-items: center;
+}
+
+
+// Посты ---------------------------------------------- 
+
+.O_postFeedHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2vw;
+}
+.O_postImages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // gap: 1.2vw;
+    width: 100%;
+}
+.O_postInfo {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.O_post {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto; /* Теперь Masonry сам управляет шириной */
+    max-width: 100%; /* Чтобы не ломалось */
+    overflow: hidden;
+    margin-bottom: 1.5vw;
+}
+
+
+// Товары ---------------------------------------------- 
+
+.O_item {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+
+
+// Комментарии ---------------------------------------------- 
+
+.O_postComment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    width: 100%;
+}
+
+
+// Профиль ---------------------------------------------- 
+
 .O_profileHeader {
     display: flex;
     flex-direction: column;
@@ -31,81 +120,15 @@
     align-items: center;
     gap: 2vw;
 }
-
-// Индекс Поста
-.O_postFeedHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 2vw;
-}
-//Edit and new post
-.O_postForm {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 8.1vw;
-}
-.O_modalItemForm {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 2.3vw;
-    align-items: center;
-}
-//Шоу поста
-
-.O_postImages {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    // gap: 1.2vw;
-    width: 100%;
-}
-.O_postInfo {
-    height: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.O_item {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8vw;
-}
-.O_postComment {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8vw;
-    width: 100%;
-}
-
-
-
-
-
-
-.O_post {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: auto; /* Теперь Masonry сам управляет шириной */
-    max-width: 100%; /* Чтобы не ломалось */
-    overflow: hidden;
-    margin-bottom: 1.5vw;
-}
 .C_profileFeedPosts {
     .O_post {
         margin-bottom: 0;
     }
 }
-//footer
+
+
+// Футер ---------------------------------------------- 
+
 .O_footer {
     position: relative;
     background-color: var(--orange);

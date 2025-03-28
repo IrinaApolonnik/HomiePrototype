@@ -1,33 +1,26 @@
 <section class="S_logIn">
-  <h3 class="Q_logInTitle">Вход</h3>
-  <p class="Q_logInDescription">С возвращением,<br>мы скучали!</p>
+  <h1 class="Q_logInTitle">АВТОРИЗАЦИЯ</h1>
   
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { multipart: true }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { multipart: true, class: "O_loginForm" }) do |f| %>
     <div class="C_logInInputs">
       <!-- Поле для почты -->
-      <div class="A_logInInputField">
-        <%= f.label :email, "Email", class: "Q_regLabel" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_logInInput" %>
-      </div>
-
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_logInInput", placeholder: "EMAIL ИЛИ ЛОГИН" %>
       <!-- Поле для пароля -->
-      <div class="A_logInInputField">
-        <%= f.label :password, "Пароль", class: "Q_regLabel" %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "Q_logInInput" %>
-      </div>
+      <%= f.password_field :password, autocomplete: "current-password", class: "Q_logInInput", placeholder: "ПАРОЛЬ" %>
+
         <% if devise_mapping.rememberable? %>
           <div class="A_logInRemember">
             <%= f.check_box :remember_me, class: "Q_logInRememberCheck" %>
             <%= f.label :remember_me, "Запомнить меня"%>
           </div>
         <% end %>
-      <h6 class="Q_logInForgotPassword"> Забыли пароль?</h6>
     </div>
 
     <div class="C_logInActions">
       <!-- Кнопка "Войти" -->
       <%= f.submit "Войти", class: "Q_logInButton Q_logInSubmit" %>
-      <%= link_to "Зарегистрироваться", new_registration_path(resource_name), class: "Q_logInButton Q_regRedirect" %>
+      <h3 class="Q_logInRedirect">У вас еще нет аккаунта? <%= link_to "Зарегистрироваться", new_registration_path(resource_name), class: "Q_logInRedirectLink" %></h3>
     </div>
   <% end %>
 </section>
+  

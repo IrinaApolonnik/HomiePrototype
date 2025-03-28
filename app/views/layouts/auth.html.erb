@@ -18,9 +18,10 @@
     </head>
 
     <body class="S_auth">
+    <nav class="S_menuBarAuth">
+        <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>   
+    </nav>
         <%= yield %>
-
-        <%= render "footer" %>
     </body>
 
 </html>
