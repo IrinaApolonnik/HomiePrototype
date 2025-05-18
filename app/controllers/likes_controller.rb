@@ -9,13 +9,13 @@ class LikesController < ApplicationController
       return
     end
 
-    like = likeable.likes.find_by(profile_id: current_profile.id)
+    like = likeable.likes.find_by(user_id: current_user.id)
 
     if like
       like.destroy!
       render json: { likes_count: likeable.likes.count, liked: false }, status: :ok
     else
-      likeable.likes.create!(profile_id: current_profile.id)
+      likeable.likes.create!(user_id: current_user.id)
       render json: { likes_count: likeable.likes.count, liked: true }, status: :ok
     end
   rescue ActiveRecord::RecordInvalid => e

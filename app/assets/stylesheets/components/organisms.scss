@@ -78,6 +78,8 @@
     max-width: 100%; /* Чтобы не ломалось */
     overflow: hidden;
     margin-bottom: 1.5vw;
+    transform: translate3d(0, 0, 0);
+    transition: none !important;
 }
 
 

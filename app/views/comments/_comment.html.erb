@@ -1,34 +1,33 @@
 <div class="O_postComment">
-    <div class="W_commentator">
-        <div class="A_commentCreator">
-            <img src="<%= comment.profile.avatar_url %>" alt="">
-            <h2><%= comment.profile.name %></h2>
-        </div>
-
-        <div class="W_commentActions">
-            <button class="Q_replyBtn"
-                    data-comment-id="<%= comment.id %>"
-                    data-comment-name="<%= comment.profile.username %>">
-            <h4>Ответить</h4>
-            </button>
-            <%= render partial: "like/button", locals: { likeable: comment } %>
-            <% if can?(:destroy, comment) %>
-                <%= button_to [comment.post, comment], method: :delete, class: "Q_deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
-                    <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
-                <% end %>
-            <% end %>
-        </div>
-
+  <div class="W_commentator">
+    <div class="A_commentCreator">
+      <img src="<%= comment.user.profile.avatar_url %>" alt="">
+      <h2><%= comment.user.profile.name %></h2>
     </div>
-    <div class="W_commentBody">
-        <div class="Q_commentText">
-            <h3>
-                <%= comment.body %>
-            </h3>
-            <h4 class="Q_postDate">
-                <%= I18n.l(comment.created_at, format: "%-d %B, %Y", locale: :ru) %>
-            </h4>
-        </div>
+
+    <div class="W_commentActions">
+      <button class="Q_replyBtn"
+              data-comment-id="<%= comment.id %>"
+              data-comment-name="<%= comment.user.profile.username %>">
+        <h4>Ответить</h4>
+      </button>
+      <%= render partial: "like/button", locals: { likeable: comment } %>
+      <% if can?(:destroy, comment) %>
+        <%= button_to [comment.post, comment], method: :delete, class: "Q_deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
+          <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+        <% end %>
+      <% end %>
     </div>
-    
+
+  </div>
+  <div class="W_commentBody">
+    <div class="Q_commentText">
+      <h3>
+        <%= comment.body %>
+      </h3>
+      <h4 class="Q_postDate">
+        <%= I18n.l(comment.created_at, format: "%-d %B, %Y", locale: :ru) %>
+      </h4>
+    </div>
+  </div>
 </div>

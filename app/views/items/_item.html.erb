@@ -22,7 +22,7 @@
   <% if user_signed_in? %>
     <div class="W_saveHeader item">
       <div class="A_selectedCollection"
-          data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
+          data-collection-id="<%= @selected_collection&.id || current_user.collections.find_by(title: 'Все идеи')&.try(:id) %>"
           data-item-id="<%= item.id %>">
         <p class="Q_selectedCollectionName">
           <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
@@ -30,7 +30,7 @@
         <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
       </div>
 
-      <% saved = current_user.profile.collections.joins(:items).exists?(items: { id: item.id }) %>
+      <% saved = current_user.collections.joins(:items).exists?(items: { id: item.id }) %>
 
       <!-- Основная кнопка с текстом -->
       <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
@@ -47,7 +47,7 @@
     <div class="W_collectionDropdown dropdown">
       <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
       <div class="C_collectionList">
-        <% current_user.profile.collections.each do |collection| %>
+        <% current_user.collections.each do |collection| %>
           <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
             <img src="<%= collection.image_url %>" alt="Обложка коллекции">
             <h3><%= collection.title %></h3>

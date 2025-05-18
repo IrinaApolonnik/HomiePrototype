@@ -1,5 +1,5 @@
 class Collection < ApplicationRecord
-  belongs_to :profile
+  belongs_to :user
   has_many :collection_items, dependent: :destroy
   has_many :posts, through: :collection_items, source: :collectible, source_type: 'Post'
   has_many :items, through: :collection_items, source: :collectible, source_type: 'Item'

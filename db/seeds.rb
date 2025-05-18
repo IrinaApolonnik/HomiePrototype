@@ -212,80 +212,58 @@
 @raw_text = 'Дом Наркомфина — один из знаковых памятников архитектуры советского авангарда и конструктивизма. Построен в 1928—1930 годах по проекту архитекторов Моисея Гинзбурга, Игнатия Милиниса и инженера Сергея Прохорова для работников Народного комиссариата финансов СССР (Наркомфина). Автор замысла дома Наркомфина Гинзбург определял его как «опытный дом переходного типа». Дом находится в Москве по адресу: Новинский бульвар, дом 25, корпус 1. С начала 1990-х годов дом находился в аварийном состоянии, был трижды включён в список «100 главных зданий мира, которым грозит уничтожение». В 2017—2020 годах отреставрирован по проекту АБ «Гинзбург Архитектс», функционирует как элитный жилой дом. Отдельно стоящий «Коммунальный блок» (историческое название) планируется как место проведения публичных мероприятий.'
 @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
 
-# Генератор 
 def seed
   reset_db
   create_users(10)
-  create_profiles
   create_tag_categories_and_tags
   create_posts(100)
   assign_tags_to_posts
   create_items(3..10)
   create_comments(2..8)
-  3.times do
-    create_comment_replies
-  end
+  3.times { create_comment_replies }
 end
 
-# Обновление баз данных
 def reset_db
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
 end
 
-# Получает рандомные значения True/False
 def get_random_bool
   [true, false].sample
 end
 
 def create_sentence
   sentence_words = []
-  (10..20).to_a.sample.times do
-    sentence_words << @words.sample
-  end
+  (10..20).to_a.sample.times { sentence_words << @words.sample }
   sentence_words.join(' ').capitalize + '.'
 end
 
-# Создание пользователей
+# === USERS ===
 def create_users(quantity)
   quantity.times do |i|
     user_data = {
       email: "user_#{i}@email.com",
-      password: 'testtest'
+      password: 'testtest',
+      admin: i == 0
     }
-    user_data[:admin] = true if i == 0
     user = User.create!(user_data)
-    puts "User created with id #{user.id}"
-  end
-end
 
-# Создание профилей
-def create_profiles
-  User.all.each_with_index do |user, index|
     profile_data = {
-      username: @usernames[index] || "user_#{index + 1}",
-      avatar_url: @avatars[index] || "default_avatar_url",
-      name: @names[index] || "User #{index + 1}"
+      username: @usernames[i] || "user_#{i + 1}",
+      avatar_url: @avatars[i] || "default_avatar_url",
+      name: @names[i] || "User #{i + 1}"
     }
+    user.profile.update!(profile_data)
 
-    if user.profile.present?
-      user.profile.update!(profile_data)
-      puts "Profile updated for user with id #{user.id}"
-    else
-      user.create_profile!(profile_data)
-      puts "Profile created for user with id #{user.id}"
-    end
+    puts "User created with id #{user.id}, Profile updated"
   end
 end
 
-
-# Создание категорий тегов и самих тегов
-
+# === TAGS ===
 def create_tag_categories_and_tags
   @tag_categories.each do |category_name|
     category = TagCategory.find_or_create_by!(name: category_name)
-
     @tags[category_name].each do |tag_name|
       Tag.find_or_create_by!(name: tag_name, tag_category: category)
     end
@@ -295,46 +273,43 @@ end
 
 def assign_tags_to_posts
   Post.all.each do |post|
-    tags = Tag.all.sample(3) # Случайные 3 тега
-    puts "Assigning tags: #{tags.map(&:name).join(', ')} to post: #{post.title}" # Логируем теги
+    tags = Tag.all.sample(3)
     post.tag_list.add(tags.map(&:name))
     post.save!
+    puts "Tags assigned to post: #{post.title}"
   end
-  puts "Tags assigned to posts!"
 end
 
-# Создание постов с тегами
+# === POSTS ===
 def create_posts(quantity)
   quantity.times do
-    profile = Profile.all.sample
-    post = profile.posts.create!(
+    user = User.all.sample
+    post = user.posts.create!(
       title: @post_titles.sample,
       image_url: @images.sample,
       description: @descriptions.sample,
       public: get_random_bool
     )
-
-    puts "Post with title #{post.title} just created for profile #{profile.id} with tags: #{post.tag_list.join(', ')}"
+    puts "Post created: #{post.title} by User ##{user.id}"
   end
 end
 
-# Создание товаров
+# === ITEMS ===
 def create_items(quantity)
   Post.all.each do |post|
     quantity.to_a.sample.times do
       begin
         user = User.all.sample
-        profile = user.profile
         item_data = {
           name: @items.sample,
           price: @prices.sample,
-          profile: profile,
+          user: user,
           market_icon_url: @markets.sample,
           image_url: @item_images.sample,
           purchase_url: @purchase_urls.sample
         }
-        puts "Creating item: #{item_data.inspect}"
         post.items.create!(item_data)
+        puts "Item created for post ##{post.id} by User ##{user.id}"
       rescue ActiveRecord::RecordInvalid => e
         puts "Error creating item: #{e.record.errors.full_messages.join(", ")}"
       end
@@ -342,18 +317,17 @@ def create_items(quantity)
   end
 end
 
-# Создание комментариев
+# === COMMENTS ===
 def create_comments(quantity)
   Post.all.each do |post|
     quantity.to_a.sample.times do
       begin
-        profile = Profile.all.sample # Получаем случайный профиль
-        comment = Comment.create!(
-          post: post,
-          profile: profile, # Привязываем комментарий к профилю
+        user = User.all.sample
+        comment = post.comments.create!(
+          user: user,
           body: create_sentence
         )
-        puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created by profile #{profile.id}"
+        puts "Comment created for post ##{post.id} by User ##{user.id}"
       rescue ActiveRecord::RecordInvalid => e
         puts "Error creating comment: #{e.record.errors.full_messages.join(", ")}"
       end
@@ -361,22 +335,21 @@ def create_comments(quantity)
   end
 end
 
-# Создание ответов на комментарии
+# === COMMENT REPLIES ===
 def create_comment_replies
   Comment.all.each do |comment|
-    if rand(1..3) == 1
-      begin
-        profile = Profile.all.sample # Получаем случайный профиль
-        comment_reply = Comment.create!(
-          post: comment.post,       # Указываем пост, к которому относится комментарий
-          profile: profile,         # Привязываем ответ к профилю
-          comment: comment,         # Указываем родительский комментарий
-          body: create_sentence
-        )
-        puts "Comment reply with id #{comment_reply.id} for comment with id #{comment.id} just created"
-      rescue ActiveRecord::RecordInvalid => e
-        puts "Error creating comment reply: #{e.record.errors.full_messages.join(", ")}"
-      end
+    next unless rand(1..3) == 1
+
+    begin
+      user = User.all.sample
+      reply = comment.post.comments.create!(
+        user: user,
+        comment: comment,
+        body: create_sentence
+      )
+      puts "Reply created for comment ##{comment.id} by User ##{user.id}"
+    rescue ActiveRecord::RecordInvalid => e
+      puts "Error creating reply: #{e.record.errors.full_messages.join(", ")}"
     end
   end
 end

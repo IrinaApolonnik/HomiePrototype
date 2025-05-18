@@ -5,22 +5,21 @@ class CollectionsController < ApplicationController
 
   # AJAX-запрос для подгрузки коллекций пользователя
   def user_collections
-    @collections = current_user.profile.collections
+    @collections = current_user.collections
     render json: @collections.as_json(only: [:id, :name, :image_url])
   end
 
   # GET /collections
   def index
-    @collections = current_user.profile.collections
+    @collections = current_user.collections
   end
 
   # GET /collections/:id
-  def show
-  end
+  def show; end
 
   # POST /collections
   def create
-    @collection = current_user.profile.collections.new(collection_params)
+    @collection = current_user.collections.new(collection_params)
 
     if @collection.save
       render json: { success: true, collection: @collection }, status: :created
@@ -44,10 +43,8 @@ class CollectionsController < ApplicationController
     render json: { success: true, message: "Коллекция успешно удалена." }, status: :ok
   end
 
-  # Универсальный метод для добавления/удаления поста
   def toggle_post
     post = Post.find(params[:post_id])
-
     if @collection.posts.include?(post)
       @collection.posts.delete(post)
       update_collection_cover
@@ -59,10 +56,8 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # Универсальный метод для добавления/удаления товара
   def toggle_item
     item = Item.find(params[:item_id])
-
     if @collection.items.include?(item)
       @collection.items.delete(item)
       update_collection_cover
@@ -74,7 +69,6 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # Обновление обложки (ручное)
   def update_cover
     if params[:image_url].present?
       @collection.set_custom_cover(params[:image_url])
@@ -87,7 +81,7 @@ class CollectionsController < ApplicationController
   private
 
   def set_collection
-    @collection = current_user.profile.collections.find_by(id: params[:id])
+    @collection = current_user.collections.find_by(id: params[:id])
     unless @collection
       render json: { success: false, error: "Коллекция не найдена или у вас нет доступа." }, status: :not_found
     end
@@ -98,14 +92,13 @@ class CollectionsController < ApplicationController
   end
 
   def authorize_user!
-    unless @collection.profile == current_user.profile
+    unless @collection.user_id == current_user.id
       render json: { success: false, error: "У вас нет прав на изменение этой коллекции." }, status: :forbidden
     end
   end
 
-  # Обновление обложки коллекции при изменении ее содержимого
   def update_collection_cover
     @collection.update_cover_image
-    @collection.save! if @collection.changed? # Сохраняем только если были изменения
+    @collection.save! if @collection.changed?
   end
 end

@@ -3,10 +3,10 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
-  belongs_to :profile
+  belongs_to :user
 
   validates :title, presence: true
-  validates :profile, presence: true
+  validates :user, presence: true
 
   acts_as_taggable_on :tags
   mount_uploader :image_url, ImageUploader

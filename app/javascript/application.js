@@ -1,8 +1,10 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails";
 import "controllers";
+import "./masonry.pkgd.min.js";
 import Rails from "@rails/ujs";
 Rails.start();
+
 function systemMessage() {
     const message = document.querySelector(".A_systemMessage, .systemMessage");
 
@@ -17,6 +19,7 @@ function systemMessage() {
         }, 3000);
     }
 }
+
 function changeLayout() {
     const layoutButtons = document.querySelectorAll(".Q_changeFeedLayoutBtn");
     const postsFeed = document.getElementById("C_postsFeed");
@@ -60,6 +63,7 @@ function changeLayout() {
         });
     }
 }
+
 function masonry() {
     const feed = document.querySelector("#C_postsFeed");
 
@@ -322,6 +326,7 @@ function collectionSearch() {
     // Запускаем фильтрацию при вводе текста
     searchInput.addEventListener("input", filterCollections);
 }
+
 // Загрузка изображения (аватара или поста)
 function addImage() {
     const setupImageUpload = (fileInputId, previewClass, imgClass, placeholderClass) => {
@@ -398,6 +403,7 @@ function dropdownMenu() {
         }
     });
 }
+
 // Обработка первой секции регистрации
 function regSection() {
     const registrationFormSelector = ".S_firstRegistrationStep form";
@@ -492,6 +498,7 @@ function toggleSubmitButtonState(formSelector) {
     // Изначальная проверка при загрузке
     checkFormValidity();
 }
+
 function toggleActionButtonsState(formSelector, actionsSelector) {
     const form = document.querySelector(formSelector);
     const actionButtons = document.querySelector(actionsSelector);
@@ -770,6 +777,7 @@ function replyToComment() {
       });
     });
   }
+
 function toggleReplies() {
     document.querySelectorAll(".Q_showReplies").forEach((button) => {
         button.addEventListener("click", () => {
@@ -786,6 +794,7 @@ function toggleReplies() {
         });
     });
 }
+
 function autoResizeTextarea() {
     document.querySelectorAll(".Q_commentFormInput").forEach((textarea) => {
       // Устанавливаем высоту по содержимому
@@ -840,6 +849,7 @@ function toggleTagsBlock() {
       toggleButton.classList.toggle("active");
     });
   }
+
   function selectedTag() {
     const tagButtons = document.querySelectorAll(".Q_tagBtn");
     const hiddenInput = document.getElementById("post_tag_list");
@@ -1107,11 +1117,7 @@ function toggleTagsBlock() {
     }
   }
 
-
-// Инициализация функций
-document.addEventListener("turbo:load", () => {
-    
-
+  function initDocument() {
     if (document.querySelector('.Q_dropdownBtn')) {
         dropdownMenu();
     }
@@ -1140,7 +1146,7 @@ document.addEventListener("turbo:load", () => {
     selectedTag();
 
     initFormValidation();
-initItemModalLogic();
+    initItemModalLogic();
 
     
     regSection();
@@ -1149,8 +1155,18 @@ initItemModalLogic();
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
     toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
-    
+  }
+
+
+// Инициализация функций
+document.addEventListener("turbo:load", () => {
+    initDocument()
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    initDocument()
+});
+
 document.addEventListener("turbo:before-cache", () => {
     document.querySelectorAll(".A_systemMessage, .systemMessage").forEach(el => el.remove());
 });

@@ -78,7 +78,7 @@ button {
     animation: fadeOut 2s ease-out forwards;
 }
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 /* Анимации ---------------------------------------------- */

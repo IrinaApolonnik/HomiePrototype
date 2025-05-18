@@ -9,7 +9,7 @@
      <% if user_signed_in? %>
     <div class="W_saveHeader postPartial">
       <div class="A_selectedCollection"
-          data-collection-id="<%= @selected_collection&.id || current_user.profile.collections.find_by(title: 'Все идеи')&.try(:id) %>"
+          data-collection-id="<%= @selected_collection&.id || current_user.collections.find_by(title: 'Все идеи')&.try(:id) %>"
           data-post-id="<%= post.id %>">
         <p class="Q_selectedCollectionName">
           <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
@@ -17,7 +17,7 @@
         <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
       </div>
 
-      <% saved = current_user.profile.collections.joins(:posts).exists?(posts: { id: post.id }) %>
+      <% saved = current_user.collections.joins(:posts).exists?(posts: { id: post.id }) %>
 
       <!-- Основная кнопка с текстом -->
       <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
@@ -34,7 +34,7 @@
     <div class="W_collectionDropdown dropdown postPartial">
       <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
       <div class="C_collectionList">
-        <% current_user.profile.collections.each do |collection| %>
+        <% current_user.collections.each do |collection| %>
           <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
             <img src="<%= collection.image_url %>" alt="Обложка коллекции">
             <h3><%= collection.title %></h3>
@@ -48,12 +48,12 @@
     </div>
   <% end %>
 
-    <!-- Заголовок и автор -->
-    <div class="W_postPartialDetails">
-        <p class="Q_postPartialTitle"><%= post.title %></p>
-        <%= link_to profile_path(post.profile), class: "A_postPartialCreator" do %>
-          <img class="Q_postPartialAvatar" src="<%= post.profile.avatar_url %>" alt="Avatar">
-          <h6 class="Q_postPartialName"><%= post.profile.username %></h6>
-        <% end %>
-    </div>
+  <!-- Заголовок и автор -->
+  <div class="W_postPartialDetails">
+      <p class="Q_postPartialTitle"><%= post.title %></p>
+      <%= link_to profile_path(post.user.profile), class: "A_postPartialCreator" do %>
+        <img class="Q_postPartialAvatar" src="<%= post.user.profile.avatar_url %>" alt="Avatar">
+        <h6 class="Q_postPartialName"><%= post.user.profile.username %></h6>
+      <% end %>
+  </div>
 </div>

@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
 
-  # Для страницы с подборками
   def index
     unless user_signed_in?
       return render :guest_home
@@ -11,11 +10,11 @@ class PostsController < ApplicationController
     Rails.logger.debug "SORT PARAM: #{sort_param}"
 
     @posts = if current_user&.admin?
-               Post.includes(:likes, :profile).all
+               Post.includes(:likes, :user).all
              else
-               Post.includes(:likes, :profile)
+               Post.includes(:likes, :user)
                    .where(public: true)
-                   .or(Post.where(profile: current_user.profile))
+                   .or(Post.where(user: current_user))
              end
 
     if params[:sort].blank? && cookies[:selectedSort].present?
@@ -42,10 +41,10 @@ class PostsController < ApplicationController
   def by_tag
     if params[:tags].present?
       selected_tags = params[:tags].split(",")
-      posts_with_tags = Post.tagged_with(selected_tags, any: true).includes(:likes, :profile)
+      posts_with_tags = Post.tagged_with(selected_tags, any: true).includes(:likes, :user)
       @posts = posts_with_tags.sort_by { |post| -post.tags.where(name: selected_tags).count }
     else
-      @posts = Post.includes(:likes, :profile)
+      @posts = Post.includes(:likes, :user)
     end
 
     render :index
@@ -68,7 +67,7 @@ class PostsController < ApplicationController
     authorize! :create, Post
     post_attrs = post_params.except(:temp_items_json)
     @post = Post.new(post_attrs)
-    @post.profile = current_profile
+    @post.user = current_user
 
     respond_to do |format|
       ActiveRecord::Base.transaction do
@@ -85,7 +84,7 @@ class PostsController < ApplicationController
               purchase_url: item_data["purchase_url"],
               price:        item_data["price"],
               image_url:    item_data["image_url"],
-              profile:      current_profile
+              user:        current_user
             )
           end
 
@@ -130,12 +129,12 @@ class PostsController < ApplicationController
   def like
     authorize! :like, @post
 
-    like = @post.likes.find_by(profile_id: current_profile.id)
+    like = @post.likes.find_by(user_id: current_user.id)
 
     if like
       like.destroy!
     else
-      @post.likes.create(profile_id: current_profile.id)
+      @post.likes.create(user_id: current_user.id)
     end
 
     respond_to do |format|

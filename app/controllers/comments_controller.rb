@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.build(comment_params)
-    @comment.profile = current_profile # Присваиваем профиль текущего пользователя
+    @comment.user = current_user # Присваиваем текущего пользователя
 
     if params[:parent_comment_id].present?
       parent = @post.comments.find_by(id: params[:parent_comment_id])
@@ -30,13 +30,14 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to post_path(@post), notice: 'Комментарий успешно удалён.'
   end
+
   def like
-    like = @comment.likes.find_by(profile_id: current_profile.id)
+    like = @comment.likes.find_by(user_id: current_user.id)
 
     if like
       like.destroy!
     else
-      @comment.likes.create(profile_id: current_profile.id)
+      @comment.likes.create(user_id: current_user.id)
     end
 
     respond_to do |format|
@@ -52,6 +53,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body) # Разрешённые параметры
+    params.require(:comment).permit(:body)
   end
 end

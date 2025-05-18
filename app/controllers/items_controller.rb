@@ -1,9 +1,11 @@
 require 'ostruct'
+
 class ItemsController < ApplicationController
   load_and_authorize_resource except: [:fetch_data, :preview]
 
   protect_from_forgery with: :null_session, only: [:fetch_data]
 
+  # Парсинг данных о товаре с внешнего ресурса
   def fetch_data
     url = params[:url]
 
@@ -22,17 +24,20 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Превью товара без сохранения в БД
   def preview
     @item = OpenStruct.new(params[:item])
     render partial: "items/item_form", locals: { item: @item }
   end
 
+  # Страница создания товара
   def new
     @item = Item.new
   end
 
+  # Создание товара (привязка к текущему пользователю)
   def create
-    @item = current_profile.items.new(item_params)
+    @item = current_user.items.new(item_params)
 
     if @item.save
       redirect_to @item, notice: "Товар успешно создан."
@@ -41,6 +46,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Удаление товара
   def destroy
     @item.destroy!
     respond_to do |format|

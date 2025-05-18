@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
   create_table "collection_items", force: :cascade do |t|
     t.integer "collection_id", null: false
     t.string "collectible_type", null: false
@@ -25,10 +25,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
     t.string "title"
     t.boolean "private"
     t.string "image_url"
-    t.integer "profile_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_collections_on_profile_id"
+    t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -37,10 +37,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "comment_id"
-    t.integer "profile_id", null: false
+    t.integer "user_id", null: false
     t.integer "likes_count", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["profile_id"], name: "index_comments_on_profile_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -53,8 +53,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "market_icon_url"
-    t.integer "profile_id", null: false
-    t.index ["profile_id"], name: "index_items_on_profile_id"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -62,9 +62,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
     t.integer "likeable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "profile_id", null: false
+    t.integer "user_id", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
-    t.index ["profile_id"], name: "index_likes_on_profile_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -74,9 +74,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "public", default: true
-    t.integer "profile_id", null: false
+    t.integer "user_id", null: false
     t.integer "likes_count", default: 0, null: false
-    t.index ["profile_id"], name: "index_posts_on_profile_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -150,12 +150,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_102659) do
   end
 
   add_foreign_key "collection_items", "collections"
-  add_foreign_key "collections", "profiles"
+  add_foreign_key "collections", "profiles", column: "user_id"
   add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "profiles"
-  add_foreign_key "items", "profiles"
-  add_foreign_key "likes", "profiles"
-  add_foreign_key "posts", "profiles"
+  add_foreign_key "comments", "profiles", column: "user_id"
+  add_foreign_key "items", "profiles", column: "user_id"
+  add_foreign_key "likes", "profiles", column: "user_id"
+  add_foreign_key "posts", "profiles", column: "user_id"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "tag_categories"
 end

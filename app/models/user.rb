@@ -8,6 +8,13 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
+  # Новые связи:
+  has_many :posts, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :collections, dependent: :destroy
+
   after_create :create_default_profile
 
   before_create :generate_jti
@@ -20,7 +27,6 @@ class User < ApplicationRecord
       avatar_url: "https://i.pinimg.com/736x/71/70/0d/71700d2f1fa829ee2a2fa4150f992e4a.jpg",
       name: "New User"
     )
-
     unless profile.save
       error_messages = profile.errors.full_messages.join(', ')
       raise "Profile creation failed for user ##{self.id}: #{error_messages}"

@@ -2,16 +2,12 @@ Rails.application.routes.draw do
   # Лайки
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
-  # Профили
-  resources :profiles, only: %i[show edit update index create] do
-    member do
-      get "posts", to: "profiles#posts", as: "posts" # Посты пользователя
-      delete "avatar", to: "profiles#delete_avatar", as: "delete_avatar" # Удаление аватара
-    end
-  end
+  # Профили — публичный просмотр
+  resources :profiles, only: %i[show index]
 
-  # Настройки профиля
+  # Управление своим профилем
   get "profile/settings", to: "profiles#edit", as: "profile_settings"
+  patch "profile", to: "profiles#update", as: "update_profile"
 
   # Devise маршруты для пользователей
   devise_for :users, controllers: { 
