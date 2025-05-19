@@ -259,7 +259,7 @@ body {
 }
 
 /* Блок с подпиской на рассылку */
-.subscription {
+.newsletter {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -268,11 +268,11 @@ body {
     h1 {
         color: var(--grey-dark);
     }
-    .subscriptionImage {
+    .newsletterImage {
         margin-top: 2vw;
         width: 100%;
     }
-    .subscriptionForm {
+    .newsletterForm {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -325,7 +325,7 @@ body {
             }
         }
     }
-    .subscriptionSuccess {
+    .newsletterSuccess {
         position: relative;
         width:56vw;
         height: 6vw;
@@ -341,7 +341,7 @@ body {
             font-weight: 100;
             color: var(--grey-dark);
         }
-        .subscriptionSuccessImage {
+        .newsletterSuccessImage {
             position: absolute;
             width: 4vw;
             height: 4vw;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_19_105251) do
   create_table "collection_items", force: :cascade do |t|
     t.integer "collection_id", null: false
     t.string "collectible_type", null: false
@@ -43,6 +43,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_follows_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -67,6 +77,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "newsletter_subscriptions", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -87,12 +103,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username", null: false
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tag_categories", force: :cascade do |t|
@@ -153,6 +163,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_124737) do
   add_foreign_key "collections", "profiles", column: "user_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "profiles", column: "user_id"
+  add_foreign_key "follows", "users", column: "followed_id"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "items", "profiles", column: "user_id"
   add_foreign_key "likes", "profiles", column: "user_id"
   add_foreign_key "posts", "profiles", column: "user_id"

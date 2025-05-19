@@ -8,12 +8,22 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
-  # Новые связи:
   has_many :posts, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :collections, dependent: :destroy
+
+  # Связи подписок
+  has_many :follower_relationships, foreign_key: :followed_id, class_name: 'Follow', dependent: :destroy
+  has_many :followers, through: :follower_relationships, source: :follower
+
+  has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow', dependent: :destroy
+  has_many :followed_users, through: :following_relationships, source: :followed
+
+  def following?(other_user)
+    followed_users.include?(other_user)
+  end
 
   after_create :create_default_profile
 

@@ -1,6 +1,0 @@
-<div class="subscriptionInfo">
-  <p><%= subscription.email %></p>
-  <%= button_to admin_subscription_path(subscription), method: :delete, class: "deleteButton", data: { confirm: "Are you sure?" } do %>
-    <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
-  <% end %>
-</div>

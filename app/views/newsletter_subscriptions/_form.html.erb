@@ -1,0 +1,6 @@
+<%= form_with(model: NewsletterSubscription.new, class: "A_newsletterForm", id: "newsletterForm") do |form| %>
+    <%= form.email_field :email, placeholder: "email", class: "Q_footerInput" %>
+    <%= button_tag type: 'submit', class: "Q_footerFormBtn" do %>
+      <h4>OK</h4> 
+    <% end %>
+<% end %>

@@ -12,9 +12,9 @@ module Parsers
     def parse
       doc = Nokogiri::HTML4(URI.open("https://www.wildberries.ru/catalog/286491812/detail.aspx"))
 
-      # puts doc
+      puts doc
 
-      puts doc.css('meta[property="og:image"]')
+      puts doc.css('meta[property="og:image7"]')
     end
 
     # def parse

@@ -14,18 +14,22 @@
     </div>
   <% end %>
 <% else %>
-  <button class="Q_subscribeBtn">
-    <h3>Подписаться</h3>
-  </button>
+  <% if current_user && current_user != @profile.user %>
+    <% if current_user.following?(@profile.user) %>
+      <%= button_to 'Отписаться', unfollow_profile_path(@profile), method: :delete, class: 'Q_unSubscribeBtn' %>
+    <% else %>
+      <%= button_to 'Подписаться', follow_profile_path(@profile), method: :post, class: 'Q_subscribeBtn' %>
+    <% end %>
+  <% end %>
 <% end %>
     <div class="C_subscriptionsInfo">
       <div class="W_subscribe">
-        <h3 class="Q_subscriptionsCounter">0</h3>
+        <h3 class="Q_subscriptionsCounter"><%= @profile.user.followed_users.count %></h3>
         <h3 class="Q_sunscribeText">подписок</h3>
       </div>
       <div class="Q_subscribeLine"></div>
       <div class="W_subscribe">
-        <h3 class="Q_subscribersCounter">0</h3>
+        <h3 class="Q_subscribersCounter"><%= @profile.user.followers.count %></h3>
         <h3 class="Q_sunscribeText">подписчиков</h3>
       </div>
     </div>

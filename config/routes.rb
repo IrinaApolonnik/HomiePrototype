@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   # Лайки
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
 
-  # Профили — публичный просмотр
-  resources :profiles, only: %i[show index]
+  # Профили — публичный просмотр + подписка
+  resources :profiles, only: %i[show index] do
+    member do
+      post 'follow',   to: 'follows#create',  as: :follow
+      delete 'unfollow', to: 'follows#destroy', as: :unfollow
+    end
+  end
 
   # Управление своим профилем
   get "profile/settings", to: "profiles#edit", as: "profile_settings"
@@ -14,6 +19,9 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions"
   }
+
+  # Подписки и подписчики
+  resources :follows, only: [:create, :destroy]
 
   # Второй шаг регистрации - обновление профиля
   namespace :users do
@@ -42,10 +50,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Подписки
-  resources :subscriptions, only: %i[create destroy]
+  # Подписки на рассылку (мейлы)
+  resources :newsletter_subscriptions, only: %i[create destroy]
   namespace :admin do
-    resources :subscriptions, only: %i[index destroy]
+    resources :newsletter_subscriptions, only: %i[index destroy]
   end
 
   # Коллекции

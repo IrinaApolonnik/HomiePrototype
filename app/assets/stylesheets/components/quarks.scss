@@ -301,13 +301,17 @@
     opacity: 0.5;
   }
 }
-.Q_subscribeBtn {
-  padding: 1.2vw 1.6vw;
+.Q_subscribeBtn, .Q_unSubscribeBtn {
+  padding: 1.1vw 1.1vw;
   background-color: var(--orange);
   border-radius: 10vw;
-  h3 {
-    color: var(--white);
-  }
+  border: solid 0.1vw var(--orange);
+  font-size: 1.3vw;
+  color: var(--white);
+}
+.Q_unSubscribeBtn {
+  background-color: var(--white);
+  color: var(--orange);
 }
 
 
