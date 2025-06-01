@@ -11,7 +11,8 @@ class CollectionsController < ApplicationController
 
   # GET /collections
   def index
-    @collections = current_user.collections
+    @default_collection = current_user.collections.find_by(default: true)
+    @custom_collections = current_user.collections.where(default: false).order(updated_at: :desc)
   end
 
   # GET /collections/:id
@@ -98,7 +99,8 @@ class CollectionsController < ApplicationController
   end
 
   def update_collection_cover
-    @collection.update_cover_image
+    return if @collection.image_url.present? && !@collection.default?
+    @collection.image_url = @collection.cover_image_url
     @collection.save! if @collection.changed?
   end
 end

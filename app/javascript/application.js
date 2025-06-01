@@ -1117,7 +1117,10 @@ function toggleTagsBlock() {
     }
   }
 
-  function initDocument() {
+// Инициализация функций
+document.addEventListener("turbo:load", () => {
+    
+
     if (document.querySelector('.Q_dropdownBtn')) {
         dropdownMenu();
     }
@@ -1146,7 +1149,7 @@ function toggleTagsBlock() {
     selectedTag();
 
     initFormValidation();
-    initItemModalLogic();
+initItemModalLogic();
 
     
     regSection();
@@ -1155,18 +1158,8 @@ function toggleTagsBlock() {
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
     toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
-  }
-
-
-// Инициализация функций
-document.addEventListener("turbo:load", () => {
-    initDocument()
+    
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-    initDocument()
-});
-
 document.addEventListener("turbo:before-cache", () => {
     document.querySelectorAll(".A_systemMessage, .systemMessage").forEach(el => el.remove());
 });

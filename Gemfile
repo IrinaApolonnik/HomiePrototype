@@ -38,6 +38,7 @@ gem 'carrierwave', '~> 2.2'
 gem "open-uri"
 gem "carrierwave-imageoptimizer"
 gem 'mini_magick'
+gem 'image_processing'
 
 gem 'nokogiri'
 gem 'httparty'

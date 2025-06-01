@@ -1,22 +1,25 @@
-<div id="<%= dom_id collection %>">
-  <p>
-    <strong>Title:</strong>
-    <%= collection.title %>
-  </p>
-
-  <p>
-    <strong>Private:</strong>
-    <%= collection.private %>
-  </p>
-
-  <p>
-    <strong>Image url:</strong>
-    <%= collection.image_url %>
-  </p>
-
-  <p>
-    <strong>Profile:</strong>
-    <%= collection.profile_id %>
-  </p>
-
+<%= link_to collection_path(collection), class: "M_collectionCard" do %>
+<div class="W_collectionImageWrapper">
+<% images = collection.grid_images %>
+<% if collection.default? && images.size >= 4 %>
+  <div class="A_gridWrapper">
+    <img src="<%= collection.cover_image_url %>" class="Q_gridCell main">
+    <% images[1..3].each do |img| %>
+      <img src="<%= img %>" class="Q_gridCell">
+    <% end %>
+  </div>
+<% else %>
+  <img src="<%= images.first || collection.cover_image_url %>" class="Q_collectionImage">
+<% end %>
 </div>
+  <div>
+    <h3 class="Q_collectionTitle"><%= collection.title %></h3>
+    <% count = collection.collection_items.count %>
+    <% word = case count % 10
+            when 1 then 'подборка'
+            when 2..4 then 'подборки'
+            else 'подборок'
+            end %>
+    <h4 class="Q_collectionMeta"><%= "#{count} #{word}" %></h4>
+  </div>
+<% end %>

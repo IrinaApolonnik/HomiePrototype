@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   end
 
   # Коллекции
-  resources :collections, only: [:index, :show, :create, :update, :destroy] do
+  resources :collections, only: [:index, :show, :create, :update, :destroy, :new] do
     collection do
       get "user_collections", to: "collections#user_collections" # Получение всех коллекций пользователя
     end

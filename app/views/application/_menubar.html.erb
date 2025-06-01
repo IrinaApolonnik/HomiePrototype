@@ -23,12 +23,12 @@
         <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
       </button>
       
-      <button class="A_menuButton">
+      <%= link_to collections_path, class: "A_menuButton" do %>
         <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
-      </button>
+      <% end %>
       
         <div class="dropdown">
-          <div class="A_menuButton <%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %>">
+          <div class="A_menuButton profile <%= current_page?(profile_path(current_user.profile)) ? 'activePage' : 'inactivePage' %>">
             <%= link_to profile_path(current_user.profile), class: 'Q_menuAvatar' do %>
               <img src="<%= current_user.profile.avatar_url %>" alt="Avatar" class="Q_menuAvatar">
             <% end %>
@@ -60,6 +60,25 @@
 
     </div>
 </nav>
+
+<% if controller_name == "collections" && action_name == "index" %>
+  <div class="W_collectionsHeader">
+    <% count = current_user.collections.count %>
+    <% word = case count % 10
+            when 1 then 'коллекция'
+            when 2..4 then 'коллекции'
+            else 'коллекций'
+            end %>
+    <h4 class="Q_collectionsCount"><%= "#{count} #{word}" %></h4>
+    <h2 class="Q_collectionsTitle">СОХРАНЁННОЕ</h2>
+    <%= link_to new_collection_path, class: "Q_createCollectionBtn" do %>
+      <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Создать подборку">
+    <% end %>
+  </div>
+<% end %>
+
+
+
  <% else %>
   <nav class="S_menuBar">
 

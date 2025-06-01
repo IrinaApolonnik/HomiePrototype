@@ -1015,6 +1015,35 @@
 }
 
 
+
+
+
+.Q_collectionsCount {
+  color: var(--black);
+  opacity: 0.5;
+}
+.Q_collectionsTitle {
+  color: var(--black);
+  margin-right: 2vw;
+}
+.Q_createCollectionBtn {
+
+  width: 1.7vw;
+  height: 1.7vw;
+  img {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+      transform: rotate(45deg);
+  }
+}
+.Q_collectionMeta {
+  opacity: 0.5;
+  margin-top: -0.3vw;
+}
+
+
+
 @media only screen and (min-width: 745px) and (max-width: 1024px) {
 }
 @media only screen and (min-width: 431px) and (max-width: 744px) {

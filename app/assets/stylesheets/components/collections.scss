@@ -101,7 +101,13 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
-
+.C_collectionsGrid {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5vw;
+}
 
 // Посты ---------------------------------------------- 
 

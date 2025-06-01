@@ -29,7 +29,8 @@ class Profile < ApplicationRecord
   def create_default_collection
     user.collections.create!(
       title: "Все идеи",
-      private: false
+      private: false,
+      default: true
     )
   end
 end

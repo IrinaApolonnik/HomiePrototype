@@ -1,16 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Collections" %>
+<% content_for :title, "Сохранённое" %>
 
-<h1>Collections</h1>
+<!-- Список подборок -->
+<div class="C_collectionsGrid">
+  <% if @default_collection %>
+    <%= render partial: "collections/collection", locals: { collection: @default_collection } %>
+  <% end %>
 
-<div id="collections">
-  <% @collections.each do |collection| %>
-    <%= render collection %>
-    <p>
-      <%= link_to "Show this collection", collection %>
-    </p>
+  <% @custom_collections.each do |collection| %>
+    <%= render partial: "collections/collection", locals: { collection: collection } %>
   <% end %>
 </div>
-
-<%= link_to "New collection", new_collection_path %>
