@@ -45,7 +45,7 @@
   }
 }
 
-.Q_closeBtn, .Q_closeFltrBtn, .Q_modalCloseBtn {
+.Q_closeBtn, .Q_closeFltrBtn, .Q_modalCloseBtn, .Q_settingsCloseBtn{
   width: 1.7vw;
   height: 1.7vw;
   img {
@@ -335,7 +335,7 @@
 }
 
 //edit and new post
-.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput {
+.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_settingsInput {
   width: 100%;
   border: none;
   border-bottom: solid var(--grey-dark) 0.1vw;
@@ -932,15 +932,18 @@
   cursor: pointer;
   overflow: hidden;
   transition: 0.2s ease;
+    border-radius: 100%;
   &:hover {
     opacity: 0.8;
   }
 }
 
+
 .Q_editAvatarImgUpload, .Q_avatarImgUpload {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 100%;
 }
 
 .Q_editAvatarPreview .placeholder {
@@ -949,12 +952,55 @@
   opacity: 0;
   position: absolute;
   transition: opacity 0.3s ease;
+  border-radius: 100%;
 }
 
 .Q_editAvatarPreview:hover .placeholder {
   display: block;
   opacity: 1;
 }
+
+.Q_settingsLabel {
+ opacity: 0.5;
+ font-size: 1vw;
+ text-transform: uppercase;
+ padding-left: 0.8vw;
+}
+.Q_settingsInput {
+  padding: 0.8vw;
+  font-size: 1.3vw;
+  &::placeholder {
+      font-size: 1.3vw;
+      font-weight: 400;
+      line-height: 100%;
+  }
+  &:focus {
+      outline: none; 
+      font-size: 1.3vw;
+      font-weight: 400;
+  }
+}
+.Q_settingsSaveBtn, .Q_settingsResetBtn {
+  text-transform: uppercase;
+  font-size: 1vw;
+  padding: 0.5vw 0.8vw;
+  border: none;
+  outline: none;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  cursor: pointer;
+}
+.Q_settingsSaveBtn {
+  background-color: var(--orange);
+  color: var(--white);
+  font-weight: 300;
+}
+.Q_settingsResetBtn {
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 
 // Создание товара
 .Q_modalTitle {
@@ -1040,6 +1086,25 @@
 .Q_collectionMeta {
   opacity: 0.5;
   margin-top: -0.3vw;
+}
+
+.Q_settingsAvatar {
+  width: 4.7vw;
+  height: 4.7vw;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.Q_settingsName, .Q_settingsTitle {
+  text-transform: uppercase;
+}
+.Q_settingsTitle {
+  font-weight: 300;
+}
+.Q_settingsNavBtn {
+  padding: 0.8vw 1.6vw 0.8vw 0.8vw;
+  &.active {
+    background-color: var(--grey);
+  }
 }
 
 

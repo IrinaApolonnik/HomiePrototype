@@ -1,34 +1,24 @@
 <!-- Модалка: настройки пользователя -->
-<div class="S_modalSettings" id="settings">
-
-    <!-- Закрытие -->
-    <div class="W_modalCloseBtn">
-    <button class="Q_modalCloseBtn">
-        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
-    </button>
-    </div>
-
+<div class="S_modalSettings hidden" id="settings">
     <!-- Весь контент настроек -->
     <div class="O_Settings">
-        <div class="W_modalSettingsNav">
-            <div class="A_settingsUser">
-                <img src="<%= current_profile.avatar_url %>" alt="">
-                <h1><%= current_profile.name %></h1>
+        <button class="Q_settingsCloseBtn" data-close-settings>
+            <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+        </button>
+        <div class="W_settingsContent">
+            <div class="C_settingsNav">
+                <div class="M_settingsProfile">
+                    <%= image_tag current_user.profile.avatar_url.url, class: "Q_settingsAvatar" %>
+                    <h1 class="Q_settingsName"><%= current_user.profile.name %></h1>
+                </div>
+                <button class="Q_settingsNavBtn active" data-settings-tab="profile"><h3>Личная информация</h3></button>
+                <button class="Q_settingsNavBtn" data-settings-tab="security"><h3>Безопасность</h3></button>
+                <button class="Q_settingsNavBtn" data-settings-tab="notifications"><h3>Уведомления</h3></button>
+                <button class="Q_settingsNavBtn" data-settings-tab="preferences"><h3>Предпочтения</h3></button>
             </div>
-            <div class="C_settingsNavBtns">
-                <button class="Q_settingsNavBtn"><h3>Личная информация</h3></button>
-                <button class="Q_settingsNavBtn"><h3>Пароль</h3></button>
-                <button class="Q_settingsNavBtn"><h3>Уведомления</h3></button>
-                <button class="Q_settingsNavBtn"><h3>Предпочтения</h3></button>
+            <div class="W_settingsSection" id="settingsContent">
+                 <%= render "settings/profile" %> <!-- По умолчанию показываем "Личная информация" -->
             </div>
         </div>
-
-        <div class="W_settingsForm">
-
-        
-        <div>
-
-
-
     </div>
 </div>

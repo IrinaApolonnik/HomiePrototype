@@ -1,3 +1,19 @@
+.O_menuBar {
+    position: relative;
+    width: 100%;
+    height: 4.5vw;
+    padding: 0 2.2vw;
+    z-index: 30;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white);
+
+}
+
+
+
 // Сортировка и фильтры ---------------------------------------------- 
 
 .O_sort, .O_filter {
@@ -32,6 +48,16 @@
     width: 100%;
     gap: 2.3vw;
     align-items: center;
+}
+.O_Settings {
+    background-color: var(--white);
+    padding: 1.6vw 2.2vw;
+    gap: 0.8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 63.4vw;
+    height: 41.9vw;
 }
 
 

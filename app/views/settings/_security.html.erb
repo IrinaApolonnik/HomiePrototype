@@ -1,0 +1,35 @@
+<h1 class="Q_settingsTitle">Безопасность</h1>
+
+<%= form_with model: current_user, url: user_registration_path, method: :put, local: true, html: { class: "W_settingsForm", data: { watch: true } } do |f| %>
+  <div class="C_settingsInputs">
+    <!-- Email -->
+    <div class="M_settingsFormField">
+      <%= f.label :email, "Почта", class: "Q_settingsLabel" %>
+      <%= f.email_field :email, class: "Q_settingsInput", data: { initial: current_user.email } %>
+    </div>
+
+    <!-- Текущий пароль -->
+    <div class="M_settingsFormField">
+      <%= f.label :current_password, "Текущий пароль", class: "Q_settingsLabel" %>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "Q_settingsInput", data: { initial: "" } %>
+    </div>
+
+    <!-- Новый пароль -->
+    <div class="M_settingsFormField">
+      <%= f.label :password, "Новый пароль", class: "Q_settingsLabel" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "Q_settingsInput", data: { initial: "" } %>
+    </div>
+
+    <!-- Подтверждение пароля -->
+    <div class="M_settingsFormField">
+      <%= f.label :password_confirmation, "Подтверждение пароля", class: "Q_settingsLabel" %>
+      <%= f.password_field :password_confirmation, class: "Q_settingsInput", data: { initial: "" } %>
+    </div>
+  </div>
+
+  <!-- Кнопки -->
+  <div class="C_settingsFormBtns" data-settings-actions>
+    <%= f.submit "Сохранить изменения", class: "Q_settingsSaveBtn" %>
+    <%= link_to "Сбросить", request.path, class: "Q_settingsResetBtn" %>
+  </div>
+<% end %>

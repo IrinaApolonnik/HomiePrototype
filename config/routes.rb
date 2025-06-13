@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
+  get 'settings/:tab', to: 'settings#load_tab', as: :settings_tab
+
   # Подписки и подписчики
   resources :follows, only: [:create, :destroy]
 

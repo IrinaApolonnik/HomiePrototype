@@ -1,5 +1,6 @@
+<div class="S_menuBar">
 <% if user_signed_in? %>
-  <nav class="S_menuBar">
+  <nav class="O_menuBar">
     <div class="W_menuActions left">
       <% if user_signed_in? && can?(:create, Post) %>
         <%= link_to new_post_path, class: ['A_menuButton new', current_page?(new_post_path) ? 'activePage' : 'inactivePage'] do %>
@@ -45,13 +46,12 @@
                   <img class="Q_avatarImg" src="<%= current_user.profile.avatar_url %>" alt="">
                   <h4><%= current_user.profile.username %></h4>
                 </div>
-                <h3>Добавить аккаунт<h3>
               </div>
             </div>
             <div class="A_dropdownMenuBlock">
               <h4 class="Q_dropdownMenuHeader">Дополнительно</h4>
               <div class="W_userActions">
-                <%= link_to "Настройки", profile_settings_path, class: "Q_dropdownItem" %>
+                <%= link_to "Настройки", "#", class: "Q_dropdownItem", data: { open_settings: true } %> 
                 <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete }, class: "Q_dropdownItem" %>
               </div>
             </div>
@@ -80,7 +80,7 @@
 
 
  <% else %>
-  <nav class="S_menuBar">
+  <nav class="O_menuBar">
 
     <div class="W_menuActions left">
       <button class="A_menuButton search">
@@ -99,4 +99,9 @@
 
     </div>
   </nav>
+<% end %>
+</div>
+
+<% if user_signed_in? %>
+  <%= render 'application/settings' %>
 <% end %>

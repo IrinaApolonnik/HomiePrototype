@@ -53,6 +53,21 @@
     display: flex;
     flex-direction: row;
 }
+.C_settingsNav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    align-items: flex-start;
+}
+.C_settingsInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+    width: 100%;
+}
+.C_settingsFormBtns {
+    display: none;
+}
 
 
 // Логин, регистрации, редактирование профиля ---------------------------------------------- 

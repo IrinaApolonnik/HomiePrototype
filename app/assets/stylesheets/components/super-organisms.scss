@@ -1,5 +1,5 @@
 // Меню ---------------------------------------------- 
-.S_menuBar, .S_menuBarAuth {
+.S_menuBarAuth {
     position: fixed;
     top: 0;
     width: 100%;
@@ -12,6 +12,16 @@
     justify-content: space-between;
     background-color: var(--white);
     box-shadow: 0 0 0.8vw rgba(213, 90, 0, 0.07);
+}
+.S_menuBar {
+        box-shadow: 0 0 0.8vw rgba(213, 90, 0, 0.07);
+        width: 100%;
+        height: auto;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+            top: 0;
+                z-index: 30;
 }
 .S_menuBarAuth {
     justify-content: center;

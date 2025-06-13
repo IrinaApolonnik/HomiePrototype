@@ -1116,6 +1116,102 @@ function toggleTagsBlock() {
       }
     }
   }
+function initSettingsTabs() {
+  const navButtons = document.querySelectorAll('.Q_settingsNavBtn');
+
+  navButtons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      // Активная кнопка
+      navButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Определяем вкладку
+      const tab = btn.innerText.trim().toLowerCase(); // например, "личная информация" → "личная информация"
+      let tabSlug = '';
+
+      if (tab.includes('информация')) tabSlug = 'profile';
+      else if (tab.includes('безопасность')) tabSlug = 'security';
+      else if (tab.includes('уведомления')) tabSlug = 'notifications';
+      else if (tab.includes('предпочтения')) tabSlug = 'preferences';
+
+      if (tabSlug) {
+        fetch(`/settings/${tabSlug}`)
+          .then(res => res.text())
+          .then(html => {
+            document.querySelector('.W_settingsSection').innerHTML = html;
+            initSettingsFormsWatcher(); // << тут обновляем поведение форм
+          });
+      }
+    });
+  });
+
+  // При открытии модалки грузим первую вкладку (профиль)
+  const firstBtn = document.querySelector('.Q_settingsNavBtn');
+  if (firstBtn) firstBtn.click();
+}
+
+function initSettingsFormsWatcher() {
+  const forms = document.querySelectorAll('.W_settingsForm');
+
+  forms.forEach(form => {
+    const originalData = new FormData(form);
+
+    const buttonsWrapper = form.querySelector('.C_settingsFormBtns');
+    if (!buttonsWrapper) return;
+
+    const checkChanges = () => {
+      const currentData = new FormData(form);
+      let changed = false;
+
+      for (let key of originalData.keys()) {
+        if (originalData.get(key) !== currentData.get(key)) {
+          changed = true;
+          break;
+        }
+      }
+
+      buttonsWrapper.style.display = changed ? 'flex' : 'none';
+    };
+
+    form.addEventListener('input', checkChanges);
+    form.addEventListener('change', checkChanges);
+
+    // Сброс по кнопке "Сбросить"
+    const resetBtn = form.querySelector('[data-reset]');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', e => {
+        e.preventDefault();
+        form.reset();
+        buttonsWrapper.style.display = 'none';
+      });
+    }
+
+    // Изначально скрываем
+    buttonsWrapper.style.display = 'none';
+  });
+}
+
+function setupSettingsModalToggle() {
+  const openLink = document.querySelector('[data-open-settings]');
+  const closeBtn = document.querySelector('[data-close-settings]');
+  const modal = document.querySelector('.S_modalSettings');
+
+  if (!modal) return;
+
+  if (openLink) {
+    openLink.addEventListener('click', (e) => {
+      e.preventDefault(); // отменяет переход по ссылке
+      modal.classList.remove('hidden');
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  }
+}
+
 
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
@@ -1125,7 +1221,10 @@ document.addEventListener("turbo:load", () => {
         dropdownMenu();
     }
     systemMessage();
-    
+
+    initSettingsTabs();
+    initSettingsFormsWatcher();
+    setupSettingsModalToggle();
 
     changeLayout();
     masonry();
