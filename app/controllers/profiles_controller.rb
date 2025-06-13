@@ -38,14 +38,31 @@ class ProfilesController < ApplicationController
   end
 
   # PATCH/PUT /profile
-  def update
-    @profile = current_user.profile
-    if @profile.update(profile_params)
-      redirect_to root_path, notice: "Профиль обновлён!"
-    else
-      render :edit, alert: "Ошибка при обновлении профиля."
+def update
+  @profile = current_user.profile
+  if @profile.update(profile_params)
+    respond_to do |format|
+      format.html do
+        redirect_to root_path, notice: "Профиль обновлён!"
+      end
+
+      format.js do
+        render js: "window.location.href = '/?notice=#{CGI.escape('Профиль обновлён!')}';"
+      end
+    end
+  else
+    respond_to do |format|
+      format.html do
+        render :edit, alert: "Ошибка при обновлении профиля."
+      end
+
+      format.js do
+        render js: "showFlashAlert('Ошибка при обновлении профиля.');"
+      end
     end
   end
+end
+
 
   private
 

@@ -1,0 +1,7 @@
+// ❌ Ошибка: показываем alert (или вставляем в DOM)
+<% if local_assigns[:error_messages].present? %>
+  showFlashAlert("<%= j error_messages.join(', ') %>");
+<% else %>
+  showFlashAlert("Что-то пошло не так.");
+<% end %>
+

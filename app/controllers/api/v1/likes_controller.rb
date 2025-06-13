@@ -1,28 +1,31 @@
 module Api
   module V1
     class LikesController < ApplicationController
-      before_action :set_like, only: [:destroy]
+      before_action :set_likeable, only: [:toggle]
 
-      # POST /api/v1/likes
-      def create
-        existing_like = current_user.profile.likes.find_by(likeable_id: like_params[:likeable_id], likeable_type: like_params[:likeable_type])
+      # POST /api/v1/likes/toggle
+      def toggle
+        return render json: { error: "Ресурс не найден" }, status: :not_found unless @likeable
 
-        if existing_like
-          render json: { error: "Вы уже лайкнули этот объект" }, status: :unprocessable_entity
+        like = @likeable.likes.find_by(user_id: current_user.id)
+
+        if like
+          like.destroy
+          render json: { likes_count: @likeable.likes.count, liked: false }, status: :ok
         else
-          like = current_user.profile.likes.new(like_params)
-          if like.save
-            render json: like, status: :created
-          else
-            render json: { errors: like.errors.full_messages }, status: :unprocessable_entity
-          end
+          @likeable.likes.create!(user: current_user)
+          render json: { likes_count: @likeable.likes.count, liked: true }, status: :ok
         end
+      rescue ActiveRecord::RecordInvalid => e
+        render json: { error: e.message }, status: :unprocessable_entity
       end
 
       # DELETE /api/v1/likes/:id
       def destroy
-        if @like
-          @like.destroy
+        like = current_user.likes.find_by(id: params[:id])
+
+        if like
+          like.destroy
           render json: { message: "Лайк удалён" }, status: :ok
         else
           render json: { error: "Лайк не найден" }, status: :not_found
@@ -31,12 +34,11 @@ module Api
 
       private
 
-      def set_like
-        @like = current_user.profile.likes.find_by(id: params[:id])
-      end
-
-      def like_params
-        params.require(:like).permit(:likeable_id, :likeable_type)
+      def set_likeable
+        klass = params[:likeable_type]&.safe_constantize
+        @likeable = klass&.find_by(id: params[:likeable_id])
+      rescue NameError
+        @likeable = nil
       end
     end
   end

@@ -73,39 +73,52 @@ Rails.application.routes.draw do
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      # Пользователи
-      resources :users, only: [:index, :show, :create, :update, :destroy]
-      
-      # Профили
+
+      # Аутентификация через Devise + JWT
+      devise_scope :user do
+        post "sign_up",  to: "registrations#create"
+        post "sign_in",  to: "sessions#create"
+        post "sign_out", to: "sessions#destroy"
+      end
+
+      # Профиль текущего пользователя
       get "me/profile", to: "profiles#me"
-      resources :profiles, only: [:index, :show, :update]
+
+      # Профили (просмотр и обновление)
+      resources :profiles, only: [:show, :update]
 
       # Посты
       resources :posts, only: [:index, :show, :create, :update, :destroy]
 
+      # Комментарии
+      resources :comments, only: [:show, :create, :update, :destroy]
+
       # Товары
       resources :items, only: [:show, :create, :update, :destroy]
 
-      # Комментарии (отдельно)
-      resources :comments, only: [:show, :create, :update, :destroy]
-
       # Лайки
-      resources :likes, only: %i[create destroy]
+      post   "likes/toggle", to: "likes#toggle"
+      delete "likes/:id",    to: "likes#destroy"
 
-      # Теги
-      resources :tags, only: [:index]
+      # Подписки
+      post   "follows/:id",  to: "follows#create"
+      delete "follows/:id",  to: "follows#destroy"
 
-      # Категории тегов
-      resources :tag_categories, only: %i[index show]
-
-
-      devise_scope :user do
-        post "sign_up", to: "registrations#create"
-        post "sign_in", to: "sessions#create"
-        post "sign_out", to: "sessions#destroy"
+      # Коллекции
+      resources :collections, only: [:index, :show, :create, :update, :destroy] do
+        member do
+          post   :toggle_post
+          post   :toggle_item
+          patch  :update_cover
+        end
       end
+
+      # Теги и категории
+      resources :tags, only: [:index]
+      resources :tag_categories, only: [:index, :show]
     end
   end
+
 
   # PWA и здоровье приложения
   get "up", to: "rails/health#show", as: :rails_health_check

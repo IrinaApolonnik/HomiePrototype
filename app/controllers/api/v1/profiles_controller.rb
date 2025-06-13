@@ -4,7 +4,7 @@ module Api
       before_action :set_profile, only: [:show, :update]
       before_action :authorize_user!, only: [:update]
 
-      # Получение профиля текущего пользователя
+      # GET /api/v1/profiles/me
       def me
         profile = current_user.profile
         if profile
@@ -14,40 +14,40 @@ module Api
         end
       end
 
-      # Просмотр профиля по ID
+      # GET /api/v1/profiles/:id
       def show
-        render json: @profile, serializer: ProfileSerializer
+        posts = @profile.user.posts.includes(:likes)
+        items = @profile.user.items
+
+        render json: {
+          profile: ProfileSerializer.new(@profile),
+          posts: ActiveModel::Serializer::CollectionSerializer.new(posts, serializer: PostSerializer),
+          items: ActiveModel::Serializer::CollectionSerializer.new(items, serializer: ItemSerializer)
+        }
       end
 
-      # Обновление профиля
+      # PATCH /api/v1/profiles/:id
       def update
-        if current_user.profile.update(profile_params)
-          render json: current_user.profile, serializer: ProfileSerializer
+        if @profile.update(profile_params)
+          render json: @profile, serializer: ProfileSerializer
         else
-          render json: { errors: current_user.profile.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       private
 
       def set_profile
-        if params[:id] == "me"
-          @profile = current_user.profile
-        else
-          @profile = Profile.find_by(id: params[:id])
-        end
-      
+        @profile = params[:id] == "me" ? current_user.profile : Profile.find_by(id: params[:id])
         render json: { error: "Профиль не найден" }, status: :not_found unless @profile
+      end
+
+      def authorize_user!
+        render json: { error: "Вы не можете редактировать этот профиль" }, status: :forbidden unless @profile.user == current_user
       end
 
       def profile_params
         params.require(:profile).permit(:username, :name, :bio, :avatar_url)
-      end
-
-      def authorize_user!
-        unless current_user.profile == @profile
-          render json: { error: "Вы не можете редактировать этот профиль" }, status: :forbidden
-        end
       end
     end
   end

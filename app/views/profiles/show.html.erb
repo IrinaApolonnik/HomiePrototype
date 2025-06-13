@@ -7,13 +7,14 @@
       <h4><%= @profile.username %></h4>               
     </div>
 <% if current_user == @profile.user %>
-  <%= link_to profile_settings_path, class: "Q_editProfileBtn" do %>
+  <%= link_to "#", class: "Q_editProfileBtn", data: { open_settings: true } do %>
     <h3>Редактировать профиль</h3>
     <div>
       <img src="<%= asset_path('edit_w.svg') %>" alt="Редактировать">
     </div>
   <% end %>
-<% else %>
+<% end %>
+
   <% if current_user && current_user != @profile.user %>
     <% if current_user.following?(@profile.user) %>
       <%= button_to 'Отписаться', unfollow_profile_path(@profile), method: :delete, class: 'Q_unSubscribeBtn' %>
@@ -21,7 +22,7 @@
       <%= button_to 'Подписаться', follow_profile_path(@profile), method: :post, class: 'Q_subscribeBtn' %>
     <% end %>
   <% end %>
-<% end %>
+
     <div class="C_subscriptionsInfo">
       <div class="W_subscribe">
         <h3 class="Q_subscriptionsCounter"><%= @profile.user.followed_users.count %></h3>

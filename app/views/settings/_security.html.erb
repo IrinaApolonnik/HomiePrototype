@@ -1,35 +1,39 @@
 <h1 class="Q_settingsTitle">Безопасность</h1>
 
-<%= form_with model: current_user, url: user_registration_path, method: :put, local: true, html: { class: "W_settingsForm", data: { watch: true } } do |f| %>
-  <div class="C_settingsInputs">
-    <!-- Email -->
-    <div class="M_settingsFormField">
-      <%= f.label :email, "Почта", class: "Q_settingsLabel" %>
-      <%= f.email_field :email, class: "Q_settingsInput", data: { initial: current_user.email } %>
+<%= form_with url: user_registration_path, method: :post, local: false, html: { class: "W_settingsForm" } do %>
+  <%= hidden_field_tag :_method, "put" %>
+
+  <div class="W_settingsForm">
+    <div class="C_settingsInputs">
+      <!-- отображение почты -->
+      <div class="M_settingsFormField">
+        <label class="Q_settingsLabel">Почта</label>
+        <div class="Q_settingsValue"><%= current_user.email %></div>
+      </div>
+
+      <!-- текущий пароль -->
+      <div class="M_settingsFormField">
+        <%= label_tag :current_password, "Текущий пароль", class: "Q_settingsLabel" %>
+        <%= password_field_tag "user[current_password]", nil, autocomplete: "current-password", class: "Q_settingsInput" %>
+      </div>
+
+      <!-- новый пароль -->
+      <div class="M_settingsFormField">
+        <%= label_tag :password, "Новый пароль", class: "Q_settingsLabel" %>
+        <%= password_field_tag "user[password]", nil, autocomplete: "new-password", class: "Q_settingsInput" %>
+      </div>
+
+      <!-- подтверждение -->
+      <div class="M_settingsFormField">
+        <%= label_tag :password_confirmation, "Подтверждение пароля", class: "Q_settingsLabel" %>
+        <%= password_field_tag "user[password_confirmation]", nil, class: "Q_settingsInput" %>
+      </div>
     </div>
 
-    <!-- Текущий пароль -->
-    <div class="M_settingsFormField">
-      <%= f.label :current_password, "Текущий пароль", class: "Q_settingsLabel" %>
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "Q_settingsInput", data: { initial: "" } %>
+    <!-- кнопки -->
+    <div class="C_settingsFormBtns" data-settings-actions>
+      <%= submit_tag "Сохранить изменения", class: "Q_settingsSaveBtn" %>
+      <%= link_to "Сбросить", request.path, class: "Q_settingsResetBtn", data: { reset: true } %>
     </div>
-
-    <!-- Новый пароль -->
-    <div class="M_settingsFormField">
-      <%= f.label :password, "Новый пароль", class: "Q_settingsLabel" %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "Q_settingsInput", data: { initial: "" } %>
-    </div>
-
-    <!-- Подтверждение пароля -->
-    <div class="M_settingsFormField">
-      <%= f.label :password_confirmation, "Подтверждение пароля", class: "Q_settingsLabel" %>
-      <%= f.password_field :password_confirmation, class: "Q_settingsInput", data: { initial: "" } %>
-    </div>
-  </div>
-
-  <!-- Кнопки -->
-  <div class="C_settingsFormBtns" data-settings-actions>
-    <%= f.submit "Сохранить изменения", class: "Q_settingsSaveBtn" %>
-    <%= link_to "Сбросить", request.path, class: "Q_settingsResetBtn" %>
   </div>
 <% end %>

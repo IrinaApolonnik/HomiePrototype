@@ -1,36 +1,36 @@
-
 <h1 class="Q_settingsTitle">Личная информация</h1>
 
 <%= form_with model: current_user.profile, url: update_profile_path, local: true, html: { class: "W_settingsForm" } do |f| %>
+  <div class="W_settingsForm">
     <div class="C_settingsInputs">
-    <!-- Аватарка -->
+      <!-- Аватарка -->
+      <div class="A_settingsEditAvatar">
+        <label for="edit_avatar_image_upload" class="Q_editAvatarPreview">
+          <span class="placeholder <%= current_user.profile.avatar_url.present? ? 'hidden' : '' %>">+</span>
+          <img src="<%= current_user.profile.avatar_url.url %>" 
+          data-original="<%= current_user.profile.avatar_url.url %>" 
+          class="Q_editAvatarImgUpload <%= current_user.profile.avatar_url.present? ? '' : 'hidden' %>" />
+        </label>
+        <%= f.file_field :avatar_url, id: "edit_avatar_image_upload", class: "hidden", accept: "image/*" %>
+      </div>
 
-    <div class="A_settingsEditAvatar">
-      <label for="edit_avatar_image_upload" class="Q_editAvatarPreview">
-        <span class="placeholder <%= current_user.profile.avatar_url.present? ? 'hidden' : '' %>">+</span>
-        <img src="<%= current_user.profile.avatar_url.url %>" alt="Avatar Preview" class="Q_editAvatarImgUpload <%= current_user.profile.avatar_url.present? ? '' : 'hidden' %>" />
-      </label>
-      <%= f.file_field :avatar_url, id: "edit_avatar_image_upload", class: "hidden", accept: "image/*" %>
-    </div>
+      <!-- Никнейм -->
+      <div class="M_settingsFormField">
+        <%= f.label :username, "Никнейм", class: "Q_settingsLabel" %>
+        <%= f.text_field :username, class: "Q_settingsInput", data: { initial: current_user.profile.username } %>
+      </div>
 
-
-    <!-- Никнейм -->
-    <div class="M_settingsFormField">
-      <%= f.label :username, "Никнейм", class: "Q_settingsLabel" %>
-      <%= f.text_field :username, class: "Q_settingsInput" %>
-    </div>
-
-    <!-- Имя -->
-    <div class="M_settingsFormField">
-      <%= f.label :name, "Имя", class: "Q_settingsLabel" %>
-      <%= f.text_field :name, class: "Q_settingsInput" %>
-    </div>
+      <!-- Имя -->
+      <div class="M_settingsFormField">
+        <%= f.label :name, "Имя", class: "Q_settingsLabel" %>
+        <%= f.text_field :name, class: "Q_settingsInput", data: { initial: current_user.profile.name } %>
+      </div>
     </div>
 
     <!-- Кнопки -->
-    <div class="C_settingsFormBtns" data-profile-actions>
+    <div class="C_settingsFormBtns" data-settings-actions>
       <%= f.submit "Сохранить изменения", class: "Q_settingsSaveBtn" %>
-      <%= link_to "Сбросить", request.path, class: "Q_settingsResetBtn" %>
+      <%= link_to "Сбросить", request.path, class: "Q_settingsResetBtn", data: { reset: true } %>
     </div>
-
-  <% end %>
+  </div>
+<% end %>

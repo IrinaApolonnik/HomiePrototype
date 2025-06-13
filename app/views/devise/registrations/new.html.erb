@@ -38,7 +38,9 @@
   <h3 class="Q_regTitle">Расскажите о себе</h3>
   <p class="Q_regDescription">Давайте познакомимся!<br>Заполните анкету:</p>
   
-  <%= form_for(@profile || Profile.new, url: profiles_path(@profile), html: { multipart: true, data: { remote: true } }) do |f| %>
+  <%= form_for(@profile || Profile.new, url: update_profile_path, method: :patch, scope: :profile, html: { multipart: true, data: { remote: true } }) do |f| %>
+
+
     <div class="C_regInputs">
       <div class="A_uploadAvatar">
         <label for="avatar_upload" class="Q_avatarPreview">

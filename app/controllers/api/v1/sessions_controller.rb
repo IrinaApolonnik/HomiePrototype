@@ -44,17 +44,25 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def load_user
+    if sign_in_params[:email].blank?
+      render json: { messages: "Email required", is_success: false }, status: :unprocessable_entity and return
+    end
+
     @user = User.find_for_database_authentication(email: sign_in_params[:email])
     render json: { messages: "User not found", is_success: false }, status: :unauthorized unless @user
   end
 
   def encrypt_payload(user)
-    payload = { email: user.email, jti: user.jti }
+    payload = {
+      email: user.email,
+      jti: user.jti,
+      exp: 24.hours.from_now.to_i
+    }
     JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key!, 'HS256')
   end
 
   def find_user_from_jwt
-    jwt = request.headers["Authorization"]
+    jwt = request.headers["Authorization"]&.split(" ")&.last
     return nil unless jwt.present?
 
     begin

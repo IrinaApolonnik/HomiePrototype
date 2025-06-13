@@ -20,6 +20,30 @@ function systemMessage() {
     }
 }
 
+window.showFlashNotice = function(message) {
+  const flash = document.createElement('div');
+  flash.className = 'A_systemMessage';
+  flash.innerHTML = `
+    <img src="/assets/successNoticeIcon.svg">
+    <h3>${message}</h3>
+  `;
+  document.body.appendChild(flash);
+  systemMessage(); // запуск анимации и удаление
+};
+
+window.showFlashAlert = function(message) {
+  const flash = document.createElement('div');
+  flash.className = 'A_systemMessage systemMessage--error'; // если хочешь стилизовать ошибку отдельно
+  flash.innerHTML = `
+    <img src="/assets/images/crossicon_b.svg"> 
+    <h3>${message}</h3>
+  `;
+  document.body.appendChild(flash);
+  systemMessage();
+};
+
+
+
 function changeLayout() {
     const layoutButtons = document.querySelectorAll(".Q_changeFeedLayoutBtn");
     const postsFeed = document.getElementById("C_postsFeed");
@@ -329,30 +353,51 @@ function collectionSearch() {
 
 // Загрузка изображения (аватара или поста)
 function addImage() {
-    const setupImageUpload = (fileInputId, previewClass, imgClass, placeholderClass) => {
-      const fileInput = document.getElementById(fileInputId);
-      const preview = document.querySelector(`.${previewClass}`);
-      const image = preview?.querySelector(`.${imgClass}`);
-      const placeholder = preview?.querySelector(`.${placeholderClass}`);
-  
-      if (fileInput) {
-        fileInput.addEventListener("change", (event) => {
-          const file = event.target.files[0];
-  
-          if (file) {
-            const reader = new FileReader();
-  
-            reader.onload = (e) => {
-              if (image) image.src = e.target.result; // Устанавливаем выбранное изображение
-              image?.classList.remove("hidden"); // Показываем изображение
-              placeholder?.classList.add("hidden"); // Скрываем плюсик
-            };
-  
-            reader.readAsDataURL(file); // Читаем файл как URL
-          }
-        });
-      }
-    };
+  const setupImageUpload = (fileInputId, previewClass, imgClass, placeholderClass) => {
+    const fileInput = document.getElementById(fileInputId);
+    const preview = document.querySelector(`.${previewClass}`);
+    const image = preview?.querySelector(`.${imgClass}`);
+    const placeholder = preview?.querySelector(`.${placeholderClass}`);
+
+    // 🧠 Сохраняем исходный src (если есть)
+    const originalSrc = image?.getAttribute("src");
+
+    if (fileInput) {
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            if (image) image.src = e.target.result;
+            image?.classList.remove("hidden");
+            placeholder?.classList.add("hidden");
+          };
+
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // 🔁 Сброс
+    const resetBtn = document.querySelector('.Q_settingsResetBtn');
+    if (resetBtn && image && placeholder && fileInput) {
+      resetBtn.addEventListener('click', () => {
+        fileInput.value = "";
+
+        if (originalSrc && originalSrc.trim() !== "") {
+          image.src = originalSrc;
+          image.classList.remove("hidden");
+          placeholder.classList.add("hidden");
+        } else {
+          image.classList.add("hidden");
+          placeholder.classList.remove("hidden");
+        }
+      });
+    }
+  };
+
   
     // Для аватарки
     setupImageUpload(
@@ -487,10 +532,17 @@ function toggleSubmitButtonState(formSelector) {
 
     // Функция проверки валидности формы
     function checkFormValidity() {
-        const isValid = Array.from(form.querySelectorAll("input")).every((input) => input.value.trim() !== "");
-        submitButton.disabled = !isValid;
-        submitButton.classList.toggle("disabled", !isValid);
+      const inputsToCheck = Array.from(form.querySelectorAll("input")).filter((input) =>
+        ["text"].includes(input.type)
+      );
+
+      const isValid = inputsToCheck.every((input) => input.value.trim() !== "");
+
+      submitButton.disabled = !isValid;
+      submitButton.classList.toggle("disabled", !isValid);
     }
+
+
 
     // Слушаем изменения в форме
     form.addEventListener("input", checkFormValidity);
@@ -525,10 +577,6 @@ function toggleActionButtonsState(formSelector, actionsSelector) {
     checkFormChanges();
 }
 
-// Пример использования:
-document.addEventListener("DOMContentLoaded", () => {
-    toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
-});
 
 
 
@@ -1153,57 +1201,62 @@ function initSettingsTabs() {
 function initSettingsFormsWatcher() {
   const forms = document.querySelectorAll('.W_settingsForm');
 
-  forms.forEach(form => {
-    const originalData = new FormData(form);
+  console.log("Найдено форм:", forms.length);
 
-    const buttonsWrapper = form.querySelector('.C_settingsFormBtns');
+  forms.forEach(form => {
+    const buttonsWrapper = document.querySelector('[data-settings-actions]');
+
+    console.log("Нашли кнопки?", !!buttonsWrapper);
+
     if (!buttonsWrapper) return;
 
-    const checkChanges = () => {
-      const currentData = new FormData(form);
-      let changed = false;
-
-      for (let key of originalData.keys()) {
-        if (originalData.get(key) !== currentData.get(key)) {
-          changed = true;
-          break;
-        }
-      }
-
-      buttonsWrapper.style.display = changed ? 'flex' : 'none';
+    const showButtons = () => {
+      console.log("✏️ Пользователь что-то ввёл");
+      buttonsWrapper.style.display = 'flex';
     };
 
-    form.addEventListener('input', checkChanges);
-    form.addEventListener('change', checkChanges);
+    // Слушаем любое изменение
+    form.addEventListener('input', showButtons);
+    form.addEventListener('change', showButtons);
+        form.addEventListener('submit', e => {
+      console.log("📤 Событие submit произошло");
+    });
 
-    // Сброс по кнопке "Сбросить"
+    // Кнопка сброса
     const resetBtn = form.querySelector('[data-reset]');
+    console.log("Кнопка сброса есть?", !!resetBtn);
+
     if (resetBtn) {
       resetBtn.addEventListener('click', e => {
         e.preventDefault();
+        console.log("🔄 Сброс формы");
         form.reset();
         buttonsWrapper.style.display = 'none';
       });
     }
 
-    // Изначально скрываем
+    // Прячем кнопки при инициализации
     buttonsWrapper.style.display = 'none';
   });
 }
 
+
+
 function setupSettingsModalToggle() {
-  const openLink = document.querySelector('[data-open-settings]');
+  const openLinks = document.querySelectorAll('[data-open-settings]');
   const closeBtn = document.querySelector('[data-close-settings]');
   const modal = document.querySelector('.S_modalSettings');
 
   if (!modal) return;
 
-  if (openLink) {
-    openLink.addEventListener('click', (e) => {
-      e.preventDefault(); // отменяет переход по ссылке
+  openLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
       modal.classList.remove('hidden');
+      initSettingsTabs();      // вкладки
+      addImage();              // превью
     });
-  }
+  });
 
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
@@ -1211,6 +1264,7 @@ function setupSettingsModalToggle() {
     });
   }
 }
+
 
 
 // Инициализация функций
@@ -1221,6 +1275,7 @@ document.addEventListener("turbo:load", () => {
         dropdownMenu();
     }
     systemMessage();
+
 
     initSettingsTabs();
     initSettingsFormsWatcher();

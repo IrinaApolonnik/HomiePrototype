@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        item = current_user.profile.items.new(item_params)
+        item = current_user.items.new(item_params)
 
         if item.save
           render json: item, status: :created, serializer: ItemSerializer
@@ -18,31 +18,31 @@ module Api
       end
 
       def update
-        if @item.profile == current_user.profile
+        if @item.user == current_user
           if @item.update(item_params)
             render json: @item, serializer: ItemSerializer
           else
             render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
           end
         else
-          render json: { error: "Вы не можете редактировать этот предмет" }, status: :forbidden
+          render json: { error: "Вы не можете редактировать этот товар" }, status: :forbidden
         end
       end
 
       def destroy
-        if @item.profile == current_user.profile
+        if @item.user == current_user
           @item.destroy
-          render json: { message: 'Предмет успешно удален' }, status: :ok
+          render json: { message: "Товар успешно удалён" }, status: :ok
         else
-          render json: { error: "Вы не можете удалить этот предмет" }, status: :forbidden
+          render json: { error: "Вы не можете удалить этот товар" }, status: :forbidden
         end
       end
 
       private
 
       def set_item
-        @item = Item.find_by(id: params[:id], profile: current_user.profile)
-        render json: { error: "Предмет не найден или у вас нет прав на его просмотр" }, status: :not_found unless @item
+        @item = Item.find_by(id: params[:id], user: current_user)
+        render json: { error: "Товар не найден или у вас нет прав на него" }, status: :not_found unless @item
       end
 
       def item_params
