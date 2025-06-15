@@ -383,6 +383,25 @@
     flex-direction: row;
     align-items: center;
 }
+.A_suggestionCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    padding: 0.8vw;
+    margin: 0;
+    align-items: center;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    img {
+        width: 4.7vw;
+        height: 4.7vw;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    &:hover {
+        margin: 0 0.8vw
+    }
+}
+
 
 
 // Теги ---------------------------------------------- 

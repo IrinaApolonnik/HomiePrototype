@@ -1,0 +1,23 @@
+<div class="S_emptyFollowing">
+  <div class="W_emptyText">
+    <h1 class="Q_emptyTitle">НЕТ ПОДПИСОК</h1>
+    <h2 class="Q_emptySubtitle">
+      Подписывайтесь на других пользователей,<br>
+      чтобы видеть их подборки в своей ленте
+    </h2>
+  </div>
+
+  <div class="W_emptySuggestions">
+    <div class="C_suggestionList">
+      <%= render partial: "posts/suggestions", locals: { suggested_profiles: Profile.where.not(user_id: current_user.id).order("RANDOM()").limit(8) } %>
+    </div>
+
+    <div class="Q_emptyArrow prev">
+      <img src="<%= asset_path('shortArrowIcon_b.svg') %>" alt="Стрелочка">
+    </div>
+    <div class="Q_emptyArrow next">
+      <img src="<%= asset_path('shortArrowIcon_b.svg') %>" alt="Стрелочка">
+    </div>
+  </div>
+</div>
+

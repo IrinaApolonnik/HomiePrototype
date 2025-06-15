@@ -60,6 +60,21 @@
 
     </div>
 </nav>
+<% if controller_name == "posts" && action_name == "index" %>
+  <div class="W_indexPostsHeader">
+    <%= link_to posts_path(filter: "all"), class: ['Q_postsFilterBtn', (@filter_param != "following" ? 'active' : '')] do %>
+      Все посты
+    <% end %>
+
+    <%= link_to posts_path(filter: "following"), class: ['Q_postsFilterBtn', (@filter_param == "following" ? 'active' : '')] do %>
+      Подписки
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
 
 <% if controller_name == "collections" && action_name == "index" %>
   <div class="W_collectionsHeader">

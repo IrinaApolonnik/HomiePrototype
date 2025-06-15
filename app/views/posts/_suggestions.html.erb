@@ -1,0 +1,6 @@
+<% suggested_profiles.each do |profile| %>
+  <%= link_to profile_path(profile), class: "A_suggestionCard", data: { profile_id: profile.id } do %>
+    <%= image_tag profile.avatar_url.url, class: "Q_suggestionAvatar" %>
+    <h4 class="Q_suggestionName"><%= profile.username %></h4>
+  <% end %>
+<% end %>

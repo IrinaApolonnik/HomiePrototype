@@ -130,6 +130,12 @@
     display: block;
     width: 100%; 
 }
+.C_suggestionList {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8vw;
+    align-items: center;
+}
 
 
 // Теги ---------------------------------------------- 

@@ -1,16 +1,24 @@
 <% content_for :title, "TUMBA" %>
+
 <!-- Кнопки для сортировки и фильтрации, а также переключения лейаутов -->
 <%= render "posts/feed_header" %>
+
 <!-- Лоадер -->
 <div id="postsLoader" class="posts-loader hidden">
   <div class="spinner"></div>
 </div>
+
 <!-- Лента с постами -->
-<div id="C_postsFeed" data-sort="<%= params[:sort] || 'new' %>">
-  <% @posts.each do |post| %>
+<% if @filter_param == "following" && @following_empty %>
+  <%= render "posts/empty_following" %>
+<% else %>
+  <div id="C_postsFeed" data-sort="<%= params[:sort] || 'new' %>">
+    <% @posts.each do |post| %>
       <%= render partial: "posts/post", locals: { post: post } %>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>
+
 <!-- Паршиалы сортировки и фильтра -->
 <%= render "posts/sort" %>
 <%= render "posts/filter" %>

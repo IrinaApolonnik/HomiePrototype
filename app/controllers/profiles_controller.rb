@@ -7,6 +7,15 @@ class ProfilesController < ApplicationController
   def index
     @profiles = Profile.all
   end
+def suggestions
+  suggested_profiles = Profile.where.not(user_id: current_user.id)
+                              .order("RANDOM()")
+                              .limit(8)
+
+  render partial: "posts/suggestions", locals: { suggested_profiles: suggested_profiles }, layout: false
+
+end
+
 
   # GET /profiles/:id
   def show

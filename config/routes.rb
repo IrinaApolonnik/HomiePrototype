@@ -4,15 +4,20 @@ Rails.application.routes.draw do
 
   # Профили — публичный просмотр + подписка
   resources :profiles, only: %i[show index] do
+      collection do
+        get :suggestions
+      end
     member do
       post 'follow',   to: 'follows#create',  as: :follow
       delete 'unfollow', to: 'follows#destroy', as: :unfollow
     end
   end
 
+
   # Управление своим профилем
   get "profile/settings", to: "profiles#edit", as: "profile_settings"
   patch "profile", to: "profiles#update", as: "update_profile"
+
 
   # Devise маршруты для пользователей
   devise_for :users, controllers: { 
@@ -33,16 +38,14 @@ Rails.application.routes.draw do
   # Посты
   resources :posts do
     resources :comments, only: %i[create destroy] do
-      member do
-        post "reply", to: "comments#reply", as: "reply"
-      end
+      post :reply, on: :member
     end
 
     collection do
-      get "sort", to: "posts#sort"
-      get "by_tag", to: "posts#by_tag", as: "tagged"
+      get :index   # для filter, sort, tags — всё через /posts
     end
   end
+
 
   # Предметы — только парсинг и предпросмотр
   resources :items, only: [] do

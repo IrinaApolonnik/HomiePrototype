@@ -1,54 +1,75 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
 
-  def index
-    unless user_signed_in?
-      return render :guest_home
-    end
+def index
+  return render :guest_home unless user_signed_in?
 
-    sort_param = params[:sort].presence || "new"
-    Rails.logger.debug "SORT PARAM: #{sort_param}"
+  # Сортировка
+  sort_param = params[:sort].presence || cookies[:selectedSort] || "new"
+  cookies[:selectedSort] = sort_param
 
-    @posts = if current_user&.admin?
-               Post.includes(:likes, :user).all
+  # Фильтр: all или following
+  filter_param = params[:filter].presence || cookies[:feedFilter] || "all"
+  cookies[:feedFilter] = filter_param
+
+  # Начинаем с нужных постов (все публичные + свои)
+  base_scope = if current_user.admin?
+               Post.includes(:likes, :user)
              else
                Post.includes(:likes, :user)
                    .where(public: true)
                    .or(Post.where(user: current_user))
              end
 
-    if params[:sort].blank? && cookies[:selectedSort].present?
-      sort_param = cookies[:selectedSort]
-    end
+  # Фильтрация по подпискам
+  
+@filter_param = filter_param
+@following_empty = false
 
-    case sort_param
-    when "popular"
-      @posts = @posts.order(likes_count: :desc)
-    when "new"
-      @posts = @posts.order(created_at: :desc)
-    when "old"
-      @posts = @posts.order(created_at: :asc)
-    end
+if filter_param == "following"
+  followed_ids = current_user.followed_users.select(:id)
+  @following_empty = followed_ids.empty?
+  base_scope = base_scope.where(user_id: followed_ids)
+end
 
-    cookies[:selectedSort] = sort_param
+@posts = base_scope
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+  # Фильтрация по тегам (через joins чтобы остаться relation'ом)
+if params[:tags].present?
+  tags = params[:tags].split(",")
+
+  base_scope = base_scope
+    .joins(:tags)
+    .where(tags: { name: tags })
+    .select('posts.*, COUNT(tags.id) AS tag_match_count')
+    .group('posts.id')
+    .order('tag_match_count DESC')
+end
+
+
+  # Сортировка
+  base_scope = case sort_param
+               when "popular"
+                 base_scope.order(likes_count: :desc)
+               when "old"
+                 base_scope.order(created_at: :asc)
+               else
+                 base_scope.order(created_at: :desc)
+               end
+
+  # Eager load
+  @posts = base_scope.includes(:user, :likes)
+
+  respond_to do |format|
+    format.html
+    format.js
   end
+end
 
-  def by_tag
-    if params[:tags].present?
-      selected_tags = params[:tags].split(",")
-      posts_with_tags = Post.tagged_with(selected_tags, any: true).includes(:likes, :user)
-      @posts = posts_with_tags.sort_by { |post| -post.tags.where(name: selected_tags).count }
-    else
-      @posts = Post.includes(:likes, :user)
-    end
 
-    render :index
-  end
+
+
+
 
   def show
     authorize! :read, @post

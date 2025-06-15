@@ -24,6 +24,47 @@
 .Q_dropdownMenuHeader {
   opacity: 0.5;
 }
+.Q_postsFilterBtn {
+  text-transform: uppercase;
+  color: var(--black);
+  opacity: 0.5;
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+  &:hover {
+    opacity: 1;
+  }
+  &.active {
+    opacity: 1;
+    color: var(--orange);
+  }
+}
+.Q_emptyArrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--white);
+  padding: 0 0.8vw;
+  img {
+    height: 1.7vw;
+    width: 1.7vw;
+    object-fit: cover;
+  }
+  &.prev {
+    top: 0;
+    left: 0;
+    box-shadow: 20px 0 30px 20px var(--white);
+    
+  }
+  &.next {
+    top: 0;
+    right: 0;
+    box-shadow: -20px 0 30px 20px var(--white);
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}
 
 
 //Сортировка и фильтры

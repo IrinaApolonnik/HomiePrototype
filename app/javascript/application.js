@@ -225,81 +225,70 @@ function sort() {
 }
 
 function filter() {
-    const filterOverlay = document.querySelector(".S_filter");
-    const applyFilterButton = document.querySelector(".A_resultFilterBtn");
-    const clearFilterButton = document.querySelector(".A_clearFilter");
-    const filterButton = document.querySelector(".Q_feedFltrBtn");
-    const closeButton = document.querySelector(".Q_closeFltrBtn");
-    const checkboxes = document.querySelectorAll(".Q_checkbox");
+  const filterOverlay = document.querySelector(".S_filter");
+  const applyFilterButton = document.querySelector(".A_resultFilterBtn");
+  const clearFilterButton = document.querySelector(".A_clearFilter");
+  const filterButton = document.querySelector(".Q_feedFltrBtn");
+  const closeButton = document.querySelector(".Q_closeFltrBtn");
+  const checkboxes = document.querySelectorAll(".Q_checkbox");
 
-    if (!filterOverlay || !applyFilterButton || !clearFilterButton || !filterButton || !closeButton || !checkboxes.length) return;
+  if (!filterOverlay || !applyFilterButton || !clearFilterButton || !filterButton || !closeButton || !checkboxes.length) return;
 
-    // Загружаем сохранённые фильтры из localStorage
-    const savedTags = JSON.parse(localStorage.getItem("selectedTags")) || [];
+  const savedTags = JSON.parse(localStorage.getItem("selectedTags")) || [];
 
-    // Устанавливаем checked у чекбоксов, если теги есть в localStorage
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = savedTags.includes(checkbox.value);
-    });
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = savedTags.includes(checkbox.value);
+  });
 
-    // Проверяем, если мы на /posts и в URL нет тегов, но они есть в localStorage — автоматически применяем их
-    const url = new URL(window.location);
-    if (url.pathname === "/posts" && !url.searchParams.has("tags") && savedTags.length > 0) {
-        url.pathname = "/posts/by_tag"; // Делаем редирект на `by_tag`
-        url.searchParams.set("tags", savedTags.join(","));
-        Turbo.visit(url.toString(), { action: "replace" });
+  const url = new URL(window.location);
+  if (url.pathname === "/posts" && !url.searchParams.has("tags") && savedTags.length > 0) {
+    url.searchParams.set("tags", savedTags.join(","));
+    Turbo.visit(url.toString(), { action: "replace" });
+  }
+
+  function openFilter() {
+    filterOverlay.style.display = "flex";
+    setTimeout(() => {
+      filterOverlay.classList.add("show");
+    }, 10);
+  }
+
+  function closeFilter() {
+    filterOverlay.classList.remove("show");
+    setTimeout(() => {
+      filterOverlay.style.display = "none";
+    }, 700);
+  }
+
+  filterButton.addEventListener("click", openFilter);
+  closeButton.addEventListener("click", closeFilter);
+  filterOverlay.addEventListener("click", event => {
+    if (event.target === filterOverlay) closeFilter();
+  });
+
+  applyFilterButton.addEventListener("click", () => {
+    const selectedTags = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+
+    const newUrl = new URL(window.location.origin + "/posts");
+    if (selectedTags.length > 0) {
+      newUrl.searchParams.set("tags", selectedTags.join(","));
     }
 
-    // Функция открытия фильтра
-    function openFilter() {
-        filterOverlay.style.display = "flex";
-        setTimeout(() => {
-            filterOverlay.classList.add("show");
-        }, 10);
-    }
+    Turbo.visit(newUrl.toString(), { action: "replace" });
+  });
 
-    // Функция закрытия фильтра
-    function closeFilter() {
-        filterOverlay.classList.remove("show");
-        setTimeout(() => {
-            filterOverlay.style.display = "none";
-        }, 700);
-    }
+  clearFilterButton.addEventListener("click", () => {
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+    localStorage.removeItem("selectedTags");
 
-    // Открытие фильтра
-    filterButton.addEventListener("click", openFilter);
-    closeButton.addEventListener("click", closeFilter);
-    filterOverlay.addEventListener("click", event => {
-        if (event.target === filterOverlay) closeFilter();
-    });
-
-    // Применение фильтра
-    applyFilterButton.addEventListener("click", () => {
-        const selectedTags = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.value);
-
-        // Сохраняем фильтр в localStorage
-        localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
-
-        // Обновляем URL
-        const newUrl = new URL(window.location.origin + "/posts/by_tag"); 
-        if (selectedTags.length > 0) {
-            newUrl.searchParams.set("tags", selectedTags.join(","));
-        }
-        
-        Turbo.visit(newUrl.toString(), { action: "replace" });
-    });
-
-    // Очистка фильтра
-    clearFilterButton.addEventListener("click", () => {
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        localStorage.removeItem("selectedTags");
-
-        // Перенаправляем на страницу без фильтров
-        Turbo.visit("/posts", { action: "replace" });
-    });
+    Turbo.visit("/posts", { action: "replace" });
+  });
 }
+
 
 function cardsAppear() {
     const elements = document.querySelectorAll(".card");
@@ -1185,10 +1174,12 @@ function initSettingsTabs() {
       if (tabSlug) {
         fetch(`/settings/${tabSlug}`)
           .then(res => res.text())
-          .then(html => {
-            document.querySelector('.W_settingsSection').innerHTML = html;
-            initSettingsFormsWatcher(); // << тут обновляем поведение форм
-          });
+.then(html => {
+  document.querySelector('.W_settingsSection').innerHTML = html;
+  initSettingsFormsWatcher(); 
+  addImage(); // ⬅️ вызываем ТОЛЬКО ПОСЛЕ загрузки HTML
+});
+
       }
     });
   });
@@ -1266,6 +1257,34 @@ function setupSettingsModalToggle() {
 }
 
 
+function initSuggestionsSlider() {
+  const suggestionList = document.querySelector(".C_suggestionList");
+  const prevBtn = document.querySelector(".Q_emptyArrow.prev");
+  const nextBtn = document.querySelector(".Q_emptyArrow.next");
+
+  const loadSuggestions = (direction) => {
+    suggestionList.classList.add(`slide-${direction}-out`);
+
+    fetch("/profiles/suggestions")
+      .then(res => res.text())
+      .then(html => {
+        setTimeout(() => {
+          suggestionList.innerHTML = html;
+          suggestionList.classList.remove(`slide-${direction}-out`);
+          suggestionList.classList.add(`slide-${direction}-in`);
+          setTimeout(() => {
+            suggestionList.classList.remove(`slide-${direction}-in`);
+          }, 300);
+        }, 300);
+      });
+  };
+
+  nextBtn.addEventListener("click", () => loadSuggestions("left"));
+  prevBtn.addEventListener("click", () => loadSuggestions("right"));
+}
+
+
+
 
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
@@ -1312,6 +1331,8 @@ initItemModalLogic();
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
     toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
+
+    initSuggestionsSlider();
     
 });
 document.addEventListener("turbo:before-cache", () => {
