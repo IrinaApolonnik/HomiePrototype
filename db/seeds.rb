@@ -299,23 +299,23 @@ def create_items(quantity)
   Post.all.each do |post|
     quantity.to_a.sample.times do
       begin
-        user = User.all.sample
         item_data = {
           name: @items.sample,
           price: @prices.sample,
-          user: user,
+          user: post.user, # ← user = владелец поста
           market_icon_url: @markets.sample,
           image_url: @item_images.sample,
           purchase_url: @purchase_urls.sample
         }
         post.items.create!(item_data)
-        puts "Item created for post ##{post.id} by User ##{user.id}"
+        puts "Item created for post ##{post.id} by User ##{post.user.id}"
       rescue ActiveRecord::RecordInvalid => e
         puts "Error creating item: #{e.record.errors.full_messages.join(", ")}"
       end
     end
   end
 end
+
 
 # === COMMENTS ===
 def create_comments(quantity)

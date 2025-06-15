@@ -1012,6 +1012,11 @@ function toggleTagsBlock() {
   
     const itemsList = document.getElementById("items-list");
     const tempItemsInput = document.getElementById("temp_items_json");
+
+    if (window.existingItems && Array.isArray(window.existingItems)) {
+      existingItems.forEach(item => tempItems.push(item));
+    }
+
   
     if (!findBtn || !urlInput) return;
   

@@ -123,19 +123,37 @@ end
     render :new, status: :unprocessable_entity
   end
 
-  def update
-    authorize! :update, @post
+def update
+  @post = Post.find(params[:id])
+  temp_items_data = JSON.parse(post_params[:temp_items_json]) rescue []
 
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: "Пост был успешно обновлён!" }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+  if @post.update(post_params.except(:temp_items_json))
+    # Удаляем удалённые товары
+    current_item_ids = temp_items_data.map { |i| i["id"] }.compact
+    @post.items.where.not(id: current_item_ids).destroy_all
+
+    # Обновляем существующие или создаём новые
+    temp_items_data.each do |item_data|
+      item = @post.items.find_or_initialize_by(id: item_data["id"])
+      item.assign_attributes(
+        name: item_data["name"],
+        price: item_data["price"],
+        purchase_url: item_data["purchase_url"],
+        image_url: item_data["image_url"]
+      )
+      item.save
     end
+
+    redirect_to @post, notice: "Пост обновлён"
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
+
+
+
+
+
 
   def destroy
     authorize! :destroy, @post

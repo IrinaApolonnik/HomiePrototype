@@ -44,7 +44,7 @@
         <h2>Публикации <span><%= @profile.user.posts.count %></span></h2>
       </button>
       <button class="Q_profileFeedHeader passive items">
-        <h2>Товары <span><%= @profile.user.items.count %></span></h2>
+        <h2>Товары <span><%= @profile.user.reload.items.count %></span></h2>
       </button>
     </div>
     <div class="W_profileFeedSortBtn">
