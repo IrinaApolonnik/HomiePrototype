@@ -1,42 +1,35 @@
 <section class="S_firstRegistrationStep">
-  <h3 class="Q_regNumber">1</h3>
-  <h3 class="Q_regTitle">Регистрация</h3>
-  <p class="Q_regDescription">Заполните данные<br>для создания аккаунта</p>
+<div class="A_regHeader">
+  <h1 class="Q_regTitle">Регистрация</h1>
+  <h3 class="Q_regDescription">Введите свои данные для создания аккаунта</h3>
+</div>
   
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, data: { turbo: false, remote: true } }) do |f| %>
     <div class="C_regInputs">
       <!-- Поле для почты -->
-      <div class="A_regInputField">
-        <%= f.label :email, "Email", class: "Q_regLabel" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_regInput" %>
-      </div>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "Q_regInput", placeholder: "EMAIL" %>
 
       <!-- Поле для пароля -->
-      <div class="A_regInputField">
-        <%= f.label :password, "Пароль", class: "Q_regLabel" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "Q_regInput" %>
-      </div>
+      <%= f.password_field :password, autocomplete: "new-password", class: "Q_regInput", placeholder: "ПАРОЛЬ" %>
 
       <!-- Поле для подтверждения пароля -->
-      <div class="A_regInputField">
-        <%= f.label :password_confirmation, "Подтверждение пароля", class: "Q_regLabel" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "Q_regInput" %>
-      </div>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "Q_regInput", placeholder: "ПОДТВЕРЖДЕНИЕ ПАРОЛЯ" %>
     </div>
 
     <div class="C_regActions">
-      <!-- Кнопка "Зарегистрироваться" -->
-      <%= f.submit "Зарегистрироваться", class: "Q_regButton Q_regSubmit" %>
-      <!-- Кнопка "Отменить" -->
-      <%= link_to "Отменить", root_path, class: "Q_regButton Q_regSkip" %>
+      <h4 class="Q_regCaption">Нажимая кнопку «Продолжить», вы соглашаетесь на обработку персональных данных</h4>      
+      <!-- Кнопка "Регистрации" -->
+      <%= f.submit "Продолжить", class: "Q_regButton Q_regSubmit" %>
+      <h3 class="Q_logInRedirect">У вас уже есть аккаунт? <%= link_to "Войти", new_session_path(resource_name), class: "Q_logInRedirectLink" %></h3>
     </div>
   <% end %>
 </section>
 
 <section class="S_secondRegistrationStep">
-  <h3 class="Q_regNumber">2</h3>
-  <h3 class="Q_regTitle">Расскажите о себе</h3>
-  <p class="Q_regDescription">Давайте познакомимся!<br>Заполните анкету:</p>
+  <div class="A_regHeader">
+    <h1 class="Q_regTitle">Расскажите о себе</h1>
+    <h3 class="Q_regDescription">Давайте знакомиться! Добавьте фото и заполните анкету:</h3>
+  </div>
   
   <%= form_for(@profile || Profile.new, url: update_profile_path, method: :patch, scope: :profile, html: { multipart: true, data: { remote: true } }) do |f| %>
 
@@ -51,24 +44,18 @@
       </div>
 
       <!-- Поле для Имени -->
-      <div class="A_regInputField">
-        <%= f.label :name, "Имя", class: "Q_regLabel" %>
-        <%= f.text_field :name, class: "Q_regInput", placeholder: "Введите ваше имя" %>
-      </div>
+      <%= f.text_field :name, class: "Q_regInput", placeholder: "ИМЯ" %>
 
       <!-- Поле для Никнейма -->
-      <div class="A_regInputField">
-        <%= f.label :username, "Никнейм", class: "Q_regLabel" %>
-        <%= f.text_field :username, class: "Q_regInput", placeholder: "Введите никнейм" %>
-      </div>
+      <%= f.text_field :username, class: "Q_regInput", placeholder: "НИКНЕЙМ" %>
     </div>
 
     <div class="C_regActions">
       <!-- Кнопка "Продолжить" -->
-      <%= f.submit "Продолжить", class: "Q_regButton Q_regSubmit" %>
+      <%= f.submit "Зарегестрироваться", class: "Q_regButton Q_regSubmit" %>
 
       <!-- Кнопка "Пропустить" -->
-      <%= link_to "Пропустить", root_path, class: "Q_regButton Q_regSkip" %>
+      <%= link_to "Пропустить", root_path, class: "Q_logInRedirect" %>
     </div>
   <% end %>
 </section>

@@ -72,7 +72,7 @@
 
 // Логин, регистрации, редактирование профиля ---------------------------------------------- 
 
-.C_regInputs,.C_logInInputs {
+.C_regInputs, .C_logInInputs {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,6 +83,10 @@
     flex-direction: column;
     align-items: center;
     gap: 2.1vw;
+
+}
+.C_logInActions, .C_regActions {
+      margin-top: 2.4vw;
 }
 
 
