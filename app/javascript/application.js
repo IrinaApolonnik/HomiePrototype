@@ -1291,6 +1291,8 @@ function initSuggestionsSlider() {
 
 
 
+
+
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     

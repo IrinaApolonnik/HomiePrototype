@@ -66,6 +66,41 @@
   }
 }
 
+.Q_followTitle {
+  text-transform: uppercase;
+  color: var(--black);
+  span {
+    opacity: 0.5;
+  }
+}
+.Q_followsAvatar {
+  width: 4.7vw;
+  height: 4.7vw;
+  object-fit: cover;
+  border-radius: 100%;
+}
+.Q_followBtn, .Q_unfollowBtn {
+    display: flex;
+    align-items: center;
+    padding: 0.4vw 0.8vw;
+    border-radius: 1vw;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    font-size: 1vw; 
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+.Q_followBtn {
+  background-color: var(--orange);
+  color: var(--white);
+  border: solid 0.1vw var(--orange);
+
+}
+.Q_unfollowBtn {
+  background-color: var(--white);
+  color: var(--orange);
+  border: solid 0.1vw var(--orange);
+}
 
 //Сортировка и фильтры
 .Q_feedSortBtn, .Q_feedFltrBtn {

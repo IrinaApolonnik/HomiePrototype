@@ -75,6 +75,16 @@
     align-items: center;
     gap: 2.3vw;
 }
+.M_followsCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 30.6vw;
+    padding: 1vw 0;
+    border-bottom: 0.1vw solid rgba(0, 0, 0, 0.25);
+
+}
 
 
 // Футер ---------------------------------------------- 

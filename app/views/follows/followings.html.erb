@@ -1,0 +1,10 @@
+
+<div class="S_follows">
+    <h2 class="Q_followTitle">
+    Подписки <span><%= @followings.count %></span>
+    </h2>
+
+    <div id="followings-list" class="C_followsList">
+    <%= render partial: "follows/user_card", collection: @followings, as: :user %>
+    </div>
+</div>

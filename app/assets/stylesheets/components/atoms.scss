@@ -518,6 +518,13 @@
 
 
 
+.A_followsCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8vw;
+}
+
 
 @media only screen and (max-width: 430px) {
     .A_menuButton {

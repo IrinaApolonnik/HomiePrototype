@@ -1,0 +1,19 @@
+<% if current_user.following?(user) %>
+  <%= button_to "Отписаться",
+                unfollow_profile_path(user.profile, source: 'follows_list'),
+                method: :delete,
+                form: {
+                  id: "follow_btn_user_#{user.id}",
+                  data: { turbo: true }
+                },
+                class: "Q_unfollowBtn" %>
+<% else %>
+  <%= button_to "Подписаться",
+                follow_profile_path(user.profile, source: 'follows_list'),
+                method: :post,
+                form: {
+                  id: "follow_btn_user_#{user.id}",
+                  data: { turbo: true }
+                },
+                class: "Q_followBtn" %>
+<% end %>

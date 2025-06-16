@@ -24,15 +24,34 @@
   <% end %>
 
     <div class="C_subscriptionsInfo">
-      <div class="W_subscribe">
-        <h3 class="Q_subscriptionsCounter"><%= @profile.user.followed_users.count %></h3>
-        <h3 class="Q_sunscribeText">подписок</h3>
-      </div>
-      <div class="Q_subscribeLine"></div>
-      <div class="W_subscribe">
-        <h3 class="Q_subscribersCounter"><%= @profile.user.followers.count %></h3>
-        <h3 class="Q_sunscribeText">подписчиков</h3>
-      </div>
+<% followers_count = @profile.user.followers.count %>
+<% followings_count = @profile.user.followed_users.count %>
+
+<% if followers_count > 0 %>
+  <%= link_to followers_path(@profile), class: "W_subscribe active" do %>
+    <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
+    <h3 class="Q_sunscribeText">подписчиков</h3>
+  <% end %>
+<% else %>
+  <div class="W_subscribe">
+    <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
+    <h3 class="Q_sunscribeText">подписчиков</h3>
+  </div>
+<% end %>
+
+<% if followings_count > 0 %>
+  <%= link_to followings_path(@profile), class: "W_subscribe active" do %>
+    <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
+    <h3 class="Q_sunscribeText">подписок</h3>
+  <% end %>
+<% else %>
+  <div class="W_subscribe">
+    <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
+    <h3 class="Q_sunscribeText">подписок</h3>
+  </div>
+<% end %>
+
+
     </div>
   </div>
 </div>

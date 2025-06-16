@@ -29,6 +29,11 @@ Rails.application.routes.draw do
 
   # Подписки и подписчики
   resources :follows, only: [:create, :destroy]
+  
+  # Страницы подписчиков и подписок
+  get 'profiles/:id/followers', to: 'follows#followers', as: :followers
+  get 'profiles/:id/followings', to: 'follows#followings', as: :followings
+
 
   # Второй шаг регистрации - обновление профиля
   namespace :users do
