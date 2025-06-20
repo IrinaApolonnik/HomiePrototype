@@ -16,9 +16,16 @@
     
     
     <div class="W_menuActions right">
-      <button class="A_menuButton search">
-        <span>Поиск</span>
-      </button>
+      <!-- Мини-инпут с текущим запросом -->
+      <div class="W_searchMini">
+        <button class="A_menuButton search Q_openSearchBtn">
+          <span id="Q_searchMiniText"><%= params[:query].presence || "Поиск" %></span>
+          <% if params[:query].present? %>
+            <button class="Q_clearSearchBtn" data-action="click->search#clear">✕</button>
+          <% end %>
+        </button>
+      </div>
+
       
       <button class="A_menuButton">
         <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
@@ -133,7 +140,15 @@
 <% end %>
 
 
-
+<!-- Подменю для поиска -->
+<div id="search_dropdown" class="W_searchDropdown hidden">
+  <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
+    <div class="M_searchInputWrap">
+      <%= f.text_field :query, placeholder: "Найти пост...", value: params[:query], class: "Q_searchInput", autofocus: true %>
+      <%= f.submit "Найти", class: "Q_searchSubmitBtn" %>
+    </div>
+  <% end %>
+</div>
 
 
 

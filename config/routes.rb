@@ -60,6 +60,8 @@ Rails.application.routes.draw do
     end
   end
 
+
+
   # Подписки на рассылку (мейлы)
   resources :newsletter_subscriptions, only: %i[create destroy]
   namespace :admin do

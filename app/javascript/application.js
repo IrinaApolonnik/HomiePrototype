@@ -1394,6 +1394,9 @@ function initSuggestionsSlider() {
   const prevBtn = document.querySelector(".Q_emptyArrow.prev");
   const nextBtn = document.querySelector(".Q_emptyArrow.next");
 
+  // 💡 Если одного из элементов нет — просто выходим
+  if (!suggestionList || !prevBtn || !nextBtn) return;
+
   const loadSuggestions = (direction) => {
     suggestionList.classList.add(`slide-${direction}-out`);
 
@@ -1413,6 +1416,33 @@ function initSuggestionsSlider() {
 
   nextBtn.addEventListener("click", () => loadSuggestions("left"));
   prevBtn.addEventListener("click", () => loadSuggestions("right"));
+}
+
+function initSearchMenuLogic() {
+  const openSearchBtn = document.querySelector(".Q_openSearchBtn");
+  const searchDropdown = document.getElementById("search_dropdown");
+  const searchInput = searchDropdown?.querySelector(".Q_searchInput");
+  const clearSearchBtn = document.querySelector(".Q_clearSearchBtn");
+
+  if (!openSearchBtn || !searchDropdown) return;
+
+  // Открытие подменю
+  openSearchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    searchDropdown.classList.toggle("hidden");
+
+    if (!searchDropdown.classList.contains("hidden")) {
+      setTimeout(() => searchInput?.focus(), 100); // чтобы фокус точно успел сработать
+    }
+  });
+
+  // Сброс поиска (если кнопка есть)
+  clearSearchBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const url = new URL(window.location.href);
+    url.searchParams.delete("query");
+    window.location.href = url.toString();
+  });
 }
 
 
@@ -1476,6 +1506,8 @@ document.addEventListener("turbo:load", () => {
     toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
 
     initSuggestionsSlider();
+
+    initSearchMenuLogic();
     
     
 });

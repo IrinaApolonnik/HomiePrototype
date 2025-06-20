@@ -11,6 +11,10 @@
 <!-- Лента с постами -->
 <% if @filter_param == "following" && @following_empty %>
   <%= render "posts/empty_following" %>
+
+<% elsif @posts.empty? && params[:query].present? %>
+  <%= render "posts/empty_search", query: params[:query] %>
+
 <% else %>
   <div id="C_postsFeed" data-sort="<%= params[:sort] || 'new' %>">
     <% @posts.each do |post| %>

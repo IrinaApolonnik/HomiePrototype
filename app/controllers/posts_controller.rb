@@ -32,6 +32,19 @@ if filter_param == "following"
   base_scope = base_scope.where(user_id: followed_ids)
 end
 
+if params[:query].present?
+  query = params[:query].downcase
+
+  base_scope = base_scope
+    .left_outer_joins(:tags)
+    .left_outer_joins(user: :profile)
+    .where(
+      "LOWER(posts.title) LIKE :q OR LOWER(posts.description) LIKE :q OR LOWER(profiles.name) LIKE :q OR LOWER(tags.name) LIKE :q",
+      q: "%#{query}%"
+    )
+    .distinct
+end
+
 @posts = base_scope
 
   # Фильтрация по тегам (через joins чтобы остаться relation'ом)
