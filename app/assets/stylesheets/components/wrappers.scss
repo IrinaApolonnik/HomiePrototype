@@ -382,7 +382,7 @@
         cursor: pointer;
     }
 }
-.W_myProfileFeedHeader {
+.W_myProfileFeedHeader, .W_collectionFeedHeader {
     display: flex;
     flex-direction: row;
     gap: 2vw;
@@ -409,6 +409,13 @@
     flex-direction: row;
     gap: 3.6vw;
     margin-bottom: 3.6vw;
+}
+
+.W_collectionActions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8vw;
 }
 
 

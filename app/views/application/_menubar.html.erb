@@ -86,11 +86,54 @@
             end %>
     <h4 class="Q_collectionsCount"><%= "#{count} #{word}" %></h4>
     <h2 class="Q_collectionsTitle">СОХРАНЁННОЕ</h2>
-    <%= link_to new_collection_path, class: "Q_createCollectionBtn" do %>
+    <button type="button" class="Q_createCollectionBtn">
       <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Создать подборку">
-    <% end %>
+    </button>
+
+
   </div>
 <% end %>
+
+<% if controller_name == "collections" && action_name == "show" %>
+  <div class="W_collectionsHeader">
+
+    <% post_count = @collection.posts.count %>
+    <% item_count = @collection.items.count %>
+    <% total_count = post_count + item_count %>
+
+    <% word = case total_count % 10
+             when 1 then 'объект'
+             when 2..4 then 'объекта'
+             else 'объектов'
+             end %>
+
+    <h4 class="Q_collectionsCount"><%= "#{total_count} #{word}" %></h4>
+    <h2 class="Q_collectionsTitle"><%= @collection.title %></h2>
+
+    <% if current_user == @collection.user %>
+      <% if @collection.title != "Все идеи" %>
+        <div class="W_collectionActions">
+          <!-- Кнопка редактирования -->
+          <button type="button" class="Q_editCollectionBtn">
+            <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать подборку">
+          </button>
+
+
+          <!-- Кнопка удаления -->
+          <%= button_to collection_path(@collection), method: :delete, data: { confirm: "Удалить эту коллекцию? Это действие необратимо." }, class: "Q_deleteCollectionBtn" do %>
+            <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить подборку">
+          <% end %>
+        </div>
+      <% else %>
+        <div class="Q_deleteCollectionPlaceholder"></div>
+      <% end %>
+    <% end %>
+
+  </div>
+<% end %>
+
+
+
 
 
 

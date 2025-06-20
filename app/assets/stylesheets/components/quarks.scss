@@ -366,8 +366,8 @@
 .Q_sunscribeText {
   opacity: 0.5;
 }
-.Q_profileFeedHeader {
-  h2 {
+.Q_profileFeedHeader, .Q_collectionFeedToggle {
+  h2, h3 {
     text-transform: uppercase;
   }
   span {
@@ -527,7 +527,7 @@
     
   }
 }
-.Q_addItemButton, .Q_publishPostBtn {
+.Q_addItemButton, .Q_publishPostBtn, .Q_newCollectionBtn  {
   font-size: 1.3vw;
   text-transform: uppercase;
   color: var(--white);
@@ -1154,7 +1154,7 @@
   opacity: 0.5;
 }
 .Q_collectionsTitle {
-  color: var(--black);
+  text-transform: uppercase;
   margin-right: 2vw;
 }
 .Q_createCollectionBtn {

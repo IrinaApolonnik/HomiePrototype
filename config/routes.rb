@@ -67,16 +67,17 @@ Rails.application.routes.draw do
   end
 
   # Коллекции
-  resources :collections, only: [:index, :show, :create, :update, :destroy, :new] do
-    collection do
-      get "user_collections", to: "collections#user_collections" # Получение всех коллекций пользователя
-    end
-
-    member do
-      post "toggle_post/:post_id", to: "collections#toggle_post", as: "toggle_post" # Добавление/удаление поста
-      post "toggle_item/:item_id", to: "collections#toggle_item", as: "toggle_item" # Добавление/удаление товара
-    end
+resources :collections, only: [:index, :show, :create, :update, :destroy, :new] do
+  collection do
+    get "user_collections", to: "collections#user_collections" # Получение всех коллекций пользователя
   end
+
+  member do
+    post "toggle_post/:post_id", to: "collections#toggle_post", as: "toggle_post" # Добавление/удаление поста
+    post "toggle_item/:item_id", to: "collections#toggle_item", as: "toggle_item" # Добавление/удаление товара
+  end
+end
+
 
   # API
   namespace :api, defaults: { format: :json } do

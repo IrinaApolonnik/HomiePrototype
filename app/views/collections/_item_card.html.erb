@@ -1,0 +1,42 @@
+<% if user_signed_in? && current_user == @collection.user %>
+  <div id="<%= dom_id item %>" class="O_item">
+    <!-- Изображение товара -->
+    <img class="Q_itemImg" src="<%= item.image_url %>" alt="">
+
+    <!-- Контент -->
+    <div class="W_itemContent">
+      <h3><%= truncate(item.name, length: 30, separator: ' ', omission: '...') %></h3>
+
+      <div class="W_itemMarketInfo">
+        <div class="Q_marketUrl">
+          <img src="<%= item.market_icon_url %>" alt="">
+          <% if item.purchase_url.present? %>
+            <a href="<%= item.purchase_url %>" target="_blank" rel="noopener">
+              <%= URI.parse(item.purchase_url).host.sub(/^www\./, "") %>
+            </a>
+          <% else %>
+            <h4>Ссылка отсутствует</h4>
+          <% end %>
+        </div>
+        <h3 class="Q_itemPrice">
+          <%= number_to_currency(item.price, unit: "руб.", format: "%n %u", precision: 0) %>
+        </h3>
+      </div>
+    </div>
+
+    <!-- Кнопка сохранить/удалить -->
+    <% saved = @collection.items.exists?(item.id) %>
+    <div class="W_saveHeader itemPartial">
+      <button
+        class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>"
+        data-save-button="icon"
+        data-collection-id="<%= @collection.id %>"
+        data-item-id="<%= item.id %>">
+        <img
+          src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>"
+          alt="Save Icon"
+          class="Q_saveIcon">
+      </button>
+    </div>
+  </div>
+<% end %>

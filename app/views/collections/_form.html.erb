@@ -1,37 +1,45 @@
-<%= form_with(model: collection) do |form| %>
-  <% if collection.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+<!-- 🧩 Модалка: форма создания или редактирования коллекции -->
+<div class="S_modalItemForm hidden" id="modal_collection">
+  <div class="W_modalAddItemContainer">
 
-      <ul>
-        <% collection.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <!-- Закрытие -->
+    <div class="W_modalCloseBtn">
+      <button class="Q_modalCloseBtn">
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+      </button>
     </div>
-  <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+    <!-- Форма -->
+    <%= form_with(model: collection, url: collection.persisted? ? collection_path(collection) : collections_path, 
+                  method: collection.persisted? ? :patch : :post,
+                  data: { turbo: false }, html: { class: "O_modalItemForm", id: "collection_form", multipart: true }) do |form| %>
 
-  <div>
-    <%= form.label :private, style: "display: block" %>
-    <%= form.check_box :private %>
-  </div>
+      <h2 class="Q_modalTitle"><%= collection.persisted? ? "Редактировать коллекцию" : "Создать коллекцию" %></h2>
 
-  <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
-  </div>
+      <!-- Обложка коллекции -->
+      <div class="M_modalImageBlock">
+        <label for="collection_image_upload" class="A_uploadItemPreview">
+          <% if collection.image_url.present? %>
+            <img src="<%= collection.image_url %>" alt="Превью" class="Q_itemImgUpload" />
+          <% else %>
+            <div class="Q_plusImg placeholder">
+              <img src="<%= asset_path('plusImgIcon_w.svg') %>" alt="Плюсик">
+            </div>
+            <h4 class="placeholder">Выберите файл или перетащите его сюда</h4>
+            <img src="" alt="Превью" class="Q_itemImgUpload hidden" />
+          <% end %>
+        </label>
 
-  <div>
-    <%= form.label :profile_id, style: "display: block" %>
-    <%= form.text_field :profile_id %>
-  </div>
+        <%= form.file_field :image_url, id: "collection_image_upload", class: "hidden" %>
+      </div>
 
-  <div>
-    <%= form.submit %>
+      <!-- Название -->
+      <div class="C_collectionFormInputs">
+        <%= form.text_field :title, placeholder: "Название коллекции", class: "Q_itemInput" %>
+      </div>
+
+      <!-- Кнопка -->
+      <%= form.submit "Сохранить", class: "Q_newCollectionBtn", disabled: true %>
+    <% end %>
   </div>
-<% end %>
+</div>

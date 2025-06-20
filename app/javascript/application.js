@@ -417,6 +417,13 @@ function addImage() {
         "placeholder"
     );
 
+    setupImageUpload(
+        "collection_image_upload",
+        "A_uploadItemPreview",
+        "Q_itemImgUpload",
+        "placeholder"
+    );
+
     
   }
 
@@ -666,9 +673,20 @@ function likeStates() {
     });
 }
 
-// Сохранение в подборки
 function saveToCollection() {
-    // Открытие/закрытие выпадающего списка коллекций
+    // Глобальная последняя коллекция
+    const lastSelectedCollectionId = localStorage.getItem("last_selected_collection_id");
+    const lastSelectedCollectionName = localStorage.getItem("last_selected_collection_name");
+
+    // Устанавливаем её везде при загрузке
+    document.querySelectorAll(".A_selectedCollection").forEach(selector => {
+        if (lastSelectedCollectionId && lastSelectedCollectionName) {
+            selector.dataset.collectionId = lastSelectedCollectionId;
+            selector.querySelector(".Q_selectedCollectionName").textContent = lastSelectedCollectionName;
+        }
+    });
+
+    // Открытие дропдауна
     document.querySelectorAll(".A_selectedCollection").forEach(selector => {
         selector.addEventListener("click", function () {
             const dropdown = this.closest(".W_saveHeader").nextElementSibling;
@@ -679,7 +697,7 @@ function saveToCollection() {
         });
     });
 
-    // Поиск по коллекциям
+    // Поиск
     document.querySelectorAll(".Q_collectionSearch").forEach(input => {
         input.addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
@@ -692,34 +710,39 @@ function saveToCollection() {
         });
     });
 
-    // Выбор коллекции из выпадающего списка
-    document.querySelectorAll(".A_collectionObj").forEach(item => {
-        item.addEventListener("click", function () {
-            const collectionId = this.dataset.collectionId;
-            const collectionName = this.textContent.trim();
-            const parentContainer = this.closest(".W_collectionDropdown").previousElementSibling;
+    // Выбор коллекции
+  // Выбор коллекции
+  document.querySelectorAll(".A_collectionObj").forEach(item => {
+      item.addEventListener("click", function () {
+          const collectionId = this.dataset.collectionId;
+          const collectionName = this.textContent.trim();
 
-            const selectedCollection = parentContainer.querySelector(".A_selectedCollection");
-            const collectionNameElement = selectedCollection.querySelector(".Q_selectedCollectionName");
+          // Сохраняем глобально
+          localStorage.setItem("last_selected_collection_id", collectionId);
+          localStorage.setItem("last_selected_collection_name", collectionName);
 
-            if (selectedCollection && collectionNameElement) {
-                selectedCollection.dataset.collectionId = collectionId;
-                collectionNameElement.textContent = collectionName;
-            }
+          // Обновляем во всех блоках
+          document.querySelectorAll(".A_selectedCollection").forEach(selector => {
+              selector.dataset.collectionId = collectionId;
+              selector.querySelector(".Q_selectedCollectionName").textContent = collectionName;
+          });
 
-            const dropdown = this.closest(".W_collectionDropdown");
-            dropdown.classList.add("dropdown");
-            selectedCollection.classList.remove("active");
-        });
-    });
+          // Закрываем дропдаун
+          const dropdown = this.closest(".W_collectionDropdown");
+          const selectedCollection = dropdown.previousElementSibling.querySelector(".A_selectedCollection");
+          dropdown.classList.add("dropdown");
+          selectedCollection.classList.remove("active");
+      });
+      
+  });
 
-    // Кнопки "Сохранить"
+
+    // Клик "Сохранить"
     document.querySelectorAll("[data-save-button]").forEach(button => {
         button.addEventListener("click", function () {
             const header = this.closest(".W_saveHeader");
             const collectionSelector = header.querySelector(".A_selectedCollection");
             const collectionId = collectionSelector.dataset.collectionId;
-
             const postId = collectionSelector.dataset.postId;
             const itemId = collectionSelector.dataset.itemId;
 
@@ -745,12 +768,11 @@ function saveToCollection() {
                     "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
+                .then(response => response.json())
+                .then(data => {
                     const textButton = header.querySelector('[data-save-button="text"]');
                     const iconButton = header.querySelector('[data-save-button="icon"]');
-                    
+
                     if (data.saved) {
                         textButton.textContent = "Сохранено";
                         textButton.classList.add("saved");
@@ -762,14 +784,11 @@ function saveToCollection() {
                         iconButton.classList.remove("saved");
                         iconButton.querySelector("img").src = "/assets/saveIcon.svg";
                     }
-                } else {
-                    alert("Ошибка при сохранении!");
-                }
-            });
+                });
         });
     });
 
-    // Закрытие при клике вне области
+    // Клик вне
     document.addEventListener("click", function (event) {
         const dropdowns = document.querySelectorAll(".W_collectionDropdown");
         dropdowns.forEach(dropdown => {
@@ -781,6 +800,7 @@ function saveToCollection() {
         });
     });
 }
+
 
 function replyToComment() {
     const replyButtons = document.querySelectorAll(".Q_replyBtn");
@@ -874,6 +894,37 @@ function initProfileFeedToggle() {
     itemFeed.style.display = "grid";
     });
 }
+
+function initCollectionFeedToggle() {
+  const postTab = document.querySelector(".Q_collectionFeedToggle.posts");
+  const itemTab = document.querySelector(".Q_collectionFeedToggle.items");
+
+  const postFeed = document.querySelector(".C_profileFeedPosts");
+  const itemFeed = document.querySelector(".C_profileFeedItems");
+
+  if (!postTab || !itemTab || !postFeed || !itemFeed) return;
+
+  postTab.addEventListener("click", () => {
+    postTab.classList.add("active");
+    postTab.classList.remove("passive");
+    itemTab.classList.add("passive");
+    itemTab.classList.remove("active");
+
+    postFeed.style.display = "grid";
+    itemFeed.style.display = "none";
+  });
+
+  itemTab.addEventListener("click", () => {
+    itemTab.classList.add("active");
+    itemTab.classList.remove("passive");
+    postTab.classList.add("passive");
+    postTab.classList.remove("active");
+
+    postFeed.style.display = "none";
+    itemFeed.style.display = "grid";
+  });
+}
+
 
 function toggleTagsBlock() {
     const toggleButton = document.querySelector(".A_addTagsBtn");
@@ -1158,6 +1209,82 @@ function toggleTagsBlock() {
       }
     }
   }
+
+function initCollectionModalLogic() {
+  const openBtn = document.querySelector(".Q_createCollectionBtn");
+  const modal = document.getElementById("modal_collection");
+
+  if (openBtn && modal) {
+    openBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      modal.classList.remove("hidden");
+    });
+
+    const closeBtns = modal.querySelectorAll(".Q_modalCloseBtn");
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+      });
+    });
+  }
+}
+
+function initCollectionFormLogic() {
+  const form = document.getElementById("collection_form");
+  if (!form) return;
+
+  const titleInput = form.querySelector("input[name='collection[title]']");
+  const submitBtn = form.querySelector(".Q_newCollectionBtn");
+
+  if (!titleInput || !submitBtn) return;
+
+  titleInput.addEventListener("input", () => {
+    const hasTitle = titleInput.value.trim().length > 0;
+    submitBtn.disabled = !hasTitle;
+    submitBtn.classList.toggle("active", hasTitle);
+  });
+}
+
+function initEditCollectionModalLogic() {
+  const editBtns = document.querySelectorAll(".Q_editCollectionBtn");
+  const modal = document.getElementById("modal_collection");
+
+  if (!editBtns.length || !modal) return;
+
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      modal.classList.remove("hidden");
+    });
+  });
+
+  const closeBtns = modal.querySelectorAll(".Q_modalCloseBtn");
+  closeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+  });
+}
+
+function initEditCollectionFormLogic() {
+  const form = document.getElementById("collection_form");
+  if (!form) return;
+
+  const titleInput = form.querySelector("input[name='collection[title]']");
+  const submitBtn = form.querySelector(".Q_editCollectionBtn");
+
+  if (!titleInput || !submitBtn) return;
+
+  titleInput.addEventListener("input", () => {
+    const hasTitle = titleInput.value.trim().length > 0;
+    submitBtn.disabled = !hasTitle;
+    submitBtn.classList.toggle("active", hasTitle);
+  });
+}
+
+
+
+
 function initSettingsTabs() {
   const navButtons = document.querySelectorAll('.Q_settingsNavBtn');
 
@@ -1293,6 +1420,8 @@ function initSuggestionsSlider() {
 
 
 
+
+
 // Инициализация функций
 document.addEventListener("turbo:load", () => {
     
@@ -1321,6 +1450,8 @@ document.addEventListener("turbo:load", () => {
 
     initProfileFeedToggle();
 
+    initCollectionFeedToggle();
+
     replyToComment();
     toggleReplies();
     autoResizeTextarea();
@@ -1329,8 +1460,12 @@ document.addEventListener("turbo:load", () => {
     selectedTag();
 
     initFormValidation();
-initItemModalLogic();
+    initItemModalLogic();
 
+    initCollectionModalLogic();
+    initCollectionFormLogic();
+    initEditCollectionModalLogic();
+    initEditCollectionFormLogic();
     
     regSection();
     profileSection();
@@ -1338,8 +1473,10 @@ initItemModalLogic();
     toggleSubmitButtonState(".S_firstRegistrationStep form");
     toggleSubmitButtonState(".S_secondRegistrationStep form");
     toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
+    toggleActionButtonsState("#edit_profile_form", ".C_editProfileActions");
 
     initSuggestionsSlider();
+    
     
 });
 document.addEventListener("turbo:before-cache", () => {

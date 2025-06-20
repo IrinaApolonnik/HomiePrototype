@@ -49,7 +49,7 @@
       <div class="C_collectionList">
         <% current_user.collections.each do |collection| %>
           <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
-            <img src="<%= collection.image_url %>" alt="Обложка коллекции">
+            <img src="<%= collection.cover_image_url %>" alt="Обложка коллекции">
             <h3><%= collection.title %></h3>
           </div>
         <% end %>

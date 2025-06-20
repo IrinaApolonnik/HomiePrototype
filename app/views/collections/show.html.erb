@@ -1,10 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Коллекция | #{@collection.title}" %>
 
-<%= render @collection %>
+<div class="S_collectionShow">
+  <div class="W_collectionFeedHeader">
+    <button class="Q_collectionFeedToggle active posts">
+      <h3>Посты <span><%= @posts.count %></span></h3>
+    </button>
+    <button class="Q_collectionFeedToggle passive items">
+      <h3>Товары <span><%= @items.count %></span></h3>
+    </button>
+  </div>
 
-<div>
-  <%= link_to "Edit this collection", edit_collection_path(@collection) %> |
-  <%= link_to "Back to collections", collections_path %>
+  <div class="C_profileFeedPosts compact" data-sort="new">
+    <%= render partial: "collections/post_card", collection: @collection.posts, as: :post %>
+  </div>
 
-  <%= button_to "Destroy this collection", @collection, method: :delete %>
+  <div class="C_profileFeedItems" style="display: none;" data-sort="new">
+    <%= render partial: "collections/item_card", collection: @collection.items, as: :item %>
+  </div>
 </div>
+<%= render partial: "collections/form", locals: { collection: @collection } %>
+
+

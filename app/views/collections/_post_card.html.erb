@@ -1,0 +1,33 @@
+<% if user_signed_in? && current_user == @collection.user %>
+  <div id="<%= dom_id post %>" class="O_post">
+    <!-- Изображение поста -->
+    <img class="Q_postPartialImage" src="<%= post.image_url %>" alt="Post Image">
+    <%= link_to post_path(post), class: "post-link" do %>
+      <div class="Q_postPartialShading"></div>
+    <% end %>
+
+    <!-- Кнопка сохранить/удалить -->
+    <% saved = @collection.posts.exists?(post.id) %>
+    <div class="W_saveHeader postPartial">
+      <button
+        class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>"
+        data-save-button="icon"
+        data-collection-id="<%= @collection.id %>"
+        data-post-id="<%= post.id %>">
+        <img
+          src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>"
+          alt="Save Icon"
+          class="Q_saveIcon">
+      </button>
+    </div>
+
+    <!-- Заголовок и автор -->
+    <div class="W_postPartialDetails">
+      <p class="Q_postPartialTitle"><%= post.title %></p>
+      <%= link_to profile_path(post.user.profile), class: "A_postPartialCreator" do %>
+        <img class="Q_postPartialAvatar" src="<%= post.user.profile.avatar_url %>" alt="Avatar">
+        <h6 class="Q_postPartialName"><%= post.user.profile.username %></h6>
+      <% end %>
+    </div>
+  </div>
+<% end %>

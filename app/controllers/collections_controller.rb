@@ -15,43 +15,85 @@ class CollectionsController < ApplicationController
     @custom_collections = current_user.collections.where(default: false).order(updated_at: :desc)
   end
 
-  # GET /collections/:id
-  def show; end
+    # GET /collections/:id
+  def show
+    @collection = Collection.find(params[:id])
+    @posts = @collection.posts.order(created_at: :desc)
+    @items = @collection.items.order(created_at: :desc)
+  end
 
   # POST /collections
   def create
     @collection = current_user.collections.new(collection_params)
 
-    if @collection.save
-      render json: { success: true, collection: @collection }, status: :created
-    else
-      render json: { success: false, errors: @collection.errors.full_messages }, status: :unprocessable_entity
+    respond_to do |format|
+      if @collection.save
+        format.html { redirect_to collections_path, notice: "Коллекция успешно создана" }
+        format.json { render json: { success: true, collection: @collection }, status: :created }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { success: false, errors: @collection.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
-  # PATCH/PUT /collections/:id
-  def update
-    if @collection.update(collection_params)
-      render json: { success: true, collection: @collection }, status: :ok
-    else
-      render json: { success: false, errors: @collection.errors.full_messages }, status: :unprocessable_entity
+def update
+  if @collection.update(collection_params)
+    respond_to do |format|
+      format.html { redirect_to @collection, notice: 'Коллекция обновлена.' }
+      format.json { head :ok } # для fetch-запросов
+      format.turbo_stream # если используешь turbo
+    end
+  else
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: { success: false, errors: @collection.errors.full_messages }, status: :unprocessable_entity }
     end
   end
+end
+
 
   # DELETE /collections/:id
-  def destroy
-    @collection.destroy!
-    render json: { success: true, message: "Коллекция успешно удалена." }, status: :ok
+def destroy
+  @collection.destroy!
+
+  respond_to do |format|
+    format.html { redirect_to collections_path, notice: "Коллекция успешно удалена." }
+    format.json { render json: { success: true, message: "Коллекция успешно удалена." }, status: :ok }
   end
+end
+
 
   def toggle_post
     post = Post.find(params[:post_id])
+    default_collection = current_user.collections.find_by(default: true)
+
     if @collection.posts.include?(post)
       @collection.posts.delete(post)
+
+      # 🧠 Если это кастомная коллекция — и больше нигде (кроме default) пост не сохранён:
+      if !@collection.default?
+        still_saved_elsewhere = current_user.collections
+          .where.not(id: [@collection.id, default_collection&.id])
+          .joins(:posts)
+          .where(posts: { id: post.id })
+          .exists?
+
+        unless still_saved_elsewhere
+          default_collection&.posts&.delete(post)
+        end
+      end
+
       update_collection_cover
       render json: { success: true, saved: false, message: "Пост удалён из коллекции." }
+
     else
       @collection.posts << post
+
+      if !@collection.default? && default_collection && !default_collection.posts.exists?(post.id)
+        default_collection.posts << post
+      end
+
       update_collection_cover
       render json: { success: true, saved: true, message: "Пост добавлен в коллекцию." }
     end
@@ -59,12 +101,33 @@ class CollectionsController < ApplicationController
 
   def toggle_item
     item = Item.find(params[:item_id])
+    default_collection = current_user.collections.find_by(default: true)
+
     if @collection.items.include?(item)
       @collection.items.delete(item)
+
+      if !@collection.default?
+        still_saved_elsewhere = current_user.collections
+          .where.not(id: [@collection.id, default_collection&.id])
+          .joins(:items)
+          .where(items: { id: item.id })
+          .exists?
+
+        unless still_saved_elsewhere
+          default_collection&.items&.delete(item)
+        end
+      end
+
       update_collection_cover
       render json: { success: true, saved: false, message: "Предмет удалён из коллекции." }
+
     else
       @collection.items << item
+
+      if !@collection.default? && default_collection && !default_collection.items.exists?(item.id)
+        default_collection.items << item
+      end
+
       update_collection_cover
       render json: { success: true, saved: true, message: "Предмет добавлен в коллекцию." }
     end
@@ -89,7 +152,7 @@ class CollectionsController < ApplicationController
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :private, :image_url)
+    params.require(:collection).permit(:title, :image_url, :private)
   end
 
   def authorize_user!
@@ -99,7 +162,7 @@ class CollectionsController < ApplicationController
   end
 
   def update_collection_cover
-    return if @collection.image_url.present? && !@collection.default?
+    return if @collection.image_url.to_s.strip.present? && !@collection.default?
     @collection.image_url = @collection.cover_image_url
     @collection.save! if @collection.changed?
   end
