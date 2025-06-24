@@ -14,12 +14,12 @@
       <%= render partial: "like/button", locals: { likeable: comment } %>
       <% if can?(:destroy, comment) %>
         <%= button_to [comment.post, comment], method: :delete, class: "Q_deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
-          <img src="<%= asset_path('delete.png') %>" alt="Delete" class="actionIcon">
+          <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Delete" class="actionIcon">
         <% end %>
       <% end %>
     </div>
-
   </div>
+
   <div class="W_commentBody">
     <div class="Q_commentText">
       <h3>
@@ -30,4 +30,23 @@
       </h4>
     </div>
   </div>
+  <% if comment.comment_id.nil? %>
+    <% replies = comment.post.comments.where(comment_id: comment.id) %>
+    <% if replies.any? %>
+      <% reply_count = replies.count %>
+      <button class="Q_showReplies"
+              data-comment-id="<%= comment.id %>"
+              data-reply-count="<%= reply_count %>">
+        <div></div>
+        <h4>Показать ответы (<%= reply_count %>)</h4>
+      </button>
+
+      <div class="C_commentReplies hidden" data-replies-for="<%= comment.id %>">
+        <% replies.each do |reply| %>
+          <%= render reply %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
 </div>

@@ -51,10 +51,10 @@
 
   <!-- Заголовок и автор -->
   <div class="W_postPartialDetails">
-      <p class="Q_postPartialTitle"><%= post.title %></p>
+      <h3 class="Q_postPartialTitle"><%= post.title %></h3>
       <%= link_to profile_path(post.user.profile), class: "A_postPartialCreator" do %>
         <img class="Q_postPartialAvatar" src="<%= post.user.profile.avatar_url %>" alt="Avatar">
-        <h6 class="Q_postPartialName"><%= post.user.profile.username %></h6>
+        <h4 class="Q_postPartialName"><%= post.user.profile.username %></h4>
       <% end %>
   </div>
 </div>

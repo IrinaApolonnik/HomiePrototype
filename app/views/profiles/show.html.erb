@@ -1,19 +1,22 @@
 <% content_for :title, "TUMBA | #{@profile.name}" %>
 <div class="O_profileHeader">
-  <img class="Q_profileAvatar" src="<%= @profile.avatar_url %>" alt="">
+
   <div class="M_profileInfo">
+    <img class="Q_profileAvatar" src="<%= @profile.avatar_url %>" alt="">
     <div class="Q_profileInfo">
       <h1><%= @profile.name %></h1>
       <h4><%= @profile.username %></h4>               
     </div>
-<% if current_user == @profile.user %>
-  <%= link_to "#", class: "Q_editProfileBtn", data: { open_settings: true } do %>
-    <h3>Редактировать профиль</h3>
-    <div>
-      <img src="<%= asset_path('edit_w.svg') %>" alt="Редактировать">
-    </div>
+  </div>
+
+  <% if current_user == @profile.user %>
+    <%= link_to "#", class: "Q_editProfileBtn", data: { open_settings: true } do %>
+      <h3>Редактировать профиль</h3>
+      <div>
+        <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать">
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
   <% if current_user && current_user != @profile.user %>
     <% if current_user.following?(@profile.user) %>
@@ -23,36 +26,32 @@
     <% end %>
   <% end %>
 
-    <div class="C_subscriptionsInfo">
-<% followers_count = @profile.user.followers.count %>
-<% followings_count = @profile.user.followed_users.count %>
+  <div class="C_subscriptionsInfo">
+    <% followers_count = @profile.user.followers.count %>
+    <% followings_count = @profile.user.followed_users.count %>
+    <% if followers_count > 0 %>
+      <%= link_to followers_path(@profile), class: "W_subscribe active" do %>
+        <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
+        <h3 class="Q_sunscribeText">подписчиков</h3>
+      <% end %>
+    <% else %>
+      <div class="W_subscribe">
+        <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
+        <h3 class="Q_sunscribeText">подписчиков</h3>
+      </div>
+    <% end %>
 
-<% if followers_count > 0 %>
-  <%= link_to followers_path(@profile), class: "W_subscribe active" do %>
-    <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
-    <h3 class="Q_sunscribeText">подписчиков</h3>
-  <% end %>
-<% else %>
-  <div class="W_subscribe">
-    <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
-    <h3 class="Q_sunscribeText">подписчиков</h3>
-  </div>
-<% end %>
-
-<% if followings_count > 0 %>
-  <%= link_to followings_path(@profile), class: "W_subscribe active" do %>
-    <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
-    <h3 class="Q_sunscribeText">подписок</h3>
-  <% end %>
-<% else %>
-  <div class="W_subscribe">
-    <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
-    <h3 class="Q_sunscribeText">подписок</h3>
-  </div>
-<% end %>
-
-
-    </div>
+    <% if followings_count > 0 %>
+      <%= link_to followings_path(@profile), class: "W_subscribe active" do %>
+        <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
+        <h3 class="Q_sunscribeText">подписок</h3>
+      <% end %>
+    <% else %>
+      <div class="W_subscribe">
+        <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
+        <h3 class="Q_sunscribeText">подписок</h3>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -60,19 +59,12 @@
   <% if current_user == @profile.user %>
     <div class="W_myProfileFeedHeader">
       <button class="Q_profileFeedHeader active posts">
-        <h2>Публикации <span><%= @profile.user.posts.count %></span></h2>
+        <h2>Публикации</h2>
       </button>
       <button class="Q_profileFeedHeader passive items">
-        <h2>Товары <span><%= @profile.user.reload.items.count %></span></h2>
+        <h2>Товары</span></h2>
       </button>
     </div>
-    <div class="W_profileFeedSortBtn">
-      <button class="Q_feedSortBtn">
-        <h4>Сортировка</h4>
-      </button>
-    </div>
-
-    <%= render partial: "posts/sort" %>
 
     <div class="C_profileFeedPosts compact" data-sort="<%= params[:sort] || 'new' %>">
       <%= render partial: "posts/post", collection: @posts, as: :post %>
@@ -85,12 +77,8 @@
   <% else %>
     <div class="W_profileFeedHeader">
       <div class="Q_profileFeedHeader active posts">
-        <h2>Публикации <span><%= @profile.user.posts.count %></span></h2>
+        <h2>Публикации</span></h2>
       </div>
-      <button class="Q_feedSortBtn">
-        <h4>Сортировка</h4>
-      </button>
-      <%= render partial: "posts/sort" %>
     </div>
 
     <div class="C_profileFeedPosts compact" data-sort="<%= params[:sort] || 'new' %>">

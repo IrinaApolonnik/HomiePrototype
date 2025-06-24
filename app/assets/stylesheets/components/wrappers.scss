@@ -18,7 +18,7 @@
     z-index: 29;
     display: flex;
     flex-direction: column;
-    gap: 2.3vw;
+    gap: 1.2vw;
     top: 4.4vw;
     right: 0;
     background-color: var(--white);
@@ -37,7 +37,7 @@
         flex-direction: column;
         gap: 0.4vw;
         a {
-            font-size: 1.3vw;
+            font-size: 16px;
         }
     }
 }
@@ -49,28 +49,35 @@
     align-items: center;
     justify-content: center;
     gap: 0.8vw;
-    padding: 1.6vw 2.2vw 0.8vw 2.2vw;
+    padding: 0 2.2vw 1vw 2.2vw;
     width: 100%;
-    margin-top: -0.8vw;
     height: auto;
     background-color: var(--white);
 }
 .W_collectionsHeader {
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     z-index: 29;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.6vw 2.2vw 0.8vw 2.2vw;
+    padding: 0 2.2vw 0.8vw 2.2vw;
     width: 100%;
-    margin-top: -1.6vw;
     height: auto;
     background-color: var(--white);
+    & > *:nth-child(1) {
+        justify-self: start;
+    }
+    & > *:nth-child(2) {
+        justify-self: center;
+    }
+    & > *:nth-child(3) {
+        justify-self: end;
+    }
 }
 .W_collectionImageWrapper {
-    width: 17.2vw;
-    height: 17.2vw;
+    width: 100%;
+    height: auto;
     img {
         width: 100%;
         height: 100%;
@@ -98,7 +105,6 @@
     display: flex;
     flex-direction: column;
     gap: 2vw;
-    
 }
 .W_filterSortBtns {
     display: flex;
@@ -386,13 +392,15 @@
     display: flex;
     flex-direction: row;
     gap: 2vw;
+    padding-top: 1.6vw;
+    padding-bottom: 0.8vw;
 }
 .W_profileFeedHeader {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .W_profileStatistics {
     display: flex;
@@ -432,60 +440,289 @@
 }
 
 
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
 
-@media only screen and (max-width: 430px) {
-    .W_menuActions {
-        height: 100%;
+    // Профиль ---------------------------------------------- 
+    .W_myProfileFeedHeader, .W_collectionFeedHeader {
+        gap: 1vw;
+        padding-top: 2vw;
+        padding-bottom: 1vw;
     }
-    .W_dropdownProfileMenu {
-        gap: 5.2vw;
-        top: 14.3vw;
-        right: -0.36vw;
-        width: 90vw;
-        background-color: var(--white);
-        border: 0.5vw solid var(--orange);
-        padding: 5.2vw;
-        transform: translateX(100%);
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        &.active {
-            transform: translateX(0);
-            opacity: 1;
-        }
+    .W_collectionDropdown {
+        gap: 1.5vw;
+        padding: 1.5vw;
+        padding-top: 6.5vw;
     }
+    .W_postPartialDetails {
+        gap: 1vw;
+        padding: 2vw 1.5vw 1.5vw 1.5vw;
+    }
+    .W_itemContent {
+        gap: 1vw;
+    }
+
+    // Посты ---------------------------------------------- 
+    .W_postFeedHeader {
+        gap: 1vw;
+    }
+    .W_filterSortBtns {
+        gap: 1vw;
+    }
+    .W_filterCategories {
+        gap: 2.4vw;
+    }
+    .W_postInfo {
+        gap: 2vw;
+    }
+    .W_postHead {
+        margin-top: 2vw;
+    }
+    .W_postSocActions {
+        gap: 1vw;
+    }
+    .W_formPostDetails {
+        gap: 4.9vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .W_commentActions {
+        gap: 1vw;
+    }
+
+    // Теги ---------------------------------------------- 
+    .W_tagsByCattegory {
+        gap: 1vw;
+    }
+    .W_modalAddItemContainer {
+        gap: 1.5vw;
+        padding: 2vw 2.7vw 2.7vw 2.7vw;
+    }
+
     .A_dropdownMenuBlock {
         .W_userActions {
-            gap: 3vw;
+            gap: 0.5vw;
             a {
-                font-size: 3.8vw;
+                font-size: 20px;
             }
         }
     }
-    .W_postHead {
-        height: 11.5vw;
+    .W_dropdownProfileMenu {
+        gap: 2.9vw;
+        top: 5.8vw;
+        padding: 2vw;
     }
-    .W_postInfo {
-        gap: 8.9vw;
+    .W_collectionsHeader, .W_indexPostsHeader {
+        padding: 0 2.7vw 1vw 2.7vw;
+    }
+    .W_settingsContent {
+        gap: 5.9vw;
+    }
+    .W_settingsSection {
+        width: 38.3vw;
+        gap: 2.9vw;
+    }
+} 
+
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+    .W_welcomePopular {
+        gap: 3.1vw;
+    }
+    .W_welcomeTagsHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2.1vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .W_myProfileFeedHeader, .W_collectionFeedHeader {
+        gap: 1.3vw;
+        padding-top: 2.7vw;
+        padding-bottom: 1.3vw;
+    }
+    .W_collectionDropdown {
+        gap: 2vw;
+        padding: 2vw;
+        padding-top: 9vw;
+        &.post {
+            width: 100%;
+            left: 0;
+        }
+    }
+    .W_postPartialDetails {
+        gap: 1.3vw;
+        padding: 2.7vw 2vw 2vw 2vw;
     }
     .W_itemContent {
-        h5 {
-            padding: 3.8vw;
+        gap: 1.3vw;
+    }
+
+    // Посты ---------------------------------------------- 
+    .W_postFeedHeader {
+        gap: 1.3vw;
+    }
+    .W_filterSortBtns {
+        gap: 1.3vw;
+    }
+    .W_filterCategories {
+        gap: 3.4vw;
+    }
+    .W_saveHeader {
+        &.post {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+    .W_postInfo {
+        gap: 2.7vw;
+    }
+    .W_postHead {
+        margin-top: 2.7vw;
+    }
+    .W_postSocActions {
+        gap: 1.3vw;
+    }
+    .W_formPostDetails {
+        gap: 6.7vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .W_commentActions {
+        gap: 1.3vw;
+    }
+
+    // Теги ---------------------------------------------- 
+    .W_tagsByCattegory {
+        gap: 1.3vw;
+    }
+
+    .W_modalAddItemContainer {
+        gap: 2vw;
+        padding: 2.7vw 3.8vw 3.8vw 3.8vw;
+    }
+
+    // Меню ---------------------------------------------- 
+
+    .W_menuActions {
+        width: 35vw;
+    }
+    .A_dropdownMenuBlock {
+        .W_userActions {
+            gap: 0.7vw;
+            a {
+                font-size: 16px;
+            }
+        }
+    }
+    .W_dropdownProfileMenu {
+        gap: 4vw;
+        top: 9vw;
+        padding: 2.7vw;
+    }
+    .W_collectionsHeader, .W_indexPostsHeader {
+        padding: 0 3.8vw 1.3vw 3.8vw;
+    }
+    .W_settingsContent {
+        gap: 8.1vw;
+    }
+    .W_settingsSection {
+        width: 56vw;
+        gap: 4vw;
+    }
+} 
+
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+    .W_welcomePopular {
+        gap: 5.1vw;
+    }
+    .W_welcomeTagsHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5.1vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .W_myProfileFeedHeader, .W_collectionFeedHeader {
+        gap: 2.5vw;
+        padding-top: 1.8vw;
+        padding-bottom: 1.8vw;
+    }
+    .W_collectionDropdown {
+        gap: 3.8vw;
+        padding: 3.8vw;
+        padding-top: 16.9vw;
+        &.post {
+            width: 100%;
+            left: 0;
+        }
+    }
+    .W_postPartialDetails {
+        gap: 2.5vw;
+        padding: 5.1vw 3.8vw 3.8vw 3.8vw;
+    }
+    .W_itemContent {
+        gap: 1.3vw;
+    }
+
+    // Посты ---------------------------------------------- 
+    .W_postFeedHeader {
+        gap: 2.5vw;
+    }
+    .W_filterSortBtns {
+        gap: 2.5vw;
+    }
+    .W_filterCategories {
+        gap: 5.1vw;
+    }
+    .W_saveHeader {
+        &.post {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+    .W_postInfo {
+        gap: 3.8vw;
+        }
+    .W_postHead {
+        margin-top: 1.3vw;
+    }
+    .W_postSocActions {
+        gap: 2.5vw;
+    }
+    .W_formPostDetails {
+        gap: 12.7vw;
+    }
+
+
+    // Комментарии ---------------------------------------------- 
+    .W_commentActions {
+        gap: 2.5vw;
+    }
     
-        }
-        img {
-            width: 7.6vw;
-            height: 7.6vw;
-            margin-right: 1.6vw;
-        }
+    // Теги ---------------------------------------------- 
+    .W_tagsByCattegory {
+        gap: 2.5vw;
     }
-    .W_profileStatistics {
-        gap: 8.7vw;
-        img {
-            height: 9.9vw;
-          }
-    } 
-    .W_feedToggle {
-        gap: 10.2vw;
-        margin: 10.2vw 0;
+    .W_modalAddItemContainer {
+        gap: 7.6vw;
+        padding: 5.1vw 3.6vw 7.1vw 3.6vw;
+        height: 100vh;
+        width: 100vw;
     }
-}
+
+    .W_indexPostsHeader, .W_collectionsHeader{
+        gap: 2.5vw;
+        padding: 3.8vw 1.8vw;
+        margin-top: -2vw;
+    }
+    .W_mobileMenuHeader {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .W_mobileNav {
+        display: flex;
+        flex-direction: column;
+        gap: 5.1vw;
+    }
+} 

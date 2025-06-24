@@ -55,14 +55,14 @@
 // Меню ---------------------------------------------- 
 
 .A_menuButton {
-    padding: 0.16vw 0.78vw;
+    padding: 0.5vw 0.8vw;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--white);
     transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
     span {
-        font-size: 1vw;
+        font-size: 13px;
         text-transform: uppercase;
     }
     &.new {
@@ -121,17 +121,17 @@
         text-transform: uppercase;
     }
 }
-.A_showResult, .A_resultFilterBtn {
+.A_clearFilter, .A_showResult, .A_resultFilterBtn {
     padding: 0.5vw 0.8vw;
+}
+.A_showResult, .A_resultFilterBtn {
     background-color: var(--orange);
-
     h4 {
         color: var(--white);
         text-transform: uppercase;
     }
 }
 .A_clearFilter {
-    padding: 0.5vw 0.8vw;
     background-color: var(--white);
     h4 {
         color: var(--grey-dark);
@@ -239,7 +239,6 @@
     cursor: pointer;
     p {
         transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
-        font-size: 1.3vw;
         font-weight: 600;
         color: var(--white);
     }
@@ -522,8 +521,6 @@
     }
 }
 
-
-
 .A_followsCard {
     display: flex;
     flex-direction: row;
@@ -531,97 +528,349 @@
     gap: 0.8vw;
 }
 
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
 
-@media only screen and (max-width: 430px) {
-    .A_menuButton {
-        height: 100%;
-        padding: 4.6vw;
-        border: 0vw solid var(--orange);
-        border-left: 0.5vw solid var(--orange);
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .A_logInRemember{
+        gap: 0.8vw;
+        label {
+            font-size: 16px;
+        }
     }
-    .A_menuPreButton {
-        border: 0vw solid var(--orange);
-        border-right: 0.5vw solid var(--orange);
+    .A_regHeader{
+        gap: 1vw;
+    }
+    // Профиль ---------------------------------------------- 
+    .A_selectedCollection {
+        gap: 0.7vw;
+        padding: 1vw 1.5vw;
+        img {
+            width: 2.1vw;
+            height: 2.1vw;
+        }
+    }
+    .A_saveToCollectionBtnCompact {
+        padding: 1.5vw 1.7vw;
+        img {
+            width: 2.3vw;
+            height: 2.3vw;
+        }
+    }
+    .A_collectionObj, .A_addCollectionBtn {
+        gap: 1.5vw;
+        padding: 0.5vw;
+        img {
+            width: 3.6vw;
+            height: 3.6vw;
+        }
+    }
+    .A_followsCard {
+        gap: 1vw;
+    }
+    .A_postPartialCreator, .A_postCreator, .A_menuUser {
+        padding: 0.5vw 1vw;
+        gap: 1vw;
+        border-radius: 10vw;
+    }
+    .A_saveToCollectionBtn {
+        font-size: 20px;
+        padding: 1.5vw 2vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .A_filterSort, .A_filterCheckbox  {
+        gap: 0.8vw;
+    }
+    .A_clearFilter, .A_showResult, .A_resultFilterBtn {
+        padding: 0.7vw 1vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .A_commentCreator {
+        gap: 0.7vw;
+        img {
+        width: 2.3vw;
+        height: 2.3vw;
+        }
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .A_uploadPostPreview, .A_uploadItemPreview {
+        width: 30.3vw;
+        height: 37.7vw;
+        gap: 1vw;
+        h4 {
+            max-width: 24.2vw;
+        }
+    }
+
+    // Теги ---------------------------------------------- 
+    .A_addTagsBtn {
+        gap: 0.5vw;
+        padding: 1vw;
+        img {
+            width: 1vw;
+            height: 1vw;
+        }
+    }
+
+    .A_formItemsToggle {
+        gap: 1vw;
+    }
+    .A_formItemContent {
+        gap: 1vw;
+    }
+
+    .A_menuButton {
+        padding: 0.5vw 1vw;
+        span {
+            font-size: 16px;
+        }
     }
     .A_dropdownMenuBlock {
-        gap: 2.6vw;
+        gap: 1vw;
     }
-    .A_menuUser {
-        position: relative;
+    .A_settingsUploadAvatar, .A_settingsEditAvatar {
+        width: 10vw;
+        height: 10vw;
+    }
+}
+
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .A_logInRemember{
+        gap: 1.1vw;
+        label {
+            font-size: 14px;
+        }
+    }
+    .A_regHeader{
+        gap: 1.3vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .A_selectedCollection {
+        gap: 0.9vw;
+        padding: 1.3vw 2vw;
+        img {
+            width: 3vw;
+            height: 3vw;
+        }
+    }
+    .post {
+        .A_selectedCollection {
+            padding: 1.3vw 0;
+        }
+    }
+    .A_saveToCollectionBtnCompact {
+        padding: 0.9vw;
+        img {
+            width: 3.2vw;
+            height: 3.2vw;
+        }
+    }
+    .A_collectionObj, .A_addCollectionBtn {
+        gap: 2vw;
+        padding: 0.7vw;
+        img {
+            width: 5vw;
+            height: 5vw;
+        }
+    }
+    .A_followsCard {
+        gap: 1.3vw;
+    }
+    .A_postPartialCreator, .A_postCreator, .A_menuUser {
+        padding: 0.7vw 1.3vw;
+        gap: 1.3vw;
+        border-radius: 10vw;
+    }
+    .A_saveToCollectionBtn {
+        font-size: 16px;
+        padding: 1.3vw 2.7vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .A_filterSort, .A_filterCheckbox  {
+        gap: 1.1vw;
+    }
+    .A_clearFilter, .A_showResult, .A_resultFilterBtn {
+        padding: 0.9vw 1.3vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .A_commentCreator {
+        gap: 0.9vw;
+        img {
+        width: 3.2vw;
+        height: 3.2vw;
+        }
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .A_uploadPostPreview, .A_uploadItemPreview {
+        width: 60.6vw;
+        height: 68vw;
+        gap: 1.3vw;
+        h4 {
+            max-width: 33.3vw;
+        }
+    }
+
+    // Теги ---------------------------------------------- 
+    .A_addTagsBtn {
+        gap: 0.7vw;
+        padding: 1.3vw;
+        img {
+            width: 1.3vw;
+            height: 1.3vw;
+        }
+    }
+
+    .A_formItemsToggle {
+        gap: 1.3vw;
+    }
+    .A_formItemContent {
+        gap: 1.3vw;
+    }
+
+    .A_menuButton {
+        padding: 0.9vw 1vw;
+        span {
+            font-size: 14px;
+        }
+    }
+    .A_dropdownMenuBlock {
+        gap: 1.3vw;
+    }
+    .A_settingsUploadAvatar, .A_settingsEditAvatar {
+        width: 16vw;
+        height: 16vw;
+    }
+}
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .A_logInRemember{
+        gap: 2vw;
+        label {
+            font-size: 12px;
+        }
+    }
+    .A_regHeader{
+        gap: 2.5vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .A_selectedCollection {
+        gap: 1.8vw;
+        padding: 2.5vw 3.8vw;
+        img {
+            width: 5.6vw;
+            height: 5.6vw;
+        }
+    }
+    .post {
+        .A_selectedCollection {
+            padding: 2.5vw 0;
+        }
+    }
+    .item {
+        .A_selectedCollection {
+            padding: 1vw 3.8vw;
+        }
+    }
+    .A_saveToCollectionBtnCompact {
+        padding: 2.5vw 3.1vw;
+        img {
+            width: 4.6vw;
+            height: 4.6vw;
+        }
+    }
+    .A_collectionObj, .A_addCollectionBtn {
+        gap: 3.8vw;
+        padding: 1.3vw;
+        img {
+            width: 9.4vw;
+            height: 9.4vw;
+        }
+    }
+    .A_followsCard {
+        gap: 2.5vw;
+    }
+    .A_postPartialCreator, .A_postCreator, .A_menuUser {
+        padding: 1.3vw 2.5vw;
+        gap: 2.5vw;
+        border-radius: 10vw;
+    }
+    .A_saveToCollectionBtn {
+        font-size: 15px;
+        padding: 3.5vw 5.1vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .A_filterSort, .A_filterCheckbox  {
+        gap: 2vw;
+    }
+    .A_clearFilter, .A_showResult, .A_resultFilterBtn {
+        padding: 1.8vw 2.5vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .A_commentCreator {
+        gap: 1.8vw;
+        img {
+        width: 6.1vw;
+        height: 6.1vw;
+        }
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .A_uploadPostPreview, .A_uploadItemPreview {
+        width: 44.8vw;
+        height: 51.7vw;
+        gap: 2.5vw;
+        h4 {
+            max-width: 25.4vw;
+        }
+    }
+
+    // Теги ---------------------------------------------- 
+    .A_addTagsBtn {
+        gap: 1.3vw;
+        padding: 2.5vw;
+        img {
+            width: 2.5vw;
+            height: 2.5vw;
+        }
+    }
+    .A_formItemsToggle {
+        gap: 2.5vw;
+    }
+
+    .A_formItemContent {
+        gap: 2.5vw;
+    }
+    .A_menuButton {
+        padding: 0;
+    }
+    .A_mobileNavLink{
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0.5vw;
-        gap: 2.5vw;
-        width: 100%;
-        h5 {
-            font-size: 3.3vw;
-            margin-bottom: 1.6vw;
+        gap: 2vw;
+        img {
+            width: 4.6vw;
+            height: 4.6vw;
+            object-fit: cover;
         }
-        h6 {
-            font-size: 2.8vw;
-        }
-    }
-    .A_postCreator {
-        padding: 0.5vw;
-    }
-    .A_showPostCreator {
-        height: 100%;
-        gap: 2.5vw;
-        h4 {
-            margin-bottom: 1.5vw;
+        p {
+            color: var(--white);
+            text-transform: uppercase;
         }
     }
-    .A_likes {
-        padding: 4.3vw 2vw;
-        height: 9.2vw;
-        gap: 1.3vw;
 
-    }
-    .A_commentCreator {
-        border-right: 0.5vw solid var(--orange);
-        border-bottom: 0.5vw solid var(--orange);
-    }
-    .A_uploadPostImage {
-        width: 56vw;
-        height: 67.9vw;
-        margin-bottom: 15.3vw;
-    }
-    .A_addItemInputField {
-        label {
-            padding: 1.8vw 4.6vw;
-            font-size: 2.8vw;
-            line-height: auto;
-        }
-        input, textarea {
-            width: 76.8vw;
-            padding: 6.1vw;
-            font-size: 2.8vw;
-            border: 0.5vw solid var(--grey);
-            &:active, &:focus {
-                border: 0.5vw solid var(--orange);
-            }
-        }
-    }
-    .A_uploadAvatar, .A_editAvatar {
-        width: 35.6vw;
-        height: 35.6vw;
-        margin-bottom: 15.3vw;
-    }
-    .A_regInputField, .A_logInInputField {
-        label {
-            padding: 1.8vw 4.6vw;
-            font-size: 2.8vw;
-            line-height: auto;
-        }
-        input, textarea {
-            width: 76.8vw;
-            padding: 6.1vw;
-            font-size: 2.8vw;
-            border: 0.5vw solid var(--grey);
-            &:active, &:focus {
-                border: 0.5vw solid var(--orange);
-            }
-        }
-    }
+
 }

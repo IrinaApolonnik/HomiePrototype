@@ -97,15 +97,29 @@ function masonry() {
         return Math.round(window.innerWidth * 0.015); // 1.5vw → px
     }
 
+    function getColumnCount(isBigLayout) {
+      const width = window.innerWidth;
+
+      if (isBigLayout) {
+        if (width < 743) return 1;           // телефон
+        else if (width < 1023) return 2;      // вертикальный планшет
+        else if (width < 1279) return 3;     // горизонтальный планшет
+        else return 3;                       // десктоп
+      } else {
+        if (width < 743) return 2;
+        else if (width < 1023) return 3;
+        else if (width < 1279) return 5;
+        else return 5;
+      }
+    }
+
     function getColumnWidth() {
-        const containerWidth = feed.clientWidth;
-        const gutter = getGutterSize();
-        
-        if (feed.classList.contains("big")) {
-            return (containerWidth - 2 * gutter) / 3; // 3 колонки
-        } else {
-            return (containerWidth - 4 * gutter) / 5; // 5 колонок
-        }
+      const containerWidth = feed.clientWidth;
+      const gutter = getGutterSize();
+      const isBigLayout = feed.classList.contains("big");
+
+      const columns = getColumnCount(isBigLayout);
+      return (containerWidth - (columns - 1) * gutter) / columns;
     }
 
     function setPostSizes() {
@@ -1445,7 +1459,23 @@ function initSearchMenuLogic() {
   });
 }
 
+function initMobileMenu() {
+  const menuButton = document.getElementById("mobile_menu");
+  const overlay = document.getElementById("mobile_menu_overlay");
+  const closeButton = document.getElementById("close_mobile_menu");
 
+  if (!menuButton || !overlay || !closeButton) return;
+
+  menuButton.addEventListener("click", () => {
+    overlay.classList.remove("hidden");
+    document.body.classList.add("no-scroll"); // чтобы не скроллилось под модалкой
+  });
+
+  closeButton.addEventListener("click", () => {
+    overlay.classList.add("hidden");
+    document.body.classList.remove("no-scroll");
+  });
+}
 
 
 
@@ -1508,6 +1538,8 @@ document.addEventListener("turbo:load", () => {
     initSuggestionsSlider();
 
     initSearchMenuLogic();
+
+    initMobileMenu();
     
     
 });

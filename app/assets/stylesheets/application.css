@@ -3,7 +3,5 @@
     *= require reset
     *= require fonts
     *= require basics
-    *= require welcome
-    *= require general
     *= require_tree ./components
  */

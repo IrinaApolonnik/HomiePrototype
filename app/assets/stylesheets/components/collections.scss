@@ -82,11 +82,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.1vw;
-
-}
-.C_logInActions, .C_regActions {
-      margin-top: 2.4vw;
+    gap: 0.9vw;
 }
 
 
@@ -102,9 +98,6 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    .Q_tag {
-        padding:1.2vw 2.1vw;
-    }
 }
 
 
@@ -122,10 +115,10 @@
 }
 .C_collectionsGrid {
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     width: 100%;
-    flex-wrap: wrap;
-    margin-top: 5vw;
+    margin-top: 2vw;
     gap: 2.2vw;
 }
 
@@ -151,7 +144,7 @@
     width: 100%;
     gap: 1.6vw;
 }
-.C_postTags {
+.C_postTags, .C_newPostTags {
     width: auto;
     height: auto;
     display: flex;
@@ -231,67 +224,245 @@
 }
 
 
-@media only screen and (max-width: 430px) {
-    
-    .C_postCommentFeed {
-        position: relative;
-        width: 46.5vw;
-        display: flex;
-        flex-direction: column;
-        gap: 8vw;
-        background-color: var(--grey);
-        padding: 3.6vw;
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .C_regInputs, .C_logInInputs {
+        gap: 2.4vw;
+        width: 100%;
     }
-    
-    .C_commentReplies {
-        display: flex;
-        flex-direction: column;
+    .C_regActions, .C_logInActions, .C_addItemActions, .C_editProfileActions {
+        gap: 1.1vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .C_subscriptionsInfo {
+        gap: 2.4vw;
+    }
+    .C_profileFeedPosts{
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.1vw;
+    }
+    .C_collectionList {
+        gap: 0.5vw;
+        max-height: 100%;
+    }
+    .C_profileFeedItems {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.7vw 2vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .C_sortCategories {
+        gap: 2vw;
+    }
+    .C_filterCattegories {
+        gap: 4.9vw;
+    }
+
+    // Теги ---------------------------------------------- 
+    .C_postTags, .C_newPostTags {
+        gap: 1vw;
+    }
+    .C_tagsList {
+        gap: 2vw;
+    }
+
+    // Товары ---------------------------------------------- 
+    .C_postItems {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.7vw 2vw;
+    }
+    .C_itemsList {
+        gap: 2vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .C_postCommentFeed, .C_commentReplies {
+        gap: 2vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .C_formPostDetails {
+        gap: 7vw;
+    }
+
+    .C_collectionsGrid {
+        margin-top: 5vw;
+        gap: 2.1vw;
+    }
+
+    .C_settingsNav {
+        gap: 1vw;
+    }
+    .C_settingsInputs{
+        gap: 2vw;
+    }
+} 
+
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+    // Страница для неавторизированных пользователей ---------------------------------------------- 
+    .C_welcomeTags {
+        justify-content: flex-start;
         gap: 1.2vw;
     }
-    
-    #C_postsFeed {
-        gap: 7.6vw;
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .C_regInputs, .C_logInInputs {
+        gap: 3.4vw;
+        width: 49vw;
     }
-    .C_popularPosts {
-        gap: 5.3vw;
-        overflow-x: hidden;
+    .C_regActions, .C_logInActions, .C_addItemActions, .C_editProfileActions {
+        gap: 1.5vw;
     }
-    .C_postTags {
-        gap: 3.3vw;
+
+    // Профиль ---------------------------------------------- 
+    .C_subscriptionsInfo {
+        gap: 2.7vw;
     }
+    .C_profileFeedPosts{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.7vw;
+    }
+    .C_collectionList {
+        gap: 0.7vw;
+        max-height: 100%;
+    }
+    .C_profileFeedItems {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3.8vw 2.7vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .C_sortCategories {
+        gap: 2.7vw;
+    }
+    .C_filterCattegories {
+        gap: 6.7vw;
+    }
+
+    // Теги ---------------------------------------------- 
+    .C_postTags, .C_newPostTags {
+        gap: 1.3vw;
+    }
+    .C_tagsList {
+        gap: 2.7vw;
+    }
+
+    // Товары ---------------------------------------------- 
     .C_postItems {
-        flex-direction: column;
-        gap: 10.2vw ;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3.8vw 2.7vw;
     }
-    .C_postCommentFeed {
+    .C_itemsList {
+        gap: 2.7vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .C_postCommentFeed, .C_commentReplies {
+        gap: 2.7vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .C_formPostDetails {
+        gap: 9.7vw;
+    }
+    .C_collectionsGrid {
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 2vw;
+        gap: 2.7vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .C_footerNav {
+        display: none;
+    }
+
+    .C_settingsNav {
+        gap: 1.3vw;
+    }
+    .C_settingsInputs{
+        gap: 2.7vw;
+    }
+}    
+
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+    // Страница для неавторизированных пользователей ---------------------------------------------- 
+    .C_welcomeTags {
+        justify-content: flex-start;
+        gap: 4vw;
+    }
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .C_regInputs, .C_logInInputs {
+        gap: 6.4vw;
         width: 100%;
-        gap: 15.3vw;
-        padding: 7.6vw;
     }
-    .C_commentReplies {
-        gap: 3.3vw;
+    .C_regActions, .C_logInActions, .C_addItemActions, .C_editProfileActions {
+        gap: 2.8vw;
     }
-    .C_addItemsInputs, .C_newPostAddItems {
-        gap: 5.3vw;
-        padding-top: 17vw;
-        margin-top: 0;
-        h3 {
-            left: -6vw;
-            top: 0;
-        }
+
+    // Профиль ---------------------------------------------- 
+    .C_subscriptionsInfo {
+        gap: 5.1vw;
     }
-    .C_newPostAddItems {
-        gap: 5.6vw;
-        h4 {
-            color: var(--blue);
-        }
+    .C_profileFeedPosts{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5vw;
     }
-    .C_newPostTags {
-        max-width: 76.8vw;
-        gap: 3.1vw;
-        margin-top: 2.6vw;
+    .C_collectionList {
+        gap: 1.3vw;
+        max-height: 100%;
     }
-    .C_regInputs,.C_logInInputs {
-        gap: 4.8vw;
+    .C_profileFeedItems {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7.1vw 5.1vw;
     }
-}
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .C_sortCategories {
+        gap:5.1vw;
+    }
+    .C_filterCattegories {
+        gap: 10.2vw;
+    }
+
+    // Теги ---------------------------------------------- 
+    .C_postTags, .C_newPostTags {
+        gap: 2.5vw;
+    }
+    .C_tagsList {
+        gap: 5.1vw;
+    }
+
+    // Товары ---------------------------------------------- 
+    .C_postItems {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7.1vw 5.1vw;
+    }
+    .C_itemsList {
+        gap: 5.1vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .C_postCommentFeed, .C_commentReplies {
+        gap: 5.1vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .C_formPostDetails {
+        gap: 18.3vw;
+    }
+    .C_collectionsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 10vw;
+        gap: 5.1vw 2.5vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .C_footerNav {
+        display: none;
+    }
+
+
+}    

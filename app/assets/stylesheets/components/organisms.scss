@@ -9,7 +9,6 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--white);
-
 }
 
 
@@ -80,7 +79,7 @@
     align-items: center;
     width: 100%;
     margin-bottom: 2vw;
-    margin-top: 5vw;
+    margin-top: 2vw;
 }
 .O_postImages {
     display: flex;
@@ -169,29 +168,217 @@
     margin-top: -3vw;
 }
 
-@media only screen and (max-width: 430px) {
-    .O_post {
-        width: 89.8vw;
-        height: 155.2vw;   
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .O_loginForm {
+        gap: 3.9vw;
     }
-    .O_postImages {
-        width: 100%;
+
+    // Профиль ---------------------------------------------- 
+    .O_profileHeader {
+        gap: 2.4vw;
     }
-    .O_postInfo {
-        width: 100%;
-        max-width: 100%;
-        gap: 8.9vw;
-        padding: 5.1vw;
+    .O_profileFeed {
+        margin-top: 4.9vw;
+        gap: 2.4vw;
     }
     .O_item {
-        width: 100%;
-        height: 76.3vw;
-        border: 0.5vw solid var(--orange);
+        gap: 1vw;
     }
+
+    // Посты ---------------------------------------------- 
+    .O_postFeedHeader {
+        margin-bottom: 2.4vw;
+    }
+    .O_postImages {
+        gap: 1vw;
+    }
+    .O_postForm {
+        padding: 0 8vw;
+    }
+    .O_modalItemForm {
+        gap: 2.9vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .O_sort, .O_filter {
+        width: 49vw;
+        padding: 2.7vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
     .O_postComment {
-        gap: 5.1vw;
-        padding: 5.1vw;
-        padding-top: 18.3vw;
-        border: 0.5vw solid var(--orange);
+        gap: 1vw;
     }
-}
+
+    // Футер ---------------------------------------------- 
+    .O_footer {
+        gap: 6.5vw;
+        padding: 2.4vw 5.9vw;
+    }
+
+    .O_menuBar {
+        height: 5.9vw;
+        padding: 0 2.2vw;
+    }
+
+    .O_Settings {
+        padding: 2vw 2.7vw;
+        gap: 1vw;
+        width: 79.2vw;
+        height: 52.3vw;
+    }
+} 
+
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .O_loginForm {
+        gap: 5.4vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .O_profileHeader {
+        gap: 2.7vw;
+    }
+    .O_profileFeed {
+        margin-top: 4vw;
+        gap: 3.4vw;
+    }
+    .O_item {
+        gap: 1.3vw;
+    }
+
+    // Посты ---------------------------------------------- 
+    .O_postFeedHeader {
+        margin-bottom: 3.4vw;
+    }
+    .O_postImages {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1.3vw;
+        align-items: flex-start;
+    }
+    .O_postInfo {
+        gap: 1.3vw;
+    }
+    .O_postForm {
+        flex-direction: column;
+        padding: 0;
+    }
+    .O_modalItemForm {
+        gap: 4vw;
+    }
+
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .O_sort, .O_filter {
+        width: 64.5vw;
+        padding: 3.8vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .O_postComment {
+        gap: 1.3vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .O_footer {
+        flex-wrap: wrap;
+        gap: 7.4vw;
+        padding: 3.4vw 6.7vw;
+    }
+
+    .O_menuBar {
+        height: auto;
+        padding: 2vw 3.8vw;
+    }
+
+    .O_Settings {
+        padding: 2.7vw 3.8vw;
+        gap: 1.3vw;
+        width: 100vw;
+        height: 100vh;
+    }
+
+} 
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+
+    // Логин, регистрации, редактирование профиля ---------------------------------------------- 
+    .O_loginForm {
+        gap: 10.2vw;
+    }
+
+    // Профиль ---------------------------------------------- 
+    .O_profileHeader {
+        gap: 5.1vw;
+    }
+    .O_profileFeed {
+        margin-top: 5.1vw;
+        gap: 3.8vw;
+    }
+    .O_item {
+        gap: 2.5vw;
+    }
+
+    // Посты ---------------------------------------------- 
+    .O_postFeedHeader {
+        margin-bottom: 3.8vw;
+        margin-top: 10vw;
+    }
+    .O_postImages {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 2.5vw;
+    }
+    .O_postInfo {
+        gap: 2.5vw;
+    }
+    .O_postForm {
+        flex-direction: column;
+        padding: 0;
+    }
+    .O_modalItemForm {
+        gap: 7.6vw;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .O_sort, .O_filter {
+        width: 100vw;
+        padding: 7.1vw 3.6vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .O_postComment {
+        gap: 2.5vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .O_footer {
+        flex-direction: column;
+        gap: 10.2vw;
+        padding: 7.6vw 3.8vw;
+    }
+
+    .O_menuBar {
+        height: auto;
+        padding: 0.8vw 1.8vw;
+    }
+    .O_mobileMenu {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 40;
+        background-color: var(--orange);
+        padding: 7.1vw 3.6vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+} 

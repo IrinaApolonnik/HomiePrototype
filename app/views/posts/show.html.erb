@@ -79,10 +79,10 @@
           </button>
           <% if can? :manage, @post %>
             <%= link_to edit_post_path(@post), class: "Q_actionPostBtn" do %>
-              <img src="<%= asset_path('edit.png') %>" alt="Edit">
+              <img src="<%= asset_path('editIcon_b.svg') %>" alt="Edit">
             <% end %>
             <%= button_to post_path(@post), method: :delete, class: "Q_actionPostBtn", data: { confirm: "Вы уверены?" } do %>
-              <img src="<%= asset_path('delete.png') %>" alt="Delete">
+              <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Delete">
             <% end %>
           <% end %>
         </div>
@@ -104,23 +104,6 @@
     <% if @post.comments.any? %>
       <% @post.comments.not_replies.each do |comment| %>
         <%= render comment %>
-
-        <% replies = @post.comments.where(comment_id: comment.id) %>
-        <% if replies.any? %>
-          <% reply_count = replies.count %>
-          <button class="Q_showReplies"
-                  data-comment-id="<%= comment.id %>"
-                  data-reply-count="<%= reply_count %>">
-            <div></div>
-            <h4>Показать ответы (<%= reply_count %>)</h4>
-          </button>
-
-          <div class="C_commentReplies hidden" data-replies-for="<%= comment.id %>">
-            <% replies.each do |reply| %>
-              <%= render reply %>
-            <% end %>
-          </div>
-        <% end %>
       <% end %>
     <% else %>
       <h5>Пока нет комментариев.</h5>

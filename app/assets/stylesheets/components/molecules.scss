@@ -109,15 +109,127 @@
     gap: 0.8vw;
 }
 
-@media only screen and (max-width: 430px) { 
-    .M_commentForm {
-        width: 82.2vw;
-        margin-top: -8.1vw;
-    }
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+
+    // Профиль ---------------------------------------------- 
     .M_profileInfo {
-        gap: 1.5vw;
-        h6 {
-            padding: 1.3vw 3.3vw;
-        }
+        gap: 1vw;
     }
+    .M_followsCard {
+        width: 46vw;
+        padding: 1vw 0;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .M_filterSort {
+        gap: 4.9vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .M_commentForm {
+        gap: 1.5vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .M_uploadPostImg {
+        padding-top: 6.8vw;
+    }
+    .M_formPostAddInfo {
+        gap: 2vw;
+    }
+
+    .M_collectionCard {
+        gap: 1vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .M_footerContent {
+        gap: 1vw;
+    }
+}
+
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+
+    // Профиль ---------------------------------------------- 
+    .M_profileInfo {
+        gap: 1.3vw;
+    }
+    .M_followsCard {
+        width: 70vw;
+        padding: 1.3vw 0;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .M_filterSort {
+        gap: 6.7vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .M_commentForm {
+        gap: 2vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .M_uploadPostImg {
+        display: flex;
+        justify-content: center;
+        padding-top: 0;
+        padding-bottom: 9.4vw;
+    }
+    .M_formPostAddInfo {
+        gap: 2.7vw;
+    }
+
+    .M_collectionCard {
+        gap: 1.3vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .M_footerContent {
+        gap: 1.3vw;
+        width: 45%;
+    }
+}
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+
+    // Профиль ---------------------------------------------- 
+    .M_profileInfo {
+        gap: 2.5vw;
+    }
+    .M_followsCard {
+        width: 80vw;
+        padding: 2.5vw 0;
+    }
+
+    // Сортировка и фильтры ---------------------------------------------- 
+    .M_filterSort {
+        gap: 12.7vw;
+    }
+
+    // Комментарии ---------------------------------------------- 
+    .M_commentForm {
+        gap: 3.8vw;
+    }
+
+    // Формы, инпуты и другое ---------------------------------------------- 
+    .M_uploadPostImg {
+        display: flex;
+        justify-content: center;
+        padding-top: 0;
+        padding-bottom: 17.8vw;
+    }
+    .M_formPostAddInfo {
+        gap: 5.1vw;
+    }
+
+    .M_collectionCard {
+        gap: 2.5vw;
+    }
+
+    // Футер ---------------------------------------------- 
+    .M_footerContent {
+        gap: 2.5vw;
+    }
+
 }

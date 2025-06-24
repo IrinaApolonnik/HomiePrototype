@@ -1,4 +1,4 @@
-<div class="S_menuBar">
+<div class="S_menuBar desktop">
 <% if user_signed_in? %>
   <nav class="O_menuBar">
     <div class="W_menuActions left">
@@ -64,117 +64,209 @@
             </div>
           </div>
         </div>
-
-    </div>
-</nav>
-<% if controller_name == "posts" && action_name == "index" %>
-  <div class="W_indexPostsHeader">
-    <%= link_to posts_path(filter: "all"), class: ['Q_postsFilterBtn', (@filter_param != "following" ? 'active' : '')] do %>
-      Все посты
-    <% end %>
-
-    <%= link_to posts_path(filter: "following"), class: ['Q_postsFilterBtn', (@filter_param == "following" ? 'active' : '')] do %>
-      Подписки
-    <% end %>
-  </div>
-<% end %>
-
-
-
-
-
-<% if controller_name == "collections" && action_name == "index" %>
-  <div class="W_collectionsHeader">
-    <% count = current_user.collections.count %>
-    <% word = case count % 10
-            when 1 then 'коллекция'
-            when 2..4 then 'коллекции'
-            else 'коллекций'
-            end %>
-    <h4 class="Q_collectionsCount"><%= "#{count} #{word}" %></h4>
-    <h2 class="Q_collectionsTitle">СОХРАНЁННОЕ</h2>
-    <button type="button" class="Q_createCollectionBtn">
-      <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Создать подборку">
-    </button>
-
-
-  </div>
-<% end %>
-
-<% if controller_name == "collections" && action_name == "show" %>
-  <div class="W_collectionsHeader">
-
-    <% post_count = @collection.posts.count %>
-    <% item_count = @collection.items.count %>
-    <% total_count = post_count + item_count %>
-
-    <% word = case total_count % 10
-             when 1 then 'объект'
-             when 2..4 then 'объекта'
-             else 'объектов'
-             end %>
-
-    <h4 class="Q_collectionsCount"><%= "#{total_count} #{word}" %></h4>
-    <h2 class="Q_collectionsTitle"><%= @collection.title %></h2>
-
-    <% if current_user == @collection.user %>
-      <% if @collection.title != "Все идеи" %>
-        <div class="W_collectionActions">
-          <!-- Кнопка редактирования -->
-          <button type="button" class="Q_editCollectionBtn">
-            <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать подборку">
-          </button>
-
-
-          <!-- Кнопка удаления -->
-          <%= button_to collection_path(@collection), method: :delete, data: { confirm: "Удалить эту коллекцию? Это действие необратимо." }, class: "Q_deleteCollectionBtn" do %>
-            <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить подборку">
-          <% end %>
-        </div>
-      <% else %>
-        <div class="Q_deleteCollectionPlaceholder"></div>
-      <% end %>
-    <% end %>
-
-  </div>
-<% end %>
-
-
-<!-- Подменю для поиска -->
-<div id="search_dropdown" class="W_searchDropdown hidden">
-  <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
-    <div class="M_searchInputWrap">
-      <%= f.text_field :query, placeholder: "Найти пост...", value: params[:query], class: "Q_searchInput", autofocus: true %>
-      <%= f.submit "Найти", class: "Q_searchSubmitBtn" %>
-    </div>
-  <% end %>
-</div>
-
-
-
- <% else %>
-  <nav class="O_menuBar">
-
-    <div class="W_menuActions left">
-      <button class="A_menuButton search">
-        <span>Поиск</span>
-      </button>
-    </div>
-    
-    <div class="W_menuActions right">
-      <%= link_to new_user_session_path, class: "A_menuButton" do %>
-        <span>войти</span>
-      <% end %>
-      <%= link_to new_user_registration_path, class: "A_menuButton new" do %>
-        <span>Регистрация</span>
-      <% end %>
-
-
     </div>
   </nav>
-<% end %>
+
+  <!-- Подменю для страницы постов -->
+  <% if controller_name == "posts" && action_name == "index" %>
+    <div class="W_indexPostsHeader">
+      <%= link_to posts_path(filter: "all"), class: ['Q_postsFilterBtn', (@filter_param != "following" ? 'active' : '')] do %>
+        Все посты
+      <% end %>
+
+      <%= link_to posts_path(filter: "following"), class: ['Q_postsFilterBtn', (@filter_param == "following" ? 'active' : '')] do %>
+        Подписки
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Подменю для страницы коллекций -->
+  <% if controller_name == "collections" && action_name == "index" %>
+    <div class="W_collectionsHeader">
+      <% count = current_user.collections.count %>
+      <% word = case count % 10
+              when 1 then 'коллекция'
+              when 2..4 then 'коллекции'
+              else 'коллекций'
+              end %>
+      <h4 class="Q_collectionsCount"><%= "#{count} #{word}" %></h4>
+      <h2 class="Q_collectionsTitle">СОХРАНЁННОЕ</h2>
+      <button type="button" class="Q_createCollectionBtn">
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Создать подборку">
+      </button>
+    </div>
+  <% end %>
+
+  <!-- Подменю для страницы коллекции -->
+  <% if controller_name == "collections" && action_name == "show" %>
+    <div class="W_collectionsHeader">
+
+      <% post_count = @collection.posts.count %>
+      <% item_count = @collection.items.count %>
+      <% total_count = post_count + item_count %>
+
+      <% word = case total_count % 10
+              when 1 then 'объект'
+              when 2..4 then 'объекта'
+              else 'объектов'
+              end %>
+
+      <h4 class="Q_collectionsCount"><%= "#{total_count} #{word}" %></h4>
+      <h2 class="Q_collectionsTitle"><%= @collection.title %></h2>
+
+      <% if current_user == @collection.user %>
+        <% if @collection.title != "Все идеи" %>
+          <div class="W_collectionActions">
+            <!-- Кнопка редактирования -->
+            <button type="button" class="Q_editCollectionBtn">
+              <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать подборку">
+            </button>
+
+
+            <!-- Кнопка удаления -->
+            <%= button_to collection_path(@collection), method: :delete, data: { confirm: "Удалить эту коллекцию? Это действие необратимо." }, class: "Q_deleteCollectionBtn" do %>
+              <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить подборку">
+            <% end %>
+          </div>
+        <% else %>
+          <div class="Q_deleteCollectionPlaceholder"></div>
+        <% end %>
+      <% end %>
+
+    </div>
+  <% end %>
+
+  <!-- Подменю для поиска -->
+  <div id="search_dropdown" class="W_searchDropdown hidden">
+    <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
+      <div class="M_searchInputWrap">
+        <%= f.text_field :query, placeholder: "Найти пост...", value: params[:query], class: "Q_searchInput", autofocus: true %>
+        <%= f.submit "Найти", class: "Q_searchSubmitBtn" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% else %>
+    <nav class="O_menuBar">
+
+      <div class="W_menuActions left">
+        <button class="A_menuButton search">
+          <span>Поиск</span>
+        </button>
+      </div>
+      
+      <div class="W_menuActions right">
+        <%= link_to new_user_session_path, class: "A_menuButton" do %>
+          <span>войти</span>
+        <% end %>
+        <%= link_to new_user_registration_path, class: "A_menuButton new" do %>
+          <span>Регистрация</span>
+        <% end %>
+
+
+      </div>
+    </nav>
+  <% end %>
 </div>
 
 <% if user_signed_in? %>
   <%= render 'application/settings' %>
 <% end %>
+
+<%= render 'application/mobile_menu' %>
+
+
+<div class="S_menuBar mobile">
+<% if user_signed_in? %>
+  <nav class="O_menuBar">
+    <button class="A_menuButton">
+      <img src="<%= asset_path('menu/searchIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
+    </button>
+    <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
+    <button class="A_menuButton" id='mobile_menu'>
+      <img src="<%= asset_path('menu/menuIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
+    </button>
+  </nav>
+
+  <!-- Подменю для страницы постов -->
+  <% if controller_name == "posts" && action_name == "index" %>
+    <div class="W_indexPostsHeader">
+      <%= link_to posts_path(filter: "all"), class: ['Q_postsFilterBtn', (@filter_param != "following" ? 'active' : '')] do %>
+        Все посты
+      <% end %>
+
+      <%= link_to posts_path(filter: "following"), class: ['Q_postsFilterBtn', (@filter_param == "following" ? 'active' : '')] do %>
+        Подписки
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Подменю для страницы коллекций -->
+  <% if controller_name == "collections" && action_name == "index" %>
+    <div class="W_collectionsHeader">
+      <% count = current_user.collections.count %>
+      <% word = case count % 10
+              when 1 then 'коллекция'
+              when 2..4 then 'коллекции'
+              else 'коллекций'
+              end %>
+      <h4 class="Q_collectionsCount"><%= "#{count} #{word}" %></h4>
+      <h2 class="Q_collectionsTitle">СОХРАНЁННОЕ</h2>
+      <button type="button" class="Q_createCollectionBtn">
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Создать подборку">
+      </button>
+    </div>
+  <% end %>
+
+  <!-- Подменю для страницы коллекции -->
+  <% if controller_name == "collections" && action_name == "show" %>
+    <div class="W_collectionsHeader">
+
+      <% post_count = @collection.posts.count %>
+      <% item_count = @collection.items.count %>
+      <% total_count = post_count + item_count %>
+
+      <% word = case total_count % 10
+              when 1 then 'объект'
+              when 2..4 then 'объекта'
+              else 'объектов'
+              end %>
+
+      <h4 class="Q_collectionsCount"><%= "#{total_count} #{word}" %></h4>
+      <h2 class="Q_collectionsTitle"><%= @collection.title %></h2>
+
+      <% if current_user == @collection.user %>
+        <% if @collection.title != "Все идеи" %>
+          <div class="W_collectionActions">
+            <!-- Кнопка редактирования -->
+            <button type="button" class="Q_editCollectionBtn">
+              <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать подборку">
+            </button>
+
+
+            <!-- Кнопка удаления -->
+            <%= button_to collection_path(@collection), method: :delete, data: { confirm: "Удалить эту коллекцию? Это действие необратимо." }, class: "Q_deleteCollectionBtn" do %>
+              <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить подборку">
+            <% end %>
+          </div>
+        <% else %>
+          <div class="Q_deleteCollectionPlaceholder"></div>
+        <% end %>
+      <% end %>
+
+    </div>
+  <% end %>
+<% else %>
+    <nav class="O_menuBar">
+      <button class="A_menuButton">
+        <img src="<%= asset_path('menu/searchIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
+      </button>
+      <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
+      <button class="A_menuButton" id='mobile_menu'>
+        <img src="<%= asset_path('menu/menuIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
+      </button>
+    </nav>
+
+  
+  <% end %>
+</div>

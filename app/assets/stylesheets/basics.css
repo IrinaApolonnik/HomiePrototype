@@ -1,61 +1,51 @@
 * {
     box-sizing: border-box;
- }
-
+}
 body {
     font-family: 'Arimo', sans-serif;
-    background-color: #efefef;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5vw 2.2vw 1.4vw 2.2vw;
-
+    padding: 7vw 2.2vw 1.4vw 2.2vw;
+    width: 100vw;
 }
 
-
 /* Текст ---------------------------------------------- */
-
 h1 {
-    font-size: 1.8vw;
+    font-size: 23px;
     font-weight: 600;
     line-height: 130%;
     color: var(--black);
 }
 h2 {
-    font-size: 1.6vw; 
+    font-size: 20px; 
     font-weight: 400;
     color: var(--black);
+    line-height: normal;
 }
 h4 {
-    font-size: 1vw; 
+    font-size: 13px; 
     letter-spacing: -1%;
     color: var(--black);
+    line-height: normal;
 }
 h3 {
-    font-size: 1.3vw;
+    font-size: 16px;
     letter-spacing: -1%;
     color: var(--black);
-}
-h5 {
-    font-weight: bold;
-    font-size: 1.2vw;
-    color: var(--black);
-}
-h6 {
-    font-size: 1vw;
-    color: var(--black);
+    line-height: 132%;
 }
 p, a {
-    font-size: 1.4vw;
+    font-size: 20px;
     font-weight: 200;
     text-decoration: none; 
-    color: inherit;  
-    line-height: 1.8vw;
+    color: var(--black);  
 }
 a:hover {
     cursor: pointer;       
 }
 
+/* Анимации ---------------------------------------------- */
 .slide-left-out {
   animation: slideLeftOut 0.3s forwards;
 }
@@ -101,7 +91,7 @@ button {
 .systemMessage {
     position: fixed;
     z-index: 40;
-    font-size: 1.2vw;
+    font-size: 20px;
     animation: fadeOut 2s ease-out forwards;
 }
 .hidden {
@@ -122,44 +112,92 @@ button {
     }
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
     body {
-        padding: 25vw 5vw 5.6vw 5vw;
+        padding: 9vw 2.7vw 1.4vw 2.7vw;
     }
-    /* Текст ---------------------------------------------- */
 
+    /* Текст ---------------------------------------------- */
     h1 {
-        font-size: 4.6vw;
+        font-size: 25px;
     }
     h2 {
-        font-size: 5.344vw;
-        margin-top: 0.6vw;
-    }
-    h4 {
-        font-size: 3.3vw; 
+        font-size: 23px; 
     }
     h3 {
-        font-size: 5.3vw;
-        letter-spacing: 23.7;
+        font-size: 20px;
     }
-    h5 {
-        font-size: 3.3vw;
+    h4 {
+        font-size: 16px; 
     }
-    h6 {
-        font-size: 2.8vw;
+    p, a {
+        font-size: 23px;
     }
-    p, a, span {
-        font-size: 3.8vw;
-        font-weight: 200;
-        text-decoration: none; 
-        color: inherit;  
-        line-height: 132.3%;
+
+    /* Системное ---------------------------------------------- */
+
+    .systemMessage {
+        font-size: 23px;
     }
-    a:hover {
-        cursor: pointer;       
-    }
-  
 }
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
+    body {
+        padding: 14vw 3.8vw 1.4vw 3.8vw;
+    }
+
+    /* Текст ---------------------------------------------- */
+    h1 {
+        font-size: 21px;
+    }
+    h2 {
+        font-size: 18px; 
+    }
+    h3 {
+        font-size: 16px;
+    }
+    h4 {
+        font-size: 14px; 
+    }
+    p, a {
+        font-size: 18px;
+    }
+
+    /* Системное ---------------------------------------------- */
+
+    .systemMessage {
+        font-size: 18px;
+    }
+
+}
+@media only screen and (min-width: 393px) and (max-width: 743px) {
+    body {
+        padding: 12.2vw 3.6vw 1.4vw 3.6vw;
+    }
+
+    /* Текст ---------------------------------------------- */
+    h1 {
+        font-size: 21px;
+    }
+    h2 {
+        font-size: 17px; 
+    }
+    h3 {
+        font-size: 15px;
+    }
+    h4 {
+        font-size: 12px; 
+    }
+    p, a {
+        font-size: 18px;
+    }
+
+    /* Системное ---------------------------------------------- */
+
+    .systemMessage {
+        font-size: 17px;
+    }
+}
+
 
 
 
