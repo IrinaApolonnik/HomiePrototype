@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   # Лайки
   post "like/toggle", to: "likes#toggle", as: "toggle_like"
+  resources :notifications, only: [:index] do
+    collection do
+      patch :mark_all_as_read
+    end
+  end
+
+
 
   # Профили — публичный просмотр + подписка
   resources :profiles, only: %i[show index] do

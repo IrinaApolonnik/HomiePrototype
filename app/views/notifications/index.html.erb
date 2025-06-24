@@ -1,0 +1,27 @@
+<div class="S_notifications" id="notifications-page">
+  <% if @unread_notifications.any? %>
+    <div class="W_notificationsSection">
+      <h2 class="Q_notificationsTitle">Новые</h2>
+      <div class="C_notifications">
+        <% @unread_notifications.each do |notification| %>
+          <%= render partial: "notifications/notification", locals: { notification: notification } %>
+        <% end %>
+      </div>
+    </div>
+  <% elsif @read_notifications.any? %>
+    <div class="W_notificationsSection">
+      <h2 class="Q_notificationsTitle">Уведомления</h2>
+      <div class="C_notifications">
+        <% @read_notifications.each do |notification| %>
+          <%= render partial: "notifications/notification", locals: { notification: notification } %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="W_notificationsSection">
+      <h2 class="Q_notificationsTitle">Уведомления</h2>
+      <p class="Q_noNotificationsText">Пока уведомлений нет</p>
+    </div>
+  <% end %>
+</div>
+

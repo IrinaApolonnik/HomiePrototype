@@ -1477,6 +1477,17 @@ function initMobileMenu() {
   });
 }
 
+function markNotificationsAsRead() {
+  fetch("/notifications/mark_all_as_read", {
+    method: "PATCH",
+    headers: {
+      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  });
+}
+
 
 
 
@@ -1488,6 +1499,10 @@ document.addEventListener("turbo:load", () => {
 
     if (document.querySelector('.Q_dropdownBtn')) {
         dropdownMenu();
+    }
+    if (document.querySelector("#notifications-page")) {
+      // Только если мы на странице уведомлений
+      markNotificationsAsRead();
     }
     systemMessage();
 
@@ -1540,9 +1555,9 @@ document.addEventListener("turbo:load", () => {
     initSearchMenuLogic();
 
     initMobileMenu();
-    
-    
 });
 document.addEventListener("turbo:before-cache", () => {
     document.querySelectorAll(".A_systemMessage, .systemMessage").forEach(el => el.remove());
 });
+
+

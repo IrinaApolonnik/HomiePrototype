@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  actor: one
+  actor_type: Actor
+  notifiable: one
+  notifiable_type: Notifiable
+  content: MyText
+  type: 
+  read_status: false
+
+two:
+  user: two
+  actor: two
+  actor_type: Actor
+  notifiable: two
+  notifiable_type: Notifiable
+  content: MyText
+  type: 
+  read_status: false

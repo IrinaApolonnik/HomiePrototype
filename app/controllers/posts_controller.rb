@@ -98,43 +98,55 @@ end
   end
 
   def create
-    authorize! :create, Post
-    post_attrs = post_params.except(:temp_items_json)
-    @post = Post.new(post_attrs)
-    @post.user = current_user
+  authorize! :create, Post
+  post_attrs = post_params.except(:temp_items_json)
+  @post = Post.new(post_attrs)
+  @post.user = current_user
 
-    respond_to do |format|
-      ActiveRecord::Base.transaction do
-        if @post.save
-          temp_items = JSON.parse(params[:post][:temp_items_json] || "[]")
+  respond_to do |format|
+    ActiveRecord::Base.transaction do
+      if @post.save
+        # 👉 вставка уведомлений
+        current_user.followers.each do |follower|
+          next unless follower.notification_settings.find_by(notification_type: "new_post", enabled: true)
 
-          if temp_items.empty?
-            raise ActiveRecord::Rollback, "Пост не может быть создан без товаров"
-          end
-
-          temp_items.each do |item_data|
-            @post.items.create!(
-              name:         item_data["name"],
-              purchase_url: item_data["purchase_url"],
-              price:        item_data["price"],
-              image_url:    item_data["image_url"],
-              user:        current_user
-            )
-          end
-
-          format.html { redirect_to post_url(@post), notice: "Пост был успешно создан!" }
-          format.json { render :show, status: :created, location: @post }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+          Notification.create!(
+            user: follower,
+            actor: current_user,
+            notifiable: @post,
+            content: "#{current_user.profile.name} выложил(-а) новую подборку",
+            notification_type: "new_post",
+            read_status: false
+          )
         end
+
+        temp_items = JSON.parse(params[:post][:temp_items_json] || "[]")
+        raise ActiveRecord::Rollback, "Пост не может быть создан без товаров" if temp_items.empty?
+
+        temp_items.each do |item_data|
+          @post.items.create!(
+            name:         item_data["name"],
+            purchase_url: item_data["purchase_url"],
+            price:        item_data["price"],
+            image_url:    item_data["image_url"],
+            user:         current_user
+          )
+        end
+
+        format.html { redirect_to post_url(@post), notice: "Пост был успешно создан!" }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
-  rescue => e
-    Rails.logger.error("Ошибка при создании поста: #{e.message}")
-    flash.now[:alert] = "Не удалось создать пост"
-    render :new, status: :unprocessable_entity
   end
+rescue => e
+  Rails.logger.error("Ошибка при создании поста: #{e.message}")
+  flash.now[:alert] = "Не удалось создать пост"
+  render :new, status: :unprocessable_entity
+end
+
 
 def update
   @post = Post.find(params[:id])

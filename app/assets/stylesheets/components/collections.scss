@@ -214,6 +214,13 @@
 }
 
 
+.C_notifications {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8vw;
+}
+
 // Футер ---------------------------------------------- 
 
 .C_footerNav {

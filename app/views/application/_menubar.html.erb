@@ -25,11 +25,16 @@
           <% end %>
         </button>
       </div>
-
       
-      <button class="A_menuButton">
+      <%= link_to notifications_path, class: "A_menuButton" do %>
         <img src="<%= asset_path('menu/notificationIcon.svg') %>" alt="Уведомления" class="Q_menuIcon">
-      </button>
+        <% if current_user.notifications.where(read_status: false).any? %>
+          <div class="Q_notificationBadge">
+            <h4><%= current_user.notifications.where(read_status: false).count %></h4>
+          </div>
+        <% end %>
+      <% end %>
+
       
       <%= link_to collections_path, class: "A_menuButton" do %>
         <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
@@ -138,6 +143,13 @@
 
   <!-- Подменю для поиска -->
   <div id="search_dropdown" class="W_searchDropdown hidden">
+    <button class="Q_searchCloseBtn" data-close-search>
+        <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+    </button>
+    <h2>Что вы ищите?</h2>
+    <div class="C_searchTags">
+
+    </div>
     <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
       <div class="M_searchInputWrap">
         <%= f.text_field :query, placeholder: "Найти пост...", value: params[:query], class: "Q_searchInput", autofocus: true %>

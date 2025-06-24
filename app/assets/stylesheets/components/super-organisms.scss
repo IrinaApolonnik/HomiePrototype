@@ -229,7 +229,6 @@
     width: 100%;
 }
 .S_follows {
-    margin-top: 0.6vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,6 +236,12 @@
     gap: 1.6vw;
 }
 
+.S_notifications {
+    width: 30.6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 3.9vw;
+}
 
 // Футер ---------------------------------------------- 
 

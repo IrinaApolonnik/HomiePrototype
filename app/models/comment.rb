@@ -13,4 +13,22 @@ class Comment < ApplicationRecord
   def root_comment
     comment.present? ? comment.root_comment : self
   end
+
+  after_create :notify_post_author
+
+  private
+
+  def notify_post_author
+    return if user == post.user
+
+    Notification.create!(
+      user: post.user,
+      actor: user,
+      notifiable: self,
+      content: "Новый комментарий к вашей подборке",
+      notification_type: "comment",
+      read_status: false
+    )
+  end
+
 end

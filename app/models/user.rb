@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :collections, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :notification_settings, dependent: :destroy
+
 
   # Связи подписок
   has_many :follower_relationships, foreign_key: :followed_id, class_name: 'Follow', dependent: :destroy

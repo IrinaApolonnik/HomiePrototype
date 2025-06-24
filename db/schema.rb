@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_21_120223) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_24_152641) do
   create_table "collection_items", force: :cascade do |t|
     t.integer "collection_id", null: false
     t.string "collectible_type", null: false
@@ -82,6 +82,31 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_120223) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notification_settings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "notification_type"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_settings_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "actor_type", null: false
+    t.integer "actor_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.text "content"
+    t.string "notification_type"
+    t.boolean "read_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_type", "actor_id"], name: "index_notifications_on_actor"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -168,6 +193,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_120223) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "items", "profiles", column: "user_id"
   add_foreign_key "likes", "profiles", column: "user_id"
+  add_foreign_key "notification_settings", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "posts", "profiles", column: "user_id"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "tag_categories"
