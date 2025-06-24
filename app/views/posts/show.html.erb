@@ -60,10 +60,10 @@
       <% if @post.tag_list.any? %>
         <div class="C_postTags">
           <% @post.tag_list.each do |tag| %>
-            <h4 class="Q_tag"><%= tag %></h4>
+            <%= link_to tag, posts_path(query: tag), class: "Q_tag" %>
           <% end %>
         </div>
-        <% else %>
+      <% else %>
         <p>Теги отсутствуют.</p>
       <% end %>
       

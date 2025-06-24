@@ -1437,6 +1437,7 @@ function initSearchMenuLogic() {
   const searchDropdown = document.getElementById("search_dropdown");
   const searchInput = searchDropdown?.querySelector(".Q_searchInput");
   const clearSearchBtn = document.querySelector(".Q_clearSearchBtn");
+  const closeSearchBtn = document.querySelector("[data-close-search]");
 
   if (!openSearchBtn || !searchDropdown) return;
 
@@ -1446,11 +1447,17 @@ function initSearchMenuLogic() {
     searchDropdown.classList.toggle("hidden");
 
     if (!searchDropdown.classList.contains("hidden")) {
-      setTimeout(() => searchInput?.focus(), 100); // чтобы фокус точно успел сработать
+      setTimeout(() => searchInput?.focus(), 100);
     }
   });
 
-  // Сброс поиска (если кнопка есть)
+  // Закрытие подменю
+  closeSearchBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    searchDropdown.classList.add("hidden");
+  });
+
+  // Сброс поиска
   clearSearchBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     const url = new URL(window.location.href);
@@ -1458,6 +1465,7 @@ function initSearchMenuLogic() {
     window.location.href = url.toString();
   });
 }
+
 
 function initMobileMenu() {
   const menuButton = document.getElementById("mobile_menu");

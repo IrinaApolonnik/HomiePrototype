@@ -432,7 +432,7 @@
 }
 
 //edit and new post
-.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput {
+.Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput {
   width: 100%;
   border: none;
   border-bottom: solid var(--grey-dark) 0.1vw;
@@ -466,7 +466,7 @@
 .Q_logInInput, .Q_regInput {
   width: 30.6vw;
 }
-.Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+.Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_searchInput {
   padding: 1.4vw 0.8vw;
   font-size: 16px;
   &::placeholder {
@@ -476,7 +476,7 @@
       font-size: 16px;
   }
 }
-.Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+.Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_searchInput {
   text-transform: uppercase;
 }
 .Q_addItemLinkInput {
@@ -494,6 +494,21 @@
   &:focus {
     color: var(--white);
     border-bottom: solid var(--white) 0.1vw;
+    opacity: 1;
+  }
+}
+.Q_searchInput {
+  border-color: var(--orange);
+  background-color: var(--white);
+  color: var(--black);
+  opacity: 0.7;
+  width: 30vw;
+  &::placeholder {
+    color: var(--black);
+  }
+  &:focus {
+    color: var(--black);
+    border-bottom: solid var(--orange) 0.1vw;
     opacity: 1;
   }
 }
@@ -711,6 +726,7 @@
   color: var(--white); 
   padding: 0.5vw 0.8vw; 
   text-transform: uppercase; 
+  font-size: 13px;
   cursor: pointer; 
   transition: all 0.3s ease; 
   &:hover {
@@ -731,6 +747,7 @@
   cursor: pointer; 
   transition: all 0.3s ease; 
   border: 0.1vw solid var(--black);
+  font-size: 13px;
   &:hover {
     background-color: var(--grey);
   }
@@ -1149,10 +1166,15 @@
     display: none;
   }
 }
-.Q_footerFormBtn {
+.Q_footerFormBtn, .Q_searchSubmitBtn {
   position: absolute;
   right: 0.8vw;
   top: 1.6vw;
+}
+.Q_searchSubmitBtn {
+  h4 {
+    color: var(--orange);
+  }
 }
 .Q_tumbaLeg {
   position: absolute;
@@ -1219,6 +1241,11 @@
   opacity: 0.5;
 }
 
+.Q_clearSearchBtn {
+  position: absolute;
+  top: 0.5vw;
+  right: 0.8vw;
+}
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
   // Страница для неавторизованных пользователей (вместо постов)
@@ -1298,7 +1325,7 @@
   }
 
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
-  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput {
+  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput {
     width: 100%;
   }
   .Q_formPostTitle, .Q_logInInput, .Q_regInput {
@@ -1427,6 +1454,7 @@
   }
   .Q_tag {
     padding: 0.5vw 1vw; 
+    font-size: 16px;
   }
   .Q_actionPostBtn, .Q_likeBtn, .Q_deleteCommentButton, .Q_deleteItemBtn {
     height: 2.3vw;
@@ -1470,7 +1498,7 @@
   .Q_plusImg {
     padding: 0.8vw;
   }
-  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_searchInput {
     padding: 1.2vw 1vw;
     font-size: 20px;
     &::placeholder {
@@ -1481,6 +1509,7 @@
     }
   }
   .Q_tagBtn {
+    font-size: 16px;
     padding: 0.5vw 1vw; 
   }
   .Q_addItemButton, .Q_publishPostBtn, .Q_newCollectionBtn  {
@@ -1605,7 +1634,7 @@
   }
 
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
-  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput {
+  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput {
     width: 100%;
   }
   .Q_formPostTitle, .Q_logInInput, .Q_regInput {
@@ -1739,6 +1768,7 @@
     max-width: 81vw;
   }
   .Q_tag {
+    font-size: 14px;
     padding: 0.9vw 1.3vw; 
   }
   .Q_actionPostBtn, .Q_likeBtn, .Q_deleteCommentButton, .Q_deleteItemBtn {
@@ -1783,7 +1813,7 @@
   .Q_plusImg {
     padding: 1.1vw;
   }
-  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_searchInput {
     padding: 1.6vw 1.3vw;
     font-size: 16px;
     &::placeholder {
@@ -1794,6 +1824,7 @@
     }
   }
   .Q_tagBtn {
+    font-size: 14px;
     padding: 0.7vw 1.3vw; 
   }
   .Q_addItemButton, .Q_publishPostBtn, .Q_newCollectionBtn  {
@@ -1916,7 +1947,7 @@
   }
 
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
-  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput {
+  .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput {
     width: 100%;
   }
   .Q_formPostTitle, .Q_logInInput, .Q_regInput {
@@ -2053,6 +2084,7 @@
     max-width: 100%;
   }
   .Q_tag {
+    font-size: 12px;
     padding: 1.3vw 2.5vw; 
   }
   .Q_actionPostBtn, .Q_likeBtn, .Q_deleteCommentButton, .Q_deleteItemBtn {
@@ -2097,7 +2129,7 @@
   .Q_plusImg {
     padding: 2vw;
   }
-  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput {
+  .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_searchInput {
     padding: 3vw 2.5vw;
     font-size: 15px;
     &::placeholder {
@@ -2108,6 +2140,7 @@
     }
   }
   .Q_tagBtn {
+    font-size: 12px;
     padding: 1.3vw 2.5vw; 
   }
   .Q_addItemButton, .Q_publishPostBtn, .Q_newCollectionBtn  {
@@ -2135,7 +2168,7 @@
   .Q_footerQR {
     display: none;
   }
-  .Q_footerFormBtn {
+  .Q_footerFormBtn, .Q_searchSubmitBtn {
     right: 2.5vw;
     top: 3.6vw;
   }

@@ -143,17 +143,26 @@
 
   <!-- Подменю для поиска -->
   <div id="search_dropdown" class="W_searchDropdown hidden">
+  <div class="W_closeBtnWrapper">
     <button class="Q_searchCloseBtn" data-close-search>
         <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
     </button>
-    <h2>Что вы ищите?</h2>
-    <div class="C_searchTags">
+    </div>
+    <div class="W_searchTags">
+      <h2>Что вы ищите?</h2>
+        <div class="C_searchTags">
+          <% @random_tags.each do |tag| %>
+            <%= link_to tag.name, posts_path(query: tag.name), class: "Q_tag" %>
+          <% end %>
+        </div>
 
     </div>
     <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
       <div class="M_searchInputWrap">
-        <%= f.text_field :query, placeholder: "Найти пост...", value: params[:query], class: "Q_searchInput", autofocus: true %>
-        <%= f.submit "Найти", class: "Q_searchSubmitBtn" %>
+        <%= f.text_field :query, placeholder: "Я ищу...", value: params[:query], class: "Q_searchInput", autofocus: true %>
+        <%= button_tag type: 'submit', class: "Q_searchSubmitBtn" do %>
+          <h4>Найти</h4> 
+        <% end %>
       </div>
     <% end %>
   </div>

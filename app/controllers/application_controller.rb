@@ -10,5 +10,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_action :set_random_tags
+
+  def set_random_tags
+    @random_tags = ActsAsTaggableOn::Tag.order("RANDOM()").limit(6)
+  end
+
+
+
   protect_from_forgery with: :null_session 
 end
