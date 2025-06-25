@@ -29,13 +29,12 @@
             <img src="" alt="Превью" class="Q_itemImgUpload hidden" />
           <% end %>
         </label>
-
         <%= form.file_field :image_url, id: "collection_image_upload", class: "hidden" %>
       </div>
 
       <!-- Название -->
       <div class="C_collectionFormInputs">
-        <%= form.text_field :title, placeholder: "Название коллекции", class: "Q_itemInput" %>
+        <%= form.text_field :title, placeholder: "Название коллекции", class: "Q_collectionInput" %>
       </div>
 
       <!-- Кнопка -->

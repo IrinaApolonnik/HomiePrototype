@@ -74,7 +74,7 @@
         <% end %>
         <div class="W_postSocActions">
           <%= render partial: "like/button", locals: { likeable: @post } %>
-          <button class="Q_actionPostBtn">
+          <button class="Q_actionPostBtn" data-copy-link data-url="<%= request.original_url %>">
             <img src="<%= asset_path('shareIcon_b.svg') %>" alt="Поделиться">
           </button>
           <% if can? :manage, @post %>

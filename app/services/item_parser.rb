@@ -8,10 +8,10 @@ class ItemParser
         case host
         when /wildberries/
             Parsers::WildberriesParser.new(url).parse
-        # when /ozon/
-        #     Parsers::OzonParser.new(url).parse
-        # when /market\.yandex/
-        #     Parsers::YandexMarketParser.new(url).parse
+        when /ozon/
+            Parsers::OzonParser.new(url).parse
+        when /market\.yandex/
+            Parsers::YandexMarketParser.new(url).parse
         else
             { success: false, error: "Неизвестный сайт" }
         end

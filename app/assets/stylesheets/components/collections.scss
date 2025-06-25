@@ -200,6 +200,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2.2vw 1.6vw;
+    &.nodata {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 .C_profileFeed {
     display: none;
@@ -235,6 +238,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
     gap: 0.8vw;
 }
@@ -312,7 +316,7 @@
     }
 
     .C_collectionsGrid {
-        margin-top: 5vw;
+        margin-top: 2vw;
         gap: 2.1vw;
     }
 

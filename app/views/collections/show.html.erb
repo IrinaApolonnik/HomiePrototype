@@ -10,14 +10,25 @@
     </button>
   </div>
 
-  <div class="C_profileFeedPosts compact" data-sort="new">
-    <%= render partial: "collections/post_card", collection: @collection.posts, as: :post %>
-  </div>
+  <% if @collection.posts.any? %>
+    <div class="C_profileFeedPosts compact" data-sort="new">
+      <%= render partial: "collections/post_card", collection: @collection.posts, as: :post %>
+    </div>
+  <% else %>
+    <div class="C_profileFeedPosts nodata" data-sort="new">
+      <h2 class="Q_collectionEmptyMessage">У вас пока нет сохранённых постов</h2>
+    </div>
+  <% end %>
 
-  <div class="C_profileFeedItems" style="display: none;" data-sort="new">
-    <%= render partial: "collections/item_card", collection: @collection.items, as: :item %>
-  </div>
+  <% if @collection.items.any? %>
+    <div class="C_profileFeedItems" style="display: none;" data-sort="new">
+      <%= render partial: "collections/item_card", collection: @collection.items, as: :item %>
+    </div>
+  <% else %>
+    <div class="C_profileFeedItems nodata" style="display: none;" data-sort="new">
+      <h2 class="Q_collectionEmptyMessage">У вас пока нет сохранённых товаров</h2>
+    </div>
+  <% end %>
 </div>
+
 <%= render partial: "collections/form", locals: { collection: @collection } %>
-
-

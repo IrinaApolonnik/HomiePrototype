@@ -301,6 +301,19 @@
         gap: 2.3vw;
         margin-top: 6.8vw;
     }
+
+    .S_collectionShow {
+        margin-top: 2vw;
+        gap: 0.8vw;
+    }
+    .S_collectionShow {
+        margin-top: 2vw;
+        gap: 1vw;
+    }
+    .S_notifications {
+        width: 46vw;
+        gap: 4.9vw;
+    }
 }
 @media only screen and (min-width: 744px) and (max-width: 1023px) {
 
@@ -351,6 +364,15 @@
     .S_footer {
         gap: 1.3vw;
         margin-top: 9.4vw;
+    }
+
+    .S_collectionShow {
+        margin-top: 2vw;
+        gap: 1.3vw;
+    }
+    .S_notifications {
+        width: 70vw;
+        gap: 6.7vw;
     }
 
 }
@@ -410,7 +432,6 @@
         gap: 2.5vw;
         margin-top: 17.8vw;
     }
-
     .S_menuBar {
         &.mobile {
             display: flex;
@@ -419,7 +440,17 @@
             display: none;
         }
     }
-
+    .S_collectionShow {
+        margin-top: 10vw;
+        gap: 2.5vw;
+    }
+    .S_notifications {
+        width: 100%;
+        gap: 12.7vw;
+    }
+    .S_modalSettings {
+        display: none;
+    }
 }
 
   

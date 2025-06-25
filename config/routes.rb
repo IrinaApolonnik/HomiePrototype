@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       patch :mark_all_as_read
     end
   end
+resource :notification_settings, only: [:update]
+
+
 
 
 

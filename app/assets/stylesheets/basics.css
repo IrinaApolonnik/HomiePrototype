@@ -8,6 +8,8 @@ body {
     align-items: center;
     padding: 7vw 2.2vw 1.4vw 2.2vw;
     width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* Текст ---------------------------------------------- */

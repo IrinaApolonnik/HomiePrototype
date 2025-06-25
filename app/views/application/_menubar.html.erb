@@ -1,6 +1,6 @@
 <div class="S_menuBar desktop">
 <% if user_signed_in? %>
-  <nav class="O_menuBar">
+  <nav class="O_menuBar ">
     <div class="W_menuActions left">
       <% if user_signed_in? && can?(:create, Post) %>
         <%= link_to new_post_path, class: ['A_menuButton new', current_page?(new_post_path) ? 'activePage' : 'inactivePage'] do %>
@@ -155,7 +155,6 @@
             <%= link_to tag.name, posts_path(query: tag.name), class: "Q_tag" %>
           <% end %>
         </div>
-
     </div>
     <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
       <div class="M_searchInputWrap">
@@ -200,7 +199,7 @@
 <div class="S_menuBar mobile">
 <% if user_signed_in? %>
   <nav class="O_menuBar">
-    <button class="A_menuButton">
+    <button class="A_menuButton Q_openSearchBtn">
       <img src="<%= asset_path('menu/searchIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
     </button>
     <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
@@ -274,9 +273,32 @@
           <div class="Q_deleteCollectionPlaceholder"></div>
         <% end %>
       <% end %>
-
     </div>
   <% end %>
+    <!-- Подменю для поиска -->
+    <div id="search_dropdown" class="W_searchDropdown hidden">
+    <div class="W_closeBtnWrapper">
+      <button class="Q_searchCloseBtn" data-close-search>
+          <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+      </button>
+      </div>
+      <div class="W_searchTags">
+        <h2>Что вы ищите?</h2>
+          <div class="C_searchTags">
+            <% @random_tags.each do |tag| %>
+              <%= link_to tag.name, posts_path(query: tag.name), class: "Q_tag" %>
+            <% end %>
+          </div>
+      </div>
+      <%= form_with url: posts_path, method: :get, html: { class: "O_searchForm" }, local: true do |f| %>
+        <div class="M_searchInputWrap">
+          <%= f.text_field :query, placeholder: "Я ищу...", value: params[:query], class: "Q_searchInput", autofocus: true %>
+          <%= button_tag type: 'submit', class: "Q_searchSubmitBtn" do %>
+            <h4>Найти</h4> 
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 <% else %>
     <nav class="O_menuBar">
       <button class="A_menuButton">

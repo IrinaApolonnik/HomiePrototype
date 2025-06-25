@@ -1,33 +1,31 @@
 <footer class="S_footer"> 
+    <% if user_signed_in? %>
     <div class="C_footerNav">
         <%= link_to root_path, class: "Q_footerLink" do %>
         <h4>Главная</h4>
-        <% end %>
-
-        <%= link_to collections_path, class: "Q_footerLink" do %>
-        <h4>Подборки</h4>
         <% end %>
 
         <%= link_to new_post_path, class: "Q_footerLink" do %>
         <h4>Создать подборку</h4>
         <% end %>
 
-        <%= link_to "#", class: "Q_footerLink" do %>
+        <%= link_to "#", class: "Q_footerLink Q_openSearchBtn" do %>
         <h4>Поиск</h4>
         <% end %>
 
-        <%= link_to "#", class: "Q_footerLink" do %>
+        <%= link_to notifications_path, class: "Q_footerLink" do %>
         <h4>Уведомления</h4>
         <% end %>
 
-        <%= link_to "#", class: "Q_footerLink" do %>
+        <%= link_to collections_path, class: "Q_footerLink" do %>
         <h4>Избранное</h4>
         <% end %>
 
-        <%= link_to "#", class: "Q_footerLink" do %>
+        <%= link_to profile_path(current_user.profile), class: "Q_footerLink" do %>
         <h4>Профиль</h4>
         <% end %>
     </div>
+    <% end %>
     <h1 class="Q_footerLogo">TUMBA</h1>
     <div class="O_footer">
         <div class="M_footerContent">

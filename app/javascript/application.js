@@ -1224,23 +1224,26 @@ function toggleTagsBlock() {
     }
   }
 
+
 function initCollectionModalLogic() {
-  const openBtn = document.querySelector(".Q_createCollectionBtn");
+  const editBtns = document.querySelectorAll(".Q_createCollectionBtn");
   const modal = document.getElementById("modal_collection");
 
-  if (openBtn && modal) {
-    openBtn.addEventListener("click", (e) => {
+  if (!editBtns.length || !modal) return;
+
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
       e.preventDefault();
       modal.classList.remove("hidden");
     });
+  });
 
-    const closeBtns = modal.querySelectorAll(".Q_modalCloseBtn");
-    closeBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-      });
+  const closeBtns = modal.querySelectorAll(".Q_modalCloseBtn");
+  closeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.add("hidden");
     });
-  }
+  });
 }
 
 function initCollectionFormLogic() {
@@ -1315,7 +1318,6 @@ function initSettingsTabs() {
       if (tab.includes('информация')) tabSlug = 'profile';
       else if (tab.includes('безопасность')) tabSlug = 'security';
       else if (tab.includes('уведомления')) tabSlug = 'notifications';
-      else if (tab.includes('предпочтения')) tabSlug = 'preferences';
 
       if (tabSlug) {
         fetch(`/settings/${tabSlug}`)
@@ -1433,38 +1435,44 @@ function initSuggestionsSlider() {
 }
 
 function initSearchMenuLogic() {
-  const openSearchBtn = document.querySelector(".Q_openSearchBtn");
-  const searchDropdown = document.getElementById("search_dropdown");
-  const searchInput = searchDropdown?.querySelector(".Q_searchInput");
-  const clearSearchBtn = document.querySelector(".Q_clearSearchBtn");
-  const closeSearchBtn = document.querySelector("[data-close-search]");
+  const openSearchBtns = document.querySelectorAll(".Q_openSearchBtn, .Q_footerLink.search-link");
+  const searchDropdowns = document.querySelectorAll("#search_dropdown");
+  const clearSearchBtns = document.querySelectorAll(".Q_clearSearchBtn");
+  const closeSearchBtns = document.querySelectorAll("[data-close-search]");
 
-  if (!openSearchBtn || !searchDropdown) return;
-
-  // Открытие подменю
-  openSearchBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    searchDropdown.classList.toggle("hidden");
-
-    if (!searchDropdown.classList.contains("hidden")) {
-      setTimeout(() => searchInput?.focus(), 100);
-    }
+  openSearchBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      searchDropdowns.forEach((dropdown) => {
+        dropdown.classList.toggle("hidden");
+        const input = dropdown.querySelector(".Q_searchInput");
+        if (!dropdown.classList.contains("hidden")) {
+          setTimeout(() => input?.focus(), 100);
+        }
+      });
+    });
   });
 
-  // Закрытие подменю
-  closeSearchBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    searchDropdown.classList.add("hidden");
+  clearSearchBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const url = new URL(window.location.href);
+      url.searchParams.delete("query");
+      window.location.href = url.toString();
+    });
   });
 
-  // Сброс поиска
-  clearSearchBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const url = new URL(window.location.href);
-    url.searchParams.delete("query");
-    window.location.href = url.toString();
+  closeSearchBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      searchDropdowns.forEach((dropdown) => {
+        dropdown.classList.add("hidden");
+      });
+    });
   });
 }
+
+
 
 
 function initMobileMenu() {
@@ -1495,6 +1503,23 @@ function markNotificationsAsRead() {
     credentials: "same-origin"
   });
 }
+function initCopyLinkButtons() {
+  document.querySelectorAll('[data-copy-link]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const link = btn.dataset.url;
+      if (!link) return;
+
+      navigator.clipboard.writeText(link).then(() => {
+        showFlashNotice('Ссылка успешно скопирована!');
+      }).catch(() => {
+        showFlashAlert('Не удалось скопировать ссылку');
+      });
+    });
+  });
+}
+
+
 
 
 
@@ -1563,6 +1588,7 @@ document.addEventListener("turbo:load", () => {
     initSearchMenuLogic();
 
     initMobileMenu();
+    initCopyLinkButtons();
 });
 document.addEventListener("turbo:before-cache", () => {
     document.querySelectorAll(".A_systemMessage, .systemMessage").forEach(el => el.remove());

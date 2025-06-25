@@ -91,7 +91,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.6vw;
-    padding: 1.6vw 2.2vw;
+    padding: 1.6vw 2.2vw 4.7vw 2.2vw;
     background-color: var(--white);
     z-index: 29;
 }
@@ -102,6 +102,11 @@
     width: 100%;
     display: flex;
     justify-content: end;
+}
+.W_notificationOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 2.3vw;
 }
 
 
@@ -455,6 +460,23 @@
     display: flex;
     align-items: flex-end;
 }
+.W_notificationsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6vw;
+    align-items: center;
+}
+.W_notificationContent {
+    display: flex;
+    gap: 0.8vw;
+    align-items: center;
+}
+.W_searchTags {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6vw;
+}
 
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
@@ -537,7 +559,22 @@
         width: 38.3vw;
         gap: 2.9vw;
     }
+    .W_searchDropdown {
+        gap: 7.3vw;
+        padding: 2vw 2.7vw 5.9vw 2.7vw;
+    }
+    .W_emptySuggestions {
+        width: 78.5vw;
+        gap: 1vw;
+    }
+    .W_notificationsSection {
+        gap: 2vw;
+    }
+    .W_notificationContent {
+        gap: 1vw;
+    }
 } 
+
 
 @media only screen and (min-width: 744px) and (max-width: 1023px) {
     .W_welcomePopular {
@@ -643,25 +680,23 @@
         width: 56vw;
         gap: 4vw;
     }
+    .W_searchDropdown {
+        gap: 8.7vw;
+        padding: 4vw 3.8vw 8.1vw 3.8vw;
+    }
+    .W_emptySuggestions {
+        width: 92.5vw;
+        gap: 1.3vw;
+    }
+    .W_notificationsSection {
+        gap: 2.7vw;
+    }
+    .W_notificationContent {
+        gap: 1.3vw;
+    }
 } 
 
-.W_notificationsSection {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6vw;
-    align-items: center;
-}
-.W_notificationContent {
-    display: flex;
-    gap: 0.8vw;
-    align-items: center;
-}
-.W_searchTags {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.6vw;
-}
+
 
 
 @media only screen and (min-width: 393px) and (max-width: 743px) {
@@ -744,7 +779,7 @@
 
     .W_indexPostsHeader, .W_collectionsHeader{
         gap: 2.5vw;
-        padding: 3.8vw 1.8vw;
+        padding: 3.8vw 3.8vw;
         margin-top: -2vw;
     }
     .W_mobileMenuHeader {
@@ -756,5 +791,29 @@
         display: flex;
         flex-direction: column;
         gap: 5.1vw;
+    }
+
+    .W_searchDropdown {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 40;
+        background-color: var(--white);
+
+        width: 100vw;
+        height: 100vh;
+        gap: 19.3vw;
+        padding: 7.6vw 3.6vw;
+    }
+
+    .W_emptySuggestions {
+        width: 92.9vw;
+        gap: 2.5vw;
+    }
+    .W_notificationsSection {
+        gap: 5vw;
+    }
+    .W_notificationContent {
+        gap: 2.5vw;
     }
 } 
