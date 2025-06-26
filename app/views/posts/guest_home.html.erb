@@ -1,52 +1,62 @@
+<!-- Блок 1: Крупный заголовок и логотип -->
 <section class="S_guestWelcome">
-    <h1 class="Q_welcomeLogo">TUMBA</h1>
-    <h2 class="Q_welcomeSubtitle">ХРАНИМ ЛУЧШИЕ ИНТЕРЬЕРНЫЕ ИДЕИ ДЛЯ ВАШЕГО ДОМА И ОБЛЕГЧАЕМ ПОИСК СТИЛЬНЫХ ТОВАРОВ</h2>
-    <h2 class="Q_welcomeAbout"><span>TUMBA</span> — медиа-сервис с готовыми стилистическими решениями для дома, а самое главное с ссылками на товары, чтобы создать дом мечты было просто и быстро</h2>
-    <img src="<%= asset_path('welcome/1.png') %>" alt="Картинка" class="Q_welcomeImg1">
-    <img src="<%= asset_path('welcome/2.png') %>" alt="Картинка" class="Q_welcomeImg2">
-    <img src="<%= asset_path('welcome/3.png') %>" alt="Картинка" class="Q_welcomeImg3">
+  <img class="Q_welcomeCover" src="<%= asset_path('welcomeImg1.png') %>" alt="Посты">
+  <h1 class="Q_welcomeDesc">
+    СЕРВИС ИНТЕРЬЕРНЫХ ПОДБОРОК С ПРЯМЫМИ ССЫЛКАМИ НА ТОВАРЫ
+  </h1>
+  <h1 class="Q_welcomeLogo">TUMBA</h1>
 </section>
 
+<!-- Блок 2: Подзаголовок и описание -->
 <section class="S_guestWelcome2">
-    <h1 class="Q_welcomeTitle">СЕЙЧАС ПОПУЛЯРНО</h1>
-    <div class="W_welcomePopular">
-        <h2 class="Q_welcomeSubtitle2">Следите за трендами в интерьерном дизайне и вдохновляйтесь на создание красивого пространства вокруг себя</h2>
-        <div class="C_welcomePopularImgs">
-            <img src="<%= asset_path('welcome/4.png') %>" alt="Картинка" class="Q_welcomeImg4">
-            <img src="<%= asset_path('welcome/5.png') %>" alt="Картинка" class="Q_welcomeImg5">
-            <img src="<%= asset_path('welcome/6.png') %>" alt="Картинка" class="Q_welcomeImg6">
-        </div>
-    </div>
+  <h1 class="Q_welcomeSubtitle">Захотелось повторить интерьер с картинки?</h1>
+  <h1 class="Q_welcomeTitle">TUMBA поможет с этим!</h1>
+  <p class="Q_welcomeAbout">
+    Медиа-сервис с готовыми интерьерными решениями для дома, а самое главное с ссылками на товары, чтобы создать дом мечты было просто и быстро
+  </p>
 </section>
 
+<!-- Блок 3: Изображение постов -->
 <section class="S_guestWelcome3">
-    <div class="W_welcomeTagsHeader">
-        <h1 class="Q_welcomeTitle">ТЕГИ</h1>
-        <h2 class="Q_welcomeSubtitle3">Для удобного и быстрого поиска по вашему конкретному запросу</h2>
-    </div>
-    <div class="C_welcomeTags">
-        <h4 class="Q_tag">ПОСТЕР</h4>
-        <h4 class="Q_tag">КОВЕР</h4>
-        <h4 class="Q_tag">СВЕТИЛЬНИК</h4>
-        <h4 class="Q_tag">СПАЛЬНЯ</h4>
-        <h4 class="Q_tag">СТЕЛЛАЖ</h4>
-        <h4 class="Q_tag">МАКСИМАЛИЗМ</h4>
-        <h4 class="Q_tag">ПОСУДА</h4>
-        <h4 class="Q_tag">ПРИХОЖАЯ</h4>
-        <h4 class="Q_tag">ЗЕРКАЛО</h4>
-    </div>
+  <img class="Q_welcomePosts desktop" src="<%= asset_path('welcomeImg2.png') %>" alt="Посты">
+  <img class="Q_welcomePosts mobile" src="<%= asset_path('welcomeImg5.png') %>" alt="Посты">
 </section>
 
+<!-- Блок 4: Фоновое изображение и ключевые фичи -->
 <section class="S_guestWelcome4">
-        <img src="<%= asset_path('welcome/7.png') %>" alt="Картинка" class="Q_welcomeImg7">
-        <h1 class="Q_welcomeTitle2">НОВОЕ В TUMBA</h1>
-        <h2 class="Q_welcomeSubtitle4">Сохраняйте себе новые подборки и товары и делитесь своими с другими пользователями</h2>
-        <h1 class="Q_welcomeTitle3">Присоединяйтесь к нам, чтобы <br> создавать красоту вокруг себя <br> вместе!</h1>
-        <%= link_to new_user_registration_path, class: "Q_welcomeReg" do %>
-            Регистрация
-        <% end %>
-        <%= link_to new_user_session_path, class: "Q_welcomeSign" do %>
-            войти
-        <% end %>
+  <img class="Q_welcomeBack desktop" src="<%= asset_path('welcomeImg3.png') %>" alt="Посты">
+  <img class="Q_welcomeBack mobile" src="<%= asset_path('welcomeImg6.png') %>" alt="Посты">
 
+  <!-- Тексты преимуществ -->
+  <p class="Q_welcomeText1">Вдохновляйся<br>и открывай для себя<br>мир интерьерного<br>дизайна</p>
+  <p class="Q_welcomeText2">Быстро переходи<br>к покупке</p>
+  <p class="Q_welcomeText3">Делись своими<br>идеями с комьюнити</p>
+
+  <!-- Теги -->
+  <p class="Q_welcomeCaptn">Удобный поиск<br>по тегам</p>
+  <div class="C_welcomeTags">
+    <p class="Q_tag">кухня</p>
+    <p class="Q_tag">лофт</p>
+    <p class="Q_tag">постер</p>
+    <p class="Q_tag">ковер</p>
+    <p class="Q_tag">светильник</p>
+    <p class="Q_tag">мидсенчури</p>
+    <p class="Q_tag">стеллаж</p>
+  </div>
+</section>
+
+<!-- Блок 5: Призыв и кнопки -->
+<section class="S_guestWelcome5">
+  <img class="Q_welcomeBack2" src="<%= asset_path('welcomeImg4.png') %>" alt="Посты">
+  <h1 class="Q_welcomeCallOut">
+    Присоединяйся к нам, чтобы создавать красоту вокруг себя!
+  </h1>
+  <div class="C_welcomeBtns">
+    <%= link_to new_user_registration_path, class: "Q_welcomeReg" do %>
+      Зарегистрироваться
+    <% end %>
+    <%= link_to new_user_session_path, class: "Q_welcomeSign" do %>
+      войти
+    <% end %>
+  </div>
 </section>

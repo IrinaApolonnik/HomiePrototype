@@ -14,7 +14,6 @@
     
     <%= link_to "TUMBA", posts_path, class: 'Q_menuLogo' %>
     
-    
     <div class="W_menuActions right">
       <!-- Мини-инпут с текущим запросом -->
       <div class="W_searchMini">
@@ -34,7 +33,6 @@
           </div>
         <% end %>
       <% end %>
-
       
       <%= link_to collections_path, class: "A_menuButton" do %>
         <img src="<%= asset_path('menu/savedIcon.svg') %>" alt="Сохранённое" class="Q_menuIcon">
@@ -241,7 +239,6 @@
   <!-- Подменю для страницы коллекции -->
   <% if controller_name == "collections" && action_name == "show" %>
     <div class="W_collectionsHeader">
-
       <% post_count = @collection.posts.count %>
       <% item_count = @collection.items.count %>
       <% total_count = post_count + item_count %>
@@ -251,10 +248,8 @@
               when 2..4 then 'объекта'
               else 'объектов'
               end %>
-
       <h4 class="Q_collectionsCount"><%= "#{total_count} #{word}" %></h4>
       <h2 class="Q_collectionsTitle"><%= @collection.title %></h2>
-
       <% if current_user == @collection.user %>
         <% if @collection.title != "Все идеи" %>
           <div class="W_collectionActions">
@@ -262,8 +257,6 @@
             <button type="button" class="Q_editCollectionBtn">
               <img src="<%= asset_path('editIcon_b.svg') %>" alt="Редактировать подборку">
             </button>
-
-
             <!-- Кнопка удаления -->
             <%= button_to collection_path(@collection), method: :delete, data: { confirm: "Удалить эту коллекцию? Это действие необратимо." }, class: "Q_deleteCollectionBtn" do %>
               <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить подборку">
@@ -309,7 +302,5 @@
         <img src="<%= asset_path('menu/menuIcon_b.svg') %>" alt="Менюшка" class="Q_menuIcon">
       </button>
     </nav>
-
-  
   <% end %>
 </div>

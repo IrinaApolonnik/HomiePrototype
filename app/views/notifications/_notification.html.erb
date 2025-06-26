@@ -1,34 +1,40 @@
+<!-- Карточка уведомления -->
 <div class="M_notification <%= 'unread' unless notification.read_status %>">
 
-
+  <!-- Обёртка контента уведомления -->
   <div class="W_notificationContent">
-        <div class="A_notificationImage">
-        <% if notification.notification_type == "follow" %>
-            <%= image_tag notification.actor.profile.avatar_url.url, alt: notification.actor.profile.name %>
-        
-        <% elsif notification.notification_type.in?(%w[like new_post]) && notification.notifiable.is_a?(Post) %>
-            <%= image_tag notification.notifiable.image_url.url, alt: "Обложка поста" %>
 
-        <% elsif notification.notification_type == "comment" && notification.notifiable.is_a?(Comment) %>
-            <% post = notification.notifiable.post %>
-            <%= image_tag post.image_url.url, alt: "Обложка поста" if post&.image_url.present? %>
-        <% end %>
-        </div>
+    <!-- Изображение: зависит от типа уведомления -->
+    <div class="A_notificationImage">
+      <% if notification.notification_type == "follow" %>
+        <%= image_tag notification.actor.profile.avatar_url.url, alt: notification.actor.profile.name %>
 
+      <% elsif notification.notification_type.in?(%w[like new_post]) && notification.notifiable.is_a?(Post) %>
+        <%= image_tag notification.notifiable.image_url.url, alt: "Обложка поста" %>
 
+      <% elsif notification.notification_type == "comment" && notification.notifiable.is_a?(Comment) %>
+        <% post = notification.notifiable.post %>
+        <%= image_tag post.image_url.url, alt: "Обложка поста" if post&.image_url.present? %>
+      <% end %>
+    </div>
+
+    <!-- Текст уведомления -->
     <div class="A_notificationText">
       <% if notification.notification_type == "follow" %>
         <%= link_to notification.actor.profile.name, profile_path(notification.actor.profile), class: "Q_actorLink" %>
-        подписался(-ась) на вас! 
+        подписался(-ась) на вас!
+
       <% elsif notification.notification_type == "like" %>
         <%= link_to notification.actor.profile.name, profile_path(notification.actor.profile), class: "Q_actorLink" %>
         понравился ваш
         <%= link_to "пост", post_path(notification.notifiable), class: "Q_notificationLink" %>
-    <% elsif notification.notification_type == "comment" && notification.notifiable.is_a?(Comment) %>
+
+      <% elsif notification.notification_type == "comment" && notification.notifiable.is_a?(Comment) %>
         <%= link_to notification.actor.profile.name, profile_path(notification.actor.profile), class: "Q_actorLink" %>
         оставил(-а) комментарий к
         <% post = notification.notifiable.post %>
         <%= link_to "посту", post_path(post), class: "Q_notificationLink" %>
+
       <% elsif notification.notification_type == "new_post" %>
         <%= link_to notification.actor.profile.name, profile_path(notification.actor.profile), class: "Q_actorLink" %>
         выложил(-а) новую подборку:
@@ -37,8 +43,8 @@
     </div>
   </div>
 
+  <!-- Время создания уведомления -->
   <h4 class="Q_notificationTime">
     <%= time_ago_in_words(notification.created_at) %> назад
   </h4>
 </div>
-

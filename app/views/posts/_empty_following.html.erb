@@ -1,4 +1,7 @@
+<!-- Контейнер пустого состояния при отсутствии подписок -->
 <div class="S_emptyFollowing">
+
+  <!-- Заголовок и пояснение -->
   <div class="W_emptyText">
     <h1 class="Q_emptyTitle">НЕТ ПОДПИСОК</h1>
     <h2 class="Q_emptySubtitle">
@@ -7,11 +10,15 @@
     </h2>
   </div>
 
+  <!-- Секция с предложениями для подписки -->
   <div class="W_emptySuggestions">
     <div class="C_suggestionList">
-      <%= render partial: "posts/suggestions", locals: { suggested_profiles: Profile.where.not(user_id: current_user.id).order("RANDOM()").limit(8) } %>
+      <%= render partial: "posts/suggestions", locals: {
+            suggested_profiles: Profile.where.not(user_id: current_user.id).order("RANDOM()").limit(8)
+          } %>
     </div>
 
+    <!-- Стрелки для горизонтальной прокрутки -->
     <div class="Q_emptyArrow prev">
       <img src="<%= asset_path('shortArrowIcon_b.svg') %>" alt="Стрелочка">
     </div>
@@ -20,4 +27,3 @@
     </div>
   </div>
 </div>
-

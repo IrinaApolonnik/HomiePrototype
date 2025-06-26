@@ -1,34 +1,41 @@
-
+<!-- Секция сортировки -->
 <section class="S_sort">
-    <div class="O_sort">
-        <div class="M_filterSort">
-            <div class="W_filterSortHeader">
-                <h3>Сортировать по</h3>
-                <button class="Q_closeBtn">
-                    <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
-                </button>
-            </div>
-            <div class="C_sortCategories">
-                <label class="A_filterSort">
-                    <input type="radio" name="sort" value="new" class="Q_bullet">
-                    <h4>Новое</h4>
-                </label>
+  <div class="O_sort">
 
-                <label class="A_filterSort">
-                    <input type="radio" name="sort" value="old" class="Q_bullet">
-                    <h4>Старое</h4>
-                </label>
+    <!-- Заголовок и кнопка закрытия -->
+    <div class="M_filterSort">
+      <div class="W_filterSortHeader">
+        <h3>Сортировать по</h3>
+        <button class="Q_closeBtn">
+          <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+        </button>
+      </div>
 
-                <label class="A_filterSort">
-                    <input type="radio" name="sort" value="popular" class="Q_bullet" checked>
-                    <h4>По популярности</h4>
-                </label>
-            </div>
-        </div>
-        <div class="W_filterSortBtns">  
-            <button class="A_showResult">
-                <h4>Показать результат</h4>
-            </button>
-        </div>
+      <!-- Радио-кнопки для выбора критерия сортировки -->
+      <div class="C_sortCategories">
+        <label class="A_filterSort">
+          <input type="radio" name="sort" value="new" class="Q_bullet">
+          <h4>Новое</h4>
+        </label>
+
+        <label class="A_filterSort">
+          <input type="radio" name="sort" value="old" class="Q_bullet">
+          <h4>Старое</h4>
+        </label>
+
+        <label class="A_filterSort">
+          <input type="radio" name="sort" value="popular" class="Q_bullet" checked>
+          <h4>По популярности</h4>
+        </label>
+      </div>
     </div>
+
+    <!-- Кнопка применить -->
+    <div class="W_filterSortBtns">  
+      <button class="A_showResult">
+        <h4>Показать результат</h4>
+      </button>
+    </div>
+
+  </div>
 </section>

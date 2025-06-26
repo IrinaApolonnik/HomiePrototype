@@ -196,21 +196,6 @@
 }
 
 
-// Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
-
-.W_welcomePopular {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6vw;
-}
-.W_welcomeTagsHeader {
-    display: flex;
-    flex-direction: row;
-    gap: 1.6vw;
-    align-items: center;
-}
-
-
 // Коллекции ---------------------------------------------- 
 
 .W_collectionDropdown {
@@ -478,7 +463,6 @@
     gap: 1.6vw;
 }
 
-
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
 
     // Профиль ---------------------------------------------- 
@@ -577,15 +561,6 @@
 
 
 @media only screen and (min-width: 744px) and (max-width: 1023px) {
-    .W_welcomePopular {
-        gap: 3.1vw;
-    }
-    .W_welcomeTagsHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2.1vw;
-    }
-
     // Профиль ---------------------------------------------- 
     .W_myProfileFeedHeader, .W_collectionFeedHeader {
         gap: 1.3vw;
@@ -700,14 +675,6 @@
 
 
 @media only screen and (min-width: 393px) and (max-width: 743px) {
-    .W_welcomePopular {
-        gap: 5.1vw;
-    }
-    .W_welcomeTagsHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5.1vw;
-    }
 
     // Профиль ---------------------------------------------- 
     .W_myProfileFeedHeader, .W_collectionFeedHeader {

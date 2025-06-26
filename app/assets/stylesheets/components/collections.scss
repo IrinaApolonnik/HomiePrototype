@@ -84,22 +84,9 @@
     align-items: center;
     gap: 0.9vw;
 }
-
-
-// Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
-
-.C_welcomePopularImgs {
-    display: flex;
-    flex-direction: row;
-    gap: 1.6vw;
+.C_regActions {
+    margin-top: 1.6vw;
 }
-.C_welcomeTags {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 
 // Коллекции ---------------------------------------------- 
 
@@ -252,6 +239,27 @@
     width: 100%;
 }
 
+.C_welcomeTags {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 21.7vw;
+    gap: 0.8vw;
+    transform: rotate(1.835deg);
+    bottom: -4.2vw;
+    left: 8vw;
+    flex-wrap: wrap;
+}
+.C_welcomeBtns {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    align-items: center;
+}
+
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
     // Логин, регистрации, редактирование профиля ---------------------------------------------- 
@@ -326,14 +334,16 @@
     .C_settingsInputs{
         gap: 2vw;
     }
+
+    .C_welcomeTags {
+        width: 29.7vw;
+        gap: 1vw;
+        bottom: -6vw;
+        left: 6vw;
+    }
 } 
 
 @media only screen and (min-width: 744px) and (max-width: 1023px) {
-    // Страница для неавторизированных пользователей ---------------------------------------------- 
-    .C_welcomeTags {
-        justify-content: flex-start;
-        gap: 1.2vw;
-    }
 
     // Логин, регистрации, редактирование профиля ---------------------------------------------- 
     .C_regInputs, .C_logInInputs {
@@ -412,15 +422,16 @@
     .C_settingsInputs{
         gap: 2.7vw;
     }
+    .C_welcomeTags {
+        width: 29.7vw;
+        gap: 1.3vw;
+        bottom: -10vw;
+        left: 8vw;
+    }
 }    
 
 
 @media only screen and (min-width: 393px) and (max-width: 743px) {
-    // Страница для неавторизированных пользователей ---------------------------------------------- 
-    .C_welcomeTags {
-        justify-content: flex-start;
-        gap: 4vw;
-    }
 
     // Логин, регистрации, редактирование профиля ---------------------------------------------- 
     .C_regInputs, .C_logInInputs {
@@ -491,6 +502,13 @@
     // Футер ---------------------------------------------- 
     .C_footerNav {
         display: none;
+    }
+
+    .C_welcomeTags {
+        width: 60vw;
+        gap: 2.5vw;
+        bottom: -23vw;
+        left: 16vw;
     }
 
 

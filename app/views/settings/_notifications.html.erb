@@ -2,26 +2,21 @@
 
 <%= form_with url: notification_settings_path, method: :patch, local: true, html: { class: "W_settingsForm" } do |f| %>
   <div class="W_notificationOptions">
-    <div class="A_notificationCheckbox">
-      <%= check_box_tag "notification_settings[like]", "1", @user.notification_settings.find { |s| s.notification_type == "like" }&.enabled, id: "nt_like", class: "Q_checkbox" %>
-      <%= label_tag "nt_like", "Лайки на ваши подборки", class: "Q_settingsLabel notifications" %>
-    </div>
+    <%# Настройки по типам уведомлений — лайки, комментарии, подписки, новые посты %>
+    <% notifications = {
+      like: "Лайки на ваши подборки",
+      comment: "Комментарии к вашим подборкам",
+      follow: "Новые подписчики",
+      new_post: "Новые посты от подписок"
+    } %>
 
-    <div class="A_notificationCheckbox">
-      <%= check_box_tag "notification_settings[comment]", "1", @user.notification_settings.find { |s| s.notification_type == "comment" }&.enabled, id: "nt_comment", class: "Q_checkbox" %>
-      <%= label_tag "nt_comment", "Комментарии к вашим подборкам", class: "Q_settingsLabel notifications" %>
-    </div>
-
-    <div class="A_notificationCheckbox">
-      <%= check_box_tag "notification_settings[follow]", "1", @user.notification_settings.find { |s| s.notification_type == "follow" }&.enabled, id: "nt_follow", class: "Q_checkbox" %>
-      <%= label_tag "nt_follow", "Новые подписчики", class: "Q_settingsLabel notifications" %>
-    </div>
-
-    <div class="A_notificationCheckbox">
-      <%= check_box_tag "notification_settings[new_post]", "1", @user.notification_settings.find { |s| s.notification_type == "new_post" }&.enabled, id: "nt_new_post", class: "Q_checkbox" %>
-      <%= label_tag "nt_new_post", "Новые посты от подписок", class: "Q_settingsLabel notifications" %>
-    </div>
-
+    <% notifications.each do |key, label| %>
+      <% setting = @user.notification_settings.find { |s| s.notification_type == key.to_s } %>
+      <div class="A_notificationCheckbox">
+        <%= check_box_tag "notification_settings[#{key}]", "1", setting&.enabled, id: "nt_#{key}", class: "Q_checkbox" %>
+        <%= label_tag "nt_#{key}", label, class: "Q_settingsLabel notifications" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="C_settingsFormBtns" data-settings-actions>

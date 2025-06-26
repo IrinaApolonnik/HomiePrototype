@@ -1,6 +1,8 @@
 <% content_for :title, "Коллекция | #{@collection.title}" %>
 
 <div class="S_collectionShow">
+
+  <!-- Заголовок с табами: посты и товары -->
   <div class="W_collectionFeedHeader">
     <button class="Q_collectionFeedToggle active posts">
       <h3>Посты <span><%= @posts.count %></span></h3>
@@ -10,6 +12,7 @@
     </button>
   </div>
 
+  <!-- Список постов в коллекции -->
   <% if @collection.posts.any? %>
     <div class="C_profileFeedPosts compact" data-sort="new">
       <%= render partial: "collections/post_card", collection: @collection.posts, as: :post %>
@@ -20,6 +23,7 @@
     </div>
   <% end %>
 
+  <!-- Список товаров в коллекции (изначально скрыт, переключается JS'ом) -->
   <% if @collection.items.any? %>
     <div class="C_profileFeedItems" style="display: none;" data-sort="new">
       <%= render partial: "collections/item_card", collection: @collection.items, as: :item %>
@@ -31,4 +35,5 @@
   <% end %>
 </div>
 
+<!-- Модалка редактирования коллекции -->
 <%= render partial: "collections/form", locals: { collection: @collection } %>

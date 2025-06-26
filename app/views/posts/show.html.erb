@@ -1,4 +1,5 @@
 <div class="S_postContent">
+  <!-- Блок с изображением и кнопкой "назад" -->
   <div class="O_postImages">
     <div class="W_postActions">
       <button class="Q_back" onclick="history.back()">
@@ -7,56 +8,62 @@
     </div>
     <img class="Q_postCover" src="<%= @post.image_url %>" alt="Post cover">
   </div>
+
+  <!-- Информация о посте -->
   <div class="O_postInfo">
-  <% if user_signed_in? %>
-    <div class="W_saveHeader post">
-      <div class="A_selectedCollection"
-          <% default_collection = current_user.collections.find_by(title: 'Все идеи') %>
-          data-collection-id="<%= @selected_collection&.id || default_collection&.id %>"
-          data-post-id="<%= @post.id %>">
-        <p class="Q_selectedCollectionName">
-          <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
-        </p>
-        <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
+    <% if user_signed_in? %>
+      <!-- Секция добавления в коллекцию -->
+      <div class="W_saveHeader post">
+        <div class="A_selectedCollection"
+            <% default_collection = current_user.collections.find_by(title: 'Все идеи') %>
+            data-collection-id="<%= @selected_collection&.id || default_collection&.id %>"
+            data-post-id="<%= @post.id %>">
+          <p class="Q_selectedCollectionName">
+            <%= truncate(@selected_collection&.title || "Все идеи", length: 15, separator: ' ', omission: '...') %> 
+          </p>
+          <img src="<%= asset_path('dropdownIcon_W.svg') %>" alt="Toggle dropdown">
+        </div>
+
+        <% saved = current_user.collections.joins(:posts).exists?(posts: { id: @post.id }) %>
+
+        <!-- Кнопка "Сохранить" -->
+        <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
+          <%= saved ? "Сохранено" : "Сохранить" %>
+        </button>
+
+        <!-- Компактная иконка -->
+        <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
+          <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
+        </button>
       </div>
 
-      <% saved = user_signed_in? && current_user.collections.joins(:posts).exists?(posts: { id: @post.id }) %>
-
-      <!-- Основная кнопка с текстом -->
-      <button class="A_saveToCollectionBtn <%= 'saved' if saved %>" data-save-button="text">
-        <%= saved ? "Сохранено" : "Сохранить" %>
-      </button>
-
-      <!-- Компактная кнопка с иконкой -->
-      <button class="A_saveToCollectionBtnCompact <%= 'saved' if saved %>" data-save-button="icon">
-        <img src="<%= asset_path(saved ? 'savedIcon.svg' : 'saveIcon.svg') %>" alt="Save Icon" class="Q_saveIcon">
-      </button>
-    </div>
-
-    <!-- Выпадающий список с коллекциями -->
-    <div class="W_collectionDropdown dropdown post">
-      <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
-      <div class="C_collectionList">
-        <% current_user.collections.each do |collection| %>
-          <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
-            <img src="<%= collection.cover_image_url %>" alt="Обложка коллекции">
-            <h3><%= collection.title %></h3>
-          </div>
-        <% end %>
+      <!-- Выпадающее меню коллекций -->
+      <div class="W_collectionDropdown dropdown post">
+        <input type="text" class="Q_collectionSearch" placeholder="Поиск...">
+        <div class="C_collectionList">
+          <% current_user.collections.each do |collection| %>
+            <div class="A_collectionObj" data-collection-id="<%= collection.id %>">
+              <img src="<%= collection.cover_image_url %>" alt="Обложка коллекции">
+              <h3><%= collection.title %></h3>
+            </div>
+          <% end %>
+        </div>
+        <div class="A_addCollectionBtn">
+          <img src="<%= asset_path('addCollectionIcon.svg') %>">
+          <h3>Новая коллекция</h3>
+        </div>
       </div>
-      <div class="A_addCollectionBtn">
-        <img src="<%= asset_path('addCollectionIcon.svg') %>">
-        <h3>Новая коллекция</h3>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
 
+    <!-- Основная информация о посте -->
     <div class="W_postInfo">
       <h4 class="Q_postDate">
         <%= I18n.l(@post.created_at, format: "%-d %B, %Y", locale: :ru) %>
       </h4>
       <h1 class="Q_postTitle"><%= @post.title %></h1>
       <p class="Q_postDescription"><%= @post.description %></p>
+
+      <!-- Теги -->
       <% if @post.tag_list.any? %>
         <div class="C_postTags">
           <% @post.tag_list.each do |tag| %>
@@ -66,21 +73,26 @@
       <% else %>
         <p>Теги отсутствуют.</p>
       <% end %>
-      
+
+      <!-- Автор и действия -->
       <div class="W_postHead">
         <%= link_to profile_path(@post.user.profile), class: "A_postCreator" do %>
           <img class="Q_postAvatar" src="<%= @post.user.profile.avatar_url %>" alt="Avatar">
           <h6 class="Q_postName"><%= @post.user.profile.username %></h6>
         <% end %>
+
         <div class="W_postSocActions">
           <%= render partial: "like/button", locals: { likeable: @post } %>
+
           <button class="Q_actionPostBtn" data-copy-link data-url="<%= request.original_url %>">
             <img src="<%= asset_path('shareIcon_b.svg') %>" alt="Поделиться">
           </button>
+
           <% if can? :manage, @post %>
             <%= link_to edit_post_path(@post), class: "Q_actionPostBtn" do %>
               <img src="<%= asset_path('editIcon_b.svg') %>" alt="Edit">
             <% end %>
+
             <%= button_to post_path(@post), method: :delete, class: "Q_actionPostBtn", data: { confirm: "Вы уверены?" } do %>
               <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Delete">
             <% end %>
@@ -91,6 +103,7 @@
   </div>
 </div>
 
+<!-- Блок товаров -->
 <div class="S_postItems">
   <h2 class="Q_postHeader">Товары</h2>
   <div class="C_postItems">
@@ -98,8 +111,9 @@
   </div>
 </div>
 
+<!-- Блок комментариев -->
 <div class="S_postComments">
-  <h2 class="Q_postHeader">Комментарии <span><%= "#{@post.comments.size}" %></span></h2>
+  <h2 class="Q_postHeader">Комментарии <span><%= @post.comments.size %></span></h2>
   <div class="C_postCommentFeed">
     <% if @post.comments.any? %>
       <% @post.comments.not_replies.each do |comment| %>

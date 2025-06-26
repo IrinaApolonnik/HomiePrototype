@@ -1,6 +1,8 @@
 <div class="M_followsCard" id="user_<%= user.id %>">
-<%= link_to profile_path(user.profile), class: "A_followsCard" do %>
-    <%= image_tag(user.profile.avatar_url.url || "profile/defaultAvatar.jpg", alt: "", class: "Q_followsAvatar") %>
+  <%= link_to profile_path(user.profile), class: "A_followsCard" do %>
+    <%= image_tag(user.profile.avatar_url.url || "profile/defaultAvatar.jpg", 
+                  alt: "", 
+                  class: "Q_followsAvatar") %>
 
     <div class="A_followsInfo">
       <p class="Q_name"><%= user.profile.name %></p>
@@ -9,6 +11,7 @@
   <% end %>
 
   <% if user != current_user %>
+    <!-- Блок для Turbo Stream-замены кнопки подписки -->
     <div id="follow_btn_user_<%= user.id %>">
       <%= render partial: "follows/follow_button", locals: { user: user } %>
     </div>

@@ -1,39 +1,57 @@
 <div class="O_postComment">
+
+  <!-- Блок: автор комментария и действия -->
   <div class="W_commentator">
+
+    <!-- Автор: аватар + имя -->
     <div class="A_commentCreator">
       <img src="<%= comment.user.profile.avatar_url %>" alt="">
       <h2><%= comment.user.profile.name %></h2>
     </div>
 
+    <!-- Действия: ответ, лайк, удалить -->
     <div class="W_commentActions">
+
+      <!-- Кнопка "Ответить" с data-атрибутами для вставки "@имя" -->
       <button class="Q_replyBtn"
               data-comment-id="<%= comment.id %>"
               data-comment-name="<%= comment.user.profile.username %>">
         <h4>Ответить</h4>
       </button>
+
+      <!-- Компонент лайка (лайк/дизлайк через partial) -->
       <%= render partial: "like/button", locals: { likeable: comment } %>
+
+      <!-- Кнопка удаления (только если есть права) -->
       <% if can?(:destroy, comment) %>
-        <%= button_to [comment.post, comment], method: :delete, class: "Q_deleteCommentButton", data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
+        <%= button_to [comment.post, comment],
+                      method: :delete,
+                      class: "Q_deleteCommentButton",
+                      data: { confirm: "Вы уверены, что хотите удалить комментарий?" } do %>
           <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Delete" class="actionIcon">
         <% end %>
       <% end %>
     </div>
   </div>
 
+  <!-- Тело комментария -->
   <div class="W_commentBody">
     <div class="Q_commentText">
-      <h3>
-        <%= comment.body %>
-      </h3>
+      <h3><%= comment.body %></h3>
       <h4 class="Q_postDate">
         <%= I18n.l(comment.created_at, format: "%-d %B, %Y", locale: :ru) %>
       </h4>
     </div>
   </div>
+
+  <!-- Ответы на комментарий (если это корневой) -->
   <% if comment.comment_id.nil? %>
     <% replies = comment.post.comments.where(comment_id: comment.id) %>
+
     <% if replies.any? %>
       <% reply_count = replies.count %>
+
+      <!-- Кнопка раскрытия ответов -->
       <button class="Q_showReplies"
               data-comment-id="<%= comment.id %>"
               data-reply-count="<%= reply_count %>">
@@ -41,6 +59,7 @@
         <h4>Показать ответы (<%= reply_count %>)</h4>
       </button>
 
+      <!-- Сами ответы (изначально скрыты) -->
       <div class="C_commentReplies hidden" data-replies-for="<%= comment.id %>">
         <% replies.each do |reply| %>
           <%= render reply %>

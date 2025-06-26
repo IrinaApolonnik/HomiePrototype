@@ -130,39 +130,6 @@
 }
 
 
-// Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
-
-.S_guestWelcome {
-    position: relative;
-    width: 100%;
-    height: 55.4vw;
-    overflow-x: hidden;
-    overflow-y: visible;
-}
-.S_guestWelcome2 {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 2vw;
-    justify-content: space-between;
-    margin-top: 12vw;
-}
-.S_guestWelcome3 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.6vw;
-    margin-top: 8vw;
-}
-.S_guestWelcome4 {
-    position: relative;
-    width: 100%;
-    height: 69vw;
-    margin-top: 8vw;
-}
-
-
 // Посты ---------------------------------------------- 
 
 .S_postContent {
@@ -254,24 +221,52 @@
     gap: 2.2vw;
     margin-top: 5.5vw;
 }
+
+.S_guestWelcome {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.8vw;
+    width: 100%;
+    height: 70.2vw;
+    padding-bottom: 2vw;
+    margin-top: -10vw;
+}
+.S_guestWelcome2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8vw;
+    margin-top: 11.3vw;
+}
+.S_guestWelcome3 {
+    position: relative;
+    width: 100%;
+    z-index: 3;
+    margin-top: 2.3vw;
+}
+.S_guestWelcome4 {
+    position: relative;
+    width: 100vw;
+    margin-left: -2.2vw;
+    margin-top: -10vw;
+    z-index: 2;
+}
+.S_guestWelcome5 {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6vw;
+    padding: 14.6vw 0 37.6vw 0;
+    margin-bottom: -30vw;
+}
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
 
-    // Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
-    .S_guestWelcome {
-        height: 62.4vw;
-    }
-    .S_guestWelcome2 {
-        gap: 2vw;
-        margin-top: 16vw;
-    }
-    .S_guestWelcome3 {
-        gap: 2vw;
-        margin-top: 10vw;
-    }
-    .S_guestWelcome4 {
-        height: 69vw;
-        margin-top: 10vw;
-    }
 
     // Логин и Регистрация ---------------------------------------------- 
     .S_firstRegistrationStep, .S_logIn {
@@ -314,27 +309,21 @@
         width: 46vw;
         gap: 4.9vw;
     }
-}
-@media only screen and (min-width: 744px) and (max-width: 1023px) {
-
-    // Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
     .S_guestWelcome {
-        height: 156.6vw;
+        gap: 1vw;
+        height: 69.4vw;
+        padding-bottom: 2vw;
+        margin-top: -2.2vw;
     }
     .S_guestWelcome2 {
-        gap: 2.1vw;
-        margin-top: 10.1vw;
-        flex-direction: column;
+        gap: 1vw;
+        margin-top: 11.7vw;
     }
     .S_guestWelcome3 {
-        gap: 2.1vw;
-        margin-top: 10.8vw;
-        overflow: hidden;
+        margin-top: 2.9vw;
     }
-    .S_guestWelcome4 {
-        height: 145vw;
-        margin-top: 10.8vw;
-    }
+}
+@media only screen and (min-width: 744px) and (max-width: 1023px) {
 
     // Логин и Регистрация ---------------------------------------------- 
     .S_firstRegistrationStep, .S_logIn {
@@ -374,31 +363,21 @@
         width: 70vw;
         gap: 6.7vw;
     }
+    .S_guestWelcome {
+        gap: 1.3vw;
+        height: 69.4vw;
+    }
+    .S_guestWelcome2 {
+        gap: 1.3vw;
+        margin-top: 11.4vw;
+    }
+    .S_guestWelcome3 {
+        margin-top: 4vw;
+    }
 
 }
 @media only screen and (min-width: 393px) and (max-width: 743px) {
-
-    // Страница для неавторизованных пользователей (вместо постов) ---------------------------------------------- 
-    .S_guestWelcome {
-        height: 190.6vw;
-    }
-    .S_guestWelcome2 {
-        gap: 3.8vw;
-        margin-top: 18.1vw;
-        flex-direction: column;
-    }
-    .S_guestWelcome3 {
-        gap: 3.8vw;
-        margin-top: 17.8vw;
-        overflow: hidden;
-    }
-    .S_guestWelcome4 {
-        overflow: hidden;
-        height: 195vw;
-        margin-top: 17.8vw;
-    }
-
-    // Логин и Регистрация ---------------------------------------------- 
+     // Логин и Регистрация ---------------------------------------------- 
     .S_firstRegistrationStep, .S_logIn {
         gap: 10.2vw;
     }
@@ -451,6 +430,24 @@
     .S_modalSettings {
         display: none;
     }
+    .S_guestWelcome {
+        gap: 2.5vw;
+        height: 162.3vw;
+    }
+    .S_guestWelcome2 {
+        gap: 2.5vw;
+        margin-top: 8.4vw;
+    }
+    .S_guestWelcome3 {
+        margin-top: 5.1vw;
+    }
+    .S_guestWelcome4 {
+        margin-top: -30vw;
+        margin-bottom: 30vw;
+    }
+    
+
+    
 }
 
   

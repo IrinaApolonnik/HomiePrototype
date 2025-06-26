@@ -18,7 +18,7 @@
 
   <%= form_with(model: @post, html: { class: "O_postForm" }) do |form| %>
 
-    <!-- 📸 Загрузка картинки поста -->
+    <!-- Загрузка картинки поста -->
     <div class="M_uploadPostImg">
       <label for="post_image_upload" class="A_uploadPostPreview">
         <% if @post.image_url.present? %>
@@ -37,7 +37,7 @@
     <div class="W_formPostDetails">
       <div class="C_formPostDetails">
 
-        <!-- 📝 Основное -->
+        <!-- Основное -->
         <div class="M_formPostAddInfo">
           <h1>Основное</h1>
           <div>
@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <!-- 🏷️ Теги -->
+        <!-- Теги -->
         <div class="M_formPostAddInfo">
           <h1>Теги</h1>
           <button type="button" class="A_addTagsBtn">
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <!-- ✅ Кнопки -->
+      <!-- Кнопки -->
       <div class="C_formPostBtns">
         <%= hidden_field_tag "post[temp_items_json]", "", id: "temp_items_json" %>
         <%= form.submit "Опубликовать", class: "Q_publishPostBtn submit", disabled: true, data: { action: "form#submit" } %>
@@ -104,6 +104,6 @@
 
   <% end %>
 
-  <!-- 🧩 Модалка добавления товара (форма) -->
+  <!-- Модалка добавления товара (форма) -->
   <%= render partial: "items/form", locals: { item: Item.new } %>
 </section>

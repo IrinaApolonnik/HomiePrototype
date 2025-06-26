@@ -1,68 +1,89 @@
+<!-- Мобильное меню (выпадающее) -->
 <div class="O_mobileMenu hidden" id="mobile_menu_overlay">
-    <div class="W_mobileMenuHeader">
-        <div></div>
-        <button id="close_mobile_menu" class="Q_closeButton">
-            <img src="<%= asset_path('crossIcon_w.svg') %>" alt="Закрыть меню">
-        </button>
-    </div>
-    <% if user_signed_in? %>
+  
+  <!-- Шапка меню с кнопкой закрытия -->
+  <div class="W_mobileMenuHeader">
+    <div></div> <!-- пустой блок для выравнивания -->
+    <button id="close_mobile_menu" class="Q_closeButton">
+      <img src="<%= asset_path('crossIcon_w.svg') %>" alt="Закрыть меню">
+    </button>
+  </div>
+
+  <% if user_signed_in? %>
+    <!-- Навигация для авторизованного пользователя -->
     <div class="W_mobileNav">
-        <%= link_to new_post_path, class: "A_mobileNavLink" do %>
-            <img src="<%= asset_path('menu/mobilePlusIcon_w.svg') %>" alt="Создать подборку">
-            <p>Создать</p>
-        <% end %>
 
-        <%= link_to posts_path, class: "A_mobileNavLink" do %>
-            <img src="<%= asset_path('menu/mobilePostsIcon_w.svg') %>" alt="Подборки">
-            <p>Подборки</p>
-        <% end %>
+      <!-- Создать подборку -->
+      <%= link_to new_post_path, class: "A_mobileNavLink" do %>
+        <img src="<%= asset_path('menu/mobilePlusIcon_w.svg') %>" alt="Создать подборку">
+        <p>Создать</p>
+      <% end %>
 
-        <div class="A_mobileNavLink">
-            <img src="<%= asset_path('menu/mobileNotificationsIcon_w.svg') %>" alt="Уведомления">
-            <p>Уведомления</p>
-        </div>
+      <!-- Подборки -->
+      <%= link_to posts_path, class: "A_mobileNavLink" do %>
+        <img src="<%= asset_path('menu/mobilePostsIcon_w.svg') %>" alt="Подборки">
+        <p>Подборки</p>
+      <% end %>
 
-        <%= link_to collections_path, class: "A_mobileNavLink" do %>
-            <img src="<%= asset_path('menu/mobileSavedIcon_w.svg') %>" alt="Сохранённое">
-            <p>Сохранённое</p>
-        <% end %>
+      <!-- Уведомления (пока как неактивная кнопка, без link_to) -->
+      <%= link_to notifications_path, class: "A_mobileNavLink" do %>
+        <img src="<%= asset_path('menu/mobileNotificationsIcon_w.svg') %>" alt="Уведомления">
+        <p>Уведомления</p>
+      <% end %>
 
-        <%= link_to profile_path(current_user), class: "A_mobileNavLink" do %>
-            <img src="<%= asset_path('menu/mobileProfileIcon_w.svg') %>" alt="Профиль">
-            <p>Профиль</p>
-        <% end %>
-        <button class="A_mobileNavLink" id="mobile_settings">
-            <img src="<%= asset_path('menu/mobileSettingsIcon_w.svg') %>" alt="Настройки">
-            <p>Настройки</p>
-        </button>
+      <!-- Сохранённое -->
+      <%= link_to collections_path, class: "A_mobileNavLink" do %>
+        <img src="<%= asset_path('menu/mobileSavedIcon_w.svg') %>" alt="Сохранённое">
+        <p>Сохранённое</p>
+      <% end %>
+
+      <!-- Профиль -->
+      <%= link_to profile_path(current_user), class: "A_mobileNavLink" do %>
+        <img src="<%= asset_path('menu/mobileProfileIcon_w.svg') %>" alt="Профиль">
+        <p>Профиль</p>
+      <% end %>
+
+      <!-- Настройки (кнопка без перехода, открывает модалку) -->
+      <button class="A_mobileNavLink" id="mobile_settings">
+        <img src="<%= asset_path('menu/mobileSettingsIcon_w.svg') %>" alt="Настройки">
+        <p>Настройки</p>
+      </button>
     </div>
-    <% else %>
+
+  <% else %>
+    <!-- Гостевой футер (аналог нижней части сайта) -->
     <div class="O_footer">
-        <div class="M_footerContent">
-            <h4>Скачать приложение</h4>
-            <div class="Q_footerSocial mobile">
-                <img src="<%= asset_path('appStoreIcon_w.svg') %>" alt="Ссылочка">
-                <h4>App Store</h4>
-            </div>
+
+      <!-- Скачивание приложения -->
+      <div class="M_footerContent">
+        <h4>Скачать приложение</h4>
+        <div class="Q_footerSocial mobile">
+          <img src="<%= asset_path('appStoreIcon_w.svg') %>" alt="Ссылочка">
+          <h4>App Store</h4>
         </div>
-        <div class="M_footerContent">
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>Телеграм</h4>
-            </div>
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>Дзен</h4>
-            </div>
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>tumba@gmail.com</h4>
-            </div>
+      </div>
+
+      <!-- Соцсети -->
+      <div class="M_footerContent">
+        <div class="Q_footerSocial">
+          <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+          <h4>Телеграм</h4>
         </div>
-        <div class="M_footerContent">
-            <h4>Подписаться на нашу рассылку</h4>
-            <%= render 'newsletter_subscriptions/form' %>
+        <div class="Q_footerSocial">
+          <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+          <h4>Дзен</h4>
         </div>
+        <div class="Q_footerSocial">
+          <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+          <h4>tumba@gmail.com</h4>
+        </div>
+      </div>
+
+      <!-- Рассылка -->
+      <div class="M_footerContent">
+        <h4>Подписаться на нашу рассылку</h4>
+        <%= render 'newsletter_subscriptions/form' %>
+      </div>
     </div>
-    <% end %>
+  <% end %>
 </div>

@@ -1,62 +1,73 @@
 <footer class="S_footer"> 
-    <% if user_signed_in? %>
+  <% if user_signed_in? %>
+    <!-- Навигация по приложению для авторизованного пользователя -->
     <div class="C_footerNav">
-        <%= link_to root_path, class: "Q_footerLink" do %>
+      <%= link_to root_path, class: "Q_footerLink" do %>
         <h4>Главная</h4>
-        <% end %>
+      <% end %>
 
-        <%= link_to new_post_path, class: "Q_footerLink" do %>
+      <%= link_to new_post_path, class: "Q_footerLink" do %>
         <h4>Создать подборку</h4>
-        <% end %>
+      <% end %>
 
-        <%= link_to "#", class: "Q_footerLink Q_openSearchBtn" do %>
+      <%= link_to "#", class: "Q_footerLink Q_openSearchBtn" do %>
         <h4>Поиск</h4>
-        <% end %>
+      <% end %>
 
-        <%= link_to notifications_path, class: "Q_footerLink" do %>
+      <%= link_to notifications_path, class: "Q_footerLink" do %>
         <h4>Уведомления</h4>
-        <% end %>
+      <% end %>
 
-        <%= link_to collections_path, class: "Q_footerLink" do %>
+      <%= link_to collections_path, class: "Q_footerLink" do %>
         <h4>Избранное</h4>
-        <% end %>
+      <% end %>
 
-        <%= link_to profile_path(current_user.profile), class: "Q_footerLink" do %>
+      <%= link_to profile_path(current_user.profile), class: "Q_footerLink" do %>
         <h4>Профиль</h4>
-        <% end %>
+      <% end %>
     </div>
-    <% end %>
-    <h1 class="Q_footerLogo">TUMBA</h1>
-    <div class="O_footer">
-        <div class="M_footerContent">
-            <h4>Скачать приложение</h4>
-            <img class="Q_footerQR" src="<%= asset_path('appQR.svg') %>" alt="Кью-ар">
-            <div class="Q_footerSocial mobile">
-                <img src="<%= asset_path('appStoreIcon_w.svg') %>" alt="Ссылочка">
-                <h4>App Store</h4>
-            </div>
-        </div>
-        <div class="M_footerContent">
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>Телеграм</h4>
-            </div>
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>Дзен</h4>
-            </div>
-            <div class="Q_footerSocial">
-                <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
-                <h4>tumba@gmail.com</h4>
-            </div>
-        </div>
-        <div class="M_footerContent">
-            <h4>Подписаться на нашу рассылку</h4>
-            <%= render 'newsletter_subscriptions/form' %>
-        </div>
-        <div class="Q_tumbaLeg"></div>
-        <div class="Q_tumbaLeg"></div>
-    </div>
-    
+  <% end %>
 
+  <!-- Логотип внизу страницы -->
+  <h1 class="Q_footerLogo">TUMBA</h1>
+
+  <!-- Основной контент футера -->
+  <div class="O_footer">
+
+    <!-- Колонка: QR и App Store -->
+    <div class="M_footerContent">
+      <h4>Скачать приложение</h4>
+      <img class="Q_footerQR" src="<%= asset_path('appQR.svg') %>" alt="Кью-ар">
+      <div class="Q_footerSocial mobile">
+        <img src="<%= asset_path('appStoreIcon_w.svg') %>" alt="Ссылочка">
+        <h4>App Store</h4>
+      </div>
+    </div>
+
+    <!-- Колонка: социальные ссылки -->
+    <div class="M_footerContent">
+      <div class="Q_footerSocial">
+        <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+        <h4>Телеграм</h4>
+      </div>
+      <div class="Q_footerSocial">
+        <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+        <h4>Дзен</h4>
+      </div>
+      <div class="Q_footerSocial">
+        <img src="<%= asset_path('linkIcon_w.svg') %>" alt="Ссылочка">
+        <h4>tumba@gmail.com</h4>
+      </div>
+    </div>
+
+    <!-- Колонка: форма подписки на рассылку -->
+    <div class="M_footerContent">
+      <h4>Подписаться на нашу рассылку</h4>
+      <%= render 'newsletter_subscriptions/form' %>
+    </div>
+
+    <!-- Декоративные "ножки" TUMBA -->
+    <div class="Q_tumbaLeg"></div>
+    <div class="Q_tumbaLeg"></div>
+  </div>
 </footer>

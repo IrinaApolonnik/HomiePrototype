@@ -1,16 +1,18 @@
 require 'ostruct'
 
 class ItemsController < ApplicationController
+  # Авторизация ресурсов через CanCanCan (кроме fetch_data и preview)
   load_and_authorize_resource except: [:fetch_data, :preview]
 
+  # Отключаем CSRF для внешнего POST-запроса (например, парсинга)
   protect_from_forgery with: :null_session, only: [:fetch_data]
 
-  # Парсинг данных о товаре с внешнего ресурса
+  # --- API: Парсинг данных о товаре по ссылке ---
   def fetch_data
     url = params[:url]
 
     begin
-      item_data = ItemParser.parse(url)
+      item_data = ItemParser.parse(url)  # Внешний сервис парсинга
       Rails.logger.debug("Parsed item data: #{item_data.inspect}")
 
       if item_data[:success]
@@ -24,18 +26,18 @@ class ItemsController < ApplicationController
     end
   end
 
-  # Превью товара без сохранения в БД
+  # --- Превью товара без сохранения в базу ---
   def preview
-    @item = OpenStruct.new(params[:item])
+    @item = OpenStruct.new(params[:item]) # Мокаем объект для отображения
     render partial: "items/item_form", locals: { item: @item }
   end
 
-  # Страница создания товара
+  # --- Форма создания товара ---
   def new
     @item = Item.new
   end
 
-  # Создание товара (привязка к текущему пользователю)
+  # --- Сохранение нового товара ---
   def create
     @item = current_user.items.new(item_params)
 
@@ -46,7 +48,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  # Удаление товара
+  # --- Удаление товара ---
   def destroy
     @item.destroy!
     respond_to do |format|
@@ -57,7 +59,16 @@ class ItemsController < ApplicationController
 
   private
 
+  # --- Разрешённые параметры ---
   def item_params
-    params.require(:item).permit(:name, :description, :image_url, :purchase_url, :price, :post_id, :market_icon_url)
+    params.require(:item).permit(
+      :name,
+      :description,
+      :image_url,
+      :purchase_url,
+      :price,
+      :post_id,
+      :market_icon_url
+    )
   end
 end

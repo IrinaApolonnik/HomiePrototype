@@ -1,5 +1,8 @@
+<!-- Контейнер всей страницы уведомлений -->
 <div class="S_notifications" id="notifications-page">
+
   <% if @unread_notifications.any? %>
+    <!-- Секция для новых (непрочитанных) уведомлений -->
     <div class="W_notificationsSection">
       <h2 class="Q_notificationsTitle">Новые</h2>
       <div class="C_notifications">
@@ -8,7 +11,9 @@
         <% end %>
       </div>
     </div>
+
   <% elsif @read_notifications.any? %>
+    <!-- Если новых уведомлений нет, но есть прочитанные -->
     <div class="W_notificationsSection">
       <h2 class="Q_notificationsTitle">Уведомления</h2>
       <div class="C_notifications">
@@ -17,11 +22,13 @@
         <% end %>
       </div>
     </div>
+
   <% else %>
+    <!-- Если вообще нет уведомлений -->
     <div class="W_notificationsSection">
       <h2 class="Q_notificationsTitle">Уведомления</h2>
       <p class="Q_noNotificationsText">Пока уведомлений нет</p>
     </div>
   <% end %>
-</div>
 
+</div>

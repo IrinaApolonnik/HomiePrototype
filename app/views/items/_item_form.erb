@@ -1,3 +1,4 @@
+<!-- Один блок товара, который добавляется временно до сохранения поста -->
 <div class="M_formItem A_postItemBlock" data-temp-item='
   <%= {
     name: item.name,
@@ -7,17 +8,19 @@
   }.to_json %>'>
 
   <div class="A_formItemContent">
-    <!-- Картинка -->
+    <!-- Изображение товара -->
     <div class="Q_postItemImage">
       <img src="<%= item.image_url %>" alt="Товар">
     </div>
 
-    <!-- Инфо -->
+    <!-- Информация о товаре -->
     <div class="W_formItemInfo">
+      <!-- Название -->
       <h3 class="Q_formItemName">
         <%= truncate(item.name, length: 36, separator: ' ', omission: '...') %>
       </h3>
 
+      <!-- Ссылка на магазин -->
       <% if item.purchase_url.present? %>
         <a class="Q_formItemLink" href="<%= item.purchase_url %>" target="_blank" rel="noopener">
           <%= URI.parse(item.purchase_url).host.sub(/^www\./, "") rescue "Ссылка" %>
@@ -26,6 +29,7 @@
         <h4 class="Q_formItemLink">Ссылка отсутствует</h4>
       <% end %>
 
+      <!-- Цена, если есть -->
       <% if item.price.present? %>
         <h3 class="Q_formItemPrice">
           <%= number_with_delimiter(item.price, delimiter: " ") %> ₽
@@ -34,10 +38,11 @@
     </div>
   </div>
 
-  <!-- Кнопка удалить -->
+  <!-- Кнопка удаления товара -->
   <button type="button" class="Q_deleteItemBtn">
     <img src="<%= asset_path('trashIcon_b.svg') %>" alt="Удалить">
   </button>
 </div>
 
+<!-- Разделительная линия между товарами -->
 <div class="Q_listItemsLine"></div>

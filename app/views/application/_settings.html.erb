@@ -1,23 +1,44 @@
 <!-- Модалка: настройки пользователя -->
 <div class="S_modalSettings hidden" id="settings">
-    <!-- Весь контент настроек -->
-    <div class="O_Settings">
-        <button class="Q_settingsCloseBtn" data-close-settings>
-            <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
-        </button>
-        <div class="W_settingsContent">
-            <div class="C_settingsNav">
-                <div class="M_settingsProfile">
-                    <%= image_tag current_user.profile.avatar_url.url, class: "Q_settingsAvatar" %>
-                    <h1 class="Q_settingsName"><%= current_user.profile.name %></h1>
-                </div>
-                <button class="Q_settingsNavBtn active" data-settings-tab="profile"><h3>Личная информация</h3></button>
-                <button class="Q_settingsNavBtn" data-settings-tab="security"><h3>Безопасность</h3></button>
-                <button class="Q_settingsNavBtn" data-settings-tab="notifications"><h3>Уведомления</h3></button>
-            </div>
-            <div class="W_settingsSection" id="settingsContent">
-                 <%= render "settings/profile" %> <!-- По умолчанию показываем "Личная информация" -->
-            </div>
+
+  <!-- Основной контейнер настроек -->
+  <div class="O_Settings">
+
+    <!-- Кнопка закрытия модалки -->
+    <button class="Q_settingsCloseBtn" data-close-settings>
+      <img src="<%= asset_path('crossIcon_b.svg') %>" alt="Закрыть">
+    </button>
+
+    <div class="W_settingsContent">
+
+      <!-- Навигация по вкладкам -->
+      <div class="C_settingsNav">
+
+        <!-- Аватар и имя пользователя -->
+        <div class="M_settingsProfile">
+          <%= image_tag current_user.profile.avatar_url.url, class: "Q_settingsAvatar" %>
+          <h1 class="Q_settingsName"><%= current_user.profile.name %></h1>
         </div>
+
+        <!-- Кнопки переключения вкладок -->
+        <button class="Q_settingsNavBtn active" data-settings-tab="profile">
+          <h3>Личная информация</h3>
+        </button>
+
+        <button class="Q_settingsNavBtn" data-settings-tab="security">
+          <h3>Безопасность</h3>
+        </button>
+
+        <button class="Q_settingsNavBtn" data-settings-tab="notifications">
+          <h3>Уведомления</h3>
+        </button>
+      </div>
+
+      <!-- Контейнер для загружаемого контента вкладок -->
+      <div class="W_settingsSection" id="settingsContent">
+        <!-- По умолчанию отображаем вкладку "Личная информация" -->
+        <%= render "settings/profile" %>
+      </div>
     </div>
+  </div>
 </div>

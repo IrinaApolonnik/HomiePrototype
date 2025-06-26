@@ -1,13 +1,15 @@
 <% if current_user.following?(user) %>
+  <!-- Кнопка "Отписаться", если пользователь уже в подписках -->
   <%= button_to "Отписаться",
                 unfollow_profile_path(user.profile, source: 'follows_list'),
                 method: :delete,
                 form: {
-                  id: "follow_btn_user_#{user.id}",
-                  data: { turbo: true }
+                  id: "follow_btn_user_#{user.id}",         # ID формы — используется для Turbo Stream замены
+                  data: { turbo: true }                      # Turbo включен для плавного обновления
                 },
                 class: "Q_unfollowBtn" %>
 <% else %>
+  <!-- Кнопка "Подписаться", если пользователь не в подписках -->
   <%= button_to "Подписаться",
                 follow_profile_path(user.profile, source: 'follows_list'),
                 method: :post,

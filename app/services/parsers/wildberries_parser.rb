@@ -36,7 +36,7 @@ module Parsers
         volume = product_id.to_i / 100000
         part = product_id.to_i / 1000
 
-        image_url = "https://basket-16.wbbasket.ru/vol#{volume}/part#{part}/#{product_id}/images/big/1.webp"
+        image_url = "https://basket-04.wbbasket.ru/vol543/part54329/54329357/images/big/1.webp"
 
 
         # Получаем цену

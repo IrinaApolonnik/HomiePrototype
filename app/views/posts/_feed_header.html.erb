@@ -1,12 +1,17 @@
+<!-- Шапка ленты постов -->
 <div class="O_postFeedHeader">
+
+  <!-- Кнопки переключения вида: крупный и компактный -->
   <div class="W_postFeedHeader">
     <button class="Q_changeFeedLayoutBtn">
-      <img src="<%= asset_path('bigLayoutIcon.svg') %>">
+      <img src="<%= asset_path('bigLayoutIcon.svg') %>" alt="Крупный вид">
     </button>
     <button class="Q_changeFeedLayoutBtn">
-      <img src="<%= asset_path('compactLayoutIcon.svg') %>">
+      <img src="<%= asset_path('compactLayoutIcon.svg') %>" alt="Компактный вид">
     </button>
   </div>
+
+  <!-- Кнопки сортировки и фильтрации -->
   <div class="W_postFeedHeader">
     <button class="Q_feedSortBtn">
       <h4>Сортировка</h4>
@@ -15,4 +20,5 @@
       <h4>Фильтр</h4>
     </button>
   </div>
+  
 </div>

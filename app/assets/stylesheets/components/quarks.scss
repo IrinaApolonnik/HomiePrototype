@@ -1,3 +1,104 @@
+.Q_welcomeDesc {
+  color: var(--white);
+  z-index: 1;
+  font-size: 23px;
+}
+.Q_welcomeLogo {
+  color: var(--white);
+  font-family: 'Raydis', sans-serif;
+  font-size: 22.6vw;
+  margin-top: -3vw;
+  z-index: 1;
+  margin-left: -0.8vw;
+}
+.Q_welcomeCover {
+  position: absolute;
+  object-fit: cover;
+  width: 100vw;
+  left: -2.2vw;
+  top: 0;
+  z-index: 0;
+}
+.Q_welcomeBack2 {
+  position: absolute;
+  object-fit: cover;
+  width: 100vw;
+  left: -2.2vw;
+  top: 0;
+}
+.Q_welcomeSubtitle, .Q_welcomeCallOut {
+  color: var(--blue);
+  text-align: center;
+  font-size: 40px;
+}
+.Q_welcomeTitle {
+  font-family: "Raydis";
+  text-align: center;
+  font-size: 60px;
+}
+.Q_welcomeAbout {
+  width: 43.9vw;
+  margin-left: 29.3vw;
+  font-size: 28px;
+  font-weight: 400;
+}
+.Q_welcomePosts, .Q_welcomeBack {
+  width: 100%;
+  height: auto;
+  &.mobile {
+    display: none;
+  }
+}
+.Q_welcomeText1, .Q_welcomeText2, .Q_welcomeText3 {
+  position: absolute;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 400;
+}
+.Q_welcomeText1 {
+  bottom: 67.4vw;
+  left: 35vw;
+}
+.Q_welcomeText2 {
+  bottom: 44.1vw;
+  left: 47vw;
+}
+.Q_welcomeText3 {
+  bottom: 19vw;
+  left: 35vw;
+}
+.Q_welcomeCaptn {
+  position: absolute;
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--blue);
+  transform: rotate(-7.475deg);
+  left: 7vw;
+  bottom: 10vw;
+}
+.Q_welcomeCallOut {
+  position: relative;
+}
+.Q_welcomeCallOut {
+  color: var(--white);
+  font-weight: 600;
+  text-align: center;
+  width: 50.2vw;
+}
+.Q_welcomeReg, .Q_welcomeSign {
+  padding: 1.2vw 1.6vw;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--white);
+  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.Q_welcomeReg {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+
 // Главное Меню
 .Q_menuLogo {
   font-size: 2.6vw;
@@ -221,117 +322,6 @@
 }
 
 
-// Страница для неавторизованных пользователей (вместо постов)
-.Q_welcomeLogo {
-  font-family: 'Raydis';
-  font-size: 22.4vw;
-  color: var(--blue);
-  margin-top: -4vw;
-  margin-left: -1vw;
-}
-.Q_welcomeSubtitle {
-  line-height: 120%;
-  position: absolute;
-  top: 19vw;
-  width: 45.9vw;
-  right: 0vw;
-}
-.Q_welcomeAbout {
-  line-height: 120%;
-  position: absolute;
-  width: 30.5vw;
-  bottom: 4.9vw;
-  left: 26.5vw;
-  span {
-    font-weight: 600;
-  }
-}
-.Q_welcomeImg1{
-  position: absolute;
-  width: 31.7vw;
-  height: 25.5vw;
-  object-fit: cover;
-  bottom: 9.4vw;
-  left: 0;
-}
-.Q_welcomeImg2 {
-  position: absolute;
-  width: 6.7vw;
-  height: 8.6vw;
-  object-fit: cover;
-  bottom: 22.4vw;
-  right: 39vw;
-}
-.Q_welcomeImg3 {
-  position: absolute;
-  width: 28.4vw;
-  height: auto;
-  object-fit: cover;
-  bottom: 2.3vw;
-  right: 0vw;
-}
-.Q_welcomeSubtitle2 {
-  line-height: 120%;
-  width: 50vw;
-}
-.Q_welcomeImg4, .Q_welcomeImg5, .Q_welcomeImg6 {
-  height: 30.9vw;
-  width: auto;
-}
-.Q_welcomeSubtitle3 {
-  line-height: 120%;
-  width: 50vw;
-  margin-left: 17vw;
-}
-.Q_welcomeImg7 {
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  right: 2.2vw;
-}
-.Q_welcomeTitle2 {
-  position: absolute;
-  top: 11vw;
-  left: 50vw;
-}
-.Q_welcomeSubtitle4 {
-  line-height: 120%;
-  position: absolute;
-  top: 14vw;
-  left: 50vw; 
-  width: 35vw;
-}
-.Q_welcomeTitle3 {
-  line-height: 120%;
-  position: absolute;
-  bottom: 7vw;
-  right: 7vw; 
-  width: 35vw;
-  font-weight: 400;
-}
-.Q_welcomeReg, .Q_welcomeSign {
-  position: absolute;
-  padding: 1.2vw 1.6vw;
-  text-transform: uppercase;
-  font-size: 1.3vw;
-  bottom: 0;
-  transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
-}
-.Q_welcomeReg {
-  background-color: var(--blue);
-  color: var(--white);
-  right: 29.2vw;
-}
-.Q_welcomeSign {
-  color: var(--black);
-  opacity: 0.5;
-  right: 19vw;
-  &:hover {
-    opacity: 1;
-  }
-}
-
 //Профиль 
 .Q_profileAvatar {
   width: 5.3vw;
@@ -381,6 +371,7 @@
   font-weight: 600;
 }
 .Q_sunscribeText {
+  font-weight: 400;
   opacity: 0.5;
 }
 .Q_profileFeedHeader, .Q_collectionFeedToggle {
@@ -434,17 +425,17 @@
   width: 100%;
   border: none;
   border-bottom: solid var(--grey-dark) 0.1vw;
-  font-family: 'Arimo';
+  font-family: 'Onest';
   outline: none;   
   &::placeholder {
     color: var(--medium-grey);
-    font-family: 'Arimo';
+    font-family: 'Onest';
   }
   &:focus {
     color: var(--black);
     outline: none;
     border-bottom: solid var(--orange) 0.1vw;
-    font-family: 'Arimo';
+    font-family: 'Onest';
   }
 }
 .Q_collectionInput {
@@ -736,11 +727,6 @@
     color: var(--white); 
   }
 }
-.C_welcomeTags {
-  .Q_tag {
-      padding:1.2vw 2.1vw;
-  }
-}
 .Q_tagBtn {
   background-color: var(--white); 
   color: var(--black); 
@@ -845,7 +831,7 @@
   resize: none;
   overflow: hidden;
   font-size: 1.3vw;
-  font-family: "Arimo";
+  font-family: "Onest";
   border: 0.1vw solid var(--grey);
   background-color: var(--grey);
   border-radius: 3vw;
@@ -1260,82 +1246,6 @@
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
-  // Страница для неавторизованных пользователей (вместо постов)
-  .Q_welcomeLogo {
-    font-size: 22.4vw;
-    margin-top: -4vw;
-    margin-left: -1vw;
-  }
-  .Q_welcomeSubtitle {
-    top: 20vw;
-  }
-  .Q_welcomeAbout {
-    width: 38.5vw;
-    bottom: 0vw;
-    left: 26.5vw;
-  }
-  .Q_welcomeImg1{
-    width: 31.7vw;
-    height: 25.5vw;
-    bottom: 9.4vw;
-  }
-  .Q_welcomeImg2 {
-    width: 6.7vw;
-    height: 8.6vw;
-    bottom: 22.4vw;
-    right: 41vw;
-  }
-  .Q_welcomeImg3 {
-    width: 28.4vw;
-    bottom: 2.3vw;
-    right: 0vw;
-  }
-  .Q_welcomeSubtitle2 {
-    width: 50vw;
-  }
-  .Q_welcomeImg4, .Q_welcomeImg5, .Q_welcomeImg6 {
-    height: 30.9vw;
-  }
-  .Q_welcomeSubtitle3 {
-    width: 50vw;
-    margin-left: 17vw;
-  }
-  .Q_welcomeImg7 {
-    width: 100vw;
-    height: 100%;
-    top: 0;
-    right: 2.2vw;
-  }
-  .Q_welcomeTitle2 {
-    top: 7vw;
-    left: 50vw;
-  }
-  .Q_welcomeSubtitle4 {
-    top: 10.4vw;
-    left: 50vw; 
-    width: 35vw;
-  }
-  .Q_welcomeTitle3 {
-    bottom: 7vw;
-    right: 5vw; 
-    width: 39vw;
-  }
-  .Q_welcomeReg, .Q_welcomeSign {
-    padding: 1.5vw 2vw;
-    font-size: 20px;
-  }
-  .Q_welcomeReg {
-    right: 25.4vw;
-  }
-  .Q_welcomeSign {
-    right: 12vw;
-  }
-  .C_welcomeTags {
-    .Q_tag {
-        padding: 0.5vw 1vw; 
-    }
-  }
-
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
   .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput, .Q_collectionInput {
     width: 100%;
@@ -1576,89 +1486,33 @@
     width: 1.8vw;
     height: 1.8vw;
   }
+  .Q_welcomeDesc, .Q_welcomeCaptn {
+    font-size: 18px;
+  }
+  .Q_welcomeCover {
+    left: -2.7vw;
+  }
+  .Q_welcomeSubtitle {
+    font-size: 32px;
+  }
+  .Q_welcomeTitle {
+    font-size: 48px;
+  }
+  .Q_welcomeAbout {
+    width: 43.9vw;
+    margin-left: 29.3vw;
+    font-size: 22px;
+  }
+  .Q_welcomeText1, .Q_welcomeText2, .Q_welcomeText3, .Q_welcomeCaptn {
+    font-size: 22px;
+  }
+  .Q_welcomeReg, .Q_welcomeSign {
+    padding: 1.5vw 2vw;
+    font-size: 20px;
+  }
 }
 
 @media only screen and (min-width: 744px) and (max-width: 1023px) {
-
-  // Страница для неавторизованных пользователей (вместо постов)
-  .Q_welcomeLogo {
-    font-size: 22vw;
-    margin-top: -4vw;
-    margin-left: -1vw;
-  }
-  .Q_welcomeSubtitle {
-    top: 21vw;
-    width: 100%;
-  }
-  .Q_welcomeAbout {
-    width: 69vw;
-    bottom: 53vw;
-    left: 26vw;
-  }
-  .Q_welcomeImg1{
-    width: 68.2vw;
-    height: 55vw;
-    bottom: auto;
-    top: 31vw;
-  }
-  .Q_welcomeImg2 {
-    width: 14.2vw;
-    height: 18.1vw;
-    bottom: 24vw;
-    right: 70vw;
-  }
-  .Q_welcomeImg3 {
-    width: 48.9vw;
-    bottom: 0;
-    right: 0;
-  }
-  .Q_welcomeSubtitle2 {
-    width: 100%;
-  }
-  .Q_welcomeImg4, .Q_welcomeImg5, .Q_welcomeImg6 {
-    height: 46.6vw;
-  }
-  .Q_welcomeSubtitle3 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .C_welcomeTags {
-    .Q_tag {
-        padding: 2vw 2.8vw;
-    }
-  }
-  .Q_welcomeImg7 {
-    width: 181vw;
-    height: auto;
-    top: 14vw;
-    right: auto;
-    left: 0;
-  }
-  .Q_welcomeTitle2 {
-    top: 0vw;
-    left: 0vw;
-  }
-  .Q_welcomeSubtitle4 {
-    top: 5.6vw;
-    left: 0; 
-    width: 60%;
-  }
-  .Q_welcomeTitle3 {
-    bottom: 11vw;
-    right: 16vw;
-    width: auto;
-  }
-  .Q_welcomeReg, .Q_welcomeSign {
-    padding: 2.5vw 5.1vw;
-    font-size: 16px;
-  }
-  .Q_welcomeReg {
-    right: 31vw;
-  }
-  .Q_welcomeSign {
-    right: 9vw;
-  }
-
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
   .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput, .Q_collectionInput {
     width: 100%;
@@ -1904,89 +1758,34 @@
     width: 2.2vw;
     height: 2.2vw;
   }
-}
-
-@media only screen and (min-width: 393px) and (max-width: 743px) {
-
-  // Страница для неавторизованных пользователей (вместо постов)
-  .Q_welcomeLogo {
-    font-size: 22vw;
-    margin-top: -4vw;
-    margin-left: -1vw;
+  .Q_welcomeDesc, .Q_welcomeCaptn {
+    font-size: 16px;
+  }
+  .Q_welcomeCover {
+    left: -3.8vw;
   }
   .Q_welcomeSubtitle {
-    top: 21vw;
-    width: 100%;
+    font-size: 23px;
+  }
+  .Q_welcomeTitle {
+    font-size: 34px;
   }
   .Q_welcomeAbout {
-    width: 69vw;
-    bottom: 53vw;
-    left: 26vw;
+    width: 43.8vw;
+    margin-left: 32.3vw;
+    font-size: 16px;
   }
-  .Q_welcomeImg1{
-    width: 68.2vw;
-    height: 55vw;
-    bottom: 93vw;
-  }
-  .Q_welcomeImg2 {
-    width: 14.2vw;
-    height: 18.1vw;
-    bottom: 24vw;
-    right: 70vw;
-  }
-  .Q_welcomeImg3 {
-    width: 48.9vw;
-    bottom: 0;
-    right: 0;
-  }
-  .Q_welcomeSubtitle2 {
-    width: 100%;
-  }
-  .Q_welcomeImg4, .Q_welcomeImg5, .Q_welcomeImg6 {
-    height: 46.6vw;
-  }
-  .Q_welcomeSubtitle3 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .C_welcomeTags {
-    .Q_tag {
-        padding: 2vw 2.8vw;
-    }
-  }
-  .Q_welcomeImg7 {
-    width: 181vw;
-    height: auto;
-    top: 36vw;
-    right: auto;
-    left: 0;
-  }
-  .Q_welcomeTitle2 {
-    top: 0vw;
-    left: 0vw;
-  }
-  .Q_welcomeSubtitle4 {
-    top: 10.4vw;
-    left: 0; 
-    width: 90%;
-  }
-  .Q_welcomeTitle3 {
-    bottom: 13vw;
-    right: auto;
-    left: 0; 
-    width: 100%;
+  .Q_welcomeText1, .Q_welcomeText2, .Q_welcomeText3, .Q_welcomeCaptn {
+    font-size: 16px;
   }
   .Q_welcomeReg, .Q_welcomeSign {
     padding: 2.5vw 5.1vw;
-    font-size: 15px;
+    font-size: 16px;
   }
-  .Q_welcomeReg {
-    right: auto;
-    left: 0;
-  }
-  .Q_welcomeSign {
-    right: 13vw;
-  }
+
+}
+
+@media only screen and (min-width: 393px) and (max-width: 743px) {
 
   // Логин, регистрации, редактирование профиля ---------------------------------------------- 
   .Q_formPostTitle, .Q_formPostDesc, .Q_addItemLinkInput, .Q_itemInput, .Q_footerInput, .Q_logInInput, .Q_regInput, .Q_settingsInput, .Q_searchInput, .Q_collectionInput {
@@ -2241,5 +2040,52 @@
       width: 4.6vw;
     }
   }
-
+  .Q_welcomeDesc, .Q_welcomeCaptn {
+    font-size: 21px;
+    max-width: 80vw;
+  }
+  .Q_welcomeCover {
+    left: -3.6vw;
+  }
+  .Q_welcomeSubtitle {
+    font-size: 23px;
+  }
+  .Q_welcomeTitle {
+    font-size: 36px;
+  }
+  .Q_welcomeAbout {
+    width: 63.1vw;
+    margin-left: 23.9vw;
+    font-size: 18px;
+  }
+  .Q_welcomePosts, .Q_welcomeBack {
+    &.mobile {
+      display: block;
+    }
+    &.desktop {
+      display: none;
+    }
+  }
+  .Q_welcomeText1, .Q_welcomeText2, .Q_welcomeText3 {
+    font-size: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .Q_welcomeText1 {
+    bottom: 308vw;
+  }
+  .Q_welcomeText2 {
+    bottom: 200vw;
+  }
+  .Q_welcomeText3 {
+    bottom: 87vw;
+  }
+  .Q_welcomeCaptn {
+    left: 20vw;
+    bottom: 10vw;
+  }
+  .Q_welcomeReg, .Q_welcomeSign {
+    padding: 2.5vw 5.1vw;
+    font-size: 15px;
+  }
 }

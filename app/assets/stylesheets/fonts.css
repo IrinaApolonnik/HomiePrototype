@@ -1,89 +1,66 @@
-/* Arimo ------------------------------------ */
+/* Onest ------------------------------------ */
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-Regular.eot');
-    src: local('Arimo Regular'), local('Arimo-Regular'),
-        url('Arimo-Regular.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-SemiBoldItalic.eot');
-    src: local('Arimo SemiBold Italic'), local('Arimo-SemiBoldItalic'),
-        url('Arimo-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-SemiBoldItalic.ttf') format('truetype');
-    font-weight: 600;
-    font-style: italic;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-SemiBold.eot');
-    src: local('Arimo SemiBold'), local('Arimo-SemiBold'),
-        url('Arimo-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-MediumItalic.eot');
-    src: local('Arimo Medium Italic'), local('Arimo-MediumItalic'),
-        url('Arimo-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-MediumItalic.ttf') format('truetype');
-    font-weight: 500;
-    font-style: italic;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-Medium.eot');
-    src: local('Arimo Medium'), local('Arimo-Medium'),
-        url('Arimo-Medium.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-Italic.eot');
-    src: local('Arimo Italic'), local('Arimo-Italic'),
-        url('Arimo-Italic.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-BoldItalic.eot');
-    src: local('Arimo Bold Italic'), local('Arimo-BoldItalic'),
-        url('Arimo-BoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-BoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('Arimo-Bold.eot');
-    src: local('Arimo Bold'), local('Arimo-Bold'),
-        url('Arimo-Bold.eot?#iefix') format('embedded-opentype'),
-        url('Arimo-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Onest';
+  src: url('Onest-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Onest';
+  src: url('Onest-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Raydis ------------------------------------ */

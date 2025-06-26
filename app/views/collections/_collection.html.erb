@@ -1,25 +1,35 @@
 <%= link_to collection_path(collection), class: "M_collectionCard" do %>
-<div class="W_collectionImageWrapper">
-<% images = collection.grid_images %>
-<% if collection.default? && images.size >= 4 %>
-  <div class="A_gridWrapper">
-    <img src="<%= collection.cover_image_url %>" class="Q_gridCell main">
-    <% images[1..3].each do |img| %>
-      <img src="<%= img %>" class="Q_gridCell">
+
+  <!-- Обёртка изображения коллекции -->
+  <div class="W_collectionImageWrapper">
+    <% images = collection.grid_images %>
+
+    <% if collection.default? && images.size >= 4 %>
+      <!-- Сетка изображений для дефолтной коллекции с 4+ изображениями -->
+      <div class="A_gridWrapper">
+        <img src="<%= collection.cover_image_url %>" class="Q_gridCell main">
+        <% images[1..3].each do |img| %>
+          <img src="<%= img %>" class="Q_gridCell">
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Обычное одиночное изображение -->
+      <img src="<%= collection.cover_image_url %>" class="Q_collectionImage">
     <% end %>
   </div>
-<% else %>
-  <img src="<%= collection.cover_image_url %>" class="Q_collectionImage">
-<% end %>
-</div>
+
+  <!-- Текстовая информация: название и количество -->
   <div>
     <h3 class="Q_collectionTitle"><%= collection.title %></h3>
+
     <% count = collection.collection_items.count %>
     <% word = case count % 10
-            when 1 then 'подборка'
-            when 2..4 then 'подборки'
-            else 'подборок'
-            end %>
+             when 1 then 'подборка'
+             when 2..4 then 'подборки'
+             else 'подборок'
+             end %>
+
     <h4 class="Q_collectionMeta"><%= "#{count} #{word}" %></h4>
   </div>
+
 <% end %>

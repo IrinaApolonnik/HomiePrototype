@@ -65,6 +65,7 @@
     span {
         font-size: 13px;
         text-transform: uppercase;
+                    font-weight: 400;
     }
     &.new {
         border: 0.1vw solid var(--orange);
@@ -466,6 +467,39 @@
 }
 
 
+// Подписки ---------------------------------------------- 
+
+.A_followsCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8vw;
+}
+
+
+// Уведомления ---------------------------------------------- 
+
+.A_notificationImage {
+    width: 4.7vw;
+    height: 4.7vw;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10vw;
+    }
+}
+.A_notificationText {
+    width: 24.3vw;
+    font-size: 16px;
+    a {
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
+
+
 // Футер ---------------------------------------------- 
 
 .A_footerSocials {
@@ -522,34 +556,19 @@
     }
 }
 
-.A_followsCard {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.8vw;
-}
 
-.A_notificationImage {
-    width: 4.7vw;
-    height: 4.7vw;
-    
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10vw;
-    }
-}
-.A_notificationText {
-    width: 24.3vw;
-    font-size: 16px;
-    a {
-        font-size: 16px;
-        font-weight: 600;
-    }
-}
+
+
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
+
+    // Меню ---------------------------------------------- 
+    .A_menuButton {
+        padding: 0.5vw 1vw;
+        span {
+            font-size: 16px;
+        }
+    }
 
     // Логин, регистрации, редактирование профиля ---------------------------------------------- 
     .A_logInRemember{
@@ -561,6 +580,7 @@
     .A_regHeader{
         gap: 1vw;
     }
+
     // Профиль ---------------------------------------------- 
     .A_selectedCollection {
         gap: 0.7vw;
@@ -624,6 +644,19 @@
             max-width: 24.2vw;
         }
     }
+    .A_dropdownMenuBlock {
+        gap: 1vw;
+    }
+    .A_settingsUploadAvatar, .A_settingsEditAvatar {
+        width: 10vw;
+        height: 10vw;
+    }
+    .A_formItemsToggle {
+        gap: 1vw;
+    }
+    .A_formItemContent {
+        gap: 1vw;
+    }
 
     // Теги ---------------------------------------------- 
     .A_addTagsBtn {
@@ -635,27 +668,7 @@
         }
     }
 
-    .A_formItemsToggle {
-        gap: 1vw;
-    }
-    .A_formItemContent {
-        gap: 1vw;
-    }
-
-    .A_menuButton {
-        padding: 0.5vw 1vw;
-        span {
-            font-size: 16px;
-        }
-    }
-    .A_dropdownMenuBlock {
-        gap: 1vw;
-    }
-    .A_settingsUploadAvatar, .A_settingsEditAvatar {
-        width: 10vw;
-        height: 10vw;
-    }
-
+    // Подписки ---------------------------------------------- 
     .A_suggestionCard {
         gap: 1vw;
         padding: 1vw;
@@ -668,6 +681,7 @@
         }
     }
 
+    // Уведомления ---------------------------------------------- 
     .A_notificationText {
         width: 100%;
     }
@@ -897,6 +911,12 @@
             max-width: 25.4vw;
         }
     }
+    .A_formItemsToggle {
+        gap: 2.5vw;
+    }
+    .A_formItemContent {
+        gap: 2.5vw;
+    }
 
     // Теги ---------------------------------------------- 
     .A_addTagsBtn {
@@ -907,13 +927,7 @@
             height: 2.5vw;
         }
     }
-    .A_formItemsToggle {
-        gap: 2.5vw;
-    }
 
-    .A_formItemContent {
-        gap: 2.5vw;
-    }
     .A_menuButton {
         padding: 0;
     }

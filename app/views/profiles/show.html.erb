@@ -1,6 +1,8 @@
+<%# Устанавливаем заголовок страницы с именем пользователя %>
 <% content_for :title, "TUMBA | #{@profile.name}" %>
-<div class="O_profileHeader">
 
+<div class="O_profileHeader">
+  <!-- Аватар и имя пользователя -->
   <div class="M_profileInfo">
     <img class="Q_profileAvatar" src="<%= @profile.avatar_url %>" alt="">
     <div class="Q_profileInfo">
@@ -9,6 +11,7 @@
     </div>
   </div>
 
+  <!-- Кнопка редактирования профиля (только для владельца) -->
   <% if current_user == @profile.user %>
     <%= link_to "#", class: "Q_editProfileBtn", data: { open_settings: true } do %>
       <h3>Редактировать профиль</h3>
@@ -18,6 +21,7 @@
     <% end %>
   <% end %>
 
+  <!-- Кнопки подписки/отписки (если это не свой профиль) -->
   <% if current_user && current_user != @profile.user %>
     <% if current_user.following?(@profile.user) %>
       <%= button_to 'Отписаться', unfollow_profile_path(@profile), method: :delete, class: 'Q_unSubscribeBtn' %>
@@ -26,9 +30,12 @@
     <% end %>
   <% end %>
 
+  <!-- Подписчики и подписки -->
   <div class="C_subscriptionsInfo">
     <% followers_count = @profile.user.followers.count %>
     <% followings_count = @profile.user.followed_users.count %>
+
+    <%# Подписчики %>
     <% if followers_count > 0 %>
       <%= link_to followers_path(@profile), class: "W_subscribe active" do %>
         <h3 class="Q_subscribersCounter"><%= followers_count %></h3>
@@ -41,6 +48,7 @@
       </div>
     <% end %>
 
+    <%# Подписки %>
     <% if followings_count > 0 %>
       <%= link_to followings_path(@profile), class: "W_subscribe active" do %>
         <h3 class="Q_subscriptionsCounter"><%= followings_count %></h3>
@@ -55,14 +63,16 @@
   </div>
 </div>
 
+<!-- Лента пользователя -->
 <div class="O_profileFeed">
   <% if current_user == @profile.user %>
+    <%# Вкладки для владельца профиля: публикации и товары %>
     <div class="W_myProfileFeedHeader">
       <button class="Q_profileFeedHeader active posts">
         <h2>Публикации</h2>
       </button>
       <button class="Q_profileFeedHeader passive items">
-        <h2>Товары</span></h2>
+        <h2>Товары</h2>
       </button>
     </div>
 
@@ -75,9 +85,10 @@
     </div>
 
   <% else %>
+    <%# Для чужих профилей — только публикации %>
     <div class="W_profileFeedHeader">
       <div class="Q_profileFeedHeader active posts">
-        <h2>Публикации</span></h2>
+        <h2>Публикации</h2>
       </div>
     </div>
 
